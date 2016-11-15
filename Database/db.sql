@@ -1,4 +1,214 @@
-﻿ALTER TABLE SYSTEM.T_ABILITY
+DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_ABILITY(ablty_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY WHERE ability_name = ablty_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_ABILITY(ABILITY_NAME) VALUES(ablty_name);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY_LEVEL;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_ABILITY_LEVEL(lvl_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY_LEVEL WHERE level_name = lvl_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_ABILITY_LEVEL(LEVEL_NAME) VALUES(lvl_name);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;     
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_DEPARTMENT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_DEPARTMENT(dep_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_DEPARTMENT WHERE department_name = dep_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_DEPARTMENT(DEPARTMENT_NAME) VALUES(dep_name);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATION;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_EDUCATION(edu_subject IN VARCHAR,edu_content IN VARCHAR,start_date IN VARCHAR,finish_date IN VARCHAR,educator_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN
+    INSERT INTO T_EDUCATION(EDUCATION_SUBJECT,EDUCATION_CONTENT,PLANNED_DATE,COMPLETE_DATE,USER_FK) VALUES(edu_subject,edu_content,TO_DATE(start_date,'DD-MM-YYYY'),TO_DATE(finish_date,'DD-MM-YYYY'),educator_id);
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_ROLE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_ROLE(r_name IN VARCHAR, unt_id IN INTEGER, dep_id IN INTEGER, is_valid OUT CHAR)
+AS
+    --unit_id INTEGER;
+    --dep_id INTEGER;
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_ROLE WHERE role_name = r_name;
+    IF number_of_row = 0 THEN
+        --SELECT PK INTO unit_id FROM T_UNIT WHERE unit_name = unt_name; 
+        --SELECT PK INTO dep_id FROM T_DEPARTMENT WHERE department_name = dep_name;
+        INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK) VALUES(r_name,unt_id,dep_id);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_STATE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_STATE(stt_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN    
+    SELECT COUNT(*) INTO number_of_row FROM T_STATE WHERE state_name = stt_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_STATE(STATE_NAME) VALUES(stt_name);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;  
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_UNIT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_UNIT(unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+    --dep_id INTEGER;
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_UNIT WHERE unit_name = unt_name;
+    IF number_of_row = 0 THEN
+        --SELECT PK INTO dep_id FROM T_DEPARTMENT WHERE department_name = dep_name;
+        INSERT INTO T_UNIT(UNIT_NAME,DEPARTMENT_FK) VALUES(unt_name,dep_id);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_DEPARTMENT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_REMOVE_DEPARTMENT(dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_role INTEGER;
+    number_of_unit INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_unit FROM T_UNIT WHERE DEPARTMENT_FK = dep_id;
+    SELECT COUNT(*) INTO number_of_role FROM T_ROLE WHERE DEPARTMENT_FK = dep_id;
+    
+    IF number_of_unit = 0 AND number_of_role = 0 THEN
+        DELETE FROM T_DEPARTMENT WHERE PK = dep_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_UPDATE_ABILITY(ablty_id IN INTEGER,ablty_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_ABILITY SET ABILITY_NAME = ablty_name WHERE PK = ablty_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY_LEVEL;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_UPDATE_ABILITY_LEVEL(lvl_id IN INTEGER,lvl_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_ABILITY_LEVEL SET LEVEL_NAME = lvl_name WHERE PK = lvl_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_DEPARTMENT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_UPDATE_DEPARTMENT(dep_id IN INTEGER,dep_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_DEPARTMENT SET DEPARTMENT_NAME = dep_name WHERE PK = dep_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_ROLE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_UPDATE_ROLE(rle_id IN INTEGER,rle_name IN VARCHAR,unt_id IN INTEGER,dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_ROLE SET ROLE_NAME = rle_name,UNIT_FK = unt_id, DEPARTMENT_FK = dep_id WHERE PK = rle_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_UNIT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_UPDATE_UNIT(unt_id IN INTEGER,unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_UNIT SET UNIT_NAME = unt_name,DEPARTMENT_FK = dep_id WHERE PK = unt_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_USER_LOGIN;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_USER_LOGIN(user_id IN VARCHAR,user_pw IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row NUMERIC ;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_USER WHERE u_id = user_id AND u_pw = user_pw;
+
+    IF number_of_row = 1 THEN
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+        
+    END IF;
+END;
+/
+ALTER TABLE SYSTEM.T_ABILITY
  DROP PRIMARY KEY CASCADE;
 
 DROP TABLE SYSTEM.T_ABILITY CASCADE CONSTRAINTS;
@@ -174,34 +384,34 @@ NOCACHE
 MONITORING;
 
 
---  There is no statement for index SYSTEM.SYS_C0014577.
+--  There is no statement for index SYSTEM.SYS_C0014795.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014579.
+--  There is no statement for index SYSTEM.SYS_C0014796.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014592.
+--  There is no statement for index SYSTEM.SYS_C0014797.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014594.
+--  There is no statement for index SYSTEM.SYS_C0014798.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014636.
+--  There is no statement for index SYSTEM.SYS_C0014799.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014637.
+--  There is no statement for index SYSTEM.SYS_C0014800.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014639.
+--  There is no statement for index SYSTEM.SYS_C0014801.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014640.
+--  There is no statement for index SYSTEM.SYS_C0014802.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014718.
+--  There is no statement for index SYSTEM.SYS_C0014803.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014719.
+--  There is no statement for index SYSTEM.SYS_C0014804.
 --  The object is created when the parent object is created.
 
 CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD
@@ -477,22 +687,22 @@ NOCACHE
 MONITORING;
 
 
---  There is no statement for index SYSTEM.SYS_C0014601.
+--  There is no statement for index SYSTEM.SYS_C0014805.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014603.
+--  There is no statement for index SYSTEM.SYS_C0014806.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014629.
+--  There is no statement for index SYSTEM.SYS_C0014807.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014630.
+--  There is no statement for index SYSTEM.SYS_C0014808.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014632.
+--  There is no statement for index SYSTEM.SYS_C0014809.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014642.
+--  There is no statement for index SYSTEM.SYS_C0014810.
 --  The object is created when the parent object is created.
 
 CREATE OR REPLACE TRIGGER SYSTEM.TRG_ROLE_NEW_RECORD
@@ -746,16 +956,16 @@ NOCACHE
 MONITORING;
 
 
---  There is no statement for index SYSTEM.SYS_C0014650.
+--  There is no statement for index SYSTEM.SYS_C0014811.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014658.
+--  There is no statement for index SYSTEM.SYS_C0014812.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014662.
+--  There is no statement for index SYSTEM.SYS_C0014813.
 --  The object is created when the parent object is created.
 
---  There is no statement for index SYSTEM.SYS_C0014725.
+--  There is no statement for index SYSTEM.SYS_C0014814.
 --  The object is created when the parent object is created.
 
 CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_NEW_RCRD
@@ -1350,6 +1560,164 @@ ALTER TABLE SYSTEM.T_EDUCATION_USER_REL ADD (
   REFERENCES SYSTEM.T_USER (PK)
   ON DELETE CASCADE
   ENABLE VALIDATE);
+DROP SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK
+  START WITH 21
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_ABILITY_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_ABILITY_PK
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK
+  START WITH 300
+  INCREMENT BY 5
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 100
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_EDUCATION_ABILITY_REL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_ABILITY_REL_PK
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_EDUCATION_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_PK
+  START WITH 21
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_EDUCATION_STATE_REL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_STATE_REL_PK
+  START WITH 0
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_ROLE_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_ROLE_PK
+  START WITH 10000
+  INCREMENT BY 500
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 10000
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_STATE_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_STATE_PK
+  START WITH 3
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_UNIT_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_UNIT_PK
+  START WITH 1000
+  INCREMENT BY 50
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1000
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_USER_ABILITY_REL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_USER_ABILITY_REL_PK
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_USER_EDUCATION_REL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_USER_EDUCATION_REL_PK
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_USER_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_USER_PK
+  START WITH 5000
+  INCREMENT BY 4
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 5000
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
 DROP TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD;
 
 CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD
@@ -1782,299 +2150,6 @@ BEGIN
                                             :new.ROLE_FK != :old.ROLE_FK) THEN
                                                 
         :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-DROP SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK
-  START WITH 21
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_ABILITY_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_ABILITY_PK
-  START WITH 1
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK
-  START WITH 300
-  INCREMENT BY 5
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 100
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_EDUCATION_ABILITY_REL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_ABILITY_REL_PK
-  START WITH 1
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_EDUCATION_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_PK
-  START WITH 21
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_EDUCATION_STATE_REL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_STATE_REL_PK
-  START WITH 0
-  MAXVALUE 9999999999999999999999999999
-  MINVALUE 0
-  NOCYCLE
-  NOCACHE
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_ROLE_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_ROLE_PK
-  START WITH 10000
-  INCREMENT BY 500
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 10000
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_STATE_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_STATE_PK
-  START WITH 3
-  MAXVALUE 9999999999999999999999999999
-  MINVALUE 0
-  NOCYCLE
-  NOCACHE
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_UNIT_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_UNIT_PK
-  START WITH 1000
-  INCREMENT BY 50
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1000
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_USER_ABILITY_REL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_USER_ABILITY_REL_PK
-  START WITH 1
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_USER_EDUCATION_REL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_USER_EDUCATION_REL_PK
-  START WITH 1
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_USER_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_USER_PK
-  START WITH 5000
-  INCREMENT BY 4
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 5000
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY;
-
-CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_ABILITY(ablty_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY WHERE ability_name = ablty_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_ABILITY(ABILITY_NAME) VALUES(ablty_name);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY_LEVEL;
-
-CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_ABILITY_LEVEL(lvl_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY_LEVEL WHERE level_name = lvl_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_ABILITY_LEVEL(LEVEL_NAME) VALUES(lvl_name);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;     
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_DEPARTMENT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_DEPARTMENT(dep_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_DEPARTMENT WHERE department_name = dep_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_DEPARTMENT(DEPARTMENT_NAME) VALUES(dep_name);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATION;
-
-CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_EDUCATION(edu_subject IN VARCHAR,edu_content IN VARCHAR,start_date IN VARCHAR,finish_date IN VARCHAR,educator_id IN INTEGER,is_valid OUT CHAR)
-AS
-BEGIN
-    INSERT INTO T_EDUCATION(EDUCATION_SUBJECT,EDUCATION_CONTENT,PLANNED_DATE,COMPLETE_DATE,USER_FK) VALUES(edu_subject,edu_content,TO_DATE(start_date,'DD-MM-YYYY'),TO_DATE(finish_date,'DD-MM-YYYY'),educator_id);
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_ROLE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_ROLE(r_name IN VARCHAR, unt_name IN VARCHAR, dep_name IN VARCHAR, is_valid OUT CHAR)
-AS
-    unit_id INTEGER;
-    dep_id INTEGER;
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_ROLE WHERE role_name = r_name;
-    IF number_of_row = 0 THEN
-        SELECT PK INTO unit_id FROM T_UNIT WHERE unit_name = unt_name; 
-        SELECT PK INTO dep_id FROM T_DEPARTMENT WHERE department_name = dep_name;
-        INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK) VALUES(r_name,unit_id,dep_id);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_STATE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_STATE(stt_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN    
-    SELECT COUNT(*) INTO number_of_row FROM T_STATE WHERE state_name = stt_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_STATE(STATE_NAME) VALUES(stt_name);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;  
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_UNIT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM.SP_CREATE_UNIT(unt_name IN VARCHAR,dep_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    dep_id INTEGER;
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_UNIT WHERE unit_name = unt_name;
-    IF number_of_row = 0 THEN
-        SELECT PK INTO dep_id FROM T_DEPARTMENT WHERE department_name = dep_name;
-        INSERT INTO T_UNIT(UNIT_NAME,DEPARTMENT_FK) VALUES(unt_name,dep_id);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_USER_LOGIN;
-
-CREATE OR REPLACE PROCEDURE SYSTEM.SP_USER_LOGIN(user_id IN VARCHAR,user_pw IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row NUMERIC ;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_USER WHERE u_id = user_id AND u_pw = user_pw;
-
-    IF number_of_row = 1 THEN
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-        
     END IF;
 END;
 /
