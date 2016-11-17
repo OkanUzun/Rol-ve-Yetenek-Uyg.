@@ -11,6 +11,8 @@
   <link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/datatables.bootstrap4.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" type="text/css" href="css/mCustomScrollbar.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
 
   <script src="js/chart.bundle.min.js"></script>

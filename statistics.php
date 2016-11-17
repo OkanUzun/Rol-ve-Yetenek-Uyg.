@@ -12,8 +12,8 @@
               </div>
               <div class="card-block">
                 <div class="row">
-                  <div class="col-xs-12 col-md-6 mb-3">
-                    <div class="card-title">Personel Sayısı</div>
+                  <div class="col-xs-12 col-lg-6 mb-3">
+                    <div class="card-title">Yıllık Personel Dağılımı</div>
                     <div class="chart-block">
                       <canvas id="lineChart" height="300px"></canvas>
                       <script>
@@ -23,6 +23,15 @@
                           var b = Math.floor(Math.random() * 255);
                           return "rgb(" + r + "," + g + "," + b + ")";
                         };
+                        Chart.defaults.global.animation.easing = "linear";
+                        Chart.defaults.global.animation.duration = 1000;
+                        Chart.defaults.global.responsive = true;
+                        Chart.defaults.global.maintainAspectRatio = false;
+                        Chart.defaults.global.defaultFontFamily = "Roboto";
+                        Chart.defaults.global.tooltips.cornerRadius = 3;
+                        Chart.defaults.global.tooltips.yPadding = 8;
+                        Chart.defaults.global.tooltips.backgroundColor = "rgba(0,0,0,0.7)";
+
                         var ctx = document.getElementById("lineChart");
                         var lineChart = new Chart(ctx, {
                           type: 'line',
@@ -30,30 +39,22 @@
                             labels: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                             datasets: [
                               {
-                                label: "Aylara Göre Personel Sayısı",
-                                fill: false,
-                                lineTension: 0.1,
-                                backgroundColor: "rgba(75,192,192,0.4)",
+                                label: "Aylara Göre Personel Dağılımı",
+                                data: [30, 34, 80, 81, 56, 55, 40, 80, 81, 56, 55, 40],
+                                lineTension: 0.4,
+                                backgroundColor: "rgba(158,205,205,.5)",
                                 borderColor: "#B7E6E6",
-                                borderCapStyle: 'butt',
-                                borderDash: [],
-                                borderDashOffset: 0.0,
-                                borderJoinStyle: 'miter',
                                 pointBorderColor: "#4BC0C0",
                                 pointBackgroundColor: "#fff",
                                 pointBorderWidth: 5,
                                 pointHoverRadius: 5,
-                                pointHoverBorderWidth: 2,
+                                pointHoverBorderWidth: 3,
                                 pointRadius: 1,
-                                pointHitRadius: 10,
-                                data: [30, 34, 80, 81, 56, 55, 40, 80, 81, 56, 55, 40],
-                                spanGaps: false
+                                pointHitRadius: 30
                               }
                             ]
                           },
                           options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
                             scales: {
                               yAxes: [{
                                 ticks: {
@@ -77,7 +78,7 @@
                       </script>
                     </div>
                   </div>
-                  <div class="col-xs-12 col-md-6 mb-3">
+                  <div class="col-xs-12 col-lg-6 mb-3">
                     <div class="card-title">Yıllık Eğitim Dağılımı</div>
                     <div class="chart-block">
                       <canvas id="lineChart2" height="300px"></canvas>
@@ -90,29 +91,21 @@
                             datasets: [
                               {
                                 label: "Eğitimler",
-                                fill: false,
-                                lineTension: 0.1,
-                                backgroundColor: "rgba(75,192,192,0.4)",
-                                borderColor: "#B7E6E6",
-                                borderCapStyle: 'butt',
-                                borderDash: [],
-                                borderDashOffset: 0.0,
-                                borderJoinStyle: 'miter',
-                                pointBorderColor: "#4BC0C0",
+                                data: [1, 3, 0, 0, 2, 1, 4, 0, 0, 0, 0, 2],
+                                lineTension: 0.4,
+                                backgroundColor: "rgba(223,141,0,.5)",
+                                borderColor: "#F8A610",
+                                pointBorderColor: "#C57300",
                                 pointBackgroundColor: "#fff",
                                 pointBorderWidth: 5,
                                 pointHoverRadius: 5,
-                                pointHoverBorderWidth: 2,
+                                pointHoverBorderWidth: 3,
                                 pointRadius: 1,
-                                pointHitRadius: 10,
-                                data: [1, 3, 0, 0, 2, 1, 4, 0, 0, 0, 0, 2],
-                                spanGaps: false
+                                pointHitRadius: 30
                               }
                             ]
                           },
                           options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
                             scales: {
                               yAxes: [{
                                 ticks: {
@@ -135,7 +128,7 @@
                       </script>
                     </div>
                   </div>
-                  <div class="col-xs-12 col-md-6 mb-3">
+                  <div class="col-xs-12 col-lg-6 mb-3">
                     <div class="card-title">Departmanlar</div>
                     <div class="chart-block">
                       <canvas id="pieChart" height="300px"></canvas>
@@ -153,27 +146,17 @@
                               {
                                 data: [42, 20, 15],
                                 backgroundColor: [
-                                  "#FF6384",
-                                  "#36A2EB",
-                                  "#FFCE56"
-                                ],
-                                hoverBackgroundColor: [
-                                  "#CC3051",
-                                  "#036FB8",
-                                  "#CC9B23"
-                                ],
-                                borderColor: "transparent"
+                                  dynamicColors(),
+                                  dynamicColors(),
+                                  dynamicColors()
+                                ]
                               }]
-                          },
-                          options: {
-                            responsive: true,
-                            maintainAspectRatio: false
                           }
                         });
                       </script>
                     </div>
                   </div>
-                  <div class="col-xs-12 col-md-6 mb-3">
+                  <div class="col-xs-12 col-lg-6 mb-3">
                     <div class="card-title">Birimler</div>
                     <div class="chart-block">
                       <canvas id="pieChart2" height="300px"></canvas>
@@ -191,34 +174,24 @@
                               {
                                 data: [22, 11, 5],
                                 backgroundColor: [
-                                  "#FF6384",
-                                  "#36A2EB",
-                                  "#FFCE56"
-                                ],
-                                hoverBackgroundColor: [
-                                  "#CC3051",
-                                  "#036FB8",
-                                  "#CC9B23"
-                                ],
-                                borderColor: "transparent"
+                                  dynamicColors(),
+                                  dynamicColors(),
+                                  dynamicColors()
+                                ]
                               }]
-                          },
-                          options: {
-                            responsive: true,
-                            maintainAspectRatio: false
                           }
                         });
                       </script>
                     </div>
                   </div>
-                  <div class="col-xs-12 col-md-6 mb-3">
+                  <div class="col-xs-12 col-lg-6 mb-3">
                     <div class="card-title">Roller</div>
                     <div class="chart-block">
                       <canvas id="pieChart3" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("pieChart3");
-                        var pieChart = new Chart(ctx,{
-                          type: 'pie',
+                        var pieChart3 = new Chart(ctx,{
+                          type: 'bar',
                           data: {
                             labels: [
                               "Ağ Uzmanı",
@@ -228,31 +201,34 @@
                             ],
                             datasets: [
                               {
+                                label: "Rol Dağılımı",
                                 data: [2, 1, 3, 5],
                                 backgroundColor: [
-                                  "#FF6384",
-                                  "#36A2EB",
-                                  "#FFCE56",
-                                  "#CCCCCC"
-                                ],
-                                hoverBackgroundColor: [
-                                  "#CC3051",
-                                  "#036FB8",
-                                  "#CC9B23",
-                                  "#999999"
-                                ],
-                                borderColor: "transparent"
+                                  dynamicColors(),
+                                  dynamicColors(),
+                                  dynamicColors(),
+                                  dynamicColors()
+                                ]
                               }]
                           },
                           options: {
-                            responsive: true,
-                            maintainAspectRatio: false
+                            scales: {
+                              xAxes: [{stacked: true}],
+                              yAxes: [{stacked: true}]
+                            },
+                            tooltips: {
+                              callbacks: {
+                                label: function(tooltipItem) {
+                                  return Number(tooltipItem.yLabel)+" Kişi";
+                                }
+                              }
+                            }
                           }
                         });
                       </script>
                     </div>
                   </div>
-                  <div class="col-xs-12 col-md-6 mb-3">
+                  <div class="col-xs-12 col-lg-6">
                     <div class="card-title">Yetenekler</div>
                     <div class="chart-block">
                       <canvas id="barChart" height="300px"></canvas>
@@ -304,11 +280,16 @@
                               }]
                           },
                           options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
                             scales: {
                               xAxes: [{stacked: true}],
                               yAxes: [{stacked: true}]
+                            },
+                            tooltips: {
+                              callbacks: {
+                                label: function(tooltipItem) {
+                                  return Number(tooltipItem.yLabel)+" Kişi";
+                                }
+                              }
                             }
                           }
                         });

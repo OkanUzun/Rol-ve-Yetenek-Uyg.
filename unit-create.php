@@ -7,15 +7,20 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-plus"></i>Birim Oluştur</a>
-            <form class="form-create form-inline" method="post">
+            <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-library-books"></i>Birim Oluştur</a>
+            <form class="form-create form-inline hidden" method="post">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Birim İsmi Giriniz">
+                <input type="text" class="form-control" placeholder="Birim Adı Giriniz">
               </div>
               <div class="form-group">
-                <select class="form-control">
-                  <option>Bağlı Olduğu Departmanı Seçiniz</option>
-                  <option>Bilişim Departmanı</option>
+                <select class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">
+                  <option>A Departmanı</option>
+                  <option>B Departmanı</option>
+                  <option>C Departmanı</option>
+                  <option>D Departmanı</option>
+                  <option>E Departmanı</option>
+                  <option>F Departmanı</option>
+                  <option>G Departmanı</option>
                 </select>
               </div>
               <button type="submit" class="btn btn-success">Kaydet</button>
@@ -23,10 +28,10 @@
             </form>
           </div>
           <div class="card-block">
-            <table class="table" id="dataTable">
+            <table class="table" id="dataTable-unit">
               <thead>
               <tr>
-                <th>Birim İsmi</th>
+                <th>Birim Adı</th>
                 <th>Bağlı Olduğu Departman</th>
                 <th>Çalışan Sayısı</th>
                 <th>İşlemler</th>
@@ -37,18 +42,18 @@
                 <td>Yazılım Birimi</td>
                 <td>Bilişim Departmanı</td>
                 <td>11</td>
-                <td class="table-icon">
-                  <a href="" class="btn-update" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Yazılım Birimi" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="btn-delete" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
+                <td class="text-xs-center">
+                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Yazılım Birimi" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
+                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
                 </td>
               </tr>
               <tr>
                 <td>Ağ Birimi</td>
                 <td>Bilişim Departmanı</td>
                 <td>11</td>
-                <td class="table-icon">
-                  <a href="" class="btn-update" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Ağ Birimi" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="btn-delete" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
+                <td class="text-xs-center">
+                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Ağ Birimi" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
+                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
                 </td>
               </tr>
               </tbody>
@@ -71,11 +76,11 @@
         <div class="modal-body">
           <form method="post">
             <div class="form-group">
-              <label for="updateName" class="form-control-label">Birim İsmi:</label>
+              <label for="updateName" class="form-control-label">Birim Adı:</label>
               <input type="text" class="form-control" id="updateName">
             </div>
             <div class="form-group">
-              <label for="updateDepartment" class="form-control-label">Bağlı Olduğu Departmanı:</label>
+              <label for="updateDepartment" class="form-control-label">Bağlı Olduğu Departman:</label>
               <input type="text" class="form-control" id="updateDepartment">
             </div>
           </form>

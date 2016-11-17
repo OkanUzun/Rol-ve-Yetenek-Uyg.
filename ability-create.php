@@ -7,21 +7,21 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-plus"></i>Yetenek Oluştur</a>
-            <form class="form-create form-inline" method="post">
+            <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-account-star-variant"></i>Yetenek Oluştur</a>
+            <form class="form-create form-inline hidden" method="post">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Yetenek İsmi Giriniz">
+                <input type="text" class="form-control" placeholder="Yetenek Adı Giriniz">
               </div>
               <button type="submit" class="btn btn-success">Kaydet</button>
               <button type="button" class="btn btn-danger">İptal</button>
             </form>
           </div>
           <div class="card-block">
-            <table class="table" id="dataTable">
+            <table class="table" id="dataTable-ability">
               <thead>
               <tr>
-                <th>Yetenek İsmi</th>
-                <th>Bilen Kişi Sayısı</th>
+                <th>Yetenek Adı</th>
+                <th>Yetkin Kişi Sayısı</th>
                 <th>İşlemler</th>
               </tr>
               </thead>
@@ -29,17 +29,17 @@
               <tr>
                 <td>Java</td>
                 <td>12</td>
-                <td class="table-icon">
-                  <a href="" class="btn-update" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Java"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="btn-delete" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
+                <td class="text-xs-center">
+                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Java"><i class="mdi mdi-autorenew"></i></a>
+                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
                 </td>
               </tr>
               <tr>
                 <td>PHP</td>
                 <td>5</td>
-                <td class="table-icon">
-                  <a href="" class="btn-update" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="PHP"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="btn-delete" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
+                <td class="text-xs-center">
+                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="PHP"><i class="mdi mdi-autorenew"></i></a>
+                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
                 </td>
               </tr>
               </tbody>
@@ -62,7 +62,7 @@
         <div class="modal-body">
           <form method="post">
             <div class="form-group">
-              <label for="updateName" class="form-control-label">Yetenek İsmi:</label>
+              <label for="updateName" class="form-control-label">Yetenek Adı:</label>
               <input type="text" class="form-control" id="updateName">
             </div>
           </form>

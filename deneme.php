@@ -6,7 +6,6 @@ mysqli_set_charset($connection, 'utf8');
 $result = mysqli_query($connection, "SELECT * FROM deneme");
 $data = array();
 
-
 while ($row = mysqli_fetch_array($result)) {
   $row_data = array(
     'id' => $row[0],
@@ -19,5 +18,4 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 echo json_encode($data);
-
 ?>

@@ -7,9 +7,11 @@
     <div class="container-fluid">
       <div class="card">
         <form method="post">
-          <div class="card-header hidden-sm-down">
+          <div class="card-header">
             <div class="card-title">Kullanıcı Detay</div>
-            <button type="submit" class="btn btn-success">Kaydet</button>
+            <div class="card-buttons">
+              <button type="submit" class="btn btn-success">Kaydet</button>
+            </div>
           </div>
           <div class="card-block">
             <div class="row">
@@ -20,9 +22,13 @@
                   </div>
                   <div class="col-sm-12 col-md-6">
                     <div class="form-group">
-                      <select class="form-control">
-                        <option>Rol Seçiniz</option>
+                      <select class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Rol Seçiniz">
                         <option value="Android Developer">Android Developer</option>
+                        <option value="IOS Developer">IOS Developer</option>
+                        <option value="PHP Developer">PHP Developer</option>
+                        <option value="Java Developer">Java Developer</option>
+                        <option value="MySQL Developer">MySQL Developer</option>
+                        <option value="Ruby Developer">Ruby Developer</option>
                       </select>
                     </div>
                   </div>
@@ -78,44 +84,58 @@
                 </div>
               </div>
               <div class="col-lg-12 col-xl-6 mb-1">
-                <div class="card-title">Kayıtlı Yetenekler<a href="#" class="btn btn-primary">Yetenekleri Düzenle</a></div>
+                <div class="card-title">
+                  <span>Kayıtlı Yetenekler</span>
+                  <div class="card-buttons">
+                    <a href="javascript:void(0)" id="abilityShow" class="btn btn-primary">Yetenekleri Düzenle</a>
+                  </div>
+                </div>
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
-                    <tr>
-                      <th>Yetenek</th>
-                      <th>Seviye</th>
-                    </tr>
+                      <tr>
+                        <th>Yetenek Adı</th>
+                        <th>Seviye</th>
+                        <th>Yetenek Adı</th>
+                        <th>Seviye</th>
+                      </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                      <td>HTML</td>
-                      <td>Orta</td>
-                    </tr>
-                    <tr>
-                      <td>PHP</td>
-                      <td>İyi</td>
-                    </tr>
-                    <tr>
-                      <td>HTML</td>
-                      <td>Orta</td>
-                    </tr>
-                    <tr>
-                      <td>PHP</td>
-                      <td>İyi</td>
-                    </tr>
-                    <tr>
-                      <td>HTML</td>
-                      <td>Orta</td>
-                    </tr>
-                    <tr>
-                      <td>PHP</td>
-                      <td>İyi</td>
-                    </tr>
+                      <tr>
+                        <td>Java</td>
+                        <td>İyi</td>
+                        <td>PHP</td>
+                        <td>İyi</td>
+                      </tr>
+                      <tr>
+                        <td>Java</td>
+                        <td>İyi</td>
+                        <td>PHP</td>
+                        <td>İyi</td>
+                      </tr>
+                      <tr>
+                        <td>Java</td>
+                        <td>İyi</td>
+                        <td>PHP</td>
+                        <td>İyi</td>
+                      </tr>
+                      <tr>
+                        <td>Java</td>
+                        <td>İyi</td>
+                        <td>PHP</td>
+                        <td>İyi</td>
+                      </tr>
+                      <tr>
+                        <td>Java</td>
+                        <td>İyi</td>
+                        <td>PHP</td>
+                        <td>İyi</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
+              <div id="ability-container" class="col-xs-12 hidden"></div>
             </div>
           </div>
         </form>

@@ -7,48 +7,63 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-account-check"></i>Rol Oluştur</a>
+            <a href="javascript:void(0);" class="btn btn-info instructor"><i class="mdi mdi-account-switch"></i>Eğitmen Oluştur</a>
             <form class="form-create form-inline hidden" method="post">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Rol Adı Giriniz">
+              <div class="instructor-status">
+                <div class="form-check">
+                  <input type="radio" id="companyIn" name="instStatus">
+                  <label for="companyIn">Şirket İçi</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" id="companyOut" name="instStatus">
+                  <label for="companyOut">Şirket Dışı</label>
+                </div>
               </div>
-              <div class="form-group">
-                <select class="form-control selectpicker" id="roleDepartment" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">
-                  <option>Seçiniz</option>
-                  <option>A Departmanı</option>
-                  <option>B Departmanı</option>
-                  <option>C Departmanı</option>
-                  <option>D Departmanı</option>
-                </select>
+              <div class="company-in hidden">
+                <div class="form-group">
+                  <select class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Eğitmen Seçiniz">
+                    <option>Deniz Güzel</option>
+                    <option>Okan Uzun</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <button type="button" class="btn btn-danger">İptal</button>
               </div>
-              <div class="form-group">
-                <select class="form-control selectpicker" id="roleUnit" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Birimi Seçiniz">
-                  <option>Seçiniz</option>
-                  <option value="A Birimi">A Birimi</option>
-                  <option value="B Birimi">B Birimi</option>
-                  <option value="C Birimi">C Birimi</option>
-                  <option value="D Birimi">D Birimi</option>
-                </select>
+              <div class="company-out hidden">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Eğitmen Adı ve Soyadı">
+                </div>
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <button type="button" class="btn btn-danger">İptal</button>
               </div>
-              <button type="submit" class="btn btn-success">Kaydet</button>
-              <button type="button" class="btn btn-danger">İptal</button>
             </form>
           </div>
           <div class="card-block">
             <table class="table" id="dataTable-role">
               <thead>
               <tr>
-                <th>Rol Adı</th>
-                <th>Çalışan Sayısı</th>
+                <th>Eğitmen Adı</th>
+                <th>Eğitmen Soyadı</th>
+                <th>Durum</th>
                 <th>İşlemler</th>
               </tr>
               </thead>
               <tbody>
               <tr>
-                <td>Ağ Uzmanı</td>
-                <td>2</td>
+                <td>Deniz</td>
+                <td>Güzel</td>
+                <td>Şirket İçi Çalışan</td>
                 <td class="text-xs-center">
-                  <a href="#" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Ağ Uzmanı"><i class="mdi mdi-autorenew"></i></a>
+                  <a href="#" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Deniz" data-surname="Güzel"><i class="mdi mdi-autorenew"></i></a>
+                  <a href="#" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>Deniz</td>
+                <td>Güzel</td>
+                <td>Şirket Dışı Eğitmen</td>
+                <td class="text-xs-center">
+                  <a href="#" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Deniz" data-surname="Güzel"><i class="mdi mdi-autorenew"></i></a>
                   <a href="#" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
                 </td>
               </tr>
@@ -72,8 +87,12 @@
         <div class="modal-body">
           <form method="post">
             <div class="form-group">
-              <label for="updateName" class="form-control-label">Rol Adı:</label>
+              <label for="updateName" class="form-control-label">Eğitmen Adı:</label>
               <input type="text" class="form-control" id="updateName">
+            </div>
+            <div class="form-group">
+              <label for="updateSurname" class="form-control-label">Eğitmen Soyadı:</label>
+              <input type="text" class="form-control" id="updateSurname">
             </div>
           </form>
         </div>

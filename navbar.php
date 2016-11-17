@@ -3,7 +3,16 @@
     <div class="navbar-collapse collapse in">
       <div class="navbar-left">
         <button class="sidebar-toggle" type="button"><i class="mdi mdi-menu"></i></button>
-        <h1 class="user-name">Deniz Güzel</h1>
+
+        <div class="dropdown">
+          <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Deniz Güzel
+            <i class="mdi mdi-arrow-down-drop-circle-outline"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="profile.php">Profil</a>
+          </div>
+        </div>
       </div>
       <div class="navbar-right">
         <form class="form-inline">

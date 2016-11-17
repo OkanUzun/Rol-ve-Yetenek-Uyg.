@@ -5,16 +5,16 @@
   <div class="page-content">
     <?php include "navbar.php"; ?>
     <div class="container-fluid">
-      <div class="card">
+      <div class="card mb-0">
         <div class="card-header">
-          <a href="user-create.php" class="btn btn-info"><i class="mdi mdi-account-plus"></i>Kullanıcı Oluştur</a>
+          <a href="user-create.php" class="btn btn-info"><i class="mdi mdi-account-multiple"></i>Kullanıcı Oluştur</a>
         </div>
         <div class="card-block">
-          <table class="table" id="dataTable">
+          <table class="table" id="dataTable-user">
             <thead>
             <tr>
-              <th>İsim</th>
-              <th>Soyisim</th>
+              <th>Ad</th>
+              <th>Soyad</th>
               <th>Rol</th>
               <th>Birim</th>
               <th>Departman</th>
@@ -28,7 +28,7 @@
               <td>Bilgisayar Mühendisi</td>
               <td>Yazılım Birimi</td>
               <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
+              <td class="text-xs-center"><a href="" class="table-icon" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
             </tr>
             <tr>
               <td>Okan</td>
@@ -36,7 +36,7 @@
               <td>Bilgisayar Mühendisi</td>
               <td>Yazılım Birimi</td>
               <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
+              <td class="text-xs-center"><a href="" class="table-icon" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
             </tr>
             <tr>
               <td>Okan</td>
@@ -44,175 +44,7 @@
               <td>Bilgisayar Mühendisi</td>
               <td>Yazılım Birimi</td>
               <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
-            </tr>
-            <tr>
-              <td>Okan</td>
-              <td>Uzun</td>
-              <td>Bilgisayar Mühendisi</td>
-              <td>Yazılım Birimi</td>
-              <td>Bilişim Departmanı</td>
-              <td class="table-icon"><a href="" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
+              <td class="text-xs-center"><a href="" class="table-icon" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a></td>
             </tr>
             </tbody>
           </table>

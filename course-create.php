@@ -46,32 +46,29 @@
                   </div>
                 </div>
                 <div class="col-md-12 col-lg-6">
-                  <div class="card-title">Eğitim Konuları<a href="#" class="btn btn-primary">Konu Ekle</a></div>
+                  <div class="card-title">Eğitim Konuları<a href="javascript:void(0)" id="courseAbilityChange" class="btn btn-primary">Konu Ekle</a></div>
                   <div class="table-responsive">
                     <table class="table">
                       <thead>
                       <tr>
                         <th>Konu</th>
-                        <th>Seviye</th>
                       </tr>
                       </thead>
                       <tbody>
                       <tr>
                         <td>HTML</td>
-                        <td>Başlangıç Seviyesi</td>
                       </tr>
                       <tr>
                         <td>PHP</td>
-                        <td>Orta Seviye</td>
                       </tr>
                       <tr>
                         <td>Java</td>
-                        <td>İleri Seviye</td>
                       </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
+                <div id="ability-container" class="col-xs-12 hidden"></div>
               </div>
             </div>
           </form>

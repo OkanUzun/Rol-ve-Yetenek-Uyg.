@@ -54,9 +54,21 @@
         </a>
       </li>
       <li>
+        <a href="course-instructor.php">
+          <div class="icon"><i class="mdi mdi-account-switch"></i></div>
+          <div class="title">Eğitmenler</div>
+        </a>
+      </li>
+      <li>
         <a href="statistics.php">
           <div class="icon"><i class="mdi mdi-chart-bar"></i></div>
           <div class="title">İstatistikler</div>
+        </a>
+      </li>
+      <li>
+        <a href="ability-change.php">
+          <div class="icon"><i class="mdi mdi-star"></i></div>
+          <div class="title">Yetenek Seviyeleri</div>
         </a>
       </li>
       <li class="exit">

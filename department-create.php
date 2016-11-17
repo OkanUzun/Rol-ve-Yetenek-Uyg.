@@ -7,20 +7,20 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-plus"></i>Departman Oluştur</a>
-            <form class="form-create form-inline" method="post">
+            <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-library"></i>Departman Oluştur</a>
+            <form class="form-create form-inline hidden" method="post">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Departman İsmi Giriniz">
+                <input type="text" class="form-control" placeholder="Departman Adı Giriniz">
               </div>
               <button type="submit" class="btn btn-success">Kaydet</button>
               <button type="button" class="btn btn-danger">İptal</button>
             </form>
           </div>
           <div class="card-block">
-            <table class="table" id="dataTable">
+            <table class="table" id="dataTable-department">
               <thead>
               <tr>
-                <th>Departman İsmi</th>
+                <th>Departman Adı</th>
                 <th>Çalışan Sayısı</th>
                 <th>İşlemler</th>
               </tr>
@@ -29,25 +29,25 @@
               <tr>
                 <td>Bilişim Departmanı</td>
                 <td>11</td>
-                <td class="table-icon">
-                  <a href="" class="btn-update" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="btn-delete" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
+                <td class="text-xs-center">
+                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
+                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
                 </td>
               </tr>
               <tr>
                 <td>Muhasebe Departmanı</td>
                 <td>6</td>
-                <td class="table-icon">
-                  <a href="" class="btn-update" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="btn-delete" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
+                <td class="text-xs-center">
+                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
+                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
                 </td>
               </tr>
               <tr>
                 <td>Halkla İlişkiler Departmanı</td>
                 <td>4</td>
-                <td class="table-icon">
-                  <a href="" class="btn-update" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="btn-delete" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
+                <td class="text-xs-center">
+                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
+                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
                 </td>
               </tr>
               </tbody>
@@ -70,7 +70,7 @@
         <div class="modal-body">
           <form method="post">
             <div class="form-group">
-              <label for="updateDepartment" class="form-control-label">Departman İsmi:</label>
+              <label for="updateDepartment" class="form-control-label">Departman Adı:</label>
               <input type="text" class="form-control" id="updateDepartment">
             </div>
           </form>
