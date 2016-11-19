@@ -2267,3 +2267,28 @@ DROP TYPE SYSTEM.INT_ARRAY;
 
 CREATE OR REPLACE TYPE SYSTEM.INT_ARRAY AS VARRAY(50) OF INTEGER;
 /
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_UPDATE_USER(usr_id IN VARCHAR,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
+    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,ablty_ids IN INT_ARRAY,level_ids IN INT_ARRAY,is_valid OUT CHAR)
+AS
+    number_of_email INTEGER;
+    number_of_phone INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
+    SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
+    
+    IF number_of_email = 0 AND number_of_phone = 0 THEN
+        UPDATE T_USER SET EMAIL = e_mail, FIRST_NAME = fname, LAST_NAME = lname, 
+            DATE_OF_BIRTH = TO_DATE(dte_of_birth,'mm-dd-yyyy'), PHONE_NUMBER = phne_num, ADDRESS = addrss WHERE U_ID = usr_id;
+            
+        DELETE FROM T_USER_ABILITY_REL WHERE USER_FK = usr_id;
+        
+        FOR i IN 1..ablty_ids.count LOOP
+            INSERT INTO T_USER_ABILITY_REL(USER_FK,ABILITY_FK,ABILITY_LEVEL_FK) VALUES(usr_id,ablty_ids(i),level_ids(i));  
+        END LOOP;
+        
+        is_valid := '1';      
+    ELSE
+        is_valid := '0';
+    END IF;
+END;
