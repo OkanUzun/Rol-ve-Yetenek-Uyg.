@@ -15,7 +15,7 @@
             </div>
             <div class="card-block">
               <div class="row">
-                <div class="col-xs-12 col-xl-6 mb-1">
+                <div class="col-xs-12 col-md-12 col-lg-6 mb-1">
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="card-title">Meslek Bilgisi</div>
@@ -34,64 +34,55 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-xl-6 mb-1">
+                <div class="col-xs-12 col-md-12 col-lg-6 mb-1">
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="card-title">Kişisel Bilgiler</div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="İsim" name="stepName" id="stepName" required>
+                        <input type="text" class="form-control" placeholder="İsim" required>
                       </div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Soyisim" name="stepSurname" id="stepSurname" required>
+                        <input type="text" class="form-control" placeholder="Soyisim" required>
                       </div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="stepUser" id="stepUser" required>
+                        <input type="text" class="form-control" placeholder="Kullanıcı Adı" required>
                       </div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" name="stepBirthdate" id="stepBirthdate" required>
+                        <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" required>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-xl-6 mb-1">
+                <div class="col-xs-12 col-md-12 col-lg-12 col-xl-6">
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="card-title">İletişim Bilgileri</div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="form-group">
-                        <input type="email" class="form-control" placeholder="E-mail" name="stepEmail" id="stepEmail" required>
+                        <input type="email" class="form-control" placeholder="E-mail" required>
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="form-group">
-                        <input type="number" class="form-control" placeholder="Mobil Telefon No" name="stepTel" id="stepTel" required>
+                        <input type="number" class="form-control" placeholder="Mobil Telefon No" required>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <textarea rows="5" class="form-control" placeholder="Adres..." name="stepAddress" id="stepAddress"></textarea>
+                        <textarea rows="5" class="form-control" placeholder="Adres..." ></textarea>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-xl-6 mb-1">
-                  <div class="card-title">
-                    <span>Yetenekler</span>
-                    <div class="card-buttons">
-                      <a href="javascript:void(0)" id="abilityShow" class="btn btn-primary">Yetenek Ekle</a>
-                    </div>
-                  </div>
-                </div>
-                <div id="ability-container" class="col-xs-12 hidden"></div>
               </div>
             </div>
           </form>

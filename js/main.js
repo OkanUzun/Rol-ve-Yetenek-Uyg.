@@ -127,6 +127,10 @@ $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip({
   placement: "bottom"
 });
 
+$(".mCustomScrollbar").mCustomScrollbar({
+  scrollInertia: 250
+});
+
 
 // Yetenek Tablosunu Görüntüleme AJAX (user-detail.php)
 $("#abilityShow").click(function () {
@@ -136,10 +140,8 @@ $("#abilityShow").click(function () {
     $.ajax({
       type: "POST",
       url: "deneme2.php",
-      dataType: "html",
-      cache: false,
-      success: function (result) {
-        var data = JSON.parse(result);
+      dataType: "json",
+      success: function (data) {
         $("#ability-container").html(
           '<div class="card-title">' +
             '<span>Yetenekler</span>' +
@@ -220,9 +222,8 @@ $("#courseAddUserButton").click(function () {
     $.ajax({
       type: "POST",
       url: "deneme.php",
-      dataType: "html",
-      success: function (result) {
-        var data = JSON.parse(result);
+      dataType: "json",
+      success: function (data) {
         $("#courseAddUser").html(
           '<div class="card-title">' +
           '<span>Kayıtlı Olmayan Katılımcılar</span>' +
@@ -288,9 +289,8 @@ $("#courseAbilityChange").click(function () {
     $.ajax({
       type: "POST",
       url: "deneme2.php",
-      dataType: "html",
-      success: function (result) {
-        var data = JSON.parse(result);
+      dataType: "json",
+      success: function (data) {
         $("#ability-container").html(
           '<div class="card-title">' +
           '<span>Yetenekler</span>' +

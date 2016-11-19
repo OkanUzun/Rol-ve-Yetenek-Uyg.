@@ -1,12 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Miriam+Libre:400,700|Source+Sans+Pro:300,400,700&subset=latin-ext');
+
+* {
+  &:focus {
+    outline: none !important;
+  }
+}
 
 html,body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   background-color: #E7EDEE;
   position: relative;
   overflow-x: hidden;
   min-height: 100vh;
-  color: #282828;
+  color: #525252;
 }
 
 body.login {
@@ -50,6 +56,9 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+input[type=number] {
+  -moz-appearance:textfield;
 }
 
 @pink: #E91E63;
@@ -252,7 +261,7 @@ textarea {
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-  background-color: #505050;
+  background-color: #A0A0A0;
 }
 
 .placeholder(@placeholder-color: #999) {
@@ -284,6 +293,8 @@ textarea {
     align-items: center;
     justify-content: space-between;
     color: #999;
+    text-transform: none;
+    padding: 16px !important;
     &:after {
       content: "\F140";
       font-family: 'Material Design Icons';
@@ -292,9 +303,15 @@ textarea {
       margin: 0;
       border: 0;
       font-size: 20px;
+      position: absolute;
+      right: 0;
+      top: 10px;
     }
     &:hover {
       transform: none;
+    }
+    &:focus {
+      outline: none !important;
     }
   }
   .dropdown-menu {
@@ -504,7 +521,6 @@ textarea {
   z-index: 50;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   .shadow;
   .sidebar-header {
     height: 90px;
@@ -633,8 +649,8 @@ textarea {
           flex-grow: 1;
           padding: 0;
           margin: 0;
-          font-weight: 700;
           font-size: 20px;
+          font-family: 'Miriam Libre', sans-serif;
         }
         .btn {
           display: inline-block;
@@ -651,10 +667,6 @@ textarea {
         .btn-info {
           margin: 0;
           padding: 10px 16px;
-        }
-        .dropdown-toggle {
-          text-transform: none;
-          padding: 8px 16px !important;
         }
       }
       .card-block {
@@ -1034,10 +1046,16 @@ textarea {
   margin-top: 32px;
 }
 
-.mCSB_scrollTools {
-  .mCSB_dragger {
-    .mCSB_dragger_bar {
-      background-color: #000 !important;
+.mCustomScrollbar {
+  .mCSB_container {
+    margin: 0 !important;
+  }
+  .mCSB_scrollTools {
+    width: 5px;
+    .mCSB_dragger {
+      .mCSB_dragger_bar {
+        background-color: #A0A0A0 !important;
+      }
     }
   }
 }

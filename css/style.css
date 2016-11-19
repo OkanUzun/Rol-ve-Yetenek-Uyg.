@@ -1,12 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Miriam+Libre:400,700|Source+Sans+Pro:300,400,700&subset=latin-ext');
+*:focus {
+  outline: none !important;
+}
 html,
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   background-color: #E7EDEE;
   position: relative;
   overflow-x: hidden;
   min-height: 100vh;
-  color: #282828;
+  color: #525252;
 }
 body.login {
   background-color: #66BB6A;
@@ -46,6 +49,9 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
 }
 .text-green {
   color: #66BB6A !important;
@@ -215,7 +221,7 @@ textarea {
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #505050;
+  background-color: #A0A0A0;
 }
 .bootstrap-select .dropdown-toggle {
   height: 100%;
@@ -224,6 +230,8 @@ textarea {
   align-items: center;
   justify-content: space-between;
   color: #999;
+  text-transform: none;
+  padding: 16px !important;
 }
 .bootstrap-select .dropdown-toggle:after {
   content: "\F140";
@@ -233,9 +241,15 @@ textarea {
   margin: 0;
   border: 0;
   font-size: 20px;
+  position: absolute;
+  right: 0;
+  top: 10px;
 }
 .bootstrap-select .dropdown-toggle:hover {
   transform: none;
+}
+.bootstrap-select .dropdown-toggle:focus {
+  outline: none !important;
 }
 .bootstrap-select .dropdown-menu li a {
   display: block;
@@ -427,7 +441,6 @@ textarea {
   z-index: 50;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   box-shadow: 0 1px 2px #c8d1d3;
 }
 .side-navigation .sidebar-header {
@@ -549,8 +562,8 @@ textarea {
   flex-grow: 1;
   padding: 0;
   margin: 0;
-  font-weight: 700;
   font-size: 20px;
+  font-family: 'Miriam Libre', sans-serif;
 }
 .wrapper .page-content .card .card-header .btn {
   display: inline-block;
@@ -567,10 +580,6 @@ textarea {
 .wrapper .page-content .card .card-header .btn-info {
   margin: 0;
   padding: 10px 16px;
-}
-.wrapper .page-content .card .card-header .dropdown-toggle {
-  text-transform: none;
-  padding: 8px 16px !important;
 }
 .wrapper .page-content .card .card-block {
   background-color: #fff;
@@ -888,8 +897,14 @@ textarea {
   padding-top: 32px;
   margin-top: 32px;
 }
-.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  background-color: #000 !important;
+.mCustomScrollbar .mCSB_container {
+  margin: 0 !important;
+}
+.mCustomScrollbar .mCSB_scrollTools {
+  width: 5px;
+}
+.mCustomScrollbar .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background-color: #A0A0A0 !important;
 }
 /* MAIN CONTENT CSS */
 [type=checkbox]:checked,

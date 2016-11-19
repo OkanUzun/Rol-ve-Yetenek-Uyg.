@@ -15,14 +15,14 @@
           </div>
           <div class="card-block">
             <div class="row">
-              <div class="col-lg-12 col-xl-6 mb-1">
+              <div class="col-xs-12 col-md-12 col-lg-6 mb-1">
                 <div class="row">
                   <div class="col-xs-12">
                     <div class="card-title">Departman Bilgileri</div>
                   </div>
-                  <div class="col-sm-12 col-md-6">
+                  <div class="col-xs-12 col-xl-6">
                     <div class="form-group">
-                      <select class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Rol Seçiniz">
+                      <select class="form-control selectpicker" data-live-search="true" data-size="5" title="Rol Seçiniz">
                         <option value="Android Developer">Android Developer</option>
                         <option value="IOS Developer">IOS Developer</option>
                         <option value="PHP Developer">PHP Developer</option>
@@ -34,34 +34,34 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12 col-xl-6 mb-1">
+              <div class="col-xs-12 col-md-12 col-lg-6 mb-1">
                 <div class="row">
                   <div class="col-xs-12">
                     <div class="card-title">Kişisel Bilgiler</div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="İsim" name="stepName" id="stepName" required>
+                      <input type="text" class="form-control" placeholder="İsim" required>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Soyisim" name="stepSurname" id="stepSurname" required>
+                      <input type="text" class="form-control" placeholder="Soyisim" required>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="stepUsername" id="stepUsername" required>
+                      <input type="text" class="form-control" placeholder="Kullanıcı Adı" required>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" name="stepBirthdate" id="stepBirthdate" required>
+                      <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" required>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12 col-xl-6 mb-1">
+              <div class="col-xs-12 col-md-12 col-lg-6 mb-1">
                 <div class="row">
                   <div class="col-xs-12">
                     <div class="card-title">İletişim Bilgileri</div>
@@ -83,7 +83,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12 col-xl-6 mb-1">
+              <div class="col-xs-12 col-md-12 col-lg-6 mb-1">
                 <div class="card-title">
                   <span>Kayıtlı Yetenekler</span>
                   <div class="card-buttons">
