@@ -1,5 +1,42 @@
-<?php include "header.php"; ?>
+<?php 
 
+  include "header.php"; 
+  include "dbsettings.php";
+
+  if (isset($_POST["create-dep"])){
+    $sql = 'BEGIN SP_CREATE_DEPARTMENT(:dep_name,:is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
+
+
+    oci_bind_by_name($stmt,':dep_name',$dep_name);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $dep_name = $_POST["dep_name"];
+
+    oci_execute($stmt);
+    //echo "$message\n";
+  }
+  else if(isset($_POST["update-dep"])){
+    $sql = 'BEGIN SP_UPDATE_DEPARTMENT(:dep_id,:dep_name, :is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
+
+    oci_bind_by_name($stmt,':dep_id',$dep_id);
+    oci_bind_by_name($stmt,':dep_name',$dep_name);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $dep_name = $_POST["dep_name"];
+    $dep_id = $_POST["dep_id"];
+
+
+    oci_execute($stmt);
+
+    //echo "$message\n";
+  }
+  else if(isset($_POST["delete-dep"])){
+
+  }
+    
+?>
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
     <div class="page-content">
@@ -10,9 +47,9 @@
             <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-library"></i>Departman Oluştur</a>
             <form class="form-create form-inline hidden" method="post">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Departman Adı Giriniz">
+                <input type="text" class="form-control" placeholder="Departman Adı Giriniz" name="dep_name">
               </div>
-              <button type="submit" class="btn btn-success">Kaydet</button>
+              <button type="submit" class="btn btn-success" name="create-dep">Kaydet</button>
               <button type="button" class="btn btn-danger">İptal</button>
             </form>
           </div>
@@ -26,30 +63,26 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>Bilişim Departmanı</td>
-                <td>11</td>
-                <td class="text-xs-center">
-                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Muhasebe Departmanı</td>
-                <td>6</td>
-                <td class="text-xs-center">
-                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Halkla İlişkiler Departmanı</td>
-                <td>4</td>
-                <td class="text-xs-center">
-                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
-                </td>
-              </tr>
+              <?php
+              include "dbsettings.php";
+              $sql = 'SELECT T_DEPARTMENT.PK, T_DEPARTMENT.DEPARTMENT_NAME,(SELECT COUNT(T_USER.PK) FROM T_USER,T_ROLE
+                WHERE T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK
+                AND T_ROLE.PK = T_USER.ROLE_FK) AS X FROM T_DEPARTMENT';
+              $stmt = oci_parse($conn,$sql);
+              $r = oci_execute($stmt);
+              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
+                 echo '<tr>';
+                     echo '<input type="hidden" name="dep_id" value="'.$row['PK'].'"</td>'; 
+                     echo '<td>'.$row['DEPARTMENT_NAME'].'</td>';
+                     echo '<td>'.$row['X'].'</td>';
+                     echo '
+                     <td class="text-xs-center">
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-department="'.$row['DEPARTMENT_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
+                     </td>'; 
+                 echo '<tr>';
+              }
+              ?>
               </tbody>
             </table>
           </div>
@@ -67,18 +100,19 @@
           </button>
           <h4 class="modal-title" id="updateModalLabel">Departman Güncelle</h4>
         </div>
+        <form method="post">
         <div class="modal-body">
-          <form method="post">
             <div class="form-group">
+              <input type="hidden" name="dep_id" id="dep_id">  
               <label for="updateDepartment" class="form-control-label">Departman Adı:</label>
-              <input type="text" class="form-control" id="updateDepartment">
-            </div>
-          </form>
+              <input type="text" class="form-control" id="updateDepartment" name="dep_name">
+            </div>          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-          <button type="button" class="btn btn-success">Güncelle</button>
+          <button type="submit" class="btn btn-success" name="update-dep">Güncelle</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -98,11 +132,12 @@
         <div class="modal-footer">
           <form method="post">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-            <button type="submit" class="btn btn-danger">Sil</button>
+            <button type="submit" class="btn btn-danger" name="delete-dep">Sil</button>
           </form>
         </div>
       </div>
     </div>
   </div>
+
 
 <?php include "footer.php"; ?>

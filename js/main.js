@@ -104,10 +104,12 @@ $('#updateModal').on('show.bs.modal', function (event) {
   var name = button.data('name');
   var surname = button.data('surname');
   var department = button.data('department');
+  var id = button.data('id');
   var modal = $(this);
   modal.find('.modal-body #updateName').val(name);
   modal.find('.modal-body #updateSurname').val(surname);
   modal.find('.modal-body #updateDepartment').val(department);
+  modal.find('.modal-body #dep_id').val(id);
 });
 
 
