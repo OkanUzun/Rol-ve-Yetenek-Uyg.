@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-  include "header.php"; 
+  include "header.php";
   include "dbsettings.php";
 
   if (isset($_POST["create-dep"])){
@@ -35,7 +35,7 @@
   else if(isset($_POST["delete-dep"])){
 
   }
-    
+
 ?>
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
@@ -72,14 +72,13 @@
               $r = oci_execute($stmt);
               while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
                  echo '<tr>';
-                     echo '<input type="hidden" name="dep_id" value="'.$row['PK'].'"</td>'; 
                      echo '<td>'.$row['DEPARTMENT_NAME'].'</td>';
                      echo '<td>'.$row['X'].'</td>';
                      echo '
                      <td class="text-xs-center">
                       <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-department="'.$row['DEPARTMENT_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
-                     </td>'; 
+                     </td>';
                  echo '<tr>';
               }
               ?>
@@ -103,10 +102,10 @@
         <form method="post">
         <div class="modal-body">
             <div class="form-group">
-              <input type="hidden" name="dep_id" id="dep_id">  
+              <input type="hidden" name="dep_id" id="dep_id">
               <label for="updateDepartment" class="form-control-label">Departman Adı:</label>
               <input type="text" class="form-control" id="updateDepartment" name="dep_name">
-            </div>          
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>

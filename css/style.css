@@ -559,11 +559,21 @@ textarea {
   padding: 12px 15px;
 }
 .wrapper .page-content .card .card-header .card-title {
+  position: relative;
   flex-grow: 1;
   padding: 0;
   margin: 0;
   font-size: 20px;
   font-family: 'Miriam Libre', sans-serif;
+}
+.wrapper .page-content .card .card-header .card-title .manager,
+.wrapper .page-content .card .card-header .card-title .date {
+  font-size: 14px;
+}
+.wrapper .page-content .card .card-header .card-title .date {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .wrapper .page-content .card .card-header .btn {
   display: inline-block;
@@ -1144,6 +1154,12 @@ textarea {
   .wrapper .page-content .card .card-header .form-create .company-in,
   .wrapper .page-content .card .card-header .form-create .company-out {
     width: 100%;
+  }
+  .wrapper .page-content .card .card-header .card-title .date {
+    display: none;
+  }
+  .wrapper .page-content .card .card-header .card-title .manager {
+    font-size: 12px;
   }
   .wrapper .page-content .card .card-block .card-title .card-buttons .btn {
     margin-left: 5px;
