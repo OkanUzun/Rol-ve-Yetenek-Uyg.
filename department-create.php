@@ -33,7 +33,16 @@
     //echo "$message\n";
   }
   else if(isset($_POST["delete-dep"])){
+    $sql = 'BEGIN SP_REMOVE_DEPARTMENT(:dep_id,:is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
 
+    oci_bind_by_name($stmt,':dep_id',$dep_id);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $dep_id = $_POST["dep_id"];
+
+
+    oci_execute($stmt);
   }
 
 ?>
@@ -125,15 +134,16 @@
           </button>
           <h4 class="modal-title" id="deleteModalLabel">Silme Onayı</h4>
         </div>
+        <form method="post">
         <div class="modal-body">
           <p>Silmek istediğinize emin misiniz?</p>
+          <input type="hidden" name="dep_id" id="dep_id">
         </div>
         <div class="modal-footer">
-          <form method="post">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-            <button type="submit" class="btn btn-danger" name="delete-dep">Sil</button>
-          </form>
+            <button type="submit" class="btn btn-danger" name="delete-dep">Sil</button>          
         </div>
+        </form>
       </div>
     </div>
   </div>

@@ -104,12 +104,22 @@ $('#updateModal').on('show.bs.modal', function (event) {
   var name = button.data('name');
   var surname = button.data('surname');
   var department = button.data('department');
+  var unit = button.data('unit');
   var id = button.data('id');
   var modal = $(this);
   modal.find('.modal-body #updateName').val(name);
   modal.find('.modal-body #updateSurname').val(surname);
   modal.find('.modal-body #updateDepartment').val(department);
+  modal.find('.modal-body #updateUnit').val(unit);
   modal.find('.modal-body #dep_id').val(id);
+});
+
+$('#deleteModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  var id = button.data('id');
+  var modal = $(this);
+  modal.find('.modal-body #dep_id').val(id);
+  modal.find('.modal-body #unit_id').val(id);
 });
 
 
