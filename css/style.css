@@ -591,6 +591,9 @@ textarea {
   margin: 0;
   padding: 10px 16px;
 }
+.wrapper .page-content .card .card-header .dropdown-toggle {
+  text-transform: none;
+}
 .wrapper .page-content .card .card-block {
   background-color: #fff;
   padding: 16px;

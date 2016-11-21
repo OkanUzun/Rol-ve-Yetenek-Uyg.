@@ -1,5 +1,5 @@
-<?php 
-  include "header.php"; 
+<?php
+  include "header.php";
   include "dbsettings.php";
 
   if (isset($_POST["create-unit"])){
@@ -46,7 +46,7 @@
 
     oci_execute($stmt);
     //echo "$message\n";
-  }    
+  }
 
 ?>
 
@@ -70,11 +70,10 @@
                   $r = oci_execute($stmt);
                   echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
-                    echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';     
+                    echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
                   }
                   echo '</select>';
                 ?>
-                
               </div>
               <button type="submit" class="btn btn-success" name="create-unit">Kaydet</button>
               <button type="button" class="btn btn-danger">İptal</button>
@@ -93,19 +92,19 @@
               <tbody>
               <?php
               include "dbsettings.php";
-              $sql = 'SELECT T_UNIT.PK,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME,(SELECT COUNT(T_USER.PK) 
-              FROM T_USER,T_ROLE WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.UNIT_FK = T_UNIT.PK ) AS X FROM T_UNIT,T_DEPARTMENT 
+              $sql = 'SELECT T_UNIT.PK,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME,(SELECT COUNT(T_USER.PK)
+              FROM T_USER,T_ROLE WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.UNIT_FK = T_UNIT.PK ) AS X FROM T_UNIT,T_DEPARTMENT
               WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK';
               $stmt = oci_parse($conn,$sql);
               $r = oci_execute($stmt);
               while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
                  echo '<tr>';
-                     echo '<td>'.$row['UNIT_NAME'].'</td>'; 
+                     echo '<td>'.$row['UNIT_NAME'].'</td>';
                      echo '<td>'.$row['DEPARTMENT_NAME'].'</td>';
                      echo '<td>'.$row['X'].'</td>';
                      echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-unit="'.$row['UNIT_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-unit="'.$row['UNIT_NAME'].'" data-department="'.$row['DEPARTMENT_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                      </td>';
                  echo '<tr>';
@@ -129,26 +128,25 @@
           <h4 class="modal-title" id="updateModalLabel">Birim Güncelle</h4>
         </div>
         <form method="post">
-        <div class="modal-body">        
+        <div class="modal-body">
             <div class="form-group">
               <label for="updateName" class="form-control-label">Birim Adı:</label>
               <input type="text" class="form-control" id="updateUnit" name="unit_name">
               <input type="hidden" name="unit_id" id="unit_id">
             </div>
             <div class="form-group">
-              <label for="updateDepartment" class="form-control-label">Bağlı Olduğu Departman:</label>
+              <label for="updateDepartmentSelect" class="form-control-label">Bağlı Olduğu Departman:</label>
                 <?php
                   include "dbsettings.php";
                   $sql = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
                   $stmt = oci_parse($conn,$sql);
                   $r = oci_execute($stmt);
-                  echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
-                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
-                      echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';    
-                  }
+                  echo '<select id="updateDepartmentSelect" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
+                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC))
+                    echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
                   echo '</select>';
                 ?>
-            </div>         
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
@@ -173,9 +171,9 @@
           <p>Silmek istediğinize emin misiniz?</p>
           <input type="hidden" name="unit_id" id="unit_id">
         </div>
-        <div class="modal-footer">          
+        <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-          <button type="submit" class="btn btn-danger" name="delete-unit">Sil</button>         
+          <button type="submit" class="btn btn-danger" name="delete-unit">Sil</button>
         </div>
         </form>
       </div>
