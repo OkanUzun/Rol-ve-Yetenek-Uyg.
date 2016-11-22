@@ -1,4 +1,53 @@
-<?php include "header.php"; ?>
+<?php 
+  include "header.php"; 
+  include "dbsettings.php";
+
+  if (isset($_POST["create-role"])){
+    $sql = 'BEGIN SP_CREATE_UNIT(:unt_name,:dep_id,:is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
+
+
+    oci_bind_by_name($stmt,':unt_name',$unit_name);
+    oci_bind_by_name($stmt,':dep_id',$dep_id);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $unit_name = $_POST["unit_name"];
+    $dep_id = $_POST["dep_id"];
+
+    oci_execute($stmt);
+    //echo "$message\n";
+  }
+
+  else if (isset($_POST["update-role"])){
+    $sql = 'BEGIN SP_UPDATE_UNIT(:unt_id,:unt_name,:dep_id,:is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
+
+    oci_bind_by_name($stmt,':unt_id',$unit_id);
+    oci_bind_by_name($stmt,':unt_name',$unit_name);
+    oci_bind_by_name($stmt,':dep_id',$dep_id);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $unit_id = $_POST["unit_id"];
+    $unit_name = $_POST["unit_name"];
+    $dep_id = $_POST["dep_id"];
+
+    oci_execute($stmt);
+    //echo "$message\n";
+  }
+
+  else if (isset($_POST["delete-role"])){
+    $sql = 'BEGIN SP_REMOVE_UNIT(:unt_id,:is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
+
+    oci_bind_by_name($stmt,':unt_id',$unit_id);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $unit_id = $_POST["unit_id"];
+
+    oci_execute($stmt);
+    //echo "$message\n";
+  }
+?>
 
   <div class="wrapper">
     <?php include "sidebar.php"; ?>

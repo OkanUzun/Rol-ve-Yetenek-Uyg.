@@ -114,6 +114,7 @@ $('#updateModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body').find("[data-id='updateDepartmentSelect']").attr('title', department).children('.filter-option').text(department);
   modal.find('.modal-body #updateUnit').val(unit);
   modal.find('.modal-body #dep_id').val(id);
+  modal.find('.modal-body #unit_id').val(id);
 });
 
 $('#deleteModal').on('show.bs.modal', function (event) {
