@@ -3,15 +3,17 @@
   include "dbsettings.php";
 
   if (isset($_POST["create-role"])){
-    $sql = 'BEGIN SP_CREATE_UNIT(:unt_name,:dep_id,:is_valid); END;';
+    $sql = 'BEGIN SP_CREATE_ROLE(:rle_name,:unt_id,:dep_id,:is_valid); END;';
     $stmt = oci_parse($conn,$sql);
 
 
-    oci_bind_by_name($stmt,':unt_name',$unit_name);
+    oci_bind_by_name($stmt,':rle_name',$role_name);
+    oci_bind_by_name($stmt,':unt_id',$unit_id);
     oci_bind_by_name($stmt,':dep_id',$dep_id);
     oci_bind_by_name($stmt,':is_valid',$message);
 
-    $unit_name = $_POST["unit_name"];
+    $role_name = $_POST["role_name"];
+    $unit_id = $_POST["unit_id"];
     $dep_id = $_POST["dep_id"];
 
     oci_execute($stmt);
@@ -19,16 +21,18 @@
   }
 
   else if (isset($_POST["update-role"])){
-    $sql = 'BEGIN SP_UPDATE_UNIT(:unt_id,:unt_name,:dep_id,:is_valid); END;';
+    $sql = 'BEGIN SP_UPDATE_ROLE(:rle_name,:unt_id,:dep_id,:is_valid); END;';
     $stmt = oci_parse($conn,$sql);
 
+    oci_bind_by_name($stmt,':rle_id',$role_id);
+    oci_bind_by_name($stmt,':rle_name',$role_name);
     oci_bind_by_name($stmt,':unt_id',$unit_id);
-    oci_bind_by_name($stmt,':unt_name',$unit_name);
     oci_bind_by_name($stmt,':dep_id',$dep_id);
     oci_bind_by_name($stmt,':is_valid',$message);
 
+    $role_name = $_POST["rle_id"];
+    $role_name = $_POST["role_name"];
     $unit_id = $_POST["unit_id"];
-    $unit_name = $_POST["unit_name"];
     $dep_id = $_POST["dep_id"];
 
     oci_execute($stmt);
@@ -36,13 +40,13 @@
   }
 
   else if (isset($_POST["delete-role"])){
-    $sql = 'BEGIN SP_REMOVE_UNIT(:unt_id,:is_valid); END;';
+    $sql = 'BEGIN SP_REMOVE_ROLE(:rle_id,:is_valid); END;';
     $stmt = oci_parse($conn,$sql);
 
-    oci_bind_by_name($stmt,':unt_id',$unit_id);
+    oci_bind_by_name($stmt,':rle_id',$role_id);
     oci_bind_by_name($stmt,':is_valid',$message);
 
-    $unit_id = $_POST["unit_id"];
+    $role_id = $_POST["role_id"];
 
     oci_execute($stmt);
     //echo "$message\n";
@@ -59,27 +63,35 @@
             <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-account-check"></i>Rol Oluştur</a>
             <form class="form-create form-inline hidden" method="post">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Rol Adı Giriniz">
+                <input type="text" class="form-control" placeholder="Rol Adı Giriniz" name="role_name">
               </div>
               <div class="form-group">
-                <select class="form-control selectpicker" id="roleDepartment" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">
-                  <option>Seçiniz</option>
-                  <option>A Departmanı</option>
-                  <option>B Departmanı</option>
-                  <option>C Departmanı</option>
-                  <option>D Departmanı</option>
-                </select>
+                <?php
+                  include "dbsettings.php";
+                  $sql = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+                  $stmt = oci_parse($conn,$sql);
+                  $r = oci_execute($stmt);
+                  echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
+                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
+                    echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
+                  }
+                  echo '</select>';
+                ?>                
               </div>
               <div class="form-group">
-                <select class="form-control selectpicker" id="roleUnit" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Birimi Seçiniz">
-                  <option>Seçiniz</option>
-                  <option value="A Birimi">A Birimi</option>
-                  <option value="B Birimi">B Birimi</option>
-                  <option value="C Birimi">C Birimi</option>
-                  <option value="D Birimi">D Birimi</option>
-                </select>
+                <?php
+                  include "dbsettings.php";
+                  $sql = 'SELECT PK,UNIT_NAME FROM T_UNIT';
+                  $stmt = oci_parse($conn,$sql);
+                  $r = oci_execute($stmt);
+                  echo '<select name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Birimi Seçiniz">';
+                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
+                    echo '<option value ="'.$row["PK"].'">'.$row["UNIT_NAME"].'</option>';
+                  }
+                  echo '</select>';
+                ?>
               </div>
-              <button type="submit" class="btn btn-success">Kaydet</button>
+              <button type="submit" class="btn btn-success" name="create-role">Kaydet</button>
               <button type="button" class="btn btn-danger">İptal</button>
             </form>
           </div>
@@ -93,14 +105,26 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>Ağ Uzmanı</td>
-                <td>2</td>
-                <td class="text-xs-center">
-                  <a href="#" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Ağ Uzmanı"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="#" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
-                </td>
-              </tr>
+              <?php  
+              include "dbsettings.php";
+              $sql = 'SELECT T_ROLE.PK,T_ROLE.ROLE_NAME,(SELECT COUNT(T_USER.PK) FROM T_USER 
+              WHERE T_USER.ROLE_FK = T_ROLE.PK) AS X,T_UNIT.PK AS U_PK,T_DEPARTMENT.PK AS DEP_PK FROM T_ROLE
+              LEFT JOIN T_UNIT ON T_ROLE.UNIT_FK = T_UNIT.PK
+              LEFT JOIN T_DEPARTMENT ON T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK';
+              $stmt = oci_parse($conn,$sql);
+              $r = oci_execute($stmt);
+              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
+                 echo '<tr>';
+                     echo '<td>'.$row['ROLE_NAME'].'</td>';
+                     echo '<td>'.$row['X'].'</td>';
+                     echo '
+                     <td class="text-xs-center">
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-role="'.$row['ROLE_NAME'].'" data-unit="'.$row['U_PK'].'" data-department="'.$row['DEP_PK'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
+                     </td>';
+                 echo '<tr>';
+              }
+              ?>
               </tbody>
             </table>
           </div>
@@ -128,7 +152,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-          <button type="button" class="btn btn-success">Güncelle</button>
+          <button type="submit" class="btn btn-success" name="update-role">Güncelle</button>
         </div>
       </div>
     </div>
@@ -143,15 +167,16 @@
           </button>
           <h4 class="modal-title" id="deleteModalLabel">Silme Onayı</h4>
         </div>
+        <form method="post">
         <div class="modal-body">
           <p>Silmek istediğinize emin misiniz?</p>
+          <input type="hidden" name="role_id" id="role_id">
         </div>
         <div class="modal-footer">
-          <form method="post">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-            <button type="submit" class="btn btn-danger">Sil</button>
-          </form>
+            <button type="submit" class="btn btn-danger" name="delete-role">Sil</button>
         </div>
+      </form>
       </div>
     </div>
   </div>

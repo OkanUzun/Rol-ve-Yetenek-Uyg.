@@ -105,6 +105,7 @@ $('#updateModal').on('show.bs.modal', function (event) {
   var surname = button.data('surname');
   var department = button.data('department');
   var unit = button.data('unit');
+  var unit = button.data('role');
   var id = button.data('id');
   var modal = $(this);
 
@@ -115,6 +116,7 @@ $('#updateModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body #updateUnit').val(unit);
   modal.find('.modal-body #dep_id').val(id);
   modal.find('.modal-body #unit_id').val(id);
+  modal.find('.modal-body #role_id').val(id);
 });
 
 $('#deleteModal').on('show.bs.modal', function (event) {
@@ -123,6 +125,7 @@ $('#deleteModal').on('show.bs.modal', function (event) {
   var modal = $(this);
   modal.find('.modal-body #dep_id').val(id);
   modal.find('.modal-body #unit_id').val(id);
+  modal.find('.modal-body #role_id').val(id);
 });
 
 
