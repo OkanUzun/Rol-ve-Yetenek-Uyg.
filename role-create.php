@@ -1,5 +1,5 @@
-<?php 
-  include "header.php"; 
+<?php
+  include "header.php";
   include "dbsettings.php";
 
   if (isset($_POST["create-role"])){
@@ -71,12 +71,12 @@
                   $sql = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
                   $stmt = oci_parse($conn,$sql);
                   $r = oci_execute($stmt);
-                  echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
-                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
+                  echo '<select id="roleDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
+                  echo '<option value ="Seçiniz">Seçiniz</option>';
+                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC))
                     echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
-                  }
                   echo '</select>';
-                ?>                
+                ?>
               </div>
               <div class="form-group">
                 <?php
@@ -84,10 +84,9 @@
                   $sql = 'SELECT PK,UNIT_NAME FROM T_UNIT';
                   $stmt = oci_parse($conn,$sql);
                   $r = oci_execute($stmt);
-                  echo '<select name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Birimi Seçiniz">';
-                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
+                  echo '<select id="roleUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Birimi Seçiniz">';
+                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC))
                     echo '<option value ="'.$row["PK"].'">'.$row["UNIT_NAME"].'</option>';
-                  }
                   echo '</select>';
                 ?>
               </div>
@@ -105,9 +104,9 @@
               </tr>
               </thead>
               <tbody>
-              <?php  
+              <?php
               include "dbsettings.php";
-              $sql = 'SELECT T_ROLE.PK,T_ROLE.ROLE_NAME,(SELECT COUNT(T_USER.PK) FROM T_USER 
+              $sql = 'SELECT T_ROLE.PK,T_ROLE.ROLE_NAME,(SELECT COUNT(T_USER.PK) FROM T_USER
               WHERE T_USER.ROLE_FK = T_ROLE.PK) AS X,T_UNIT.PK AS U_PK,T_DEPARTMENT.PK AS DEP_PK FROM T_ROLE
               LEFT JOIN T_UNIT ON T_ROLE.UNIT_FK = T_UNIT.PK
               LEFT JOIN T_DEPARTMENT ON T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK';
@@ -119,7 +118,7 @@
                      echo '<td>'.$row['X'].'</td>';
                      echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-role="'.$row['ROLE_NAME'].'" data-unit="'.$row['U_PK'].'" data-department="'.$row['DEP_PK'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['ROLE_NAME'].'" data-unit="'.$row['U_PK'].'" ><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                      </td>';
                  echo '<tr>';
@@ -147,6 +146,7 @@
             <div class="form-group">
               <label for="updateName" class="form-control-label">Rol Adı:</label>
               <input type="text" class="form-control" id="updateName">
+              <input type="hidden" name="role_id" id="role_id">
             </div>
           </form>
         </div>

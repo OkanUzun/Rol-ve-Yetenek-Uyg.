@@ -104,8 +104,6 @@ $('#updateModal').on('show.bs.modal', function (event) {
   var name = button.data('name');
   var surname = button.data('surname');
   var department = button.data('department');
-  var unit = button.data('unit');
-  var unit = button.data('role');
   var id = button.data('id');
   var modal = $(this);
 
@@ -113,7 +111,7 @@ $('#updateModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body #updateSurname').val(surname);
   modal.find('.modal-body #updateDepartment').val(department);
   modal.find('.modal-body').find("[data-id='updateDepartmentSelect']").attr('title', department).children('.filter-option').text(department);
-  modal.find('.modal-body #updateUnit').val(unit);
+  modal.find('.modal-body #updateDepartmentSelect option:contains('+department+')').attr('selected', 'selected');
   modal.find('.modal-body #dep_id').val(id);
   modal.find('.modal-body #unit_id').val(id);
   modal.find('.modal-body #role_id').val(id);

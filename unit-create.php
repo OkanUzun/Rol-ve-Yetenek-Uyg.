@@ -104,7 +104,7 @@
                      echo '<td>'.$row['X'].'</td>';
                      echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-unit="'.$row['UNIT_NAME'].'" data-department="'.$row['DEPARTMENT_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNIT_NAME'].'" data-department="'.$row['DEPARTMENT_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                      </td>';
                  echo '<tr>';
@@ -131,7 +131,7 @@
         <div class="modal-body">
             <div class="form-group">
               <label for="updateName" class="form-control-label">Birim Adı:</label>
-              <input type="text" class="form-control" id="updateUnit" name="unit_name">
+              <input type="text" class="form-control" id="updateName" name="unit_name">
               <input type="hidden" name="unit_id" id="unit_id">
             </div>
             <div class="form-group">
