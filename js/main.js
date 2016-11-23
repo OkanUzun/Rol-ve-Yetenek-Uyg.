@@ -148,7 +148,7 @@ $(".mCustomScrollbar").mCustomScrollbar({
 });
 
 
-// Yetenek Tablosunu Görüntüleme AJAX (user-detail.php)
+// Yetenek Tablosunu Görüntüleme AJAX
 $("#abilityShow").click(function () {
   $("#ability-container").removeClass("hidden");
   $("#ability-container").html('<div class="text-xs-center"><img src="img/loading.gif"/></div>');

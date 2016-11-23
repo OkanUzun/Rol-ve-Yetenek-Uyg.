@@ -1,6 +1,6 @@
 <div class="side-navigation mCustomScrollbar">
   <div class="sidebar-header">
-    <a class="sidebar-brand" href="dashboard.php" title="Ana Sayfa"><span class="highlight">Roleaby v1</span>Admin</a>
+    <a class="sidebar-brand" href="dashboard.php" title="Ana Sayfa"><span class="highlight">Roleaby v1</span></a>
     <button type="button" class="close"><i class="mdi mdi-close"></i></button>
   </div>
   <div class="sidebar-menu">

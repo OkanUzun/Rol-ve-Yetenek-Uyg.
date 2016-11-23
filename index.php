@@ -16,7 +16,7 @@
     <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-4 offset-xl-4">
       <form action="">
         <div class="card card-login">
-          <div class="card-header"><span class="highlight">Roleaby</span> Admin</div>
+          <div class="card-header"><span class="highlight">Roleaby</span> Giriş</div>
           <div class="card-block">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Kullanıcı Adı">
