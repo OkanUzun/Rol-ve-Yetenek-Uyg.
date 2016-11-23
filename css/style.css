@@ -689,14 +689,14 @@ textarea {
 .wrapper .page-content .card .card-block .table tbody tr td .course-status span {
   margin: 0;
 }
-.wrapper .page-content .card .card-block .table tbody tr td a.table-icon {
+.wrapper .page-content .card .card-block .table tbody tr td .table-icon {
   display: inline-block;
 }
-.wrapper .page-content .card .card-block .table tbody tr td a.table-icon:hover i {
+.wrapper .page-content .card .card-block .table tbody tr td .table-icon:hover i {
   background-color: #26C6DA;
   color: #fff;
 }
-.wrapper .page-content .card .card-block .table tbody tr td a.table-icon i {
+.wrapper .page-content .card .card-block .table tbody tr td .table-icon i {
   padding: 3px 5px;
   border-radius: 3px;
   border: 1px solid #26C6DA;

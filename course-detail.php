@@ -63,7 +63,7 @@
                   <table class="table">
                     <thead>
                     <tr>
-                      <th>Konu</th>
+                      <th>Konu Listesi</th>
                     </tr>
                     </thead>
                     <tbody>

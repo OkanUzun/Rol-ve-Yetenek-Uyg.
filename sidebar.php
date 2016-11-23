@@ -20,13 +20,13 @@
       <li>
         <a href="user.php">
           <div class="icon"><i class="mdi mdi-account-multiple"></i></div>
-          <div class="title">Kullanıcı Listesi</div>
+          <div class="title">Kullanıcılar</div>
         </a>
       </li>
       <li>
         <a href="department-create.php">
           <div class="icon"><i class="mdi mdi-library"></i></div>
-          <div class="title">Departman Listesi</div>
+          <div class="title">Departmanlar</div>
         </a>
       </li>
       <li>

@@ -118,7 +118,7 @@
                      echo '<td>'.$row['X'].'</td>';
                      echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['ROLE_NAME'].'" data-unit="'.$row['U_PK'].'" ><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['ROLE_NAME'].'" data-unit="Yazılım Birimi" data-department="Bilişim Departmanı"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                      </td>';
                  echo '<tr>';
@@ -141,19 +141,33 @@
           </button>
           <h4 class="modal-title" id="updateModalLabel">Rol Güncelle</h4>
         </div>
-        <div class="modal-body">
-          <form method="post">
+        <form method="post">
+          <div class="modal-body">
             <div class="form-group">
               <label for="updateName" class="form-control-label">Rol Adı:</label>
               <input type="text" class="form-control" id="updateName">
               <input type="hidden" name="role_id" id="role_id">
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-          <button type="submit" class="btn btn-success" name="update-role">Güncelle</button>
-        </div>
+            <div class="form-group">
+              <label for="updateDepartmentSelect" class="form-control-label">Departman:</label>
+              <select id="updateDepartmentSelect" class="form-control selectpicker" data-live-search="true" data-size="5" title="Bağlı Olduğu Departmanı Seçiniz">
+                <option value="Bilişim Departmanı">Bilişim Departmanı</option>
+                <option value="Halkla İlişkiler Departmanı">Halkla İlişkiler Departmanı</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="updateUnitSelect" class="form-control-label">Birim:</label>
+              <select id="updateUnitSelect" class="form-control selectpicker" data-live-search="true" data-size="5" title="Bağlı Olduğu Birimi Seçiniz">
+                <option value="Ağ Birimi">Ağ Birimi</option>
+                <option value="Yazılım Birimi">Yazılım Birimi</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            <button type="submit" class="btn btn-success" name="update-role">Güncelle</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
