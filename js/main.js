@@ -400,14 +400,10 @@ $(".form-create .btn-danger").click(function () {
 });
 
 $("#roleUnit").change(function() {
-  $("#roleDepartment").parent().parent().addClass("hidden");
-});
-
-$("#roleDepartment").change(function() {
-  $("#roleUnit").prop('disabled', true);
+  $("#roleDepartment").prop('disabled', true);
   $('.selectpicker').selectpicker('refresh');
   if ($(this).children('option:nth-child(2)').is(':selected')) {
-    $("#roleUnit").prop('disabled', false);
+    $("#roleDepartment").prop('disabled', false);
     $('.selectpicker').selectpicker('refresh');
   }
 });
