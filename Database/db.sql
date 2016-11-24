@@ -352,42 +352,6 @@ NOCACHE
 MONITORING;
 
 
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_USER_ABILITY_REL CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_USER_ABILITY_REL
-(
-  PK                NUMBER(9),
-  USER_FK           VARCHAR2(20 BYTE),
-  ABILITY_FK        INTEGER,
-  ABILITY_LEVEL_FK  INTEGER,
-  CREATION_TIME     TIMESTAMP(6)                DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME     TIMESTAMP(6)
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
 CREATE UNIQUE INDEX SYSTEM.SYS_C0014795 ON SYSTEM.T_ABILITY
 (PK)
 LOGGING
@@ -561,25 +525,6 @@ STORAGE    (
 
 CREATE UNIQUE INDEX SYSTEM.SYS_C0014804 ON SYSTEM.T_UNIT
 (UNIT_NAME)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014810 ON SYSTEM.T_USER_ABILITY_REL
-(PK)
 LOGGING
 TABLESPACE SYSTEM
 PCTFREE    10
@@ -990,36 +935,6 @@ END;
 /
 
 
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_REL_NEW_RCRD 
-BEFORE INSERT
-ON SYSTEM.T_USER_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_USER_ABILITY_REL_PK.nextval;
-        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_USER_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-END;
-/
-
-
 CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_EDUCATION_NEW_RECORD 
 BEFORE INSERT
 ON SYSTEM.T_EDUCATION_USER_REL
@@ -1075,6 +990,9 @@ NOCACHE
 MONITORING;
 
 
+ALTER TABLE SYSTEM.T_USER
+ DROP PRIMARY KEY CASCADE;
+
 DROP TABLE SYSTEM.T_USER CASCADE CONSTRAINTS;
 
 CREATE TABLE SYSTEM.T_USER
@@ -1092,6 +1010,42 @@ CREATE TABLE SYSTEM.T_USER
   IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL,
   ROLE_FK        INTEGER                        NOT NULL,
   EMAIL          VARCHAR2(254 BYTE)             NOT NULL
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_USER_ABILITY_REL CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_USER_ABILITY_REL
+(
+  PK                NUMBER(9),
+  ABILITY_FK        INTEGER                     NOT NULL,
+  ABILITY_LEVEL_FK  INTEGER                     NOT NULL,
+  CREATION_TIME     TIMESTAMP(6)                DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME     TIMESTAMP(6),
+  USER_FK           INTEGER                     NOT NULL
 )
 TABLESPACE SYSTEM
 PCTUSED    40
@@ -1210,6 +1164,25 @@ STORAGE    (
             BUFFER_POOL      DEFAULT
            );
 
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014810 ON SYSTEM.T_USER_ABILITY_REL
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
 CREATE UNIQUE INDEX SYSTEM.T_USER_U03 ON SYSTEM.T_USER
 (EMAIL)
 LOGGING
@@ -1260,6 +1233,36 @@ BEGIN
                 
         :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
     END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_REL_NEW_RCRD 
+BEFORE INSERT
+ON SYSTEM.T_USER_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_USER_ABILITY_REL_PK.nextval;
+        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_USER_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
 END;
 /
 
@@ -1586,27 +1589,6 @@ ALTER TABLE SYSTEM.T_UNIT ADD (
                )
   ENABLE VALIDATE);
 
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
 ALTER TABLE SYSTEM.T_ROLE ADD (
   PRIMARY KEY
   (PK)
@@ -1628,6 +1610,49 @@ ALTER TABLE SYSTEM.T_ROLE ADD (
                )
   ENABLE VALIDATE,
   UNIQUE (ROLE_NAME)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_USER ADD (
+  CONSTRAINT T_USER_PK
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL ADD (
+  PRIMARY KEY
+  (PK)
   USING INDEX
     TABLESPACE SYSTEM
     PCTFREE    10
@@ -1668,6 +1693,440 @@ ALTER TABLE SYSTEM.T_USER ADD (
   REFERENCES SYSTEM.T_ROLE (PK)
   ON DELETE CASCADE
   ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL ADD (
+  CONSTRAINT T_USER_ABILITY_REL_R01 
+  FOREIGN KEY (ABILITY_FK) 
+  REFERENCES SYSTEM.T_ABILITY (PK)
+  ENABLE VALIDATE,
+  CONSTRAINT T_USER_ABILITY_REL_R02 
+  FOREIGN KEY (ABILITY_LEVEL_FK) 
+  REFERENCES SYSTEM.T_ABILITY_LEVEL (PK)
+  ENABLE VALIDATE,
+  CONSTRAINT T_USER_ABILITY_REL_R03 
+  FOREIGN KEY (USER_FK) 
+  REFERENCES SYSTEM.T_USER (PK)
+  ON DELETE CASCADE
+  ENABLE VALIDATE);
+DROP PROCEDURE SYSTEM.SP_ASSIGN_ABILITIES_TO_EDU;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_ABILITIES_TO_EDU" (edu_id IN INTEGER,ablty_ids IN INT_ARRAY,is_valid OUT CHAR)
+AS
+BEGIN
+    FOR i IN 1..ablty_ids.count LOOP
+        INSERT INTO T_EDUCATION_ABILITY_REL(EDUCATION_FK,ABILITY_FK) VALUES(edu_id,ablty_ids(i));  
+    END LOOP;  
+        
+    is_valid := '1';      
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_ASSIGN_ABILITIES_TO_USER;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_ABILITIES_TO_USER" (usr_id IN INTEGER,ablty_ids IN INT_ARRAY,level_ids IN INT_ARRAY,is_valid OUT CHAR)
+AS
+BEGIN
+    FOR i IN 1..ablty_ids.count LOOP
+        INSERT INTO T_USER_ABILITY_REL(USER_FK,ABILITY_FK,ABILITY_LEVEL_FK) VALUES(usr_id,ablty_ids(i),level_ids(i));  
+    END LOOP;
+    
+    is_valid := '1';  
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_ASSIGN_USERS_TO_EDU;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_USERS_TO_EDU" (edu_id IN INTEGER,usr_ids IN INT_ARRAY,is_valid OUT CHAR)
+AS
+BEGIN
+    FOR i IN 1..usr_ids.count LOOP
+        INSERT INTO T_EDUCATION_USER_REL(EDUCATION_FK,USER_FK) VALUES(edu_id,usr_ids(i));  
+    END LOOP;  
+    
+    is_valid := '1';  
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ABILITY" (ablty_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY WHERE ability_name = ablty_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_ABILITY(ABILITY_NAME) VALUES(ablty_name);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY_LEVEL;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ABILITY_LEVEL" (lvl_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY_LEVEL WHERE level_name = lvl_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_ABILITY_LEVEL(LEVEL_NAME) VALUES(lvl_name);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;     
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_DEPARTMENT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_DEPARTMENT" (dep_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_DEPARTMENT WHERE department_name = dep_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_DEPARTMENT(DEPARTMENT_NAME) VALUES(INITCAP(dep_name));
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATION;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_EDUCATION" (edu_subject IN VARCHAR,edu_content IN VARCHAR,
+planned_dte IN VARCHAR,complete_dte IN VARCHAR,edctr_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN
+    INSERT INTO T_EDUCATION(EDUCATION_SUBJECT,EDUCATION_CONTENT,PLANNED_DATE,COMPLETE_DATE,EDUCATOR_FK) 
+        VALUES(edu_subject,edu_content,TO_DATE(planned_dte,'dd-mm-yyyy'),
+            TO_DATE(complete_dte,'dd-mm-yyyy'),edctr_id);
+          
+    is_valid := '1';          
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATOR;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_EDUCATOR" (edctr_name IN VARCHAR,is_inhuse IN CHAR,usr_id IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+    name_of_user VARCHAR(60);
+BEGIN
+    
+    IF is_inhuse = '1' THEN
+    
+        SELECT COUNT(*) INTO number_of_row FROM T_EDUCATOR WHERE USER_FK = usr_id;
+        
+        IF number_of_row = 0 THEN
+            
+            SELECT CONCAT(CONCAT(FIRST_NAME,' '),LAST_NAME) INTO name_of_user FROM T_USER WHERE U_ID = usr_id;       
+            INSERT INTO T_EDUCATOR(EDUCATOR_NAME,IS_INHOUSE,USER_FK) VALUES(name_of_user,is_inhuse,usr_id);            
+            is_valid := '1';
+        
+        ELSE       
+            is_valid := '0';            
+        END IF;
+        
+    ELSE
+        INSERT INTO T_EDUCATOR(EDUCATOR_NAME,IS_INHOUSE) VALUES(edctr_name,is_inhuse);        
+        is_valid := '1';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_ROLE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ROLE" (r_name IN VARCHAR, unt_id IN INTEGER DEFAULT NULL, dep_id IN OUT INTEGER, is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_ROLE WHERE role_name = r_name;
+    
+    IF number_of_row = 0 THEN
+        --SADECE BIRIM BILGISI ALINDI ISE
+        IF dep_id IS NULL AND unt_id IS NOT NULL THEN
+            SELECT DEPARTMENT_FK INTO dep_id FROM T_UNIT WHERE PK = unt_id;
+            INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK) VALUES(INITCAP(r_name),unt_id,dep_id);
+            is_valid := '1';
+        --SADECE DEPARTMAN BILGISI ALINDI ISE    
+        ELSIF dep_id IS NOT NULL AND unt_id IS NULL THEN
+            INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK) VALUES(INITCAP(r_name),unt_id,dep_id);
+            is_valid := '1';
+        ELSE
+            is_valid := '0';  
+        END IF;     
+    ELSE
+        is_valid := '0';        
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_STATE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_STATE" (stt_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN    
+    SELECT COUNT(*) INTO number_of_row FROM T_STATE WHERE state_name = stt_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_STATE(STATE_NAME) VALUES(stt_name);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;  
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_UNIT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_UNIT" (unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+    --dep_id INTEGER;
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_UNIT WHERE unit_name = unt_name;
+    IF number_of_row = 0 THEN
+        --SELECT PK INTO dep_id FROM T_DEPARTMENT WHERE department_name = dep_name;
+        INSERT INTO T_UNIT(UNIT_NAME,DEPARTMENT_FK) VALUES(INITCAP(unt_name),dep_id);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_USER;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_USER" (usr_id IN VARCHAR,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
+    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_user INTEGER;
+    number_of_email INTEGER;
+    number_of_phone INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE U_ID = usr_id;
+    SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
+    SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
+    
+    IF number_of_user = 0 AND number_of_email = 0 AND number_of_phone = 0 THEN
+        INSERT INTO T_USER(U_ID,FIRST_NAME,LAST_NAME,DATE_OF_BIRTH,PHONE_NUMBER,ADDRESS,EMAIL) 
+            VALUES(usr_id,fname,lname,TO_DATE(dte_of_birth,'dd-mm-yyyy'),phne_num,addrss,e_mail); 
+        
+        is_valid := '1';  
+          
+    ELSE
+        is_valid := '0';
+        
+    END IF;    
+           
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_ABILITY;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_ABILITY" (ablty_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_rows INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_rows FROM T_USER_ABILITY_REL WHERE ABILITY_FK = ablty_id;
+    IF number_of_rows = 0 THEN
+        DELETE FROM T_ABILITY WHERE PK = ablty_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;
+    
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_DEPARTMENT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_DEPARTMENT" (dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_role INTEGER;
+    number_of_unit INTEGER;
+BEGIN
+    --Altinda birim olup olmadiginin kontrolu
+    SELECT COUNT(*) INTO number_of_unit FROM T_UNIT WHERE DEPARTMENT_FK = dep_id;
+    
+    --Altinda rol olup olmadiginin kontrolü
+    SELECT COUNT(*) INTO number_of_role FROM T_ROLE WHERE DEPARTMENT_FK = dep_id;
+    
+    IF number_of_unit = 0 AND number_of_role = 0 THEN
+        DELETE FROM T_DEPARTMENT WHERE PK = dep_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_EDUCATOR;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_EDUCATOR" (edctr_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN 
+    DELETE FROM T_EDUCATOR WHERE PK = edctr_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_ROLE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_ROLE" (rle_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_user INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE ROLE_FK = rle_id;
+    IF number_of_user = 0 THEN
+        DELETE FROM T_ROLE WHERE PK = rle_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;    
+    
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_UNIT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_UNIT" (unt_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_role INTEGER;
+BEGIN
+    --Altinda rol olup olmadiginin kontrolü
+    SELECT COUNT(*) INTO number_of_role FROM T_ROLE WHERE UNIT_FK = unt_id;
+    IF number_of_role = 0 THEN
+        DELETE FROM T_UNIT WHERE PK = unt_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ABILITY" (ablty_id IN INTEGER,ablty_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_ABILITY SET ABILITY_NAME = ablty_name WHERE PK = ablty_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY_LEVEL;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ABILITY_LEVEL" (lvl_id IN INTEGER,lvl_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_ABILITY_LEVEL SET LEVEL_NAME = lvl_name WHERE PK = lvl_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_DEPARTMENT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_DEPARTMENT" (dep_id IN INTEGER,dep_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_DEPARTMENT SET DEPARTMENT_NAME = INITCAP(dep_name) WHERE PK = dep_id;
+    is_valid := '1';
+    commit;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_ROLE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ROLE" (rle_id IN INTEGER,rle_name IN VARCHAR,unt_id IN INTEGER,dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_ROLE SET ROLE_NAME = INITCAP(rle_name),UNIT_FK = unt_id, DEPARTMENT_FK = dep_id WHERE PK = rle_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_UNIT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_UNIT" (unt_id IN INTEGER,unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_UNIT SET UNIT_NAME = INITCAP(unt_name),DEPARTMENT_FK = dep_id WHERE PK = unt_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_USER;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_USER" (usr_id IN INTEGER,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
+    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,ablty_ids IN INT_ARRAY,level_ids IN INT_ARRAY,is_valid OUT CHAR)
+AS
+    number_of_email INTEGER;
+    number_of_phone INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
+    SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
+    
+    IF number_of_email = 0 AND number_of_phone = 0 THEN
+        UPDATE T_USER SET EMAIL = e_mail, FIRST_NAME = fname, LAST_NAME = lname, 
+            DATE_OF_BIRTH = TO_DATE(dte_of_birth,'mm-dd-yyyy'), PHONE_NUMBER = phne_num, ADDRESS = addrss WHERE U_ID = usr_id;
+            
+        DELETE FROM T_USER_ABILITY_REL WHERE USER_FK = usr_id;
+        
+        FOR i IN 1..ablty_ids.count LOOP
+            INSERT INTO T_USER_ABILITY_REL(USER_FK,ABILITY_FK,ABILITY_LEVEL_FK) VALUES(usr_id,ablty_ids(i),level_ids(i));  
+        END LOOP;
+        
+        is_valid := '1';      
+    ELSE
+        is_valid := '0';
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_USER_LOGIN;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_USER_LOGIN" (user_id IN VARCHAR,user_pw IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row NUMERIC ;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_USER WHERE u_id = user_id AND u_pw = user_pw;
+
+    IF number_of_row = 1 THEN
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+        
+    END IF;
+END;
+/
 DROP TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD;
 
 CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD 
@@ -2142,418 +2601,6 @@ BEGIN
     END IF;
 END;
 /
-DROP PROCEDURE SYSTEM.SP_ASSIGN_ABILITIES_TO_EDU;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_ABILITIES_TO_EDU" (edu_id IN INTEGER,ablty_ids IN INT_ARRAY,is_valid OUT CHAR)
-AS
-BEGIN
-    FOR i IN 1..ablty_ids.count LOOP
-        INSERT INTO T_EDUCATION_ABILITY_REL(EDUCATION_FK,ABILITY_FK) VALUES(edu_id,ablty_ids(i));  
-    END LOOP;  
-        
-    is_valid := '1';      
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_ASSIGN_ABILITIES_TO_USER;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_ABILITIES_TO_USER" (usr_id IN INTEGER,ablty_ids IN INT_ARRAY,level_ids IN INT_ARRAY,is_valid OUT CHAR)
-AS
-BEGIN
-    FOR i IN 1..ablty_ids.count LOOP
-        INSERT INTO T_USER_ABILITY_REL(USER_FK,ABILITY_FK,ABILITY_LEVEL_FK) VALUES(usr_id,ablty_ids(i),level_ids(i));  
-    END LOOP;
-    
-    is_valid := '1';  
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_ASSIGN_USERS_TO_EDU;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_USERS_TO_EDU" (edu_id IN INTEGER,usr_ids IN INT_ARRAY,is_valid OUT CHAR)
-AS
-BEGIN
-    FOR i IN 1..usr_ids.count LOOP
-        INSERT INTO T_EDUCATION_USER_REL(EDUCATION_FK,USER_FK) VALUES(edu_id,usr_ids(i));  
-    END LOOP;  
-    
-    is_valid := '1';  
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ABILITY" (ablty_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY WHERE ability_name = ablty_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_ABILITY(ABILITY_NAME) VALUES(ablty_name);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY_LEVEL;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ABILITY_LEVEL" (lvl_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY_LEVEL WHERE level_name = lvl_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_ABILITY_LEVEL(LEVEL_NAME) VALUES(lvl_name);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;     
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_DEPARTMENT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_DEPARTMENT" (dep_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_DEPARTMENT WHERE department_name = dep_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_DEPARTMENT(DEPARTMENT_NAME) VALUES(INITCAP(dep_name));
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATION;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_EDUCATION" (edu_subject IN VARCHAR,edu_content IN VARCHAR,
-planned_dte IN VARCHAR,complete_dte IN VARCHAR,edctr_id IN INTEGER,is_valid OUT CHAR)
-AS
-BEGIN
-    INSERT INTO T_EDUCATION(EDUCATION_SUBJECT,EDUCATION_CONTENT,PLANNED_DATE,COMPLETE_DATE,EDUCATOR_FK) 
-        VALUES(edu_subject,edu_content,TO_DATE(planned_dte,'dd-mm-yyyy'),
-            TO_DATE(complete_dte,'dd-mm-yyyy'),edctr_id);
-          
-    is_valid := '1';          
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATOR;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_EDUCATOR" (edctr_name IN VARCHAR,is_inhuse IN CHAR,usr_id IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-    name_of_user VARCHAR(60);
-BEGIN
-    
-    IF is_inhuse = '1' THEN
-    
-        SELECT COUNT(*) INTO number_of_row FROM T_EDUCATOR WHERE USER_FK = usr_id;
-        
-        IF number_of_row = 0 THEN
-            
-            SELECT CONCAT(CONCAT(FIRST_NAME,' '),LAST_NAME) INTO name_of_user FROM T_USER WHERE U_ID = usr_id;       
-            INSERT INTO T_EDUCATOR(EDUCATOR_NAME,IS_INHOUSE,USER_FK) VALUES(name_of_user,is_inhuse,usr_id);            
-            is_valid := '1';
-        
-        ELSE       
-            is_valid := '0';            
-        END IF;
-        
-    ELSE
-        INSERT INTO T_EDUCATOR(EDUCATOR_NAME,IS_INHOUSE) VALUES(edctr_name,is_inhuse);        
-        is_valid := '1';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_ROLE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ROLE" (r_name IN VARCHAR, unt_id IN INTEGER DEFAULT NULL, dep_id IN INTEGER DEFAULT NULL, is_valid OUT CHAR)
-AS
-    --unit_id INTEGER;
-    --dep_id INTEGER;
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_ROLE WHERE role_name = r_name;
-    IF number_of_row = 0 THEN
-        --SELECT PK INTO unit_id FROM T_UNIT WHERE unit_name = unt_name; 
-        --SELECT PK INTO dep_id FROM T_DEPARTMENT WHERE department_name = dep_name;
-        INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK) VALUES(INITCAP(r_name),unt_id,dep_id);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_STATE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_STATE" (stt_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN    
-    SELECT COUNT(*) INTO number_of_row FROM T_STATE WHERE state_name = stt_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_STATE(STATE_NAME) VALUES(stt_name);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;  
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_UNIT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_UNIT" (unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
-AS
-    --dep_id INTEGER;
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_UNIT WHERE unit_name = unt_name;
-    IF number_of_row = 0 THEN
-        --SELECT PK INTO dep_id FROM T_DEPARTMENT WHERE department_name = dep_name;
-        INSERT INTO T_UNIT(UNIT_NAME,DEPARTMENT_FK) VALUES(INITCAP(unt_name),dep_id);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_USER;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_USER" (usr_id IN VARCHAR,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
-    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_user INTEGER;
-    number_of_email INTEGER;
-    number_of_phone INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE U_ID = usr_id;
-    SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
-    SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
-    
-    IF number_of_user = 0 AND number_of_email = 0 AND number_of_phone = 0 THEN
-        INSERT INTO T_USER(U_ID,FIRST_NAME,LAST_NAME,DATE_OF_BIRTH,PHONE_NUMBER,ADDRESS,EMAIL) 
-            VALUES(usr_id,fname,lname,TO_DATE(dte_of_birth,'dd-mm-yyyy'),phne_num,addrss,e_mail); 
-        
-        is_valid := '1';  
-          
-    ELSE
-        is_valid := '0';
-        
-    END IF;    
-           
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_ABILITY;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_ABILITY" (ablty_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_rows INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_rows FROM T_USER_ABILITY_REL WHERE ABILITY_FK = ablty_id;
-    IF number_of_rows = 0 THEN
-        DELETE FROM T_ABILITY WHERE PK = ablty_id;
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;
-    
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_DEPARTMENT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_DEPARTMENT" (dep_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_role INTEGER;
-    number_of_unit INTEGER;
-BEGIN
-    --Altinda birim olup olmadiginin kontrolu
-    SELECT COUNT(*) INTO number_of_unit FROM T_UNIT WHERE DEPARTMENT_FK = dep_id;
-    
-    --Altinda rol olup olmadiginin kontrolü
-    SELECT COUNT(*) INTO number_of_role FROM T_ROLE WHERE DEPARTMENT_FK = dep_id;
-    
-    IF number_of_unit = 0 AND number_of_role = 0 THEN
-        DELETE FROM T_DEPARTMENT WHERE PK = dep_id;
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_EDUCATOR;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_EDUCATOR" (edctr_id IN INTEGER,is_valid OUT CHAR)
-AS
-BEGIN 
-    DELETE FROM T_EDUCATOR WHERE PK = edctr_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_ROLE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_ROLE" (rle_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_user INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE ROLE_FK = rle_id;
-    IF number_of_user = 0 THEN
-        DELETE FROM T_ROLE WHERE PK = rle_id;
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;    
-    
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_UNIT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_UNIT" (unt_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_role INTEGER;
-BEGIN
-    --Altinda rol olup olmadiginin kontrolü
-    SELECT COUNT(*) INTO number_of_role FROM T_ROLE WHERE UNIT_FK = unt_id;
-    IF number_of_role = 0 THEN
-        DELETE FROM T_UNIT WHERE PK = unt_id;
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ABILITY" (ablty_id IN INTEGER,ablty_name IN VARCHAR,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_ABILITY SET ABILITY_NAME = ablty_name WHERE PK = ablty_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY_LEVEL;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ABILITY_LEVEL" (lvl_id IN INTEGER,lvl_name IN VARCHAR,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_ABILITY_LEVEL SET LEVEL_NAME = lvl_name WHERE PK = lvl_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_DEPARTMENT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_DEPARTMENT" (dep_id IN INTEGER,dep_name IN VARCHAR,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_DEPARTMENT SET DEPARTMENT_NAME = INITCAP(dep_name) WHERE PK = dep_id;
-    is_valid := '1';
-    commit;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_ROLE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ROLE" (rle_id IN INTEGER,rle_name IN VARCHAR,unt_id IN INTEGER,dep_id IN INTEGER,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_ROLE SET ROLE_NAME = INITCAP(rle_name),UNIT_FK = unt_id, DEPARTMENT_FK = dep_id WHERE PK = rle_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_UNIT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_UNIT" (unt_id IN INTEGER,unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_UNIT SET UNIT_NAME = INITCAP(unt_name),DEPARTMENT_FK = dep_id WHERE PK = unt_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_USER;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_USER" (usr_id IN VARCHAR,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
-    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,ablty_ids IN INT_ARRAY,level_ids IN INT_ARRAY,is_valid OUT CHAR)
-AS
-    number_of_email INTEGER;
-    number_of_phone INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
-    SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
-    
-    IF number_of_email = 0 AND number_of_phone = 0 THEN
-        UPDATE T_USER SET EMAIL = e_mail, FIRST_NAME = fname, LAST_NAME = lname, 
-            DATE_OF_BIRTH = TO_DATE(dte_of_birth,'mm-dd-yyyy'), PHONE_NUMBER = phne_num, ADDRESS = addrss WHERE U_ID = usr_id;
-            
-        DELETE FROM T_USER_ABILITY_REL WHERE USER_FK = usr_id;
-        
-        FOR i IN 1..ablty_ids.count LOOP
-            INSERT INTO T_USER_ABILITY_REL(USER_FK,ABILITY_FK,ABILITY_LEVEL_FK) VALUES(usr_id,ablty_ids(i),level_ids(i));  
-        END LOOP;
-        
-        is_valid := '1';      
-    ELSE
-        is_valid := '0';
-    END IF;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_USER_LOGIN;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_USER_LOGIN" (user_id IN VARCHAR,user_pw IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row NUMERIC ;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_USER WHERE u_id = user_id AND u_pw = user_pw;
-
-    IF number_of_row = 1 THEN
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-        
-    END IF;
-END;
-/
 DROP SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK;
 
 CREATE SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK
@@ -2583,7 +2630,7 @@ CREATE SEQUENCE SYSTEM.SEQ_ABILITY_PK
 DROP SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK;
 
 CREATE SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK
-  START WITH 1500
+  START WITH 1600
   INCREMENT BY 5
   MAXVALUE 999999999999999999999999999
   MINVALUE 100
@@ -2649,7 +2696,7 @@ CREATE SEQUENCE SYSTEM.SEQ_EDUCATOR_PK
 DROP SEQUENCE SYSTEM.SEQ_ROLE_PK;
 
 CREATE SEQUENCE SYSTEM.SEQ_ROLE_PK
-  START WITH 30000
+  START WITH 40000
   INCREMENT BY 500
   MAXVALUE 999999999999999999999999999
   MINVALUE 10000
@@ -2676,7 +2723,7 @@ CREATE SEQUENCE SYSTEM.SEQ_STATE_PK
 DROP SEQUENCE SYSTEM.SEQ_UNIT_PK;
 
 CREATE SEQUENCE SYSTEM.SEQ_UNIT_PK
-  START WITH 4000
+  START WITH 5000
   INCREMENT BY 50
   MAXVALUE 999999999999999999999999999
   MINVALUE 1000
