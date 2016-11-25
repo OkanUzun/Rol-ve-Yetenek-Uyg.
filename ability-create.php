@@ -1,4 +1,48 @@
-<?php include "header.php"; ?>
+<?php 
+  include "header.php";
+  include "dbsettings.php";
+
+  if (isset($_POST["create-ability"])){
+    $sql = 'BEGIN SP_CREATE_ABILITY(:ablty_name,:is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
+
+
+    oci_bind_by_name($stmt,':ablty_name',$ablty_name);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $ablty_name = $_POST["ability_name"];
+
+    oci_execute($stmt);
+    //echo "$message\n";
+  }
+
+  else if (isset($_POST["update-ability"])){
+    $sql = 'BEGIN SP_UPDATE_ABILITY(:ablty_id,:ablty_name,:is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
+
+    oci_bind_by_name($stmt,':ablty_id',$ablty_id);
+    oci_bind_by_name($stmt,':ablty_name',$ablty_name);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $ablty_id = $_POST["ability_id"];
+    $ablty_name = $_POST["ability_name"];
+
+    oci_execute($stmt);
+  }
+
+  else if (isset($_POST["delete-ability"])){
+    $sql = 'BEGIN SP_REMOVE_ABILITY(:ablty_id,:is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
+
+
+    oci_bind_by_name($stmt,':ablty_id',$ablty_id);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $ablty_id = $_POST["ability_id"];
+
+    oci_execute($stmt);    
+  }
+?>
 
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
@@ -10,9 +54,9 @@
             <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-account-star-variant"></i>Yetenek Oluştur</a>
             <form class="form-create form-inline hidden" method="post">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Yetenek Adı Giriniz">
+                <input type="text" class="form-control" placeholder="Yetenek Adı Giriniz" name="ability_name">
               </div>
-              <button type="submit" class="btn btn-success">Kaydet</button>
+              <button type="submit" class="btn btn-success" name="create-ability">Kaydet</button>
               <button type="button" class="btn btn-danger">İptal</button>
             </form>
           </div>
@@ -26,22 +70,25 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>Java</td>
-                <td>12</td>
-                <td class="text-xs-center">
-                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="Java"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td>PHP</td>
-                <td>5</td>
-                <td class="text-xs-center">
-                  <a href="" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-target="#updateModal" data-name="PHP"><i class="mdi mdi-autorenew"></i></a>
-                  <a href="" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-target="#deleteModal"><i class="mdi mdi-delete"></i></a>
-                </td>
-              </tr>
+              <?php
+              include "dbsettings.php";
+              $sql = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME,(SELECT COUNT(*) FROM T_USER_ABILITY_REL) AS X FROM T_ABILITY
+              LEFT JOIN T_USER_ABILITY_REL ON T_ABILITY.PK = T_USER_ABILITY_REL.ABILITY_FK';
+              $stmt = oci_parse($conn,$sql);
+              $r = oci_execute($stmt);
+              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
+                 echo '<tr>';
+                     echo '<td>'.$row['ABILITY_NAME'].'</td>';
+                     echo '<td>'.$row['X'].'</td>';
+                     echo '
+                     <td class="text-xs-center">
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['ABILITY_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
+                      <a href="department-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
+                     </td>';
+                 echo '<tr>';
+              }
+              ?>
               </tbody>
             </table>
           </div>
@@ -59,18 +106,21 @@
           </button>
           <h4 class="modal-title" id="updateModalLabel">Yetenek Güncelle</h4>
         </div>
+        <form method="post">
         <div class="modal-body">
-          <form method="post">
+          
             <div class="form-group">
               <label for="updateName" class="form-control-label">Yetenek Adı:</label>
-              <input type="text" class="form-control" id="updateName">
+              <input type="text" class="form-control" id="updateName" name="ability_name">
+              <input type="hidden" name="ability_id" id="ability_id">
             </div>
-          </form>
+          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-          <button type="button" class="btn btn-success">Güncelle</button>
+          <button type="submit" class="btn btn-success" name="update-ability">Güncelle</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -84,15 +134,18 @@
           </button>
           <h4 class="modal-title" id="deleteModalLabel">Silme Onayı</h4>
         </div>
+        <form method="post">
         <div class="modal-body">
           <p>Silmek istediğinize emin misiniz?</p>
+          <input type="hidden" name="ability_id" id="ability_id">
         </div>
         <div class="modal-footer">
-          <form method="post">
+          
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-            <button type="submit" class="btn btn-danger">Sil</button>
-          </form>
+            <button type="submit" class="btn btn-danger" name="delete-ability">Sil</button>
+          
         </div>
+        </form>
       </div>
     </div>
   </div>
