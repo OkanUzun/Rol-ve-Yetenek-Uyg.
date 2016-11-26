@@ -1,8 +1,8 @@
 var options = {
   responsive: {
     breakpoints: [
-      { name: 'desktop', width: Infinity },
-      { name: 'mobile',   width: 768 }
+      {name: 'desktop', width: Infinity},
+      {name: 'mobile', width: 768}
     ]
   },
   "language": {
@@ -22,15 +22,15 @@ var options = {
 
 var user = $.extend(options, {
   columnDefs: [
-    { className: 'desktop', targets: [3,4] },
-    { targets: [-1], orderable: false}
+    {className: 'desktop', targets: [3, 4]},
+    {targets: [-1], orderable: false}
   ]
 });
 
 var course = $.extend(options, {
   columnDefs: [
-    { className: 'desktop', targets: [1,3,4] },
-    { targets: [-1], orderable: false}
+    {className: 'desktop', targets: [1, 3, 4]},
+    {targets: [-1], orderable: false}
   ]
 });
 
@@ -52,6 +52,6 @@ $('#dataTable-department, #dataTable-unit, #dataTable-role, #dataTable-ability, 
     }
   },
   columnDefs: [
-    { targets: [-1], orderable: false}
+    {targets: [-1], orderable: false}
   ]
 });

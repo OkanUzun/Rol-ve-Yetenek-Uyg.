@@ -2,7 +2,7 @@
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
     <div class="page-content">
-    <?php include "navbar.php"; ?>
+      <?php include "navbar.php"; ?>
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6 col-lg-4 col-xl-4">

@@ -17,7 +17,7 @@
                     <div class="chart-block">
                       <canvas id="lineChart" height="300px"></canvas>
                       <script>
-                        var dynamicColors = function() {
+                        var dynamicColors = function () {
                           var r = Math.floor(Math.random() * 255);
                           var g = Math.floor(Math.random() * 255);
                           var b = Math.floor(Math.random() * 255);
@@ -67,8 +67,8 @@
                             },
                             tooltips: {
                               callbacks: {
-                                label: function(tooltipItem) {
-                                  return "Çalışan sayısı: "+Number(tooltipItem.yLabel);
+                                label: function (tooltipItem) {
+                                  return "Çalışan sayısı: " + Number(tooltipItem.yLabel);
                                 }
                               }
                             }
@@ -118,8 +118,8 @@
                             },
                             tooltips: {
                               callbacks: {
-                                label: function(tooltipItem) {
-                                  return "Eğitim Sayısı: "+Number(tooltipItem.yLabel);
+                                label: function (tooltipItem) {
+                                  return "Eğitim Sayısı: " + Number(tooltipItem.yLabel);
                                 }
                               }
                             }
@@ -134,7 +134,7 @@
                       <canvas id="pieChart" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("pieChart");
-                        var pieChart = new Chart(ctx,{
+                        var pieChart = new Chart(ctx, {
                           type: 'pie',
                           data: {
                             labels: [
@@ -162,7 +162,7 @@
                       <canvas id="pieChart2" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("pieChart2");
-                        var pieChart = new Chart(ctx,{
+                        var pieChart = new Chart(ctx, {
                           type: 'pie',
                           data: {
                             labels: [
@@ -190,7 +190,7 @@
                       <canvas id="pieChart3" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("pieChart3");
-                        var pieChart3 = new Chart(ctx,{
+                        var pieChart3 = new Chart(ctx, {
                           type: 'bar',
                           data: {
                             labels: [
@@ -218,8 +218,8 @@
                             },
                             tooltips: {
                               callbacks: {
-                                label: function(tooltipItem) {
-                                  return Number(tooltipItem.yLabel)+" Kişi";
+                                label: function (tooltipItem) {
+                                  return Number(tooltipItem.yLabel) + " Kişi";
                                 }
                               }
                             }
@@ -234,7 +234,7 @@
                       <canvas id="barChart" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("barChart");
-                        var barChart = new Chart(ctx,{
+                        var barChart = new Chart(ctx, {
                           type: 'bar',
                           data: {
                             labels: [
@@ -286,8 +286,8 @@
                             },
                             tooltips: {
                               callbacks: {
-                                label: function(tooltipItem) {
-                                  return Number(tooltipItem.yLabel)+" Kişi";
+                                label: function (tooltipItem) {
+                                  return Number(tooltipItem.yLabel) + " Kişi";
                                 }
                               }
                             }

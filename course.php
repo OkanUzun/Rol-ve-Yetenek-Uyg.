@@ -37,7 +37,9 @@
                     <span class="cancel">İptal Edildi<i class="mdi mdi-timer-off"></i></span>
                   </div>
                 </td>
-                <td class="text-xs-center"><a href="course-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a></td>
+                <td class="text-xs-center">
+                  <a href="course-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
+                </td>
               </tr>
               <tr>
                 <td>Java Eğitimi</td>
@@ -53,7 +55,9 @@
                     <span class="cancel hidden">İptal Edildi<i class="mdi mdi-timer-off"></i></span>
                   </div>
                 </td>
-                <td class="text-xs-center"><a href="course-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a></td>
+                <td class="text-xs-center">
+                  <a href="course-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
+                </td>
               </tr>
               <tr>
                 <td>Java Eğitimi</td>
@@ -69,7 +73,9 @@
                     <span class="cancel hidden">İptal Edildi<i class="mdi mdi-timer-off"></i></span>
                   </div>
                 </td>
-                <td class="text-xs-center"><a href="course-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a></td>
+                <td class="text-xs-center">
+                  <a href="course-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
+                </td>
               </tr>
               <tr>
                 <td>Java Eğitimi</td>
@@ -85,7 +91,9 @@
                     <span class="cancel hidden">İptal Edildi<i class="mdi mdi-timer-off"></i></span>
                   </div>
                 </td>
-                <td class="text-xs-center"><a href="course-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a></td>
+                <td class="text-xs-center">
+                  <a href="course-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
+                </td>
               </tr>
               </tbody>
             </table>

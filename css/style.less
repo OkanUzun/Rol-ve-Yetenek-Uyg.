@@ -6,7 +6,7 @@
   }
 }
 
-html,body {
+html, body {
   font-family: 'Roboto Condensed', sans-serif;
   background-color: #E7EDEE;
   position: relative;
@@ -57,8 +57,9 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 input[type=number] {
-  -moz-appearance:textfield;
+  -moz-appearance: textfield;
 }
 
 @pink: #E91E63;
@@ -77,18 +78,23 @@ input[type=number] {
 .text-green {
   color: @success !important;
 }
+
 .text-pink {
   color: @pink !important;
 }
+
 .text-purple {
   color: @purple !important;
 }
+
 .text-deep-purple {
   color: @deep-purple !important;
 }
+
 .text-indigo {
   color: @indigo !important;
 }
+
 .text-blue {
   color: @primary !important;
 }
@@ -165,7 +171,7 @@ input[type=number] {
   .shadow;
   &:focus {
     outline: 0;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(57,195,218, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(57, 195, 218, .6);
     border-color: #E7EDEE;
   }
 }
@@ -207,48 +213,48 @@ textarea {
 .btn-secondary {
   color: #333;
   border: 1px solid #E7EDEE;
-  &:hover,&:focus {
+  &:hover, &:focus {
     background-color: #fff;
   }
 }
 
 .btn-primary {
   background-color: @primary;
-  &:hover,&:focus {
+  &:hover, &:focus {
     background-color: darken(@primary, 15%);
   }
 }
 
 .btn-danger {
   background-color: @danger;
-  &:hover,&:focus {
+  &:hover, &:focus {
     background-color: darken(@danger, 15%);
   }
 }
 
 .btn-success {
   background-color: @success;
-  &:hover,&:focus {
+  &:hover, &:focus {
     background-color: darken(@success, 15%);
   }
 }
 
 .btn-info {
   background-color: @info;
-  &:hover,&:focus {
+  &:hover, &:focus {
     background-color: darken(@info, 15%);
   }
 }
 
 .btn-warning {
   background-color: @warning;
-  &:hover,&:focus {
+  &:hover, &:focus {
     background-color: darken(@warning, 15%);
   }
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 3px;
   background-color: #F5F5F5;
 }
@@ -260,7 +266,7 @@ textarea {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   background-color: #A0A0A0;
 }
 
@@ -1073,8 +1079,6 @@ textarea {
 
 /* MAIN CONTENT CSS */
 
-
-
 // Checkbox
 [type=checkbox]:checked, [type=checkbox]:not(:checked), [type=radio]:checked, [type=radio]:not(:checked) {
   position: absolute;
@@ -1169,7 +1173,6 @@ textarea {
   font-family: 'Material Design Icons';
   font-size: 18px;
 }
-
 
 // Responsive Breakpoints
 @media (max-width: 1200px) {
@@ -1304,9 +1307,11 @@ textarea {
       }
     }
   }
+
   .side-navigation.active {
     transform: translate(0, 0);
   }
+
   .wrapper {
     .page-content {
       padding-left: 0;
@@ -1422,13 +1427,16 @@ textarea {
       }
     }
   }
+
   .wrapper.active {
     overflow: hidden;
     height: 100vh;
   }
+
   .card-login {
     margin: 80px 0 0 0;
   }
+
   .dataTables_wrapper {
     .dataTables_length {
       margin-bottom: 10px;
@@ -1492,6 +1500,7 @@ textarea {
       }
     }
   }
+
   .modal {
     .modal-content {
       .modal-header {

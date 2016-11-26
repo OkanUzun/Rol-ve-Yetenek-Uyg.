@@ -27,7 +27,9 @@
                 <td>Okan Uzun</td>
                 <td>Java</td>
                 <td>Kötü</td>
-                <td class="text-xs-center"><button type="submit" class="btn btn-danger">Çıkar</button></td>
+                <td class="text-xs-center">
+                  <button type="submit" class="btn btn-danger">Çıkar</button>
+                </td>
               </tr>
               </tbody>
             </table>

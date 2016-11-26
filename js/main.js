@@ -105,8 +105,6 @@ $('#updateModal').on('show.bs.modal', function (event) {
   var surname = button.data('surname');
   var department = button.data('department');
   var unit = button.data('unit');
-  var role = button.data('role');
-  var ability = button.data('ability');
   var id = button.data('id');
   var modal = $(this);
 
@@ -115,10 +113,10 @@ $('#updateModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body #updateDepartment').val(department);
 
   modal.find('.modal-body').find("[data-id='updateDepartmentSelect']").attr('title', department).children('.filter-option').text(department);
-  modal.find('.modal-body #updateDepartmentSelect option:contains('+department+')').attr('selected', 'selected');
+  modal.find('.modal-body #updateDepartmentSelect option:contains(' + department + ')').attr('selected', 'selected');
 
   modal.find('.modal-body').find("[data-id='updateUnitSelect']").attr('title', unit).children('.filter-option').text(unit);
-  modal.find('.modal-body #updateUnitSelect option:contains('+unit+')').attr('selected', 'selected');
+  modal.find('.modal-body #updateUnitSelect option:contains(' + unit + ')').attr('selected', 'selected');
 
   modal.find('.modal-body #dep_id').val(id);
   modal.find('.modal-body #unit_id').val(id);
@@ -170,11 +168,11 @@ $("#abilityShow").click(function () {
       success: function (data) {
         $("#ability-container").html(
           '<div class="card-title">' +
-            '<span>Yetenekler</span>' +
-            '<div class="card-buttons">' +
-              '<button type="button" class="btn btn-danger">İPTAL</button>' +
-              '<button type="submit" class="btn btn-success">KAYDET</button>' +
-            '</div>' +
+          '<span>Yetenekler</span>' +
+          '<div class="card-buttons">' +
+          '<button type="button" class="btn btn-danger">İPTAL</button>' +
+          '<button type="submit" class="btn btn-success">KAYDET</button>' +
+          '</div>' +
           '</div>' +
           '<table class="table" id="dataTable-addability">' +
           '<thead>' +
@@ -188,7 +186,7 @@ $("#abilityShow").click(function () {
           '</thead>' +
           '<tbody></tbody>' +
           '</table>');
-        $.each(data, function(i, data) {
+        $.each(data, function (i, data) {
           data.a += 1;
           $('#dataTable-addability').dataTable({
             bRetrieve: true,
@@ -207,30 +205,30 @@ $("#abilityShow").click(function () {
             },
             responsive: {
               breakpoints: [
-                { name: 'desktop', width: Infinity },
-                { name: 'mobile',   width: 768 }
+                {name: 'desktop', width: Infinity},
+                {name: 'mobile', width: 768}
               ]
             },
             columnDefs: [
-              { className: 'desktop', targets: [2,3,4,5,6] }
+              {className: 'desktop', targets: [2, 3, 4, 5, 6]}
             ],
             "columns": [
               null,
-              { "orderable": false },
-              { "orderable": false },
-              { "orderable": false },
-              { "orderable": false },
-              { "orderable": false },
-              { "orderable": false }
+              {"orderable": false},
+              {"orderable": false},
+              {"orderable": false},
+              {"orderable": false},
+              {"orderable": false},
+              {"orderable": false}
             ]
           }).fnAddData([
             data.b,
-            '<input id="'+data.a+'" name="'+data.b+'" type="radio" class="form-control" checked><label for="'+data.a+++'"></label>',
-            '<input id="'+data.a+'" name="'+data.b+'" type="radio" class="form-control"><label for="'+data.a+++'"></label>',
-            '<input id="'+data.a+'" name="'+data.b+'" type="radio" class="form-control"><label for="'+data.a+++'"></label>',
-            '<input id="'+data.a+'" name="'+data.b+'" type="radio" class="form-control"><label for="'+data.a+++'"></label>',
-            '<input id="'+data.a+'" name="'+data.b+'" type="radio" class="form-control"><label for="'+data.a+++'"></label>',
-            '<input id="'+data.a+'" name="'+data.b+'" type="radio" class="form-control"><label for="'+data.a+'"></label>'
+            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control" checked><label for="' + data.a++ + '"></label>',
+            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a++ + '"></label>',
+            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a++ + '"></label>',
+            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a++ + '"></label>',
+            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a++ + '"></label>',
+            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a + '"></label>'
           ]);
         });
         $("#ability-container .btn-danger").click(function () {
@@ -238,7 +236,7 @@ $("#abilityShow").click(function () {
         });
       }
     });
-  },1000);
+  }, 1000);
 });
 
 // Eğitime Kullanıcı Ekleme AJAX
@@ -269,7 +267,7 @@ $("#courseAddUserButton").click(function () {
           '<tbody></tbody>' +
           '</table>' +
           '</form>');
-        $.each(data, function(i, data) {
+        $.each(data, function (i, data) {
           $('#dataTable2').dataTable({
             bRetrieve: true,
             responsive: true,
@@ -290,13 +288,13 @@ $("#courseAddUserButton").click(function () {
               null,
               null,
               null,
-              { "orderable": false }
+              {"orderable": false}
             ]
           }).fnAddData([
-            data.ad+" "+data.soyad,
+            data.ad + " " + data.soyad,
             data.yetenek,
             data.seviye,
-            '<input id="'+data.id+'" type="checkbox" class="form-control"><label for="'+data.id+'">Ekle</label>'
+            '<input id="' + data.id + '" type="checkbox" class="form-control"><label for="' + data.id + '">Ekle</label>'
           ]);
         });
         $("#courseAddUser .btn-danger").click(function () {
@@ -304,7 +302,7 @@ $("#courseAddUserButton").click(function () {
         });
       }
     });
-  },1000);
+  }, 1000);
 });
 
 // Eğitim Konu Düzenleme AJAX
@@ -332,7 +330,7 @@ $("#courseAbilityChange").click(function () {
           '</thead>' +
           '<tbody></tbody>' +
           '</table>');
-        $.each(data, function(i, data) {
+        $.each(data, function (i, data) {
           $('#dataTable-adduser').dataTable({
             bRetrieve: true,
             responsive: true,
@@ -351,11 +349,11 @@ $("#courseAbilityChange").click(function () {
             },
             "columns": [
               null,
-              { "orderable": false }
+              {"orderable": false}
             ]
           }).fnAddData([
             data.b,
-            '<input id="'+data.a+'" type="checkbox" class="form-control"><label for="'+data.a+'">Ekle</label>'
+            '<input id="' + data.a + '" type="checkbox" class="form-control"><label for="' + data.a + '">Ekle</label>'
           ]);
         });
         $("#ability-container .btn-danger").click(function () {
@@ -363,7 +361,7 @@ $("#courseAbilityChange").click(function () {
         });
       }
     });
-  },1000);
+  }, 1000);
 });
 
 
@@ -403,7 +401,7 @@ $(".form-create .btn-danger").click(function () {
   $("#roleDepartment").parent().parent().removeClass("hidden");
 });
 
-$("#roleUnit").change(function() {
+$("#roleUnit").change(function () {
   $("#roleDepartment").prop('disabled', true);
   $('.selectpicker').selectpicker('refresh');
   if ($(this).children('option:nth-child(2)').is(':selected')) {
@@ -413,7 +411,7 @@ $("#roleUnit").change(function() {
 });
 
 
-$(window).resize(function() {
+$(window).resize(function () {
   if ($(window).width() < 768) {
     $("td.desktop").remove();
   }

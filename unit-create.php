@@ -1,52 +1,47 @@
 <?php
-  include "header.php";
-  include "dbsettings.php";
+include "header.php";
+include "dbsettings.php";
 
-  if (isset($_POST["create-unit"])){
-    $sql = 'BEGIN SP_CREATE_UNIT(:unt_name,:dep_id,:is_valid); END;';
-    $stmt = oci_parse($conn,$sql);
+if (isset($_POST["create-unit"])) {
+  $sql = 'BEGIN SP_CREATE_UNIT(:unt_name,:dep_id,:is_valid); END;';
+  $stmt = oci_parse($conn, $sql);
 
+  oci_bind_by_name($stmt, ':unt_name', $unit_name);
+  oci_bind_by_name($stmt, ':dep_id', $dep_id);
+  oci_bind_by_name($stmt, ':is_valid', $message);
 
-    oci_bind_by_name($stmt,':unt_name',$unit_name);
-    oci_bind_by_name($stmt,':dep_id',$dep_id);
-    oci_bind_by_name($stmt,':is_valid',$message);
+  $unit_name = $_POST["unit_name"];
+  $dep_id = $_POST["dep_id"];
 
-    $unit_name = $_POST["unit_name"];
-    $dep_id = $_POST["dep_id"];
+  oci_execute($stmt);
+  //echo "$message\n";
+} else if (isset($_POST["update-unit"])) {
+  $sql = 'BEGIN SP_UPDATE_UNIT(:unt_id,:unt_name,:dep_id,:is_valid); END;';
+  $stmt = oci_parse($conn, $sql);
 
-    oci_execute($stmt);
-    //echo "$message\n";
-  }
+  oci_bind_by_name($stmt, ':unt_id', $unit_id);
+  oci_bind_by_name($stmt, ':unt_name', $unit_name);
+  oci_bind_by_name($stmt, ':dep_id', $dep_id);
+  oci_bind_by_name($stmt, ':is_valid', $message);
 
-  else if (isset($_POST["update-unit"])){
-    $sql = 'BEGIN SP_UPDATE_UNIT(:unt_id,:unt_name,:dep_id,:is_valid); END;';
-    $stmt = oci_parse($conn,$sql);
+  $unit_id = $_POST["unit_id"];
+  $unit_name = $_POST["unit_name"];
+  $dep_id = $_POST["dep_id"];
 
-    oci_bind_by_name($stmt,':unt_id',$unit_id);
-    oci_bind_by_name($stmt,':unt_name',$unit_name);
-    oci_bind_by_name($stmt,':dep_id',$dep_id);
-    oci_bind_by_name($stmt,':is_valid',$message);
+  oci_execute($stmt);
+  //echo "$message\n";
+} else if (isset($_POST["delete-unit"])) {
+  $sql = 'BEGIN SP_REMOVE_UNIT(:unt_id,:is_valid); END;';
+  $stmt = oci_parse($conn, $sql);
 
-    $unit_id = $_POST["unit_id"];
-    $unit_name = $_POST["unit_name"];
-    $dep_id = $_POST["dep_id"];
+  oci_bind_by_name($stmt, ':unt_id', $unit_id);
+  oci_bind_by_name($stmt, ':is_valid', $message);
 
-    oci_execute($stmt);
-    //echo "$message\n";
-  }
+  $unit_id = $_POST["unit_id"];
 
-  else if (isset($_POST["delete-unit"])){
-    $sql = 'BEGIN SP_REMOVE_UNIT(:unt_id,:is_valid); END;';
-    $stmt = oci_parse($conn,$sql);
-
-    oci_bind_by_name($stmt,':unt_id',$unit_id);
-    oci_bind_by_name($stmt,':is_valid',$message);
-
-    $unit_id = $_POST["unit_id"];
-
-    oci_execute($stmt);
-    //echo "$message\n";
-  }
+  oci_execute($stmt);
+  //echo "$message\n";
+}
 
 ?>
 
@@ -64,15 +59,15 @@
               </div>
               <div class="form-group">
                 <?php
-                  include "dbsettings.php";
-                  $sql = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
-                  $stmt = oci_parse($conn,$sql);
-                  $r = oci_execute($stmt);
-                  echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
-                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
-                    echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
-                  }
-                  echo '</select>';
+                include "dbsettings.php";
+                $sql = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+                $stmt = oci_parse($conn, $sql);
+                $r = oci_execute($stmt);
+                echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
+                while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                  echo '<option value ="' . $row["PK"] . '">' . $row["DEPARTMENT_NAME"] . '</option>';
+                }
+                echo '</select>';
                 ?>
               </div>
               <button type="submit" class="btn btn-success" name="create-unit">Kaydet</button>
@@ -95,19 +90,19 @@
               $sql = 'SELECT T_UNIT.PK,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME,(SELECT COUNT(T_USER.PK)
               FROM T_USER,T_ROLE WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.UNIT_FK = T_UNIT.PK ) AS X FROM T_UNIT,T_DEPARTMENT
               WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK';
-              $stmt = oci_parse($conn,$sql);
+              $stmt = oci_parse($conn, $sql);
               $r = oci_execute($stmt);
-              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
-                 echo '<tr>';
-                     echo '<td>'.$row['UNIT_NAME'].'</td>';
-                     echo '<td>'.$row['DEPARTMENT_NAME'].'</td>';
-                     echo '<td>'.$row['X'].'</td>';
-                     echo '
+              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                echo '<tr>';
+                echo '<td>' . $row['UNIT_NAME'] . '</td>';
+                echo '<td>' . $row['DEPARTMENT_NAME'] . '</td>';
+                echo '<td>' . $row['X'] . '</td>';
+                echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNIT_NAME'].'" data-department="'.$row['DEPARTMENT_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
-                      <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="' . $row['PK'] . '" data-name="' . $row['UNIT_NAME'] . '" data-department="' . $row['DEPARTMENT_NAME'] . '"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="' . $row['PK'] . '"><i class="mdi mdi-delete"></i></a>
                      </td>';
-                 echo '<tr>';
+                echo '<tr>';
               }
               ?>
               </tbody>
@@ -129,24 +124,24 @@
         </div>
         <form method="post">
           <div class="modal-body">
-              <div class="form-group">
-                <label for="updateName" class="form-control-label">Birim Adı:</label>
-                <input type="text" class="form-control" id="updateName" name="unit_name">
-                <input type="hidden" name="unit_id" id="unit_id">
-              </div>
-              <div class="form-group">
-                <label for="updateDepartmentSelect" class="form-control-label">Bağlı Olduğu Departman:</label>
-                  <?php
-                    include "dbsettings.php";
-                    $sql = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
-                    $stmt = oci_parse($conn,$sql);
-                    $r = oci_execute($stmt);
-                    echo '<select id="updateDepartmentSelect" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
-                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC))
-                      echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
-                    echo '</select>';
-                  ?>
-              </div>
+            <div class="form-group">
+              <label for="updateName" class="form-control-label">Birim Adı:</label>
+              <input type="text" class="form-control" id="updateName" name="unit_name">
+              <input type="hidden" name="unit_id" id="unit_id">
+            </div>
+            <div class="form-group">
+              <label for="updateDepartmentSelect" class="form-control-label">Bağlı Olduğu Departman:</label>
+              <?php
+              include "dbsettings.php";
+              $sql = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+              $stmt = oci_parse($conn, $sql);
+              $r = oci_execute($stmt);
+              echo '<select id="updateDepartmentSelect" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
+              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
+                echo '<option value ="' . $row["PK"] . '">' . $row["DEPARTMENT_NAME"] . '</option>';
+              echo '</select>';
+              ?>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
@@ -167,14 +162,14 @@
           <h4 class="modal-title" id="deleteModalLabel">Silme Onayı</h4>
         </div>
         <form method="post">
-        <div class="modal-body">
-          <p>Silmek istediğinize emin misiniz?</p>
-          <input type="hidden" name="unit_id" id="unit_id">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-          <button type="submit" class="btn btn-danger" name="delete-unit">Sil</button>
-        </div>
+          <div class="modal-body">
+            <p>Silmek istediğinize emin misiniz?</p>
+            <input type="hidden" name="unit_id" id="unit_id">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            <button type="submit" class="btn btn-danger" name="delete-unit">Sil</button>
+          </div>
         </form>
       </div>
     </div>

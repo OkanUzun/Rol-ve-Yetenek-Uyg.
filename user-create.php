@@ -78,7 +78,7 @@
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <textarea rows="5" class="form-control" placeholder="Adres..." ></textarea>
+                        <textarea rows="5" class="form-control" placeholder="Adres..."></textarea>
                       </div>
                     </div>
                   </div>
