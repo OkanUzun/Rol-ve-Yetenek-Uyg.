@@ -1,4 +1,51 @@
-<?php include "header.php"; ?>
+<?php include 
+  "header.php"; 
+  include "header.php";
+  include "dbsettings.php";
+
+  function randomPassword() {
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass = array(); 
+    $alphaLength = strlen($alphabet) - 1; 
+    for ($i = 0; $i < 8; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass); 
+  }
+
+  if (isset($_POST["create-user"])){
+    $sql = 'BEGIN SP_CREATE_USER(:usr_id,:usr_pw,:e_mail,:fname,:lname,:dte_of_birth,:phne_num,:addrss,:rle_id,:is_valid); END;';
+    $stmt = oci_parse($conn,$sql);
+
+
+    oci_bind_by_name($stmt,':usr_id',$user_id);
+    oci_bind_by_name($stmt,':usr_pw',$user_pw);
+    oci_bind_by_name($stmt,':e_mail',$e_mail);
+    oci_bind_by_name($stmt,':fname',$f_name);
+    oci_bind_by_name($stmt,':lname',$l_name);
+    oci_bind_by_name($stmt,':dte_of_birth',$date_of_birth);
+    oci_bind_by_name($stmt,':phne_num',$phone_number);
+    oci_bind_by_name($stmt,':addrss',$address);
+    oci_bind_by_name($stmt,':rle_id',$role_id);
+    oci_bind_by_name($stmt,':is_valid',$message);
+
+    $r_pw = randomPassword();
+
+    $user_id = $_POST["u_name"];
+    $user_pw = md5($r_pw);
+    $e_mail = $_POST["e_mail"];
+    $f_name = $_POST["f_name"];
+    $l_name = $_POST["l_name"];
+    $date_of_birth = $_POST["date_of_birth"];
+    $phone_number = $_POST["phone_number"];
+    $address = $_POST["address"];
+    $role_id = $_POST["role_id"];
+
+    oci_execute($stmt);
+  }
+   
+?>
 
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
@@ -10,7 +57,7 @@
             <div class="card-header">
               <div class="card-title">Kullanıcı Tanımlama</div>
               <div class="card-buttons">
-                <button type="submit" class="btn btn-success">Kaydet</button>
+                <button type="submit" class="btn btn-success" name="create-user">Kaydet</button>
               </div>
             </div>
             <div class="card-block">
@@ -22,14 +69,17 @@
                     </div>
                     <div class="col-xs-12 col-xl-6">
                       <div class="form-group">
-                        <select class="form-control selectpicker" data-live-search="true" data-size="5" title="Rol Seçiniz">
-                          <option value="Android Developer">Android Developer</option>
-                          <option value="IOS Developer">IOS Developer</option>
-                          <option value="PHP Developer">PHP Developer</option>
-                          <option value="Java Developer">Java Developer</option>
-                          <option value="MySQL Developer">MySQL Developer</option>
-                          <option value="Ruby Developer">Ruby Developer</option>
-                        </select>
+                        <?php
+                          include "dbsettings.php";
+                          $sql = 'SELECT PK,ROLE_NAME FROM T_ROLE';
+                          $stmt = oci_parse($conn,$sql);
+                          $r = oci_execute($stmt);
+                          echo '<select name="role_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Rolünü Seçiniz">';
+                          while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
+                            echo '<option value ="'.$row["PK"].'">'.$row["ROLE_NAME"].'</option>';
+                          }
+                          echo '</select>';
+                        ?>
                       </div>
                     </div>
                   </div>
@@ -41,22 +91,22 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="İsim" required>
+                        <input type="text" class="form-control" placeholder="İsim" name="f_name" required>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Soyisim" required>
+                        <input type="text" class="form-control" placeholder="Soyisim" name="l_name" required>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Kullanıcı Adı" required>
+                        <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="u_name" required>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" required>
+                        <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" name="date_of_birth" required>
                       </div>
                     </div>
                   </div>
@@ -68,17 +118,17 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="form-group">
-                        <input type="email" class="form-control" placeholder="E-mail" required>
+                        <input type="email" class="form-control" placeholder="E-mail" name="e_mail" required>
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="form-group">
-                        <input type="number" class="form-control" placeholder="Mobil Telefon No" required>
+                        <input type="number" class="form-control" placeholder="Mobil Telefon No" name="phone_number" required>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <textarea rows="5" class="form-control" placeholder="Adres..."></textarea>
+                        <textarea rows="5" class="form-control" placeholder="Adres..." name="address" required></textarea>
                       </div>
                     </div>
                   </div>
