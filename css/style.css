@@ -80,6 +80,16 @@ input[type=number] {
 .btn[disabled] {
   pointer-events: none;
 }
+.disabled {
+  cursor: not-allowed;
+}
+.disabled:hover i {
+  background-color: transparent !important;
+}
+.disabled i {
+  border-color: #c8d1d3 !important;
+  color: #c8d1d3 !important;
+}
 .datepicker {
   padding: 8px 12px;
 }

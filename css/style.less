@@ -111,6 +111,19 @@ input[type=number] {
   pointer-events: none;
 }
 
+.disabled {
+  cursor: not-allowed;
+  &:hover {
+    i {
+      background-color: transparent !important;
+    }
+  }
+  i {
+    border-color: @grey !important;
+    color: @grey !important;
+  }
+}
+
 .datepicker {
   padding: 8px 12px;
 }
