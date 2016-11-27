@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css">
   <link rel="stylesheet" type="text/css" href="css/mCustomScrollbar.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.min.css">
 
   <script src="js/chart.bundle.min.js"></script>
 </head>

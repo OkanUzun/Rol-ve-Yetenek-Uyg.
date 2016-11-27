@@ -705,6 +705,7 @@ textarea {
 }
 .wrapper .page-content .card .card-block .table tbody tr td .table-icon {
   display: inline-block;
+  margin-right: 10px;
 }
 .wrapper .page-content .card .card-block .table tbody tr td .table-icon:hover i {
   background-color: #26C6DA;

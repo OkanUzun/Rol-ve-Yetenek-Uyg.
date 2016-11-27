@@ -1,50 +1,50 @@
-<?php include 
-  "header.php"; 
+<?php include "header.php";
   include "header.php";
   include "dbsettings.php";
 
-  function randomPassword() {
-    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-    $pass = array(); 
-    $alphaLength = strlen($alphabet) - 1; 
+  function randomPassword()
+  {
+    $alphabet    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass        = array();
+    $alphaLength = strlen($alphabet) - 1;
     for ($i = 0; $i < 8; $i++) {
-        $n = rand(0, $alphaLength);
-        $pass[] = $alphabet[$n];
+      $n      = rand(0, $alphaLength);
+      $pass[] = $alphabet[ $n ];
     }
-    return implode($pass); 
+    return implode($pass);
   }
 
-  if (isset($_POST["create-user"])){
-    $sql = 'BEGIN SP_CREATE_USER(:usr_id,:usr_pw,:e_mail,:fname,:lname,:dte_of_birth,:phne_num,:addrss,:rle_id,:is_valid); END;';
-    $stmt = oci_parse($conn,$sql);
+  if (isset($_POST["create-user"])) {
+    $sql  = 'BEGIN SP_CREATE_USER(:usr_id,:usr_pw,:e_mail,:fname,:lname,:dte_of_birth,:phne_num,:addrss,:rle_id,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
 
 
-    oci_bind_by_name($stmt,':usr_id',$user_id);
-    oci_bind_by_name($stmt,':usr_pw',$user_pw);
-    oci_bind_by_name($stmt,':e_mail',$e_mail);
-    oci_bind_by_name($stmt,':fname',$f_name);
-    oci_bind_by_name($stmt,':lname',$l_name);
-    oci_bind_by_name($stmt,':dte_of_birth',$date_of_birth);
-    oci_bind_by_name($stmt,':phne_num',$phone_number);
-    oci_bind_by_name($stmt,':addrss',$address);
-    oci_bind_by_name($stmt,':rle_id',$role_id);
-    oci_bind_by_name($stmt,':is_valid',$message);
+    oci_bind_by_name($stmt, ':usr_id', $user_id);
+    oci_bind_by_name($stmt, ':usr_pw', $user_pw);
+    oci_bind_by_name($stmt, ':e_mail', $e_mail);
+    oci_bind_by_name($stmt, ':fname', $f_name);
+    oci_bind_by_name($stmt, ':lname', $l_name);
+    oci_bind_by_name($stmt, ':dte_of_birth', $date_of_birth);
+    oci_bind_by_name($stmt, ':phne_num', $phone_number);
+    oci_bind_by_name($stmt, ':addrss', $address);
+    oci_bind_by_name($stmt, ':rle_id', $role_id);
+    oci_bind_by_name($stmt, ':is_valid', $message);
 
     $r_pw = randomPassword();
 
-    $user_id = $_POST["u_name"];
-    $user_pw = md5($r_pw);
-    $e_mail = $_POST["e_mail"];
-    $f_name = $_POST["f_name"];
-    $l_name = $_POST["l_name"];
+    $user_id       = $_POST["u_name"];
+    $user_pw       = md5($r_pw);
+    $e_mail        = $_POST["e_mail"];
+    $f_name        = $_POST["f_name"];
+    $l_name        = $_POST["l_name"];
     $date_of_birth = $_POST["date_of_birth"];
-    $phone_number = $_POST["phone_number"];
-    $address = $_POST["address"];
-    $role_id = $_POST["role_id"];
+    $phone_number  = $_POST["phone_number"];
+    $address       = $_POST["address"];
+    $role_id       = $_POST["role_id"];
 
     oci_execute($stmt);
   }
-   
+
 ?>
 
   <div class="wrapper">
@@ -71,11 +71,11 @@
                       <div class="form-group">
                         <?php
                           include "dbsettings.php";
-                          $sql = 'SELECT PK,ROLE_NAME FROM T_ROLE';
-                          $stmt = oci_parse($conn,$sql);
-                          $r = oci_execute($stmt);
+                          $sql  = 'SELECT PK,ROLE_NAME FROM T_ROLE';
+                          $stmt = oci_parse($conn, $sql);
+                          $r    = oci_execute($stmt);
                           echo '<select name="role_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Rol Seçiniz">';
-                          while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
+                          while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                             echo '<option value ="'.$row["PK"].'">'.$row["ROLE_NAME"].'</option>';
                           }
                           echo '</select>';

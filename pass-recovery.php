@@ -8,7 +8,7 @@
   <title>Rol ve Yetenek Uygulaması</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.min.css">
 </head>
 <body class="login">
 <div class="container">
