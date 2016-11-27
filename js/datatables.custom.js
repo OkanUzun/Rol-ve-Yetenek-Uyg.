@@ -36,7 +36,7 @@ var course = $.extend(options, {
 
 $('#dataTable-user').DataTable(user);
 $('#dataTable-course').DataTable(course);
-$('#dataTable-department, #dataTable-unit, #dataTable-role, #dataTable-ability, #dataTable-courseusers, #dataTable-detail').DataTable({
+$('#dataTable-department, #dataTable-unit, #dataTable-role, #dataTable-ability, #dataTable-courseusers').DataTable({
   responsive: true,
   "language": {
     "lengthMenu": "Sayfada _MENU_ kayıt göster",

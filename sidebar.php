@@ -65,12 +65,6 @@
           <div class="title">İstatistikler</div>
         </a>
       </li>
-      <li>
-        <a href="ability-change.php">
-          <div class="icon"><i class="mdi mdi-star"></i></div>
-          <div class="title">Yetenek Seviyeleri</div>
-        </a>
-      </li>
       <li class="exit">
         <a href="index.php">
           <div class="icon"><i class="mdi mdi-exit-to-app"></i></div>

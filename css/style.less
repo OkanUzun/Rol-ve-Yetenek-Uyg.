@@ -653,6 +653,8 @@ textarea {
         padding: 12px 15px;
         .card-title {
           position: relative;
+          display: flex;
+          justify-content: space-between;
           flex-grow: 1;
           padding: 0;
           margin: 0;
@@ -661,9 +663,13 @@ textarea {
             font-size: 14px;
           }
           .date {
-            position: absolute;
-            top: 0;
-            right: 0;
+            span {
+              display: block;
+              strong {
+                display: inline-block;
+                min-width: 108px;
+              }
+            }
           }
         }
         .btn {

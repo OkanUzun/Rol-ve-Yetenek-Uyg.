@@ -560,6 +560,8 @@ textarea {
 }
 .wrapper .page-content .card .card-header .card-title {
   position: relative;
+  display: flex;
+  justify-content: space-between;
   flex-grow: 1;
   padding: 0;
   margin: 0;
@@ -569,10 +571,12 @@ textarea {
 .wrapper .page-content .card .card-header .card-title .date {
   font-size: 14px;
 }
-.wrapper .page-content .card .card-header .card-title .date {
-  position: absolute;
-  top: 0;
-  right: 0;
+.wrapper .page-content .card .card-header .card-title .date span {
+  display: block;
+}
+.wrapper .page-content .card .card-header .card-title .date span strong {
+  display: inline-block;
+  min-width: 108px;
 }
 .wrapper .page-content .card .card-header .btn {
   display: inline-block;

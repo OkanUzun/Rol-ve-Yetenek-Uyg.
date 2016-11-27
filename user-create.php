@@ -74,7 +74,7 @@
                           $sql = 'SELECT PK,ROLE_NAME FROM T_ROLE';
                           $stmt = oci_parse($conn,$sql);
                           $r = oci_execute($stmt);
-                          echo '<select name="role_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Rolünü Seçiniz">';
+                          echo '<select name="role_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Rol Seçiniz">';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS+OCI_ASSOC)) {
                             echo '<option value ="'.$row["PK"].'">'.$row["ROLE_NAME"].'</option>';
                           }
