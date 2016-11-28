@@ -138,7 +138,7 @@ input[type=number] {
   border: 0;
   border-radius: 3px;
   color: #000;
-  height: 45px;
+  height: 40px;
   font-size: 14px;
   transition: all 0.3s ease !important;
   box-shadow: 0 1px 2px #c8d1d3;
@@ -602,7 +602,7 @@ textarea {
 }
 .wrapper .page-content .card .card-header .btn-info {
   margin: 0;
-  padding: 10px 16px;
+  padding: 7.5px 16px;
 }
 .wrapper .page-content .card .card-header .dropdown-toggle {
   text-transform: none;
@@ -844,6 +844,12 @@ textarea {
 .form-create {
   width: 100%;
 }
+.form-create .alert {
+  padding: 7px 15px;
+  margin-bottom: 10px;
+  background-color: #a9e8f0;
+  color: #0f5058;
+}
 .form-create .form-group {
   margin-right: 16px;
 }
@@ -863,7 +869,7 @@ textarea {
   font-size: 14px;
 }
 .form-create .btn {
-  padding: 14px 16px !important;
+  padding: 11.5px 16px !important;
 }
 .form-create .instructor-status {
   height: 45px;

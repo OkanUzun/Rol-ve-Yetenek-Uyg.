@@ -178,7 +178,7 @@ input[type=number] {
   border: 0;
   border-radius: 3px;
   color: #000;
-  height: 45px;
+  height: 40px;
   font-size: 14px;
   .transition;
   .shadow;
@@ -699,7 +699,7 @@ textarea {
         }
         .btn-info {
           margin: 0;
-          padding: 10px 16px;
+          padding: 7.5px 16px;
         }
         .dropdown-toggle {
           text-transform: none;
@@ -999,12 +999,18 @@ textarea {
 
 .form-create {
   width: 100%;
+  .alert {
+    padding: 7px 15px;
+    margin-bottom: 10px;
+    background-color: lighten(@info, 30%);
+    color: darken(@info, 30%);
+  }
   .form-group {
     .placeholder();
     margin-right: 16px;
   }
   .btn {
-    padding: 14px 16px !important;
+    padding: 11.5px 16px !important;
   }
   .instructor-status {
     height: 45px;

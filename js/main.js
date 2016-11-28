@@ -380,12 +380,12 @@ $(".instructor").click(function () {
   $(".form-create").removeClass("hidden");
 
   $("label[for='companyIn']").click(function () {
-    $(this).parent().parent().addClass("hidden");
     $(".company-in").removeClass("hidden");
+    $(".company-out").addClass("hidden");
   });
   $("label[for='companyOut']").click(function () {
-    $(this).parent().parent().addClass("hidden");
     $(".company-out").removeClass("hidden");
+    $(".company-in").addClass("hidden");
   });
   $('.form-create select option').prop('selected', function () {
     return this.defaultSelected;
@@ -398,6 +398,7 @@ $(".form-create .btn-danger").click(function () {
   $(".instructor-status").removeClass("hidden");
   $(".create").show();
   $(".instructor").show();
+  $("#companyIn, #companyOut").prop('checked', false);
 });
 
 $("#roleUnit").change(function () {

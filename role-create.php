@@ -66,6 +66,9 @@
           <div class="card-header">
             <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-account-check"></i>Rol Oluştur</a>
             <form class="form-create form-inline hidden" method="post">
+              <div class="alert">
+                <strong>Uyarı!</strong> Lütfen rol oluştururken <u>departman</u> ve <u>birim</u> bilgilerinden sadece bir tanesini seçiniz.
+              </div>
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Rol Adı Giriniz" name="role_name">
               </div>
