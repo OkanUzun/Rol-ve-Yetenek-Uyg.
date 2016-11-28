@@ -595,7 +595,9 @@ textarea {
   margin: 0;
   font-size: 20px;
 }
-.wrapper .page-content .card .card-header .card-title .manager,
+.wrapper .page-content .card .card-header .card-title .manager {
+  font-size: 16px;
+}
 .wrapper .page-content .card .card-header .card-title .date {
   font-size: 14px;
 }
@@ -774,6 +776,20 @@ textarea {
 }
 .wrapper .page-content .card .card-block .btn {
   padding: 8px 16px;
+}
+.wrapper .page-content .card .card-block .list-group .list-group-item a {
+  color: #3F51B5;
+}
+.wrapper .page-content .card .card-block .list-group .list-group-item a:hover {
+  text-decoration: underline;
+}
+.wrapper .page-content .card .card-block .list-group .list-group-item:first-child {
+  background-color: #20457C;
+  color: #fff;
+}
+.wrapper .page-content .card .card-block .list-group .list-group-item:first-child .tag {
+  padding: 5px 10px;
+  font-size: 13px;
 }
 .wrapper .page-content a.card:hover .card-block .card-body i {
   color: #fff !important;

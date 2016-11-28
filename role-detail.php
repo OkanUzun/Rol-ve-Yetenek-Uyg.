@@ -16,42 +16,24 @@
             </div>
           </div>
           <div class="card-block">
-            <table class="table">
-              <thead>
-              <tr>
-                <th>Kayıtlı Kullanıcılar</th>
-                <th>Birim</th>
-                <th>Departman</th>
-                <th>Detay</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>Okan Uzun</td>
-                <td>Yazılım Birimi</td>
-                <td>Bilişim Departmanı</td>
-                <td class="text-xs-center">
-                  <a href="user-detail.php" class="table-icon" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Okan Uzun</td>
-                <td>Yazılım Birimi</td>
-                <td>Bilişim Departmanı</td>
-                <td class="text-xs-center">
-                  <a href="user-detail.php" class="table-icon" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Okan Uzun</td>
-                <td>Yazılım Birimi</td>
-                <td>Bilişim Departmanı</td>
-                <td class="text-xs-center">
-                  <a href="user-detail.php" class="table-icon" data-toggle="tooltip" data-placement="bottom" title="Görüntüle"><i class="mdi mdi-magnify"></i></a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+            <div class="row">
+              <div class="col-lg-6 col-xl-4">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="tag tag-default float-xs-right">Birim / Departman</span>
+                    Kayıtlı Kullanıcılar
+                  </li>
+                  <li class="list-group-item">
+                    <span class="tag tag-default tag-pill float-xs-right">Yazılım Birimi / Bilişim Departmanı</span>
+                    <a href="user-detail.php" rel="tooltip" title="Detay">Okan Uzun</a>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="tag tag-default tag-pill float-xs-right">Yazılım Birimi / Bilişim Departmanı</span>
+                    <a href="user-detail.php" rel="tooltip" title="Detay">Deniz Güzel</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -16,22 +16,28 @@
             </div>
           </div>
           <div class="card-block">
-            <table class="table">
-              <thead>
-              <tr>
-                <th>Kayıtlı Birimler</th>
-                <th>Çalışan Sayısı</th>
-                <th>Detay</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>Ağ Birimi</td>
-                <td>2</td>
-                <td class="text-xs-center"><a href="unit-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a></td>
-              </tr>
-              </tbody>
-            </table>
+            <div class="row">
+              <div class="col-lg-6 col-xl-4">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="tag tag-default float-xs-right">Çalışan Sayısı</span>
+                    Kayıtlı Birimler
+                  </li>
+                  <li class="list-group-item">
+                    <span class="tag tag-default tag-pill float-xs-right">14</span>
+                    <a href="unit-detail.php" rel="tooltip" title="Detay">Ağ Birimi</a>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="tag tag-default tag-pill float-xs-right">2</span>
+                    <a href="unit-detail.php" rel="tooltip" title="Detay">Yazılım Birimi</a>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="tag tag-default tag-pill float-xs-right">1</span>
+                    <a href="unit-detail.php" rel="tooltip" title="Detay">Teknik Destek Birimi</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>

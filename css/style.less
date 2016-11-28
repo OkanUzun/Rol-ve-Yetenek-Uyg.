@@ -698,10 +698,11 @@ textarea {
           padding: 0;
           margin: 0;
           font-size: 20px;
-          .manager, .date {
-            font-size: 14px;
+          .manager {
+            font-size: 16px;
           }
           .date {
+            font-size: 14px;
             span {
               display: block;
               strong {
@@ -897,6 +898,24 @@ textarea {
         }
         .btn {
           padding: 8px 16px;
+        }
+        .list-group {
+          .list-group-item {
+            a {
+              color: @indigo;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+          .list-group-item:first-child {
+            background-color: #20457C;
+            color: #fff;
+            .tag {
+              padding: 5px 10px;
+              font-size: 13px;
+            }
+          }
         }
       }
     }

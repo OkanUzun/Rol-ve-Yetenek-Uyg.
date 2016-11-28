@@ -8,7 +8,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <div class="name">Ağ Birimi</div>
+              <div class="name">Ağ Birimi<div class="manager"><strong>Birim Yöneticisi:</strong> Deniz Güzel</div></div>
               <div class="date">
                 <span><strong>Oluşturulma Tarihi:</strong> 21/11/2016</span>
                 <span><strong>Düzenleme Tarihi:</strong> 22/11/2016</span>
@@ -16,22 +16,28 @@
             </div>
           </div>
           <div class="card-block">
-            <table class="table">
-              <thead>
-              <tr>
-                <th>Kayıtlı Roller</th>
-                <th>Çalışan Sayısı</th>
-                <th>Detay</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>Android Developer</td>
-                <td>4</td>
-                <td class="text-xs-center"><a href="role-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a></td>
-              </tr>
-              </tbody>
-            </table>
+            <div class="row">
+              <div class="col-lg-6 col-xl-4">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="tag tag-default float-xs-right">Çalışan Sayısı</span>
+                    Kayıtlı Roller
+                  </li>
+                  <li class="list-group-item">
+                    <span class="tag tag-default tag-pill float-xs-right">14</span>
+                    <a href="role-detail.php" rel="tooltip" title="Detay">Android Developer</a>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="tag tag-default tag-pill float-xs-right">2</span>
+                    <a href="role-detail.php" rel="tooltip" title="Detay">Java Developer</a>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="tag tag-default tag-pill float-xs-right">1</span>
+                    <a href="role-detail.php" rel="tooltip" title="Detay">Php Developer</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
