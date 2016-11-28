@@ -18,24 +18,26 @@
           <div class="card-block">
             <div class="row">
               <div class="col-lg-6 col-xl-4">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <span class="tag tag-default float-xs-right">Çalışan Sayısı</span>
-                    Kayıtlı Birimler
-                  </li>
-                  <li class="list-group-item">
-                    <span class="tag tag-default tag-pill float-xs-right">14</span>
-                    <a href="unit-detail.php" rel="tooltip" title="Detay">Ağ Birimi</a>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="tag tag-default tag-pill float-xs-right">2</span>
-                    <a href="unit-detail.php" rel="tooltip" title="Detay">Yazılım Birimi</a>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="tag tag-default tag-pill float-xs-right">1</span>
-                    <a href="unit-detail.php" rel="tooltip" title="Detay">Teknik Destek Birimi</a>
-                  </li>
-                </ul>
+                <form method="post">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <span class="tag tag-default float-xs-right">Çalışan Sayısı</span>
+                      Kayıtlı Birimler
+                    </li>
+                    <li class="list-group-item">
+                      <span class="tag tag-default tag-pill float-xs-right">14</span>
+                      <button type="submit" rel="tooltip" title="Detay">Ağ Birimi</button>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="tag tag-default tag-pill float-xs-right">2</span>
+                      <button type="submit" rel="tooltip" title="Detay">Yazılım Birimi</button>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="tag tag-default tag-pill float-xs-right">1</span>
+                      <button type="submit" rel="tooltip" title="Detay">Teknik Destek Birimi</button>
+                    </li>
+                  </ul>
+                </form>
               </div>
             </div>
           </div>

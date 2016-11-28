@@ -18,20 +18,22 @@
           <div class="card-block">
             <div class="row">
               <div class="col-lg-6 col-xl-4">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <span class="tag tag-default float-xs-right">Birim / Departman</span>
-                    Kayıtlı Kullanıcılar
-                  </li>
-                  <li class="list-group-item">
-                    <span class="tag tag-default tag-pill float-xs-right">Yazılım Birimi / Bilişim Departmanı</span>
-                    <a href="user-detail.php" rel="tooltip" title="Detay">Okan Uzun</a>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="tag tag-default tag-pill float-xs-right">Yazılım Birimi / Bilişim Departmanı</span>
-                    <a href="user-detail.php" rel="tooltip" title="Detay">Deniz Güzel</a>
-                  </li>
-                </ul>
+                <form method="post">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <span class="tag tag-default float-xs-right">Birim / Departman</span>
+                      Kayıtlı Kullanıcılar
+                    </li>
+                    <li class="list-group-item">
+                      <span class="tag tag-default tag-pill float-xs-right">Yazılım Birimi / Bilişim Departmanı</span>
+                      <button type="submit" rel="tooltip" title="Detay">Okan Uzun</button>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="tag tag-default tag-pill float-xs-right">Yazılım Birimi / Bilişim Departmanı</span>
+                      <button type="submit" rel="tooltip" title="Detay">Deniz Güzel</button>
+                    </li>
+                  </ul>
+                </form>
               </div>
             </div>
           </div>

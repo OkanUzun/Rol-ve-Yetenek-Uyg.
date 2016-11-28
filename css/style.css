@@ -777,10 +777,11 @@ textarea {
 .wrapper .page-content .card .card-block .btn {
   padding: 8px 16px;
 }
-.wrapper .page-content .card .card-block .list-group .list-group-item a {
+.wrapper .page-content .card .card-block .list-group .list-group-item button {
   color: #3F51B5;
+  cursor: pointer;
 }
-.wrapper .page-content .card .card-block .list-group .list-group-item a:hover {
+.wrapper .page-content .card .card-block .list-group .list-group-item button:hover {
   text-decoration: underline;
 }
 .wrapper .page-content .card .card-block .list-group .list-group-item:first-child {

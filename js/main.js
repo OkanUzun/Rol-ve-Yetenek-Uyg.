@@ -41,12 +41,6 @@ $('#formValidate').validate({
     unit_name: {
       required: true
     },
-    dep_id: {
-      required: true
-    },
-    unit_id: {
-      required: true
-    },
     role_name: {
       required: true
     },
@@ -57,6 +51,26 @@ $('#formValidate').validate({
       required: "#companyOut:checked"
     },
     ability_name: {
+      required: true
+    }
+  },
+  submitHandler: function (form) {
+    form.submit();
+  }
+});
+
+$('#formValidate2').validate({
+  debug: true,
+  errorPlacement: function (error, element) {
+  },
+  highlight: function (element) {
+    $(element).parent().addClass("has-error").removeClass("has-success");
+  },
+  unhighlight: function (element) {
+    $(element).parent().removeClass("has-error").addClass("has-success");
+  },
+  rules: {
+    dep_id: {
       required: true
     }
   },
