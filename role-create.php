@@ -75,7 +75,9 @@
               <div class="form-group">
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT';
+                  $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME 
+                  FROM T_DEPARTMENT
+                  ORDER BY DEP_NAME';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   echo '<select id="roleDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
@@ -90,7 +92,8 @@
                   include "dbsettings.php";
                   $sql  = 'SELECT T_UNIT.PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME 
                   FROM T_UNIT,T_DEPARTMENT 
-                  WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK';
+                  WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK
+                  ORDER BY UNT_NAME';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   echo '<select id="roleUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Birimi Seçiniz">';
