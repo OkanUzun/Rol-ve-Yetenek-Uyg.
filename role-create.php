@@ -119,20 +119,21 @@
               <tbody>
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT T_ROLE.PK,T_ROLE.ROLE_NAME,T_DEPARTMENT.DEPARTMENT_NAME AS DEP_NAME,T_UNIT.UNIT_NAME AS U_NAME,
+                $sql  = 'SELECT T_ROLE.PK,INITCAP(T_ROLE.ROLE_NAME) AS RLE_NAME,T_DEPARTMENT.DEPARTMENT_NAME AS DEP_NAME,T_UNIT.UNIT_NAME AS U_NAME,
               (SELECT COUNT(T_USER.PK) FROM T_USER
               WHERE T_USER.ROLE_FK = T_ROLE.PK) AS X,T_UNIT.PK AS U_PK,T_DEPARTMENT.PK AS DEP_PK FROM T_ROLE
               LEFT JOIN T_UNIT ON T_ROLE.UNIT_FK = T_UNIT.PK
-              LEFT JOIN T_DEPARTMENT ON T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK';
+              LEFT JOIN T_DEPARTMENT ON T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK
+              ORDER BY RLE_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                   echo '<tr>';
-                  echo '<td>'.$row['ROLE_NAME'].'</td>';
+                  echo '<td>'.$row['RLE_NAME'].'</td>';
                   echo '<td>'.$row['X'].'</td>';
                   echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['ROLE_NAME'].'" data-unit="'.$row['U_NAME'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['RLE_NAME'].'" data-unit="'.$row['U_NAME'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                      </td>';
                   echo '<tr>';
@@ -166,12 +167,12 @@
               <label for="updateDepartmentSelect" class="form-control-label">Departman:</label>
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+                $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT ORDER BY DEP_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 echo '<select id="updateDepartmentSelect" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
-                  echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
+                  echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
                 echo '</select>';
               ?>
             </div>
@@ -179,12 +180,12 @@
               <label for="updateUnitSelect" class="form-control-label">Birim:</label>
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT PK,UNIT_NAME FROM T_UNIT';
+                $sql  = 'SELECT PK,INITCAP(UNIT_NAME) AS UNT_NAME FROM T_UNIT ORDER BY UNT_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 echo '<select id="updateUnitSelect" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
-                  echo '<option value ="'.$row["PK"].'">'.$row["UNIT_NAME"].'</option>';
+                  echo '<option value ="'.$row["PK"].'">'.$row["UNT_NAME"].'</option>';
                 echo '</select>';
               ?>
             </div>
