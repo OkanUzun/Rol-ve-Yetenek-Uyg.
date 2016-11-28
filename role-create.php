@@ -75,26 +75,28 @@
               <div class="form-group">
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+                  $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   echo '<select id="roleDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
                   echo '<option>Seçiniz</option>';
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
-                    echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
+                    echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
                   echo '</select>';
                 ?>
               </div>
               <div class="form-group">
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT PK,UNIT_NAME FROM T_UNIT';
+                  $sql  = 'SELECT T_UNIT.PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME 
+                  FROM T_UNIT,T_DEPARTMENT 
+                  WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   echo '<select id="roleUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Birimi Seçiniz">';
                   echo '<option>Seçiniz</option>';
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
-                    echo '<option value ="'.$row["PK"].'">'.$row["UNIT_NAME"].'</option>';
+                    echo '<option value ="'.$row["PK"].'">'.$row["UNT_NAME"].' | '.$row["DEP_NAME"].'</option>';
                   echo '</select>';
                 ?>
               </div>
