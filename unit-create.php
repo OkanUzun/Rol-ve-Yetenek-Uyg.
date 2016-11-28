@@ -62,12 +62,12 @@
               <div class="form-group">
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+                  $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT ORDER BY DEP_NAME';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                    echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
+                    echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
                   }
                   echo '</select>';
                 ?>
@@ -89,19 +89,20 @@
               <tbody>
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT T_UNIT.PK,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME,(SELECT COUNT(T_USER.PK)
-              FROM T_USER,T_ROLE WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.UNIT_FK = T_UNIT.PK ) AS X FROM T_UNIT,T_DEPARTMENT
-              WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK';
+                $sql  = 'SELECT T_UNIT.PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,(SELECT COUNT(T_USER.PK)
+                FROM T_USER,T_ROLE WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.UNIT_FK = T_UNIT.PK ) AS X FROM T_UNIT,T_DEPARTMENT
+                WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK
+                ORDER BY DEP_NAME,UNT_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                   echo '<tr>';
-                  echo '<td>'.$row['UNIT_NAME'].'</td>';
-                  echo '<td>'.$row['DEPARTMENT_NAME'].'</td>';
+                  echo '<td>'.$row['UNT_NAME'].'</td>';
+                  echo '<td>'.$row['DEP_NAME'].'</td>';
                   echo '<td>'.$row['X'].'</td>';
                   echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNIT_NAME'].'" data-department="'.$row['DEPARTMENT_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNT_NAME'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                      </td>';
                   echo '<tr>';
@@ -135,12 +136,12 @@
               <label for="updateDepartmentSelect" class="form-control-label">Bağlı Olduğu Departman:</label>
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+                $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 echo '<select id="updateDepartmentSelect" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
-                  echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
+                  echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
                 echo '</select>';
               ?>
             </div>
