@@ -51,7 +51,7 @@
       <div class="card">
         <div class="card-header">
           <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-library"></i>Departman Oluştur</a>
-          <form class="form-create form-inline hidden" method="post">
+          <form id="formValidate" class="form-create form-inline hidden" method="post">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Departman Adı Giriniz" name="dep_name">
             </div>

@@ -52,7 +52,7 @@
         <div class="card">
           <div class="card-header">
             <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-account-star-variant"></i>Yetenek Oluştur</a>
-            <form class="form-create form-inline hidden" method="post">
+            <form id="formValidate" class="form-create form-inline hidden" method="post">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Yetenek Adı Giriniz" name="ability_name">
               </div>

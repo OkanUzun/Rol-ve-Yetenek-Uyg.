@@ -53,7 +53,7 @@
       <?php include "navbar.php"; ?>
       <div class="container-fluid">
         <div class="card">
-          <form method="post">
+          <form id="formValidate" method="post">
             <div class="card-header">
               <div class="card-title">Kullanıcı Tanımlama</div>
               <div class="card-buttons">

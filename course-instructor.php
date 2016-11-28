@@ -58,7 +58,7 @@
         <div class="card">
           <div class="card-header">
             <a href="javascript:void(0);" class="btn btn-info instructor"><i class="mdi mdi-account-switch"></i>Eğitmen Oluştur</a>
-            <form class="form-create form-inline hidden" method="post">
+            <form id="formValidate" class="form-create form-inline hidden" method="post">
               <div class="instructor-status">
                 <div class="form-check">
                   <input type="radio" id="companyIn" value="1" name="is_inhouse">

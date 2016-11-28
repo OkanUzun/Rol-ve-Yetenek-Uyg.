@@ -1,89 +1,72 @@
 // Form Validation
-$('#userForm').validate({
+$('#formValidate').validate({
   debug: true,
-  errorElement: 'span',
-  errorClass: 'help-block',
+  errorPlacement: function (error, element) {
+  },
   highlight: function (element) {
-    $(element).parent().addClass("has-error");
-    $(element).parent().removeClass("has-success");
+    $(element).parent().addClass("has-error").removeClass("has-success");
   },
   unhighlight: function (element) {
-    $(element).parent().removeClass("has-error");
-    $(element).parent().addClass("has-success");
+    $(element).parent().removeClass("has-error").addClass("has-success");
   },
   rules: {
-    stepName: {
-      required: true,
-      minlength: 3,
-      maxlength: 30
+    role_id: {
+      required: true
     },
-    stepSurname: {
-      required: true,
-      minlength: 3,
-      maxlength: 30
+    f_name: {
+      required: true
     },
-    stepEmail: {
+    l_name: {
+      required: true
+    },
+    u_name: {
+      required: true
+    },
+    date_of_birth: {
+      required: true
+    },
+    e_mail: {
       required: true,
       email: true
     },
-    stepTel: {
-      required: true,
-      minlength: 10,
-      maxlength: 10
-    },
-    stepAddress: {
+    phone_number: {
       required: true
     },
-    stepUser: {
-      required: true,
-      minlength: 3,
-      maxlength: 30
-    },
-    stepNo: {
+    address: {
       required: true
     },
-    stepRol: {
+    dep_name: {
       required: true
-    }
-  },
-  messages: {
-    stepName: {
-      required: 'Lütfen isim giriniz.',
-      minlength: 'En az 3 haneli olmalıdır.',
-      maxlength: 'İsminizi kontrol ediniz.'
     },
-    stepSurname: {
-      required: 'Lütfen soyisim giriniz.',
-      minlength: 'En az 3 haneli olmalıdır.',
-      maxlength: 'İsminizi kontrol ediniz.'
+    unit_name: {
+      required: true
     },
-    stepEmail: {
-      required: 'Lütfen email adresi giriniz.',
-      email: 'Lütfen geçerli bir email adresi giriniz.'
+    dep_id: {
+      required: true
     },
-    stepTel: {
-      required: 'Lütfen cep telefonu giriniz.',
-      minlength: 'En az 10 haneli olmalıdır.',
-      maxlength: 'En fazla 10 haneli olmalıdır.'
+    unit_id: {
+      required: true
     },
-    stepAddress: {
-      required: 'Lütfen adres bilgisi giriniz.'
+    role_name: {
+      required: true
     },
-    stepUser: {
-      required: 'Lütfen kullanıcı adı giriniz.',
-      minlength: 'En az 3 haneli olmalıdır.',
-      maxlength: 'Kullanıcı adınızı ediniz.'
+    user_id: {
+      required: "#companyIn:checked"
     },
-    stepNo: {
-      required: 'Lütfen sicil no giriniz.'
+    educator_name: {
+      required: "#companyOut:checked"
     },
-    stepRol: {
-      required: 'Lütfen rol seçiniz.'
+    ability_name: {
+      required: true
     }
   },
   submitHandler: function (form) {
     form.submit();
   }
+});
+
+$('#formValidate select').on('change', function (e) {
+  $('#formValidate').validate().element($(this));
 });
 
 // Datepicker
@@ -400,6 +383,7 @@ $(".form-create .btn-danger").click(function () {
   $(".create").show();
   $(".instructor").show();
   $("#companyIn, #companyOut").prop('checked', false);
+  $(".form-create .form-group, .form-create .bootstrap-select").removeClass("has-error has-success");
 });
 
 $("#roleUnit").change(function () {
