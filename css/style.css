@@ -241,7 +241,7 @@ textarea {
   justify-content: space-between;
   color: #999;
   text-transform: none;
-  padding: 16px !important;
+  padding: 10px 16px !important;
 }
 .bootstrap-select .dropdown-toggle:after {
   content: "\F140";

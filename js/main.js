@@ -103,6 +103,7 @@ $('#updateModal').on('show.bs.modal', function (event) {
   var name = button.data('name');
   var surname = button.data('surname');
   var department = button.data('department');
+  var unit = button.data('unit');
   var ability = button.data('ability');
   var id = button.data('id');
   var modal = $(this);
