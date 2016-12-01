@@ -362,7 +362,6 @@ $("#courseAbilityChange").click(function () {
   }, 1000);
 });
 
-
 $(".create").click(function () {
   $(this).hide();
   $(".form-create").removeClass("hidden");

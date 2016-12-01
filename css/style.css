@@ -41,6 +41,8 @@ textarea {
 button {
   background-color: transparent;
   border: 0;
+  cursor: pointer;
+  padding: 0;
 }
 button:focus {
   outline: none;
@@ -723,16 +725,18 @@ textarea {
 .wrapper .page-content .card .card-block .table tbody tr td .course-status span {
   margin: 0;
 }
-.wrapper .page-content .card .card-block .table tbody tr td .table-icon {
+.wrapper .page-content .card .card-block .table tbody tr td .btn-table {
   display: inline-block;
   margin-right: 10px;
+  padding: 0;
 }
-.wrapper .page-content .card .card-block .table tbody tr td .table-icon:hover i {
+.wrapper .page-content .card .card-block .table tbody tr td .btn-table:hover i {
   background-color: #26C6DA;
   color: #fff;
 }
-.wrapper .page-content .card .card-block .table tbody tr td .table-icon i {
+.wrapper .page-content .card .card-block .table tbody tr td .btn-table i {
   padding: 3px 5px;
+  font-size: 18px;
   border-radius: 3px;
   border: 1px solid #26C6DA;
   color: #1e9faf;
@@ -779,7 +783,6 @@ textarea {
 }
 .wrapper .page-content .card .card-block .list-group .list-group-item button {
   color: #3F51B5;
-  cursor: pointer;
 }
 .wrapper .page-content .card .card-block .list-group .list-group-item button:hover {
   text-decoration: underline;
@@ -1236,10 +1239,10 @@ textarea {
   .wrapper .page-content .card .card-block .table tbody tr td {
     padding: 10px 5px;
   }
-  .wrapper .page-content .card .card-block .table tbody tr td .table-icon {
+  .wrapper .page-content .card .card-block .table tbody tr td .btn btn-table {
     margin-bottom: 5px;
   }
-  .wrapper .page-content .card .card-block .table tbody tr td .table-icon:last-child {
+  .wrapper .page-content .card .card-block .table tbody tr td .btn btn-table:last-child {
     margin-bottom: 0;
   }
   .wrapper .page-content a.card .card-block .card-body i {
@@ -1298,7 +1301,7 @@ textarea {
     border: 0;
     margin-bottom: 10px;
   }
-  .dataTables_wrapper table.dtr-inline.collapsed tbody tr.child ul li .dtr-data .table-icon {
+  .dataTables_wrapper table.dtr-inline.collapsed tbody tr.child ul li .dtr-data .btn btn-table {
     margin-left: 5px;
   }
   .dataTables_wrapper table.dtr-inline.collapsed tbody tr.child ul li:last-child {

@@ -108,39 +108,42 @@
             </form>
           </div>
           <div class="card-block">
-            <table class="table" id="dataTable-role">
-              <thead>
-              <tr>
-                <th>Rol Adı</th>
-                <th>Çalışan Sayısı</th>
-                <th>İşlemler</th>
-              </tr>
-              </thead>
-              <tbody>
-              <?php
-                include "dbsettings.php";
-                $sql  = 'SELECT T_ROLE.PK,INITCAP(T_ROLE.ROLE_NAME) AS RLE_NAME,T_DEPARTMENT.DEPARTMENT_NAME AS DEP_NAME,T_UNIT.UNIT_NAME AS U_NAME,
+            <form method="post">
+              <table class="table" id="dataTable-role">
+                <thead>
+                <tr>
+                  <th>Rol Adı</th>
+                  <th>Çalışan Sayısı</th>
+                  <th>İşlemler</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                  include "dbsettings.php";
+                  $sql  = 'SELECT T_ROLE.PK,INITCAP(T_ROLE.ROLE_NAME) AS RLE_NAME,T_DEPARTMENT.DEPARTMENT_NAME AS DEP_NAME,T_UNIT.UNIT_NAME AS U_NAME,
               (SELECT COUNT(T_USER.PK) FROM T_USER
               WHERE T_USER.ROLE_FK = T_ROLE.PK) AS X,T_UNIT.PK AS U_PK,T_DEPARTMENT.PK AS DEP_PK FROM T_ROLE
               LEFT JOIN T_UNIT ON T_ROLE.UNIT_FK = T_UNIT.PK
               LEFT JOIN T_DEPARTMENT ON T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK
               ORDER BY RLE_NAME';
-                $stmt = oci_parse($conn, $sql);
-                $r    = oci_execute($stmt);
-                while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                  echo '<tr>';
-                  echo '<td>'.$row['RLE_NAME'].'</td>';
-                  echo '<td>'.$row['X'].'</td>';
-                  echo '
+                  $stmt = oci_parse($conn, $sql);
+                  $r    = oci_execute($stmt);
+                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                    echo '<tr>';
+                    echo '<td>'.$row['RLE_NAME'].'</td>';
+                    echo '<td>'.$row['X'].'</td>';
+                    echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['RLE_NAME'].'" data-unit="'.$row['U_NAME'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
-                      <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
+                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['RLE_NAME'].'" data-unit="'.$row['U_NAME'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
+                      <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
                      </td>';
-                  echo '<tr>';
-                }
-              ?>
-              </tbody>
-            </table>
+                    echo '</tr>';
+                  }
+                ?>
+                </tbody>
+              </table>
+            </form>
           </div>
         </div>
       </div>

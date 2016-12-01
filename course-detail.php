@@ -28,8 +28,8 @@
               <div class="col-xs-12 col-xl-6">
                 <div class="row">
                   <div class="col-xs-12">
-                    <div class="card-title">Eğitim Bilgileri<a href="course-users.php" class="btn btn-primary">Katılımcı Ekle</a>
-                    </div>
+                    <!-- Butona tıklanınca course-users.php 'ye gidecek -->
+                    <div class="card-title">Eğitim Bilgileri<button type="submit" class="btn btn-primary">Katılımcı Ekle</button></div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="form-group">

@@ -60,39 +60,41 @@
           </form>
         </div>
         <div class="card-block">
-          <table class="table" id="dataTable-department">
-            <thead>
-            <tr>
-              <th>Departman Adı</th>
-              <th>Çalışan Sayısı</th>
-              <th>İşlemler</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-              include "dbsettings.php";
-              $sql  = 'SELECT T_DEPARTMENT.PK, INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,(SELECT COUNT(T_USER.PK) 
+          <form method="post">
+            <table class="table" id="dataTable-department">
+              <thead>
+              <tr>
+                <th>Departman Adı</th>
+                <th>Çalışan Sayısı</th>
+                <th>İşlemler</th>
+              </tr>
+              </thead>
+              <tbody>
+              <?php
+                include "dbsettings.php";
+                $sql  = 'SELECT T_DEPARTMENT.PK, INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,(SELECT COUNT(T_USER.PK) 
               FROM T_USER,T_ROLE
               WHERE T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK
               AND T_ROLE.PK = T_USER.ROLE_FK) AS X FROM T_DEPARTMENT
               ORDER BY DEP_NAME';
-              $stmt = oci_parse($conn, $sql);
-              $r    = oci_execute($stmt);
-              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                echo '<tr>';
-                echo '<td>'.$row['DEP_NAME'].'</td>';
-                echo '<td>'.$row['X'].'</td>';
-                echo '
+                $stmt = oci_parse($conn, $sql);
+                $r    = oci_execute($stmt);
+                while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                  echo '<tr>';
+                  echo '<td>'.$row['DEP_NAME'].'</td>';
+                  echo '<td>'.$row['X'].'</td>';
+                  echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
-                      <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
-                      <a href="department-detail.php" class="table-icon" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
+                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
+                      <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
                      </td>';
-                echo '<tr>';
-              }
-            ?>
-            </tbody>
-          </table>
+                  echo '</tr>';
+                }
+              ?>
+              </tbody>
+            </table>
+          </form>
         </div>
       </div>
     </div>

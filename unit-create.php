@@ -77,39 +77,42 @@
             </form>
           </div>
           <div class="card-block">
-            <table class="table" id="dataTable-unit">
-              <thead>
-              <tr>
-                <th>Birim Adı</th>
-                <th>Bağlı Olduğu Departman</th>
-                <th>Çalışan Sayısı</th>
-                <th>İşlemler</th>
-              </tr>
-              </thead>
-              <tbody>
-              <?php
-                include "dbsettings.php";
-                $sql  = 'SELECT T_UNIT.PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,(SELECT COUNT(T_USER.PK)
+            <form method="post">
+              <table class="table" id="dataTable-unit">
+                <thead>
+                <tr>
+                  <th>Birim Adı</th>
+                  <th>Bağlı Olduğu Departman</th>
+                  <th>Çalışan Sayısı</th>
+                  <th>İşlemler</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                  include "dbsettings.php";
+                  $sql  = 'SELECT T_UNIT.PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,(SELECT COUNT(T_USER.PK)
                 FROM T_USER,T_ROLE WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.UNIT_FK = T_UNIT.PK ) AS X FROM T_UNIT,T_DEPARTMENT
                 WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK
                 ORDER BY DEP_NAME,UNT_NAME';
-                $stmt = oci_parse($conn, $sql);
-                $r    = oci_execute($stmt);
-                while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                  echo '<tr>';
-                  echo '<td>'.$row['UNT_NAME'].'</td>';
-                  echo '<td>'.$row['DEP_NAME'].'</td>';
-                  echo '<td>'.$row['X'].'</td>';
-                  echo '
+                  $stmt = oci_parse($conn, $sql);
+                  $r    = oci_execute($stmt);
+                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                    echo '<tr>';
+                    echo '<td>'.$row['UNT_NAME'].'</td>';
+                    echo '<td>'.$row['DEP_NAME'].'</td>';
+                    echo '<td>'.$row['X'].'</td>';
+                    echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNT_NAME'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
-                      <a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
+                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNT_NAME'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
+                      <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
                      </td>';
-                  echo '<tr>';
-                }
-              ?>
-              </tbody>
-            </table>
+                    echo '</tr>';
+                  }
+                ?>
+                </tbody>
+              </table>
+            </form>
           </div>
         </div>
       </div>

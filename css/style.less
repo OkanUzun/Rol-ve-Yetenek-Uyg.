@@ -47,6 +47,8 @@ textarea {
 button {
   background-color: transparent;
   border: 0;
+  cursor: pointer;
+  padding: 0;
   &:focus {
     outline: none;
   }
@@ -829,9 +831,10 @@ textarea {
                     margin: 0;
                   }
                 }
-                .table-icon {
+                .btn-table {
                   display: inline-block;
                   margin-right: 10px;
+                  padding: 0;
                   &:hover {
                     i {
                       background-color: @info;
@@ -840,6 +843,7 @@ textarea {
                   }
                   i {
                     padding: 3px 5px;
+                    font-size: 18px;
                     border-radius: 3px;
                     border: 1px solid @info;
                     color: darken(@info, 10%);
@@ -903,7 +907,6 @@ textarea {
           .list-group-item {
             button {
               color: @indigo;
-              cursor: pointer;
               &:hover {
                 text-decoration: underline;
               }
@@ -1462,10 +1465,10 @@ textarea {
               tr {
                 td {
                   padding: 10px 5px;
-                  .table-icon {
+                  .btn btn-table {
                     margin-bottom: 5px;
                   }
-                  .table-icon:last-child {
+                  .btn btn-table:last-child {
                     margin-bottom: 0;
                   }
                 }
@@ -1559,7 +1562,7 @@ textarea {
               border: 0;
               margin-bottom: 10px;
               .dtr-data {
-                .table-icon {
+                .btn btn-table {
                   margin-left: 5px;
                 }
               }

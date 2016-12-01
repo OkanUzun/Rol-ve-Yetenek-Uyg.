@@ -119,12 +119,12 @@
                   echo '<td>'.($row['IS_INHOUSE'] == '1' ? "Şirket içi" : "Şirket dışı").'</td>';
                   echo '<td class="text-xs-center">';
                   if ($row['IS_INHOUSE'] == '1') {
-                    echo '<a href="javascript:void(0)" class="table-icon disabled"><i class="mdi mdi-autorenew"></i></a>';
+                    echo '<a href="javascript:void(0)" class="btn btn-table disabled"><i class="mdi mdi-autorenew"></i></a>';
                   }
                   else {
-                    echo '<a href="#updateModal" class="table-icon" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['EDUCATOR_NAME'].'"><i class="mdi mdi-autorenew"></i></a>';
+                    echo '<a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['EDUCATOR_NAME'].'"><i class="mdi mdi-autorenew"></i></a>';
                   }
-                  echo '<a href="#deleteModal" class="table-icon" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>';
+                  echo '<a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>';
                   echo '</td></tr>';
                 }
               ?>
