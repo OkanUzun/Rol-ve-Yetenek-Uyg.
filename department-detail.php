@@ -1,4 +1,37 @@
-<?php include "header.php"; ?>
+<?php 
+  include "header.php"; 
+  include "dbsettings.php";
+
+  if (isset($_POST["detail-dep"])){
+    $dep_id = $_POST["dep_id"];
+    $sql  = '
+    SELECT INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,
+    INITCAP(T_USER.FIRST_NAME) AS F_NAME,
+    UPPER(T_USER.LAST_NAME) AS L_NAME,
+    T_DEPARTMENT.CREATION_TIME AS CR_TIME,
+    T_DEPARTMENT.MODIFIED_TIME AS MD_TIME 
+    FROM T_DEPARTMENT 
+    LEFT JOIN T_USER 
+    ON T_DEPARTMENT.MANAGER_ID = T_USER.PK AND T_DEPARTMENT.PK = '.$dep_id.'';
+    $stmt = oci_parse($conn, $sql);
+    $r = oci_execute($stmt);
+    $row = oci_fetch_assoc($stmt);
+
+    $dep_name = $row["DEP_NAME"];
+    $f_name = $row["F_NAME"];   
+    $l_name = $row["L_NAME"]; 
+    $cr_time = $row["CR_TIME"];  
+    $md_time = $row["MD_TIME"]; 
+
+    $sql = 
+    'SELECT COUNT(*) AS NUMBER_OF_PERSON FROM T_USER,T_ROLE,T_DEPARTMENT
+    WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.DEPARTMENT_FK = '.$dep_id.''; 
+    $stmt = oci_parse($conn, $sql);
+    $r = oci_execute($stmt);
+    $row = oci_fetch_assoc($stmt);
+    $number_of_person = $row["NUMBER_OF_PERSON"];
+  }
+?>
 
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
@@ -8,10 +41,10 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <div class="name">Bilişim Departmanı<div class="manager"><strong>Departman Müdürü:</strong> Deniz Güzel</div></div>
+              <div class="name"><?php echo $dep_name?><div class="manager"><strong>Departman Müdürü:</strong> <?php echo $f_name.' '.$l_name?></div></div>
               <div class="date">
-                <span><strong>Oluşturulma Tarihi:</strong> 21/11/2016</span>
-                <span><strong>Düzenleme Tarihi:</strong> 22/11/2016</span>
+                <span><strong>Oluşturulma Tarihi:</strong> <?php echo $cr_time?></span>
+                <span><strong>Düzenleme Tarihi:</strong> <?php echo $md_time?></span>
               </div>
             </div>
           </div>
@@ -24,18 +57,24 @@
                       <span class="tag tag-default float-xs-right">Çalışan Sayısı</span>
                       Kayıtlı Birimler
                     </li>
-                    <li class="list-group-item">
-                      <span class="tag tag-default tag-pill float-xs-right">14</span>
-                      <button type="submit" rel="tooltip" title="Detay">Ağ Birimi</button>
-                    </li>
-                    <li class="list-group-item">
-                      <span class="tag tag-default tag-pill float-xs-right">2</span>
-                      <button type="submit" rel="tooltip" title="Detay">Yazılım Birimi</button>
-                    </li>
-                    <li class="list-group-item">
-                      <span class="tag tag-default tag-pill float-xs-right">1</span>
-                      <button type="submit" rel="tooltip" title="Detay">Teknik Destek Birimi</button>
-                    </li>
+                    <?php 
+                      $sql  = '
+                      SELECT INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,COUNT(T_USER.PK) AS X FROM T_UNIT
+                      LEFT JOIN T_ROLE ON T_UNIT.DEPARTMENT_FK = '.$dep_id.' AND T_UNIT.PK = T_ROLE.UNIT_FK
+                      LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
+                      GROUP BY T_USER.PK,T_UNIT.UNIT_NAME
+                      ';
+                      $stmt = oci_parse($conn, $sql);
+                      $r    = oci_execute($stmt);
+                      while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                        echo '
+                          <li class="list-group-item">
+                            <span class="tag tag-default tag-pill float-xs-right">'.$row["X"].'</span>
+                            <button type="submit" rel="tooltip" title="Detay">'.$row["UNT_NAME"].'</button>
+                          </li>
+                        ';
+                      }
+                    ?>
                   </ul>
                 </form>
               </div>
