@@ -43,6 +43,12 @@
   }
 
 ?>
+<script type="text/javascript">
+  function OnSubmitForm(){
+    document.getElementById("department_form").action = "department-detail.php";
+    //document.getElementById("department_form").method = "get";
+  }
+</script>
 <div class="wrapper">
   <?php include "sidebar.php"; ?>
   <div class="page-content">
@@ -60,7 +66,7 @@
           </form>
         </div>
         <div class="card-block">
-          <form method="post">
+          <form method="post" id="department_form">
             <table class="table" id="dataTable-department">
               <thead>
               <tr>
@@ -87,7 +93,8 @@
                      <td class="text-xs-center">
                       <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
-                      <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></a>
+                      <input type="hidden" name="dep_id" id="dep_id" value="'.$row['PK'].'">
+                      <button type="submit" name="detail-dep" class="btn btn-table" rel="tooltip" title="Detay" onclick="OnSubmitForm()"><i class="mdi mdi-magnify"></i></a>
                      </td>';
                   echo '</tr>';
                 }
@@ -149,6 +156,11 @@
     </div>
   </div>
 </div>
+</body>
+</html>
+
+
+
 
 
 <?php include "footer.php"; ?>
