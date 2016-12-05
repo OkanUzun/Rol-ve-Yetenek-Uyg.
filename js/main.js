@@ -232,6 +232,9 @@ $("#abilityShow").click(function () {
         $("#ability-container .btn-danger").click(function () {
           $("#ability-container").empty().addClass("hidden");
         });
+        if ($(window).width() < 768) {
+          $("td.desktop").remove();
+        }
       }
     });
   }, 1000);

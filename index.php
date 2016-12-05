@@ -14,7 +14,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-      <form action="">
+      <form method="post">
         <div class="card card-login">
           <div class="card-header"><span class="highlight">Roleaby</span> Giriş</div>
           <div class="card-block">

@@ -34,9 +34,17 @@ var course = $.extend(options, {
   ]
 });
 
+var multi = $.extend(options, {
+  columnDefs: [
+    {className: 'desktop', targets: [-1]},
+    {targets: [-1], orderable: false}
+  ]
+});
+
 $('#dataTable-user').DataTable(user);
 $('#dataTable-course').DataTable(course);
-$('#dataTable-department, #dataTable-unit, #dataTable-role, #dataTable-ability, #dataTable-courseusers').DataTable({
+$('#dataTable-role, #dataTable-ability, #dataTable-instructor').DataTable(multi);
+$('#dataTable-department, #dataTable-unit, #dataTable-courseusers').DataTable({
   responsive: true,
   "language": {
     "lengthMenu": "Sayfada _MENU_ kayıt göster",

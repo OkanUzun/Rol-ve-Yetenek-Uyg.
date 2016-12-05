@@ -98,7 +98,7 @@
             </form>
           </div>
           <div class="card-block">
-            <table class="table" id="dataTable-role">
+            <table class="table" id="dataTable-instructor">
               <thead>
               <tr>
                 <th>Eğitmen Adı-Soyadı</th>
