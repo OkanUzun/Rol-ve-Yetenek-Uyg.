@@ -27,7 +27,7 @@
                   include "dbsettings.php";
                   $sql  = 'SELECT T_USER.PK,INITCAP(T_USER.FIRST_NAME) AS F_NAME,UPPER(T_USER.LAST_NAME) AS L_NAME,T_ROLE.ROLE_NAME,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME 
                 FROM T_USER
-                INNER JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
+                LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
                 LEFT JOIN T_UNIT ON T_ROLE.UNIT_FK = T_UNIT.PK
                 LEFT JOIN T_DEPARTMENT ON T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK
                 ORDER BY T_USER.FIRST_NAME,T_USER.LAST_NAME';
@@ -37,7 +37,7 @@
                     echo '<tr>';
                     echo '<td>'.$row['F_NAME'].'</td>';
                     echo '<td>'.$row['L_NAME'].'</td>';
-                    echo '<td>'.$row['ROLE_NAME'].'</td>';
+                    echo '<td>'.($row['ROLE_NAME']!=null?$row['ROLE_NAME']:'Rolü yok').'</td>';
                     echo '<td>'.($row['UNIT_NAME']!=null?$row['UNIT_NAME']:'Birime bağlı değil').'</td>';
                     echo '<td>'.($row['DEPARTMENT_NAME']!=null?$row['DEPARTMENT_NAME']:'Departmana bağlı değil').'</td>';
                     echo '
