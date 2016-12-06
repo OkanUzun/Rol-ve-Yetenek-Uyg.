@@ -2,8 +2,9 @@
   include "header.php"; 
   include "dbsettings.php";
 
-  if (isset($_POST["detail-dep"])){
-    $dep_id = $_POST["dep_id"];
+  if (isset($_GET["dep_id"])){
+    $dep_id = $_GET["dep_id"];
+
     $sql  = '
     SELECT INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,
     INITCAP(T_USER.FIRST_NAME) AS F_NAME,
@@ -12,7 +13,8 @@
     T_DEPARTMENT.MODIFIED_TIME AS MD_TIME 
     FROM T_DEPARTMENT 
     LEFT JOIN T_USER 
-    ON T_DEPARTMENT.MANAGER_ID = T_USER.PK AND T_DEPARTMENT.PK = '.$dep_id.'';
+    ON  T_DEPARTMENT.MANAGER_ID = T_USER.PK
+    WHERE T_DEPARTMENT.PK = '.$dep_id.'';
     $stmt = oci_parse($conn, $sql);
     $r = oci_execute($stmt);
     $row = oci_fetch_assoc($stmt);
@@ -22,14 +24,6 @@
     $l_name = $row["L_NAME"]; 
     $cr_time = $row["CR_TIME"];  
     $md_time = $row["MD_TIME"]; 
-
-    $sql = 
-    'SELECT COUNT(*) AS NUMBER_OF_PERSON FROM T_USER,T_ROLE,T_DEPARTMENT
-    WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.DEPARTMENT_FK = '.$dep_id.''; 
-    $stmt = oci_parse($conn, $sql);
-    $r = oci_execute($stmt);
-    $row = oci_fetch_assoc($stmt);
-    $number_of_person = $row["NUMBER_OF_PERSON"];
   }
 ?>
 
@@ -51,7 +45,7 @@
           <div class="card-block">
             <div class="row">
               <div class="col-lg-6 col-xl-4">
-                <form method="post">
+                <form method="post" action="unit-detail.php">
                   <ul class="list-group">
                     <li class="list-group-item">
                       <span class="tag tag-default float-xs-right">Çalışan Sayısı</span>
@@ -59,18 +53,19 @@
                     </li>
                     <?php 
                       $sql  = '
-                      SELECT INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,COUNT(T_USER.PK) AS X FROM T_UNIT
-                      LEFT JOIN T_ROLE ON T_UNIT.DEPARTMENT_FK = '.$dep_id.' AND T_UNIT.PK = T_ROLE.UNIT_FK
+                      SELECT T_UNIT.PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,COUNT(T_USER.PK) AS X FROM T_UNIT
+                      INNER JOIN T_ROLE ON T_UNIT.PK = T_ROLE.UNIT_FK
                       LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
-                      GROUP BY T_USER.PK,T_UNIT.UNIT_NAME
-                      ';
+                      WHERE T_UNIT.DEPARTMENT_FK = '.$dep_id.'
+                      GROUP BY T_UNIT.PK,T_UNIT.UNIT_NAME';
                       $stmt = oci_parse($conn, $sql);
                       $r    = oci_execute($stmt);
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                         echo '
                           <li class="list-group-item">
                             <span class="tag tag-default tag-pill float-xs-right">'.$row["X"].'</span>
-                            <button type="submit" rel="tooltip" title="Detay">'.$row["UNT_NAME"].'</button>
+                            <input type="hidden" name="unit_id" id="unit_id" value="'.$row['PK'].'">
+                            <button type="submit" name="detail-unit" rel="tooltip" title="Detay">'.$row["UNT_NAME"].'</button>
                           </li>
                         ';
                       }

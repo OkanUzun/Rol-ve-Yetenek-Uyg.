@@ -43,12 +43,6 @@
   }
 
 ?>
-<script type="text/javascript">
-  function OnSubmitForm(){
-    document.getElementById("department_form").action = "department-detail.php";
-    //document.getElementById("department_form").method = "get";
-  }
-</script>
 <div class="wrapper">
   <?php include "sidebar.php"; ?>
   <div class="page-content">
@@ -66,7 +60,7 @@
           </form>
         </div>
         <div class="card-block">
-          <form method="post" id="department_form">
+          <form method="post">
             <table class="table" id="dataTable-department">
               <thead>
               <tr>
@@ -79,10 +73,10 @@
               <?php
                 include "dbsettings.php";
                 $sql  = 'SELECT T_DEPARTMENT.PK, INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,(SELECT COUNT(T_USER.PK) 
-              FROM T_USER,T_ROLE
-              WHERE T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK
-              AND T_ROLE.PK = T_USER.ROLE_FK) AS X FROM T_DEPARTMENT
-              ORDER BY DEP_NAME';
+                FROM T_USER,T_ROLE
+                WHERE T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK
+                AND T_ROLE.PK = T_USER.ROLE_FK) AS X FROM T_DEPARTMENT
+                ORDER BY DEP_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
@@ -93,8 +87,7 @@
                      <td class="text-xs-center">
                       <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
-                      <input type="hidden" name="dep_id" id="dep_id" value="'.$row['PK'].'">
-                      <button type="submit" name="detail-dep" class="btn btn-table" rel="tooltip" title="Detay" onclick="OnSubmitForm()"><i class="mdi mdi-magnify"></i></a>
+                      <a href="department-detail.php?dep_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
                      </td>';
                   echo '</tr>';
                 }
