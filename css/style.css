@@ -781,10 +781,10 @@ textarea {
 .wrapper .page-content .card .card-block .btn {
   padding: 8px 16px;
 }
-.wrapper .page-content .card .card-block .list-group .list-group-item button {
+.wrapper .page-content .card .card-block .list-group .list-group-item a {
   color: #3F51B5;
 }
-.wrapper .page-content .card .card-block .list-group .list-group-item button:hover {
+.wrapper .page-content .card .card-block .list-group .list-group-item a:hover {
   text-decoration: underline;
 }
 .wrapper .page-content .card .card-block .list-group .list-group-item:first-child {
