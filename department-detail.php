@@ -65,7 +65,7 @@
                           <li class="list-group-item">
                             <span class="tag tag-default tag-pill float-xs-right">'.$row["X"].'</span>
                             <input type="hidden" name="unit_id" id="unit_id" value="'.$row['PK'].'">
-                            <button type="submit" name="detail-unit" rel="tooltip" title="Detay">'.$row["UNT_NAME"].'</button>
+                            <a href="unit-detail.php?unit_id='.$row['PK'].'">'.$row["UNT_NAME"].'</a>
                           </li>
                         ';
                       }
