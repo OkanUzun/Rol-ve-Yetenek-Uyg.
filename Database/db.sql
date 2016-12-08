@@ -1,4 +1,5532 @@
-﻿--  There is no statement for index SYSTEM.SYS_C0014536.
+﻿ALTER TABLE SYSTEM.T_ABILITY
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_ABILITY CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_ABILITY
+(
+  PK             INTEGER                        NOT NULL,
+  ABILITY_NAME   VARCHAR2(40 BYTE)              NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6),
+  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_ABILITY_LEVEL CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_ABILITY_LEVEL
+(
+  PK             INTEGER                        NOT NULL,
+  LEVEL_NAME     VARCHAR2(40 BYTE)              NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6),
+  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_DEPARTMENT
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_DEPARTMENT CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_DEPARTMENT
+(
+  PK               INTEGER                      NOT NULL,
+  DEPARTMENT_NAME  VARCHAR2(40 BYTE)            NOT NULL,
+  IS_ACTIVE        CHAR(1 BYTE)                 DEFAULT 'Y'                   NOT NULL,
+  CREATION_TIME    TIMESTAMP(6)                 DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME    TIMESTAMP(6),
+  MANAGER_ID       INTEGER
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_EDUCATION
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_EDUCATION CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_EDUCATION
+(
+  PK                 NUMBER(2),
+  EDUCATION_SUBJECT  VARCHAR2(100 BYTE)         NOT NULL,
+  EDUCATION_CONTENT  VARCHAR2(1000 BYTE)        NOT NULL,
+  IS_ACTIVE          CHAR(1 BYTE)               DEFAULT 'Y'                   NOT NULL,
+  CREATION_TIME      TIMESTAMP(6)               DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME      TIMESTAMP(6),
+  PLANNED_DATE       DATE                       NOT NULL,
+  COMPLETE_DATE      DATE                       NOT NULL,
+  EDUCATOR_FK        INTEGER                    NOT NULL
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_EDUCATION_ABILITY_REL CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_EDUCATION_ABILITY_REL
+(
+  PK             NUMBER(5),
+  EDUCATION_FK   INTEGER                        NOT NULL,
+  ABILITY_FK     INTEGER                        NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6)
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_EDUCATION_STATE_REL CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_EDUCATION_STATE_REL
+(
+  PK             INTEGER                        NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6)                   NOT NULL,
+  EDUCATION_ID   INTEGER                        NOT NULL,
+  STATE_ID       INTEGER                        NOT NULL
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_EDUCATION_USER_REL CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_EDUCATION_USER_REL
+(
+  PK             NUMBER(7),
+  EDUCATION_FK   INTEGER                        NOT NULL,
+  USER_FK        INTEGER                        NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6)
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+DROP TABLE SYSTEM.T_EDUCATOR CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_EDUCATOR
+(
+  PK             INTEGER                        NOT NULL,
+  EDUCATOR_NAME  VARCHAR2(60 BYTE)              NOT NULL,
+  IS_INHOUSE     CHAR(1 BYTE)                   NOT NULL,
+  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6)                   NOT NULL,
+  USER_FK        VARCHAR2(20 BYTE)
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_ROLE
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_ROLE CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_ROLE
+(
+  PK             INTEGER                        NOT NULL,
+  ROLE_NAME      VARCHAR2(60 BYTE)              NOT NULL,
+  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6)
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_STATE
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_STATE CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_STATE
+(
+  PK             INTEGER                        NOT NULL,
+  STATE_NAME     VARCHAR2(40 BYTE)              NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6)                   NOT NULL,
+  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_UNIT
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_UNIT CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_UNIT
+(
+  PK             INTEGER                        NOT NULL,
+  UNIT_NAME      VARCHAR2(40 BYTE)              NOT NULL,
+  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL,
+  DEPARTMENT_FK  INTEGER                        NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6),
+  MANAGER_ID     INTEGER
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_USER
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_USER CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_USER
+(
+  PK             INTEGER                        NOT NULL,
+  U_ID           VARCHAR2(20 BYTE)              NOT NULL,
+  U_PW           VARCHAR2(40 BYTE)              NOT NULL,
+  FIRST_NAME     VARCHAR2(40 BYTE)              NOT NULL,
+  LAST_NAME      VARCHAR2(20 BYTE)              NOT NULL,
+  DATE_OF_BIRTH  DATE                           NOT NULL,
+  PHONE_NUMBER   VARCHAR2(11 BYTE)              NOT NULL,
+  ADDRESS        VARCHAR2(255 BYTE)             NOT NULL,
+  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME  TIMESTAMP(6),
+  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL,
+  ROLE_FK        INTEGER,
+  EMAIL          VARCHAR2(254 BYTE)             NOT NULL,
+  UNIT_FK        INTEGER,
+  DEPARTMENT_FK  INTEGER
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL
+ DROP PRIMARY KEY CASCADE;
+
+DROP TABLE SYSTEM.T_USER_ABILITY_REL CASCADE CONSTRAINTS;
+
+CREATE TABLE SYSTEM.T_USER_ABILITY_REL
+(
+  PK                NUMBER(9),
+  ABILITY_FK        INTEGER                     NOT NULL,
+  ABILITY_LEVEL_FK  INTEGER                     NOT NULL,
+  CREATION_TIME     TIMESTAMP(6)                DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  MODIFIED_TIME     TIMESTAMP(6),
+  USER_FK           INTEGER                     NOT NULL
+)
+TABLESPACE SYSTEM
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+MONITORING;
+
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014795 ON SYSTEM.T_ABILITY
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014796 ON SYSTEM.T_ABILITY
+(ABILITY_NAME)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014797 ON SYSTEM.T_ABILITY_LEVEL
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014798 ON SYSTEM.T_ABILITY_LEVEL
+(LEVEL_NAME)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014799 ON SYSTEM.T_DEPARTMENT
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014800 ON SYSTEM.T_DEPARTMENT
+(DEPARTMENT_NAME)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014801 ON SYSTEM.T_STATE
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014802 ON SYSTEM.T_STATE
+(STATE_NAME)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014803 ON SYSTEM.T_UNIT
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014804 ON SYSTEM.T_UNIT
+(UNIT_NAME)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014805 ON SYSTEM.T_ROLE
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014806 ON SYSTEM.T_ROLE
+(ROLE_NAME)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014807 ON SYSTEM.T_USER
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014808 ON SYSTEM.T_USER
+(U_ID)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014809 ON SYSTEM.T_USER
+(PHONE_NUMBER)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014810 ON SYSTEM.T_USER_ABILITY_REL
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014811 ON SYSTEM.T_EDUCATION
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014812 ON SYSTEM.T_EDUCATION_ABILITY_REL
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014813 ON SYSTEM.T_EDUCATION_STATE_REL
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.SYS_C0014814 ON SYSTEM.T_EDUCATION_USER_REL
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.T_EDUCATOR_PK ON SYSTEM.T_EDUCATOR
+(PK)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE UNIQUE INDEX SYSTEM.T_USER_U03 ON SYSTEM.T_USER
+(EMAIL)
+LOGGING
+TABLESPACE SYSTEM
+PCTFREE    10
+INITRANS   2
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MAXSIZE          UNLIMITED
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           );
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_ABILITY_LEVEL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_ABILITY_LEVEL_PK.nextval;
+    END IF;                   
+    IF :new.MODIFIED_TIME IS NULL THEN   
+        :new.MODIFIED_TIME := :new.CREATION_TIME; 
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_ABILITY_LEVEL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.LEVEL_NAME != :old.LEVEL_NAME THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_ABILITY
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL  THEN
+        :new.PK := SEQ_ABILITY_PK.nextval;
+        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+        
+    END IF;    
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_ABILITY
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :old.ABILITY_NAME != :new.ABILITY_NAME THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_USER_DELETE
+AFTER DELETE
+ON SYSTEM.T_USER
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+    is_dep_manager INTEGER := 0;
+    is_unt_manager INTEGER := 0;
+BEGIN
+    SELECT COUNT(*) INTO is_dep_manager FROM T_DEPARTMENT WHERE MANAGER_ID = :old.PK;
+    SELECT COUNT(*) INTO is_unt_manager FROM T_UNIT WHERE MANAGER_ID = :old.PK;
+    
+    IF is_dep_manager != 0 THEN
+        UPDATE T_DEPARTMENT SET MANAGER_ID = NULL WHERE PK = :old.DEPARTMENT_FK;
+    ELSIF is_unt_manager != 0 THEN
+        UPDATE T_UNIT SET MANAGER_ID = NULL WHERE PK = :old.UNIT_FK;       
+    END IF;     
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_DEPARMENT_INSERT
+BEFORE INSERT
+ON SYSTEM.T_DEPARTMENT
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_DEPARTMENT_PK.nextval;
+    END IF;    
+        
+    IF :new.MODIFIED_TIME IS NULL  THEN 
+        :new.MODIFIED_TIME := :new.CREATION_TIME;        
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_DEPARTMENT_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_DEPARTMENT
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :old.DEPARTMENT_NAME != :new.DEPARTMENT_NAME THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_ROLE_INSERT
+BEFORE INSERT
+ON SYSTEM.T_ROLE
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_ROLE_PK.nextval;
+    END IF;    
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;    
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_UNIT_INSERT
+BEFORE INSERT
+ON SYSTEM.T_UNIT
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_UNIT_PK.nextval;        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;  
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_UNIT_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_UNIT
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  
+        (:old.UNIT_NAME != :new.UNIT_NAME OR 
+            :old.DEPARTMENT_FK != :new.DEPARTMENT_FK) THEN
+            
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+        
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_NEW_RCRD 
+BEFORE INSERT
+ON SYSTEM.T_EDUCATION_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_EDUCATION_ABILITY_REL_PK.nextval;  
+    END IF;
+              
+    IF :new.MODIFIED_TIME IS NULL THEN 
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATION_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_EDUCATION
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+    stt_id INTEGER;
+BEGIN
+    IF :new.PK IS NULL THEN 
+        :new.PK := SEQ_EDUCATION_PK.nextval;
+    END IF;            
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;    
+    END IF;
+    SELECT PK INTO stt_id FROM T_STATE WHERE STATE_NAME = 'PLANNED';
+    INSERT INTO T_EDUCATION_STATE_REL(STATE_ID,EDUCATION_ID) VALUES(stt_id,:new.PK);
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_STATE_NEW_RECORD 
+BEFORE INSERT ON SYSTEM.T_EDUCATION_STATE_REL
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  :new.PK IS NULL THEN
+        :new.PK := SEQ_EDUCATION_STATE_REL_PK.nextval;        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_STATE_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATION_STATE_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATION
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  :new.EDUCATION_SUBJECT != :old.EDUCATION_SUBJECT OR
+            :new.EDUCATION_CONTENT != :old.EDUCATION_CONTENT OR
+                :new.EDUCATOR_FK != :old.EDUCATOR_FK OR
+                    :new.IS_ACTIVE != :old.IS_ACTIVE THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_USER_REL_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATION_USER_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATOR_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_EDUCATOR
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_EDUCATOR_PK.nextval;
+    END IF;                   
+    IF :new.MODIFIED_TIME IS NULL THEN   
+        :new.MODIFIED_TIME := :new.CREATION_TIME; 
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATOR_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATOR
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.EDUCATOR_NAME != :old.EDUCATOR_NAME OR
+            :new.IS_INHOUSE != :old.IS_INHOUSE OR
+                :new.IS_ACTIVE != :old.IS_ACTIVE OR 
+                    :new.USER_FK != :old.USER_FK THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ROLE_UPDATE
+BEFORE UPDATE
+ON SYSTEM.T_ROLE
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.ROLE_NAME != :old.ROLE_NAME THEN                
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_STATE_NEW_RECORD 
+BEFORE INSERT ON SYSTEM.T_STATE
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_STATE_PK.nextval;
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;    
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_STATE_UPDATE_RECORD 
+BEFORE INSERT ON SYSTEM.T_STATE
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :old.STATE_NAME != :new.STATE_NAME THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF; 
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_REL_NEW_RCRD 
+BEFORE INSERT
+ON SYSTEM.T_USER_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_USER_ABILITY_REL_PK.nextval;
+        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_USER_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_EDUCATION_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_EDUCATION_USER_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  :new.PK IS NULL THEN
+        :new.PK := SEQ_USER_EDUCATION_REL_PK.nextval;
+        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_USER
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  :new.PK IS NULL THEN
+        :new.PK := SEQ_USER_PK.nextval;
+        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+ALTER TABLE SYSTEM.T_ABILITY ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE,
+  UNIQUE (ABILITY_NAME)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE,
+  UNIQUE (LEVEL_NAME)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_DEPARTMENT ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE,
+  UNIQUE (DEPARTMENT_NAME)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_EDUCATION ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_ROLE ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE,
+  UNIQUE (ROLE_NAME)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_STATE ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE,
+  UNIQUE (STATE_NAME)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_UNIT ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE,
+  UNIQUE (UNIT_NAME)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_USER ADD (
+  CONSTRAINT T_USER_PK
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL ADD (
+  PRIMARY KEY
+  (PK)
+  USING INDEX
+    TABLESPACE SYSTEM
+    PCTFREE    10
+    INITRANS   2
+    MAXTRANS   255
+    STORAGE    (
+                INITIAL          64K
+                NEXT             1M
+                MAXSIZE          UNLIMITED
+                MINEXTENTS       1
+                MAXEXTENTS       UNLIMITED
+                PCTINCREASE      0
+                FREELISTS        1
+                FREELIST GROUPS  1
+                BUFFER_POOL      DEFAULT
+               )
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_UNIT ADD (
+  FOREIGN KEY (DEPARTMENT_FK) 
+  REFERENCES SYSTEM.T_DEPARTMENT (PK)
+  ON DELETE CASCADE
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_USER ADD (
+  FOREIGN KEY (ROLE_FK) 
+  REFERENCES SYSTEM.T_ROLE (PK)
+  ON DELETE CASCADE
+  ENABLE VALIDATE,
+  CONSTRAINT T_USER_R02 
+  FOREIGN KEY (UNIT_FK) 
+  REFERENCES SYSTEM.T_UNIT (PK)
+  ENABLE VALIDATE,
+  CONSTRAINT T_USER_R03 
+  FOREIGN KEY (DEPARTMENT_FK) 
+  REFERENCES SYSTEM.T_DEPARTMENT (PK)
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL ADD (
+  CONSTRAINT T_USER_ABILITY_REL_R01 
+  FOREIGN KEY (ABILITY_FK) 
+  REFERENCES SYSTEM.T_ABILITY (PK)
+  ENABLE VALIDATE,
+  CONSTRAINT T_USER_ABILITY_REL_R02 
+  FOREIGN KEY (ABILITY_LEVEL_FK) 
+  REFERENCES SYSTEM.T_ABILITY_LEVEL (PK)
+  ENABLE VALIDATE,
+  CONSTRAINT T_USER_ABILITY_REL_R03 
+  FOREIGN KEY (USER_FK) 
+  REFERENCES SYSTEM.T_USER (PK)
+  ON DELETE CASCADE
+  ENABLE VALIDATE);
+DROP PROCEDURE SYSTEM.SP_ASSIGN_ABILITIES_TO_EDU;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_ABILITIES_TO_EDU" (edu_id IN INTEGER,ablty_ids IN INT_ARRAY,is_valid OUT CHAR)
+AS
+BEGIN
+    FOR i IN 1..ablty_ids.count LOOP
+        INSERT INTO T_EDUCATION_ABILITY_REL(EDUCATION_FK,ABILITY_FK) VALUES(edu_id,ablty_ids(i));  
+    END LOOP;  
+        
+    is_valid := '1';      
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_ASSIGN_ABILITIES_TO_USER;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_ABILITIES_TO_USER" (usr_id IN INTEGER,ablty_ids IN INT_ARRAY,level_ids IN INT_ARRAY,is_valid OUT CHAR)
+AS
+BEGIN
+    FOR i IN 1..ablty_ids.count LOOP
+        INSERT INTO T_USER_ABILITY_REL(USER_FK,ABILITY_FK,ABILITY_LEVEL_FK) VALUES(usr_id,ablty_ids(i),level_ids(i));  
+    END LOOP;
+    
+    is_valid := '1';  
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_ASSIGN_USERS_TO_EDU;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_USERS_TO_EDU" (edu_id IN INTEGER,usr_ids IN INT_ARRAY,is_valid OUT CHAR)
+AS
+BEGIN
+    FOR i IN 1..usr_ids.count LOOP
+        INSERT INTO T_EDUCATION_USER_REL(EDUCATION_FK,USER_FK) VALUES(edu_id,usr_ids(i));  
+    END LOOP;  
+    
+    is_valid := '1';  
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ABILITY" (ablty_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY WHERE ability_name = ablty_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_ABILITY(ABILITY_NAME) VALUES(INITCAP(ablty_name));
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY_LEVEL;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ABILITY_LEVEL" (lvl_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY_LEVEL WHERE level_name = lvl_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_ABILITY_LEVEL(LEVEL_NAME) VALUES(lvl_name);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;     
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_DEPARTMENT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_DEPARTMENT" (dep_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_DEPARTMENT WHERE department_name = dep_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_DEPARTMENT(DEPARTMENT_NAME) VALUES(INITCAP(dep_name));
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATION;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_EDUCATION" (edu_subject IN VARCHAR,edu_content IN VARCHAR,
+planned_dte IN VARCHAR,complete_dte IN VARCHAR,edctr_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN
+    INSERT INTO T_EDUCATION(EDUCATION_SUBJECT,EDUCATION_CONTENT,PLANNED_DATE,COMPLETE_DATE,EDUCATOR_FK) 
+        VALUES(edu_subject,edu_content,TO_DATE(planned_dte,'dd-mm-yyyy'),
+            TO_DATE(complete_dte,'dd-mm-yyyy'),edctr_id);
+          
+    is_valid := '1';          
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATOR;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_EDUCATOR" (edctr_name IN VARCHAR,is_inhuse IN CHAR,usr_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+    name_of_user VARCHAR(60);
+BEGIN
+    
+    IF is_inhuse = '1' THEN
+    
+        SELECT COUNT(*) INTO number_of_row FROM T_EDUCATOR WHERE USER_FK = usr_id;
+        
+        IF number_of_row = 0 THEN
+            
+            SELECT CONCAT(CONCAT(FIRST_NAME,' '),LAST_NAME) INTO name_of_user FROM T_USER WHERE PK = usr_id;       
+            INSERT INTO T_EDUCATOR(EDUCATOR_NAME,IS_INHOUSE,USER_FK) VALUES(INITCAP(name_of_user),is_inhuse,usr_id);            
+            is_valid := '1';
+        
+        ELSE       
+            is_valid := '0';            
+        END IF;
+        
+    ELSE
+        INSERT INTO T_EDUCATOR(EDUCATOR_NAME,IS_INHOUSE) VALUES(INITCAP(edctr_name),is_inhuse);        
+        is_valid := '1';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_ROLE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ROLE" (r_name IN VARCHAR, is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_ROLE WHERE role_name = r_name;
+    
+    IF number_of_row = 0 THEN
+
+        INSERT INTO T_ROLE(ROLE_NAME) VALUES(INITCAP(r_name));
+        is_valid := '1';     
+    ELSE
+        is_valid := '0';            
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_STATE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_STATE" (stt_name IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row INTEGER;
+BEGIN    
+    SELECT COUNT(*) INTO number_of_row FROM T_STATE WHERE state_name = stt_name;
+    IF number_of_row = 0 THEN
+        INSERT INTO T_STATE(STATE_NAME) VALUES(stt_name);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;  
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_UNIT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_UNIT" (unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+    --dep_id INTEGER;
+    number_of_row INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_UNIT WHERE unit_name = unt_name;
+    IF number_of_row = 0 THEN
+        --SELECT PK INTO dep_id FROM T_DEPARTMENT WHERE department_name = dep_name;
+        INSERT INTO T_UNIT(UNIT_NAME,DEPARTMENT_FK) VALUES(INITCAP(unt_name),dep_id);
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_CREATE_USER;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_USER" (usr_id IN VARCHAR,usr_pw IN VARCHAR,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
+    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,rle_id IN INTEGER,is_valid OUT CHAR,dep_id IN INTEGER,unt_id IN INTEGER)
+AS
+    number_of_user INTEGER;
+    number_of_email INTEGER;
+    number_of_phone INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE U_ID = usr_id;
+    SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
+    SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
+    
+    IF number_of_user = 0 AND number_of_email = 0 AND number_of_phone = 0 THEN
+        INSERT INTO T_USER(U_ID,U_PW,FIRST_NAME,LAST_NAME,DATE_OF_BIRTH,PHONE_NUMBER,ADDRESS,EMAIL,ROLE_FK,UNIT_FK,DEPARTMENT_FK) 
+            VALUES(usr_id,usr_pw,fname,lname,TO_DATE(dte_of_birth,'dd-mm-yyyy'),phne_num,addrss,e_mail,rle_id,unt_id,dep_id); 
+        
+        is_valid := '1';  
+          
+    ELSE
+        is_valid := '0';
+        
+    END IF;    
+           
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_ABILITY;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_ABILITY" (ablty_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_rows INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_rows FROM T_USER_ABILITY_REL WHERE ABILITY_FK = ablty_id;
+    IF number_of_rows = 0 THEN
+        DELETE FROM T_ABILITY WHERE PK = ablty_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;
+    
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_DEPARTMENT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_DEPARTMENT" (dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_unit INTEGER;
+    number_of_user INTEGER;
+BEGIN
+    --Altinda birim olup olmadiginin kontrolu
+    SELECT COUNT(*) INTO number_of_unit FROM T_UNIT WHERE DEPARTMENT_FK = dep_id;
+    
+    --Altinda user olup olmadiginin kontrolü
+    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE T_USER.DEPARTMENT_FK = dep_id;
+    
+    IF number_of_unit = 0 AND number_of_user = 0 THEN
+        DELETE FROM T_DEPARTMENT WHERE PK = dep_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_EDUCATOR;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_EDUCATOR" (edctr_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN 
+    DELETE FROM T_EDUCATOR WHERE PK = edctr_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_ROLE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_ROLE" (rle_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_user INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE ROLE_FK = rle_id;
+    IF number_of_user = 0 THEN
+        DELETE FROM T_ROLE WHERE PK = rle_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;    
+    
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_REMOVE_UNIT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_UNIT" (unt_id IN INTEGER,is_valid OUT CHAR)
+AS
+    number_of_user INTEGER;
+BEGIN    
+    --Altinda user olup olmadiginin kontrolü
+    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE T_USER.UNIT_FK = unt_id;
+    
+    IF number_of_user=0 THEN
+        DELETE FROM T_UNIT WHERE PK = unt_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ABILITY" (ablty_id IN INTEGER,ablty_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_ABILITY SET ABILITY_NAME = INITCAP(ablty_name) WHERE PK = ablty_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY_LEVEL;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ABILITY_LEVEL" (lvl_id IN INTEGER,lvl_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_ABILITY_LEVEL SET LEVEL_NAME = lvl_name WHERE PK = lvl_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_DEPARTMENT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_DEPARTMENT" (dep_id IN INTEGER,dep_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_DEPARTMENT SET DEPARTMENT_NAME = INITCAP(dep_name) WHERE PK = dep_id;
+    is_valid := '1';
+    commit;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_EDUCATOR;
+
+CREATE OR REPLACE PROCEDURE SYSTEM.SP_UPDATE_EDUCATOR(edctr_id IN INTEGER,edctr_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_EDUCATOR SET EDUCATOR_NAME = INITCAP(edctr_name) WHERE PK = edctr_id;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_ROLE;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ROLE" (rle_id IN INTEGER,rle_name IN VARCHAR,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_ROLE SET ROLE_NAME = INITCAP(rle_name) WHERE PK = rle_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_UNIT;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_UNIT" (unt_id IN INTEGER,unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
+AS
+BEGIN
+    UPDATE T_UNIT SET UNIT_NAME = INITCAP(unt_name),DEPARTMENT_FK = dep_id WHERE PK = unt_id;
+    is_valid := '1';
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_UPDATE_USER;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_USER" (usr_id IN INTEGER,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
+    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,ablty_ids IN INT_ARRAY,level_ids IN INT_ARRAY,is_valid OUT CHAR,
+    unt_id IN INTEGER,dep_id IN INTEGER)
+AS
+    number_of_email INTEGER;
+    number_of_phone INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
+    SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
+    
+    IF number_of_email = 0 AND number_of_phone = 0 THEN
+        UPDATE T_USER SET EMAIL = e_mail, FIRST_NAME = fname, LAST_NAME = lname, DEPARTMENT_FK = dep_id, UNIT_FK = unt_id, 
+        DATE_OF_BIRTH = TO_DATE(dte_of_birth,'mm-dd-yyyy'), PHONE_NUMBER = phne_num, ADDRESS = addrss                
+        WHERE U_ID = usr_id;
+            
+        DELETE FROM T_USER_ABILITY_REL WHERE USER_FK = usr_id;
+        
+        FOR i IN 1..ablty_ids.count LOOP
+            INSERT INTO T_USER_ABILITY_REL(USER_FK,ABILITY_FK,ABILITY_LEVEL_FK) VALUES(usr_id,ablty_ids(i),level_ids(i));  
+        END LOOP;
+        
+        is_valid := '1';      
+    ELSE
+        is_valid := '0';
+    END IF;
+END;
+/
+
+
+DROP PROCEDURE SYSTEM.SP_USER_LOGIN;
+
+CREATE OR REPLACE PROCEDURE SYSTEM."SP_USER_LOGIN" (user_id IN VARCHAR,user_pw IN VARCHAR,is_valid OUT CHAR)
+AS
+    number_of_row NUMERIC ;
+BEGIN
+    SELECT COUNT(*) INTO number_of_row FROM T_USER WHERE u_id = user_id AND u_pw = user_pw;
+
+    IF number_of_row = 1 THEN
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+        
+    END IF;
+END;
+/
+DROP TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_ABILITY_LEVEL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_ABILITY_LEVEL_PK.nextval;
+    END IF;                   
+    IF :new.MODIFIED_TIME IS NULL THEN   
+        :new.MODIFIED_TIME := :new.CREATION_TIME; 
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_ABILITY_LEVEL_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_ABILITY_LEVEL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.LEVEL_NAME != :old.LEVEL_NAME THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_ABILITY_NEW_RECORD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_ABILITY
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL  THEN
+        :new.PK := SEQ_ABILITY_PK.nextval;
+        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+        
+    END IF;    
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_ABILITY_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_ABILITY
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :old.ABILITY_NAME != :new.ABILITY_NAME THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_AFTER_USER_DELETE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_USER_DELETE
+AFTER DELETE
+ON SYSTEM.T_USER
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+    is_dep_manager INTEGER := 0;
+    is_unt_manager INTEGER := 0;
+BEGIN
+    SELECT COUNT(*) INTO is_dep_manager FROM T_DEPARTMENT WHERE MANAGER_ID = :old.PK;
+    SELECT COUNT(*) INTO is_unt_manager FROM T_UNIT WHERE MANAGER_ID = :old.PK;
+    
+    IF is_dep_manager != 0 THEN
+        UPDATE T_DEPARTMENT SET MANAGER_ID = NULL WHERE PK = :old.DEPARTMENT_FK;
+    ELSIF is_unt_manager != 0 THEN
+        UPDATE T_UNIT SET MANAGER_ID = NULL WHERE PK = :old.UNIT_FK;       
+    END IF;     
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_BEFORE_DEPARMENT_INSERT;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_DEPARMENT_INSERT
+BEFORE INSERT
+ON SYSTEM.T_DEPARTMENT
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_DEPARTMENT_PK.nextval;
+    END IF;    
+        
+    IF :new.MODIFIED_TIME IS NULL  THEN 
+        :new.MODIFIED_TIME := :new.CREATION_TIME;        
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_BEFORE_DEPARTMENT_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_DEPARTMENT_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_DEPARTMENT
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :old.DEPARTMENT_NAME != :new.DEPARTMENT_NAME THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_BEFORE_ROLE_INSERT;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_ROLE_INSERT
+BEFORE INSERT
+ON SYSTEM.T_ROLE
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_ROLE_PK.nextval;
+    END IF;    
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;    
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_BEFORE_UNIT_INSERT;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_UNIT_INSERT
+BEFORE INSERT
+ON SYSTEM.T_UNIT
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_UNIT_PK.nextval;        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;  
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_BEFORE_UNIT_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_UNIT_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_UNIT
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  
+        (:old.UNIT_NAME != :new.UNIT_NAME OR 
+            :old.DEPARTMENT_FK != :new.DEPARTMENT_FK) THEN
+            
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+        
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_NEW_RCRD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_NEW_RCRD 
+BEFORE INSERT
+ON SYSTEM.T_EDUCATION_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_EDUCATION_ABILITY_REL_PK.nextval;  
+    END IF;
+              
+    IF :new.MODIFIED_TIME IS NULL THEN 
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATION_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_EDUCATION_NEW_RECORD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_EDUCATION
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+    stt_id INTEGER;
+BEGIN
+    IF :new.PK IS NULL THEN 
+        :new.PK := SEQ_EDUCATION_PK.nextval;
+    END IF;            
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;    
+    END IF;
+    SELECT PK INTO stt_id FROM T_STATE WHERE STATE_NAME = 'PLANNED';
+    INSERT INTO T_EDUCATION_STATE_REL(STATE_ID,EDUCATION_ID) VALUES(stt_id,:new.PK);
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_EDUCATION_STATE_NEW_RECORD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_STATE_NEW_RECORD 
+BEFORE INSERT ON SYSTEM.T_EDUCATION_STATE_REL
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  :new.PK IS NULL THEN
+        :new.PK := SEQ_EDUCATION_STATE_REL_PK.nextval;        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_EDUCATION_STATE_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_STATE_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATION_STATE_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_EDUCATION_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATION
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  :new.EDUCATION_SUBJECT != :old.EDUCATION_SUBJECT OR
+            :new.EDUCATION_CONTENT != :old.EDUCATION_CONTENT OR
+                :new.EDUCATOR_FK != :old.EDUCATOR_FK OR
+                    :new.IS_ACTIVE != :old.IS_ACTIVE THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_EDUCATION_USER_REL_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_USER_REL_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATION_USER_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_EDUCATOR_NEW_RECORD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATOR_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_EDUCATOR
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_EDUCATOR_PK.nextval;
+    END IF;                   
+    IF :new.MODIFIED_TIME IS NULL THEN   
+        :new.MODIFIED_TIME := :new.CREATION_TIME; 
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_EDUCATOR_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATOR_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_EDUCATOR
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.EDUCATOR_NAME != :old.EDUCATOR_NAME OR
+            :new.IS_INHOUSE != :old.IS_INHOUSE OR
+                :new.IS_ACTIVE != :old.IS_ACTIVE OR 
+                    :new.USER_FK != :old.USER_FK THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_ROLE_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_ROLE_UPDATE
+BEFORE UPDATE
+ON SYSTEM.T_ROLE
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.ROLE_NAME != :old.ROLE_NAME THEN                
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_STATE_NEW_RECORD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_STATE_NEW_RECORD 
+BEFORE INSERT ON SYSTEM.T_STATE
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_STATE_PK.nextval;
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;    
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_STATE_UPDATE_RECORD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_STATE_UPDATE_RECORD 
+BEFORE INSERT ON SYSTEM.T_STATE
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :old.STATE_NAME != :new.STATE_NAME THEN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+    END IF; 
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_USER_ABILITY_REL_NEW_RCRD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_REL_NEW_RCRD 
+BEFORE INSERT
+ON SYSTEM.T_USER_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF :new.PK IS NULL THEN
+        :new.PK := SEQ_USER_ABILITY_REL_PK.nextval;
+        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_USER_ABILITY_UPDATE;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_UPDATE 
+BEFORE UPDATE
+ON SYSTEM.T_USER_ABILITY_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_USER_EDUCATION_NEW_RECORD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_EDUCATION_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_EDUCATION_USER_REL
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  :new.PK IS NULL THEN
+        :new.PK := SEQ_USER_EDUCATION_REL_PK.nextval;
+        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+
+
+DROP TRIGGER SYSTEM.TRG_USER_NEW_RECORD;
+
+CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_NEW_RECORD 
+BEFORE INSERT
+ON SYSTEM.T_USER
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF  :new.PK IS NULL THEN
+        :new.PK := SEQ_USER_PK.nextval;
+        
+    END IF;
+    IF :new.MODIFIED_TIME IS NULL THEN
+        :new.MODIFIED_TIME := :new.CREATION_TIME;
+    END IF;
+END;
+/
+DROP SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK
+  START WITH 21
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_ABILITY_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_ABILITY_PK
+  START WITH 81
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK
+  START WITH 2100
+  INCREMENT BY 5
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 100
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_EDUCATION_ABILITY_REL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_ABILITY_REL_PK
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_EDUCATION_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_PK
+  START WITH 21
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_EDUCATION_STATE_REL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_STATE_REL_PK
+  START WITH 0
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_EDUCATOR_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_EDUCATOR_PK
+  START WITH 4
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_ROLE_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_ROLE_PK
+  START WITH 150000
+  INCREMENT BY 500
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 10000
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_STATE_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_STATE_PK
+  START WITH 3
+  MAXVALUE 9999999999999999999999999999
+  MINVALUE 0
+  NOCYCLE
+  NOCACHE
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_UNIT_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_UNIT_PK
+  START WITH 11000
+  INCREMENT BY 50
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1000
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_USER_ABILITY_REL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_USER_ABILITY_REL_PK
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_USER_EDUCATION_REL_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_USER_EDUCATION_REL_PK
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+
+
+DROP SEQUENCE SYSTEM.SEQ_USER_PK;
+
+CREATE SEQUENCE SYSTEM.SEQ_USER_PK
+  START WITH 5880
+  INCREMENT BY 4
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 5000
+  NOCYCLE
+  CACHE 20
+  NOORDER
+  NOKEEP
+  GLOBAL;
+DROP TYPE SYSTEM.INT_ARRAY;
+
+CREATE OR REPLACE TYPE SYSTEM."INT_ARRAY" AS VARRAY(50) OF INTEGER;
+/
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENTS MODIFY 
+  AGENT_NAME NULL;
+
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENTS MODIFY 
+  PROTOCOL NULL;
+
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENTS
+  DROP CONSTRAINT SYS_C002098;
+
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENTS MODIFY 
+  AGENT_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENTS MODIFY 
+  PROTOCOL NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENTS ADD (
+  PRIMARY KEY
+  (AGENT_NAME)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENT_PRIVS MODIFY 
+  AGENT_NAME NULL;
+
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENT_PRIVS MODIFY 
+  DB_USERNAME NULL;
+
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENT_PRIVS MODIFY 
+  AGENT_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_INTERNET_AGENT_PRIVS MODIFY 
+  DB_USERNAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  EVENTID NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  TABLE_OBJNO NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  USAGE NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  ENABLE_FLAG NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  EVENTID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  TABLE_OBJNO NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  USAGE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_QUEUES MODIFY 
+  ENABLE_FLAG NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  "SCHEMA" NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  UDATA_TYPE NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  OBJNO NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  FLAGS NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  SORT_COLS NULL;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  "SCHEMA" NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  UDATA_TYPE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  OBJNO NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  FLAGS NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.AQ$_QUEUE_TABLES MODIFY 
+  SORT_COLS NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.AQ$_SCHEDULES MODIFY 
+  DESTINATION NULL;
+
+ALTER TABLE SYSTEM.AQ$_SCHEDULES MODIFY 
+  DESTINATION NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
+  ID NULL;
+
+ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
+  AGE NULL;
+
+ALTER TABLE SYSTEM.CUSTOMERS
+  DROP CONSTRAINT SYS_C0014536;
+
+ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
+  ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
+  AGE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.CUSTOMERS ADD (
+  PRIMARY KEY
+  (ID)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.DEF$_DESTINATION MODIFY 
+  LAST_DELIVERED NULL;
+
+ALTER TABLE SYSTEM.DEF$_DESTINATION MODIFY 
+  LAST_DELIVERED NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.DEF$_PROPAGATOR MODIFY 
+  USERNAME NULL;
+
+ALTER TABLE SYSTEM.DEF$_PROPAGATOR MODIFY 
+  CREATED NULL;
+
+ALTER TABLE SYSTEM.DEF$_PROPAGATOR MODIFY 
+  USERNAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.DEF$_PROPAGATOR MODIFY 
+  CREATED NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.DEF$_PUSHED_TRANSACTIONS
+  DROP CONSTRAINT SYS_C003760;
+
+ALTER TABLE SYSTEM.DEF$_PUSHED_TRANSACTIONS ADD (
+  CHECK (disabled IN ('T', 'F'))
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.HELP MODIFY 
+  TOPIC NULL;
+
+ALTER TABLE SYSTEM.HELP MODIFY 
+  SEQ NULL;
+
+ALTER TABLE SYSTEM.HELP MODIFY 
+  TOPIC NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.HELP MODIFY 
+  SEQ NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_CONCOL_GG MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CONCOL_GG MODIFY 
+  CON# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CONCOL_GG MODIFY 
+  COMMIT_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CONCOL_GG MODIFY 
+  INTCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CONCOL_GG MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_CONCOL_GG MODIFY 
+  CON# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_CONCOL_GG MODIFY 
+  COMMIT_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_CONCOL_GG MODIFY 
+  INTCOL# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  CON# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  COMMIT_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  BASEOBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  BASEOBJV# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  FLAGS NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  CON# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  COMMIT_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  BASEOBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  BASEOBJV# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_CON_GG MODIFY 
+  FLAGS NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_DBNAME_UID_MAP MODIFY 
+  GLOBAL_NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_DBNAME_UID_MAP MODIFY 
+  LOGMNR_MDH NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_DBNAME_UID_MAP MODIFY 
+  GLOBAL_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_DBNAME_UID_MAP MODIFY 
+  LOGMNR_MDH NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_GSBA MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSBA MODIFY 
+  AS_OF_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSBA MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSBA MODIFY 
+  AS_OF_SCN NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_GSII MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSII MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSII MODIFY 
+  BO# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSII MODIFY 
+  INDTYPE# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSII MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSII MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSII MODIFY 
+  BO# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GSII MODIFY 
+  INDTYPE# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  OBJV# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  SEGCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  INTCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  COLNAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  TYPE# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  OBJV# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  SEGCOL# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  INTCOL# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  COLNAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTCS MODIFY 
+  TYPE# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  KEYOBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  LVLCNT NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  BASEOBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  BASEOBJV# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  LVL0TYPE# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  OWNERNAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  LVL0NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  INTCOLS NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  START_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  KEYOBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  LVLCNT NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  BASEOBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  BASEOBJV# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  LVL0TYPE# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  OWNERNAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  LVL0NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  INTCOLS NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_GTLO MODIFY 
+  START_SCN NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  COMMIT_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  INTCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  POS# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  COMMIT_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  INTCOL# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_INDCOL_GG MODIFY 
+  POS# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  COMMIT_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  BASEOBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  BASEOBJV# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  FLAGS NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  OWNER# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  OWNERNAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  COMMIT_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  BASEOBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  BASEOBJV# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  FLAGS NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  OWNER# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_IND_GG MODIFY 
+  OWNERNAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  COMMIT_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  SEQ_FLAGS NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  OWNER# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  OWNERNAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  OBJNAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  COMMIT_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  SEQ_FLAGS NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  OWNER# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  OWNERNAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRC_SEQ_GG MODIFY 
+  OBJNAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  OBJV# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  SEGCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  INTCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  COLNAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  TYPE# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  OBJV# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  SEGCOL# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  INTCOL# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  COLNAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTCS MODIFY 
+  TYPE# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  KEYOBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  LVLCNT NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  BASEOBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  BASEOBJV# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  LVL0TYPE# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  OWNERNAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  LVL0NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  INTCOLS NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  START_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  KEYOBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  LVLCNT NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  BASEOBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  BASEOBJV# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  LVL0TYPE# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  OWNERNAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  LVL0NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  INTCOLS NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRGGC_GTLO MODIFY 
+  START_SCN NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  LOGMNR_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  BASEOBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  BASEOBJV# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  KEYOBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  PART# NULL;
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  LOGMNR_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  BASEOBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  BASEOBJV# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  KEYOBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNRP_CTAS_PART_MAP MODIFY 
+  PART# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNRT_MDDL$ MODIFY 
+  DEST_ROWID NULL;
+
+ALTER TABLE SYSTEM.LOGMNRT_MDDL$ MODIFY 
+  DEST_ROWID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_ATTRCOL$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_ATTRCOL$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_ATTRIBUTE$ MODIFY 
+  TOID NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_ATTRIBUTE$ MODIFY 
+  TOID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_CCOL$ MODIFY 
+  INTCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CCOL$ MODIFY 
+  INTCOL# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_CDEF$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CDEF$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_COL$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_COL$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_COLTYPE$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_COLTYPE$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_CON$ MODIFY 
+  OWNER# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CON$ MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CON$ MODIFY 
+  CON# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CON$ MODIFY 
+  OWNER# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_CON$ MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_CON$ MODIFY 
+  CON# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  CON_ID# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  DBID NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  CON_UID NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  CREATE_SCNWRP NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  CREATE_SCNBAS NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  STATUS NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  CON_ID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  DBID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  CON_UID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  CREATE_SCNWRP NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  CREATE_SCNBAS NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_CONTAINER$ MODIFY 
+  STATUS NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_DICTIONARY$ MODIFY 
+  DB_DICT_OBJECTCOUNT NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_DICTIONARY$ MODIFY 
+  DB_DICT_OBJECTCOUNT NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_ENC$ MODIFY 
+  MKEYID NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_ENC$ MODIFY 
+  MKEYID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_ICOL$ MODIFY 
+  INTCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_ICOL$ MODIFY 
+  INTCOL# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_IND$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_IND$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_INDCOMPART$ MODIFY 
+  PART# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_INDCOMPART$ MODIFY 
+  PART# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_INDPART$ MODIFY 
+  TS# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_INDPART$ MODIFY 
+  TS# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_INDSUBPART$ MODIFY 
+  TS# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_INDSUBPART$ MODIFY 
+  TS# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_KOPM$ MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_KOPM$ MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_LOB$ MODIFY 
+  CHUNK NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_LOB$ MODIFY 
+  CHUNK NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_LOBFRAG$ MODIFY 
+  FRAG# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_LOBFRAG$ MODIFY 
+  FRAG# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_LOGMNR_BUILDLOG MODIFY 
+  INITIAL_XID NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_LOGMNR_BUILDLOG MODIFY 
+  INITIAL_XID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_NTAB$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_NTAB$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_OBJ$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_OBJ$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_OPQTYPE$ MODIFY 
+  INTCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_OPQTYPE$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_OPQTYPE$ MODIFY 
+  INTCOL# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_OPQTYPE$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_PARAMETER$ MODIFY 
+  SESSION# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_PARAMETER$ MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_PARAMETER$ MODIFY 
+  SESSION# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_PARAMETER$ MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_PARTOBJ$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_PARTOBJ$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_PDB_INFO$ MODIFY 
+  LOGMNR_DID NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_PDB_INFO$ MODIFY 
+  LOGMNR_MDH NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_PDB_INFO$ MODIFY 
+  PLUGIN_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_PDB_INFO$ MODIFY 
+  LOGMNR_DID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_PDB_INFO$ MODIFY 
+  LOGMNR_MDH NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_PDB_INFO$ MODIFY 
+  PLUGIN_SCN NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_PROPS$ MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_PROPS$ MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_REFCON$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_REFCON$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_SEED$ MODIFY 
+  NULL$ NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SEED$ MODIFY 
+  NULL$ NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION$ MODIFY 
+  SESSION_NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION$ MODIFY 
+  SESSION_NAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION_ACTIONS$ MODIFY 
+  ACTIONNAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION_ACTIONS$ MODIFY 
+  LOGMNRSESSION# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION_ACTIONS$ MODIFY 
+  PROCESSROLE# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION_ACTIONS$ MODIFY 
+  ACTIONTYPE# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION_ACTIONS$ MODIFY 
+  ACTIONNAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION_ACTIONS$ MODIFY 
+  LOGMNRSESSION# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION_ACTIONS$ MODIFY 
+  PROCESSROLE# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_SESSION_ACTIONS$ MODIFY 
+  ACTIONTYPE# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_SUBCOLTYPE$ MODIFY 
+  INTCOL# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SUBCOLTYPE$ MODIFY 
+  TOID NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SUBCOLTYPE$ MODIFY 
+  VERSION# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SUBCOLTYPE$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_SUBCOLTYPE$ MODIFY 
+  INTCOL# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_SUBCOLTYPE$ MODIFY 
+  TOID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_SUBCOLTYPE$ MODIFY 
+  VERSION# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGMNR_SUBCOLTYPE$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_TAB$ MODIFY 
+  OBJ# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_TAB$ MODIFY 
+  OBJ# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_TABCOMPART$ MODIFY 
+  PART# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_TABCOMPART$ MODIFY 
+  PART# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_TABPART$ MODIFY 
+  BO# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_TABPART$ MODIFY 
+  BO# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_TABSUBPART$ MODIFY 
+  TS# NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_TABSUBPART$ MODIFY 
+  TS# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_TS$ MODIFY 
+  BLOCKSIZE NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_TS$ MODIFY 
+  BLOCKSIZE NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_TYPE$ MODIFY 
+  TOID NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_TYPE$ MODIFY 
+  TOID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGMNR_USER$ MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.LOGMNR_USER$ MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  SESSION_ID NULL;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  COMMIT_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  SYNCH_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  EPOCH NULL;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  PROCESSED_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  FETCHLWM_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  SESSION_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  COMMIT_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  SYNCH_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  EPOCH NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  PROCESSED_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGSTDBY$APPLY_MILESTONE MODIFY 
+  FETCHLWM_SCN NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.LOGSTDBY$FLASHBACK_SCN MODIFY 
+  PRIMARY_SCN NULL;
+
+ALTER TABLE SYSTEM.LOGSTDBY$FLASHBACK_SCN
+  DROP CONSTRAINT SYS_C004384;
+
+ALTER TABLE SYSTEM.LOGSTDBY$FLASHBACK_SCN MODIFY 
+  PRIMARY_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGSTDBY$FLASHBACK_SCN ADD (
+  PRIMARY KEY
+  (PRIMARY_SCN)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.LOGSTDBY$SKIP_SUPPORT MODIFY 
+  ACTION NULL;
+
+ALTER TABLE SYSTEM.LOGSTDBY$SKIP_SUPPORT MODIFY 
+  NAME NULL;
+
+ALTER TABLE SYSTEM.LOGSTDBY$SKIP_SUPPORT MODIFY 
+  ACTION NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.LOGSTDBY$SKIP_SUPPORT MODIFY 
+  NAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  AJGID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  RUNID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  AJGDESLEN NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  AJGDES NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  HASHVALUE NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  AJGID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  RUNID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  AJGDESLEN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  AJGDES NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_AJG MODIFY 
+  HASHVALUE NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_BASETABLE MODIFY 
+  COLLECTIONID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_BASETABLE MODIFY 
+  QUERYID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_BASETABLE MODIFY 
+  COLLECTIONID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_BASETABLE MODIFY 
+  QUERYID# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  CLIQUEID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  RUNID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  CLIQUEDESLEN NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  CLIQUEDES NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  HASHVALUE NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  FREQUENCY NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  BYTECOST NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  ROWSIZE NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  NUMROWS NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  CLIQUEID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  RUNID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  CLIQUEDESLEN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  CLIQUEDES NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  HASHVALUE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  FREQUENCY NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  BYTECOST NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  ROWSIZE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_CLIQUE MODIFY 
+  NUMROWS NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  SUMOBJN# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  RUNID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  BYTECOST NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  FLAGS NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  FREQUENCY NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  SUMOBJN# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  RUNID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  BYTECOST NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  FLAGS NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ELIGIBLE MODIFY 
+  FREQUENCY NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FILTER MODIFY 
+  FILTERID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FILTER MODIFY 
+  SUBFILTERNUM# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FILTER MODIFY 
+  SUBFILTERTYPE NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FILTER MODIFY 
+  FILTERID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FILTER MODIFY 
+  SUBFILTERNUM# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FILTER MODIFY 
+  SUBFILTERTYPE NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FILTERINSTANCE MODIFY 
+  RUNID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FILTERINSTANCE MODIFY 
+  RUNID# NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  FJGID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  AJGID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  FJGDESLEN NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  FJGDES NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  HASHVALUE NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  FJGID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  AJGID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  FJGDESLEN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  FJGDES NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_FJG MODIFY 
+  HASHVALUE NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  GCID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  FJGID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  GCDESLEN NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  GCDES NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  HASHVALUE NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  GCID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  FJGID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  GCDESLEN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  GCDES NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_GC MODIFY 
+  HASHVALUE NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_INFO MODIFY 
+  RUNID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_INFO MODIFY 
+  SEQ# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_INFO MODIFY 
+  TYPE NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_INFO MODIFY 
+  INFOLEN NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_INFO MODIFY 
+  RUNID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_INFO MODIFY 
+  SEQ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_INFO MODIFY 
+  TYPE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_INFO MODIFY 
+  INFOLEN NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_JOURNAL MODIFY 
+  RUNID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_JOURNAL MODIFY 
+  SEQ# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_JOURNAL MODIFY 
+  TIMESTAMP NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_JOURNAL MODIFY 
+  FLAGS NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_JOURNAL MODIFY 
+  RUNID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_JOURNAL MODIFY 
+  SEQ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_JOURNAL MODIFY 
+  TIMESTAMP NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_JOURNAL MODIFY 
+  FLAGS NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  RUNID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  LEVELID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  FLAGS NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  TBLOBJ# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  COLUMNLIST NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  RUNID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  LEVELID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  FLAGS NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  TBLOBJ# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LEVEL MODIFY 
+  COLUMNLIST NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LOG MODIFY 
+  STATUS NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_LOG MODIFY 
+  STATUS NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_OUTPUT MODIFY 
+  RUNID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_OUTPUT MODIFY 
+  OUTPUT_TYPE NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_OUTPUT MODIFY 
+  BENEFIT_TO_COST_RATIO NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_OUTPUT MODIFY 
+  RUNID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_OUTPUT MODIFY 
+  OUTPUT_TYPE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_OUTPUT MODIFY 
+  BENEFIT_TO_COST_RATIO NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_PARAMETERS MODIFY 
+  PARAMETER_TYPE NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_PARAMETERS MODIFY 
+  PARAMETER_TYPE NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ROLLUP MODIFY 
+  RUNID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ROLLUP MODIFY 
+  CLEVELID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ROLLUP MODIFY 
+  PLEVELID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ROLLUP MODIFY 
+  FLAGS NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ROLLUP MODIFY 
+  RUNID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ROLLUP MODIFY 
+  CLEVELID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ROLLUP MODIFY 
+  PLEVELID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_ROLLUP MODIFY 
+  FLAGS NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  QUERYID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  COLLECTIONID# NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  COLLECTTIME NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  UNAME NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  SQL_TEXT NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  SQL_TEXTLEN NULL;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  QUERYID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  COLLECTIONID# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  COLLECTTIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  UNAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  SQL_TEXT NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.MVIEW$_ADV_WORKLOAD MODIFY 
+  SQL_TEXTLEN NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  DBID NULL;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  THREAD# NULL;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  RESETLOGS_TIME NULL;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  PRESETLOGS_TIME NULL;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  RESETLOGS_SCN NULL;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  PRESETLOGS_SCN NULL;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  DBID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  THREAD# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  RESETLOGS_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  PRESETLOGS_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  RESETLOGS_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_DB MODIFY 
+  PRESETLOGS_SCN NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  DBID NULL;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  THREAD# NULL;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  RESETLOGS_TIME NULL;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  PRESETLOGS_TIME NULL;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  SEQUENCE# NULL;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  RESETLOGS_SCN NULL;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  PRESETLOGS_SCN NULL;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  DBID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  THREAD# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  RESETLOGS_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  PRESETLOGS_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  SEQUENCE# NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  RESETLOGS_SCN NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_LOG MODIFY 
+  PRESETLOGS_SCN NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REDO_RTA MODIFY 
+  DBID NULL;
+
+ALTER TABLE SYSTEM.REDO_RTA MODIFY 
+  THREAD NULL;
+
+ALTER TABLE SYSTEM.REDO_RTA MODIFY 
+  DBID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REDO_RTA MODIFY 
+  THREAD NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_FLAVORS MODIFY 
+  FLAVOR_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_FLAVORS MODIFY 
+  GNAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_FLAVORS MODIFY 
+  FLAVOR_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_FLAVORS MODIFY 
+  GNAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_OBJECT_PARMS MODIFY 
+  TEMPLATE_PARAMETER_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_OBJECT_PARMS MODIFY 
+  TEMPLATE_OBJECT_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_OBJECT_PARMS MODIFY 
+  TEMPLATE_PARAMETER_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_OBJECT_PARMS MODIFY 
+  TEMPLATE_OBJECT_ID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  REFRESH_TEMPLATE_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  OWNER NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  REFRESH_GROUP_NAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  REFRESH_TEMPLATE_NAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  REFRESH_GROUP_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  TEMPLATE_TYPE_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  TEMPLATE_STATUS_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  REFRESH_TEMPLATE_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  OWNER NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  REFRESH_GROUP_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  REFRESH_TEMPLATE_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  REFRESH_GROUP_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  TEMPLATE_TYPE_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_REFRESH_TEMPLATES MODIFY 
+  TEMPLATE_STATUS_ID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_REPGROUP_PRIVS MODIFY 
+  USERNAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REPGROUP_PRIVS MODIFY 
+  GLOBAL_FLAG NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REPGROUP_PRIVS MODIFY 
+  CREATED NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_REPGROUP_PRIVS MODIFY 
+  USERNAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_REPGROUP_PRIVS MODIFY 
+  GLOBAL_FLAG NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_REPGROUP_PRIVS MODIFY 
+  CREATED NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_SITE_OBJECTS MODIFY 
+  TEMPLATE_SITE_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_SITE_OBJECTS MODIFY 
+  ONAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_SITE_OBJECTS MODIFY 
+  OBJECT_TYPE_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_SITE_OBJECTS MODIFY 
+  TEMPLATE_SITE_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_SITE_OBJECTS MODIFY 
+  ONAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_SITE_OBJECTS MODIFY 
+  OBJECT_TYPE_ID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  TEMPLATE_OBJECT_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  REFRESH_TEMPLATE_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  OBJECT_NAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  OBJECT_TYPE NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  DDL_NUM NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  TEMPLATE_REFGROUP_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  TEMPLATE_OBJECT_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  REFRESH_TEMPLATE_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  OBJECT_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  OBJECT_TYPE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  DDL_NUM NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_OBJECTS MODIFY 
+  TEMPLATE_REFGROUP_ID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_PARMS MODIFY 
+  REFRESH_TEMPLATE_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_PARMS MODIFY 
+  PARAMETER_NAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_PARMS MODIFY 
+  REFRESH_TEMPLATE_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_PARMS MODIFY 
+  PARAMETER_NAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_REFGROUPS MODIFY 
+  REFRESH_GROUP_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_REFGROUPS MODIFY 
+  REFRESH_GROUP_NAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_REFGROUPS MODIFY 
+  REFRESH_TEMPLATE_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_REFGROUPS MODIFY 
+  REFRESH_GROUP_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_REFGROUPS MODIFY 
+  REFRESH_GROUP_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_REFGROUPS MODIFY 
+  REFRESH_TEMPLATE_ID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_SITES MODIFY 
+  REFRESH_TEMPLATE_NAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_SITES MODIFY 
+  USER_NAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_SITES MODIFY 
+  STATUS NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_SITES MODIFY 
+  REFRESH_TEMPLATE_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_SITES MODIFY 
+  USER_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_SITES MODIFY 
+  STATUS NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_STATUS MODIFY 
+  STATUS_TYPE_NAME NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_STATUS MODIFY 
+  STATUS_TYPE_NAME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_TARGETS MODIFY 
+  TARGET_DATABASE NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_TEMPLATE_TARGETS MODIFY 
+  TARGET_DATABASE NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_USER_AUTHORIZATIONS MODIFY 
+  USER_AUTHORIZATION_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_USER_AUTHORIZATIONS MODIFY 
+  USER_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_USER_AUTHORIZATIONS MODIFY 
+  REFRESH_TEMPLATE_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_USER_AUTHORIZATIONS MODIFY 
+  USER_AUTHORIZATION_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_USER_AUTHORIZATIONS MODIFY 
+  USER_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_USER_AUTHORIZATIONS MODIFY 
+  REFRESH_TEMPLATE_ID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.REPCAT$_USER_PARM_VALUES MODIFY 
+  TEMPLATE_PARAMETER_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_USER_PARM_VALUES MODIFY 
+  USER_ID NULL;
+
+ALTER TABLE SYSTEM.REPCAT$_USER_PARM_VALUES MODIFY 
+  TEMPLATE_PARAMETER_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.REPCAT$_USER_PARM_VALUES MODIFY 
+  USER_ID NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.SCHEDULER_PROGRAM_ARGS_TBL MODIFY 
+  PROGRAM_NAME NULL;
+
+ALTER TABLE SYSTEM.SCHEDULER_PROGRAM_ARGS_TBL MODIFY 
+  ARGUMENT_POSITION NULL;
+
+ALTER TABLE SYSTEM.SCHEDULER_PROGRAM_ARGS_TBL MODIFY 
+  PROGRAM_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.SCHEDULER_PROGRAM_ARGS_TBL MODIFY 
+  ARGUMENT_POSITION NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.T_ABILITY MODIFY 
+  PK NULL;
+
+ALTER TABLE SYSTEM.T_ABILITY MODIFY 
+  ABILITY_NAME NULL;
+
+ALTER TABLE SYSTEM.T_ABILITY MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_ABILITY MODIFY 
+  IS_ACTIVE NULL;
+
+ALTER TABLE SYSTEM.T_ABILITY
+  DROP CONSTRAINT SYS_C0014914;
+
+ALTER TABLE SYSTEM.T_ABILITY
+  DROP CONSTRAINT SYS_C0014915;
+
+ALTER TABLE SYSTEM.T_ABILITY MODIFY 
+  PK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ABILITY MODIFY 
+  ABILITY_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ABILITY MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ABILITY MODIFY 
+  IS_ACTIVE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ABILITY ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_ABILITY ADD (
+  UNIQUE (ABILITY_NAME)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
+  PK NULL;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
+  LEVEL_NAME NULL;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
+  IS_ACTIVE NULL;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL
+  DROP CONSTRAINT SYS_C0014916;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL
+  DROP CONSTRAINT SYS_C0014917;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
+  PK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
+  LEVEL_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
+  IS_ACTIVE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_ABILITY_LEVEL ADD (
+  UNIQUE (LEVEL_NAME)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
+  PK NULL;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
+  DEPARTMENT_NAME NULL;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
+  IS_ACTIVE NULL;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT
+  DROP CONSTRAINT SYS_C0014918;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT
+  DROP CONSTRAINT SYS_C0014919;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
+  PK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
+  DEPARTMENT_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
+  IS_ACTIVE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_DEPARTMENT ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_DEPARTMENT ADD (
+  UNIQUE (DEPARTMENT_NAME)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  EDUCATION_SUBJECT NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  EDUCATION_CONTENT NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  IS_ACTIVE NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  PLANNED_DATE NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  COMPLETE_DATE NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  EDUCATOR_FK NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION
+  DROP CONSTRAINT SYS_C0014927;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  EDUCATION_SUBJECT NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  EDUCATION_CONTENT NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  IS_ACTIVE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  PLANNED_DATE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  COMPLETE_DATE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
+  EDUCATOR_FK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
+  EDUCATION_FK NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
+  ABILITY_FK NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL
+  DROP CONSTRAINT SYS_C0014928;
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
+  EDUCATION_FK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
+  ABILITY_FK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  PK NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  MODIFIED_TIME NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  EDUCATION_ID NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  STATE_ID NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL
+  DROP CONSTRAINT SYS_C0014929;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  PK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  MODIFIED_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  EDUCATION_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
+  STATE_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
+  EDUCATION_FK NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
+  USER_FK NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL
+  DROP CONSTRAINT SYS_C0014930;
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
+  EDUCATION_FK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
+  USER_FK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATION_USER_REL ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  PK NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  EDUCATOR_NAME NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  IS_INHOUSE NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  IS_ACTIVE NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  MODIFIED_TIME NULL;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  PK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  EDUCATOR_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  IS_INHOUSE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  IS_ACTIVE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
+  MODIFIED_TIME NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.T_ROLE MODIFY 
+  PK NULL;
+
+ALTER TABLE SYSTEM.T_ROLE MODIFY 
+  ROLE_NAME NULL;
+
+ALTER TABLE SYSTEM.T_ROLE MODIFY 
+  IS_ACTIVE NULL;
+
+ALTER TABLE SYSTEM.T_ROLE MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_ROLE
+  DROP CONSTRAINT SYS_C0014924;
+
+ALTER TABLE SYSTEM.T_ROLE
+  DROP CONSTRAINT SYS_C0014925;
+
+ALTER TABLE SYSTEM.T_ROLE MODIFY 
+  PK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ROLE MODIFY 
+  ROLE_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ROLE MODIFY 
+  IS_ACTIVE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ROLE MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_ROLE ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_ROLE ADD (
+  UNIQUE (ROLE_NAME)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  PK NULL;
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  STATE_NAME NULL;
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  MODIFIED_TIME NULL;
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  IS_ACTIVE NULL;
+
+ALTER TABLE SYSTEM.T_STATE
+  DROP CONSTRAINT SYS_C0014920;
+
+ALTER TABLE SYSTEM.T_STATE
+  DROP CONSTRAINT SYS_C0014921;
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  PK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  STATE_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  MODIFIED_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_STATE MODIFY 
+  IS_ACTIVE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_STATE ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_STATE ADD (
+  UNIQUE (STATE_NAME)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_UNIT
+  DROP CONSTRAINT SYS_C0014931;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  PK NULL;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  UNIT_NAME NULL;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  IS_ACTIVE NULL;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  DEPARTMENT_FK NULL;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_UNIT
+  DROP CONSTRAINT SYS_C0014922;
+
+ALTER TABLE SYSTEM.T_UNIT
+  DROP CONSTRAINT SYS_C0014923;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  PK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  UNIT_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  IS_ACTIVE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  DEPARTMENT_FK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_UNIT MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_UNIT ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+ALTER TABLE SYSTEM.T_UNIT ADD (
+  UNIQUE (UNIT_NAME)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_USER
+  DROP CONSTRAINT SYS_C0014934;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  PK NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  U_ID NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  U_PW NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  FIRST_NAME NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  LAST_NAME NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  DATE_OF_BIRTH NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  PHONE_NUMBER NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  ADDRESS NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  IS_ACTIVE NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  EMAIL NULL;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  PK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  U_ID NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  U_PW NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  FIRST_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  LAST_NAME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  DATE_OF_BIRTH NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  PHONE_NUMBER NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  ADDRESS NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  IS_ACTIVE NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER MODIFY 
+  EMAIL NOT NULL
+  ENABLE VALIDATE;
+
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
+  CREATION_TIME NULL;
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
+  ABILITY_FK NULL;
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
+  ABILITY_LEVEL_FK NULL;
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
+  USER_FK NULL;
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL
+  DROP CONSTRAINT SYS_C0014926;
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
+  CREATION_TIME NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
+  ABILITY_FK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
+  ABILITY_LEVEL_FK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
+  USER_FK NOT NULL
+  ENABLE VALIDATE;
+
+ALTER TABLE SYSTEM.T_USER_ABILITY_REL ADD (
+  PRIMARY KEY
+  (PK)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.REPCAT$_EXTENSION
+  DROP CONSTRAINT SYS_C003934;
+
+ALTER TABLE SYSTEM.REPCAT$_EXTENSION ADD (
+  PRIMARY KEY
+  (EXTENSION_ID)
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_UNIT ADD (
+  FOREIGN KEY (DEPARTMENT_FK) 
+  REFERENCES SYSTEM.T_DEPARTMENT (PK)
+  ON DELETE CASCADE
+  ENABLE VALIDATE);
+
+
+ALTER TABLE SYSTEM.T_USER ADD (
+  FOREIGN KEY (ROLE_FK) 
+  REFERENCES SYSTEM.T_ROLE (PK)
+  ON DELETE CASCADE
+  ENABLE VALIDATE);
+--  There is no statement for index SYSTEM.SYS_C0014536.
 --  The object is created when the parent object is created.
 
 DROP INDEX SYSTEM.SYS_C0014795;
@@ -420,3800 +5948,18 @@ STORAGE    (
             FREELIST GROUPS  1
             BUFFER_POOL      DEFAULT
            );
-ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
-  ID NULL;
 
-ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
-  NAME NULL;
+--  There is no statement for index SYSTEM.SYS_C002098.
+--  The object is created when the parent object is created.
 
-ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
-  AGE NULL;
+--  There is no statement for index SYSTEM.SYS_C003934.
+--  The object is created when the parent object is created.
 
-ALTER TABLE SYSTEM.CUSTOMERS
-  DROP CONSTRAINT SYS_C0014536;
+--  There is no statement for index SYSTEM.SYS_C004384.
+--  The object is created when the parent object is created.
 
-ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
-  ID NOT NULL
-  ENABLE VALIDATE;
+--  There is no statement for index SYSTEM.SYS_C004729.
+--  The object is created when the parent object is created.
 
-ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
-  NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.CUSTOMERS MODIFY 
-  AGE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.CUSTOMERS ADD (
-  PRIMARY KEY
-  (ID)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_ABILITY MODIFY 
-  PK NULL;
-
-ALTER TABLE SYSTEM.T_ABILITY MODIFY 
-  ABILITY_NAME NULL;
-
-ALTER TABLE SYSTEM.T_ABILITY MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_ABILITY MODIFY 
-  IS_ACTIVE NULL;
-
-ALTER TABLE SYSTEM.T_ABILITY
-  DROP CONSTRAINT SYS_C0014914;
-
-ALTER TABLE SYSTEM.T_ABILITY
-  DROP CONSTRAINT SYS_C0014915;
-
-ALTER TABLE SYSTEM.T_ABILITY MODIFY 
-  PK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ABILITY MODIFY 
-  ABILITY_NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ABILITY MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ABILITY MODIFY 
-  IS_ACTIVE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ABILITY ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_ABILITY ADD (
-  UNIQUE (ABILITY_NAME)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
-  PK NULL;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
-  LEVEL_NAME NULL;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
-  IS_ACTIVE NULL;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL
-  DROP CONSTRAINT SYS_C0014916;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL
-  DROP CONSTRAINT SYS_C0014917;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
-  PK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
-  LEVEL_NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL MODIFY 
-  IS_ACTIVE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL ADD (
-  UNIQUE (LEVEL_NAME)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
-  PK NULL;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
-  DEPARTMENT_NAME NULL;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
-  IS_ACTIVE NULL;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT
-  DROP CONSTRAINT SYS_C0014918;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT
-  DROP CONSTRAINT SYS_C0014919;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
-  PK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
-  DEPARTMENT_NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
-  IS_ACTIVE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_DEPARTMENT ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_DEPARTMENT ADD (
-  UNIQUE (DEPARTMENT_NAME)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  EDUCATION_SUBJECT NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  EDUCATION_CONTENT NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  IS_ACTIVE NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  PLANNED_DATE NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  COMPLETE_DATE NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  EDUCATOR_FK NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION
-  DROP CONSTRAINT SYS_C0014927;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  EDUCATION_SUBJECT NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  EDUCATION_CONTENT NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  IS_ACTIVE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  PLANNED_DATE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  COMPLETE_DATE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION MODIFY 
-  EDUCATOR_FK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
-  EDUCATION_FK NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
-  ABILITY_FK NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL
-  DROP CONSTRAINT SYS_C0014928;
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
-  EDUCATION_FK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
-  ABILITY_FK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  PK NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  MODIFIED_TIME NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  EDUCATION_ID NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  STATE_ID NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL
-  DROP CONSTRAINT SYS_C0014929;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  PK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  MODIFIED_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  EDUCATION_ID NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL MODIFY 
-  STATE_ID NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
-  EDUCATION_FK NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
-  USER_FK NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL
-  DROP CONSTRAINT SYS_C0014930;
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
-  EDUCATION_FK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
-  USER_FK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  PK NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  EDUCATOR_NAME NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  IS_INHOUSE NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  IS_ACTIVE NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  MODIFIED_TIME NULL;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  PK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  EDUCATOR_NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  IS_INHOUSE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  IS_ACTIVE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_EDUCATOR MODIFY 
-  MODIFIED_TIME NOT NULL
-  ENABLE VALIDATE;
-
-
-ALTER TABLE SYSTEM.T_ROLE
-  DROP CONSTRAINT SYS_C0014933;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  PK NULL;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  ROLE_NAME NULL;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  IS_ACTIVE NULL;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  IS_UNIT_MANAGER_ROLE NULL;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  IS_DEPARTMENT_MANAGER_ROLE NULL;
-
-ALTER TABLE SYSTEM.T_ROLE
-  DROP CONSTRAINT SYS_C0014924;
-
-ALTER TABLE SYSTEM.T_ROLE
-  DROP CONSTRAINT SYS_C0014925;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  PK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  ROLE_NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  IS_ACTIVE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  IS_UNIT_MANAGER_ROLE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ROLE MODIFY 
-  IS_DEPARTMENT_MANAGER_ROLE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_ROLE ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_ROLE ADD (
-  UNIQUE (ROLE_NAME)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  PK NULL;
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  STATE_NAME NULL;
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  MODIFIED_TIME NULL;
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  IS_ACTIVE NULL;
-
-ALTER TABLE SYSTEM.T_STATE
-  DROP CONSTRAINT SYS_C0014920;
-
-ALTER TABLE SYSTEM.T_STATE
-  DROP CONSTRAINT SYS_C0014921;
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  PK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  STATE_NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  MODIFIED_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_STATE MODIFY 
-  IS_ACTIVE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_STATE ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_STATE ADD (
-  UNIQUE (STATE_NAME)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_UNIT
-  DROP CONSTRAINT SYS_C0014931;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  PK NULL;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  UNIT_NAME NULL;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  IS_ACTIVE NULL;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  DEPARTMENT_FK NULL;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_UNIT
-  DROP CONSTRAINT SYS_C0014922;
-
-ALTER TABLE SYSTEM.T_UNIT
-  DROP CONSTRAINT SYS_C0014923;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  PK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  UNIT_NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  IS_ACTIVE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  DEPARTMENT_FK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_UNIT MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_UNIT ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_UNIT ADD (
-  UNIQUE (UNIT_NAME)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_USER
-  DROP CONSTRAINT SYS_C0014934;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  PK NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  U_ID NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  U_PW NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  FIRST_NAME NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  LAST_NAME NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  DATE_OF_BIRTH NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  PHONE_NUMBER NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  ADDRESS NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  IS_ACTIVE NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  EMAIL NULL;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  PK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  U_ID NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  U_PW NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  FIRST_NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  LAST_NAME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  DATE_OF_BIRTH NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  PHONE_NUMBER NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  ADDRESS NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  IS_ACTIVE NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER MODIFY 
-  EMAIL NOT NULL
-  ENABLE VALIDATE;
-
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
-  CREATION_TIME NULL;
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
-  ABILITY_FK NULL;
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
-  ABILITY_LEVEL_FK NULL;
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
-  USER_FK NULL;
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL
-  DROP CONSTRAINT SYS_C0014926;
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
-  CREATION_TIME NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
-  ABILITY_FK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
-  ABILITY_LEVEL_FK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL MODIFY 
-  USER_FK NOT NULL
-  ENABLE VALIDATE;
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL ADD (
-  PRIMARY KEY
-  (PK)
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_ROLE ADD (
-  FOREIGN KEY (UNIT_FK) 
-  REFERENCES SYSTEM.T_UNIT (PK)
-  ON DELETE CASCADE
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_UNIT ADD (
-  FOREIGN KEY (DEPARTMENT_FK) 
-  REFERENCES SYSTEM.T_DEPARTMENT (PK)
-  ON DELETE CASCADE
-  ENABLE VALIDATE);
-
-
-ALTER TABLE SYSTEM.T_USER ADD (
-  FOREIGN KEY (ROLE_FK) 
-  REFERENCES SYSTEM.T_ROLE (PK)
-  ON DELETE CASCADE
-  ENABLE VALIDATE);
-ALTER TABLE SYSTEM.T_ABILITY
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_ABILITY CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_ABILITY
-(
-  PK             INTEGER                        NOT NULL,
-  ABILITY_NAME   VARCHAR2(40 BYTE)              NOT NULL,
-  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME  TIMESTAMP(6),
-  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_ABILITY_LEVEL CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_ABILITY_LEVEL
-(
-  PK             INTEGER                        NOT NULL,
-  LEVEL_NAME     VARCHAR2(40 BYTE)              NOT NULL,
-  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME  TIMESTAMP(6),
-  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_DEPARTMENT
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_DEPARTMENT CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_DEPARTMENT
-(
-  PK               INTEGER                      NOT NULL,
-  DEPARTMENT_NAME  VARCHAR2(40 BYTE)            NOT NULL,
-  IS_ACTIVE        CHAR(1 BYTE)                 DEFAULT 'Y'                   NOT NULL,
-  CREATION_TIME    TIMESTAMP(6)                 DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME    TIMESTAMP(6),
-  MANAGER_ID       INTEGER
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_EDUCATION
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_EDUCATION CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_EDUCATION
-(
-  PK                 NUMBER(2),
-  EDUCATION_SUBJECT  VARCHAR2(100 BYTE)         NOT NULL,
-  EDUCATION_CONTENT  VARCHAR2(1000 BYTE)        NOT NULL,
-  IS_ACTIVE          CHAR(1 BYTE)               DEFAULT 'Y'                   NOT NULL,
-  CREATION_TIME      TIMESTAMP(6)               DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME      TIMESTAMP(6),
-  PLANNED_DATE       DATE                       NOT NULL,
-  COMPLETE_DATE      DATE                       NOT NULL,
-  EDUCATOR_FK        INTEGER                    NOT NULL
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_EDUCATION_ABILITY_REL CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_EDUCATION_ABILITY_REL
-(
-  PK             NUMBER(5),
-  EDUCATION_FK   INTEGER                        NOT NULL,
-  ABILITY_FK     INTEGER                        NOT NULL,
-  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME  TIMESTAMP(6)
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_EDUCATION_STATE_REL CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_EDUCATION_STATE_REL
-(
-  PK             INTEGER                        NOT NULL,
-  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME  TIMESTAMP(6)                   NOT NULL,
-  EDUCATION_ID   INTEGER                        NOT NULL,
-  STATE_ID       INTEGER                        NOT NULL
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_EDUCATION_USER_REL CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_EDUCATION_USER_REL
-(
-  PK             NUMBER(7),
-  EDUCATION_FK   INTEGER                        NOT NULL,
-  USER_FK        INTEGER                        NOT NULL,
-  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME  TIMESTAMP(6)
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-DROP TABLE SYSTEM.T_EDUCATOR CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_EDUCATOR
-(
-  PK             INTEGER                        NOT NULL,
-  EDUCATOR_NAME  VARCHAR2(60 BYTE)              NOT NULL,
-  IS_INHOUSE     CHAR(1 BYTE)                   NOT NULL,
-  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL,
-  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME  TIMESTAMP(6)                   NOT NULL,
-  USER_FK        VARCHAR2(20 BYTE)
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_STATE
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_STATE CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_STATE
-(
-  PK             INTEGER                        NOT NULL,
-  STATE_NAME     VARCHAR2(40 BYTE)              NOT NULL,
-  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME  TIMESTAMP(6)                   NOT NULL,
-  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_UNIT
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_UNIT CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_UNIT
-(
-  PK             INTEGER                        NOT NULL,
-  UNIT_NAME      VARCHAR2(40 BYTE)              NOT NULL,
-  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL,
-  DEPARTMENT_FK  INTEGER                        NOT NULL,
-  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME  TIMESTAMP(6),
-  MANAGER_ID     INTEGER
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014795 ON SYSTEM.T_ABILITY
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014796 ON SYSTEM.T_ABILITY
-(ABILITY_NAME)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014797 ON SYSTEM.T_ABILITY_LEVEL
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014798 ON SYSTEM.T_ABILITY_LEVEL
-(LEVEL_NAME)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014799 ON SYSTEM.T_DEPARTMENT
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014800 ON SYSTEM.T_DEPARTMENT
-(DEPARTMENT_NAME)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014801 ON SYSTEM.T_STATE
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014802 ON SYSTEM.T_STATE
-(STATE_NAME)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014803 ON SYSTEM.T_UNIT
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014804 ON SYSTEM.T_UNIT
-(UNIT_NAME)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014811 ON SYSTEM.T_EDUCATION
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014812 ON SYSTEM.T_EDUCATION_ABILITY_REL
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014813 ON SYSTEM.T_EDUCATION_STATE_REL
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014814 ON SYSTEM.T_EDUCATION_USER_REL
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.T_EDUCATOR_PK ON SYSTEM.T_EDUCATOR
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_ABILITY_LEVEL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_ABILITY_LEVEL_PK.nextval;
-    END IF;                   
-    IF :new.MODIFIED_TIME IS NULL THEN   
-        :new.MODIFIED_TIME := :new.CREATION_TIME; 
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_ABILITY_LEVEL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.LEVEL_NAME != :old.LEVEL_NAME THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_ABILITY
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL  THEN
-        :new.PK := SEQ_ABILITY_PK.nextval;
-        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-        
-    END IF;    
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_ABILITY
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :old.ABILITY_NAME != :new.ABILITY_NAME THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_DEPARTMENT_INSERT
-AFTER INSERT
-ON SYSTEM.T_DEPARTMENT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN 
-    INSERT INTO T_ROLE(ROLE_NAME,DEPARTMENT_FK,IS_DEPARTMENT_MANAGER_ROLE) VALUES(CONCAT(INITCAP(:new.DEPARTMENT_NAME),' Müdürü'),:new.PK,'Y');
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_DEPARTMENT_UPDATE
-BEFORE UPDATE
-ON SYSTEM.T_DEPARTMENT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    UPDATE T_ROLE SET ROLE_NAME = INITCAP(CONCAT(:new.DEPARTMENT_NAME,' Müdürü')) WHERE DEPARTMENT_FK = :new.PK AND IS_DEPARTMENT_MANAGER_ROLE = 'Y';
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_UNIT_INSERT
-AFTER INSERT
-ON SYSTEM.T_UNIT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN   
-    INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK,IS_UNIT_MANAGER_ROLE) VALUES(CONCAT(INITCAP(:new.UNIT_NAME),' Yöneticisi'),:new.PK,:new.DEPARTMENT_FK,'Y');    
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_UNIT_UPDATE
-BEFORE UPDATE
-ON SYSTEM.T_UNIT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    UPDATE T_ROLE SET ROLE_NAME = INITCAP(CONCAT(:new.UNIT_NAME,' Yöneticisi')) WHERE UNIT_FK = :new.PK AND IS_UNIT_MANAGER_ROLE = 'Y';
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_DEPARMENT_INSERT
-BEFORE INSERT
-ON SYSTEM.T_DEPARTMENT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_DEPARTMENT_PK.nextval;
-    END IF;    
-        
-    IF :new.MODIFIED_TIME IS NULL  THEN 
-        :new.MODIFIED_TIME := :new.CREATION_TIME;        
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_DEPARTMENT_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_DEPARTMENT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :old.DEPARTMENT_NAME != :new.DEPARTMENT_NAME THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_UNIT_INSERT
-BEFORE INSERT
-ON SYSTEM.T_UNIT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_UNIT_PK.nextval;        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;  
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_UNIT_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_UNIT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  
-        (:old.UNIT_NAME != :new.UNIT_NAME OR 
-            :old.DEPARTMENT_FK != :new.DEPARTMENT_FK) THEN
-            
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-        
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_NEW_RCRD 
-BEFORE INSERT
-ON SYSTEM.T_EDUCATION_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_EDUCATION_ABILITY_REL_PK.nextval;  
-    END IF;
-              
-    IF :new.MODIFIED_TIME IS NULL THEN 
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATION_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_EDUCATION
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    stt_id INTEGER;
-BEGIN
-    IF :new.PK IS NULL THEN 
-        :new.PK := SEQ_EDUCATION_PK.nextval;
-    END IF;            
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;    
-    END IF;
-    SELECT PK INTO stt_id FROM T_STATE WHERE STATE_NAME = 'PLANNED';
-    INSERT INTO T_EDUCATION_STATE_REL(STATE_ID,EDUCATION_ID) VALUES(stt_id,:new.PK);
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_STATE_NEW_RECORD 
-BEFORE INSERT ON SYSTEM.T_EDUCATION_STATE_REL
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  :new.PK IS NULL THEN
-        :new.PK := SEQ_EDUCATION_STATE_REL_PK.nextval;        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_STATE_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATION_STATE_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATION
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  :new.EDUCATION_SUBJECT != :old.EDUCATION_SUBJECT OR
-            :new.EDUCATION_CONTENT != :old.EDUCATION_CONTENT OR
-                :new.EDUCATOR_FK != :old.EDUCATOR_FK OR
-                    :new.IS_ACTIVE != :old.IS_ACTIVE THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_USER_REL_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATION_USER_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATOR_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_EDUCATOR
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_EDUCATOR_PK.nextval;
-    END IF;                   
-    IF :new.MODIFIED_TIME IS NULL THEN   
-        :new.MODIFIED_TIME := :new.CREATION_TIME; 
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATOR_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATOR
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.EDUCATOR_NAME != :old.EDUCATOR_NAME OR
-            :new.IS_INHOUSE != :old.IS_INHOUSE OR
-                :new.IS_ACTIVE != :old.IS_ACTIVE OR 
-                    :new.USER_FK != :old.USER_FK THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_STATE_NEW_RECORD 
-BEFORE INSERT ON SYSTEM.T_STATE
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_STATE_PK.nextval;
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;    
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_STATE_UPDATE_RECORD 
-BEFORE INSERT ON SYSTEM.T_STATE
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :old.STATE_NAME != :new.STATE_NAME THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF; 
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_EDUCATION_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_EDUCATION_USER_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  :new.PK IS NULL THEN
-        :new.PK := SEQ_USER_EDUCATION_REL_PK.nextval;
-        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-ALTER TABLE SYSTEM.T_ROLE
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_ROLE CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_ROLE
-(
-  PK                          INTEGER           NOT NULL,
-  ROLE_NAME                   VARCHAR2(60 BYTE) NOT NULL,
-  IS_ACTIVE                   CHAR(1 BYTE)      DEFAULT 'Y'                   NOT NULL,
-  UNIT_FK                     INTEGER,
-  CREATION_TIME               TIMESTAMP(6)      DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME               TIMESTAMP(6),
-  DEPARTMENT_FK               INTEGER,
-  IS_UNIT_MANAGER_ROLE        CHAR(1 BYTE)      DEFAULT 'N'                   NOT NULL,
-  IS_DEPARTMENT_MANAGER_ROLE  CHAR(1 BYTE)      DEFAULT 'N'                   NOT NULL
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_USER
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_USER CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_USER
-(
-  PK             INTEGER                        NOT NULL,
-  U_ID           VARCHAR2(20 BYTE)              NOT NULL,
-  U_PW           VARCHAR2(40 BYTE)              NOT NULL,
-  FIRST_NAME     VARCHAR2(40 BYTE)              NOT NULL,
-  LAST_NAME      VARCHAR2(20 BYTE)              NOT NULL,
-  DATE_OF_BIRTH  DATE                           NOT NULL,
-  PHONE_NUMBER   VARCHAR2(11 BYTE)              NOT NULL,
-  ADDRESS        VARCHAR2(255 BYTE)             NOT NULL,
-  CREATION_TIME  TIMESTAMP(6)                   DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME  TIMESTAMP(6),
-  IS_ACTIVE      CHAR(1 BYTE)                   DEFAULT 'Y'                   NOT NULL,
-  ROLE_FK        INTEGER,
-  EMAIL          VARCHAR2(254 BYTE)             NOT NULL
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL
- DROP PRIMARY KEY CASCADE;
-
-DROP TABLE SYSTEM.T_USER_ABILITY_REL CASCADE CONSTRAINTS;
-
-CREATE TABLE SYSTEM.T_USER_ABILITY_REL
-(
-  PK                NUMBER(9),
-  ABILITY_FK        INTEGER                     NOT NULL,
-  ABILITY_LEVEL_FK  INTEGER                     NOT NULL,
-  CREATION_TIME     TIMESTAMP(6)                DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  MODIFIED_TIME     TIMESTAMP(6),
-  USER_FK           INTEGER                     NOT NULL
-)
-TABLESPACE SYSTEM
-PCTUSED    40
-PCTFREE    10
-INITRANS   1
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           )
-LOGGING 
-NOCOMPRESS 
-NOCACHE
-MONITORING;
-
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014805 ON SYSTEM.T_ROLE
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014806 ON SYSTEM.T_ROLE
-(ROLE_NAME)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014807 ON SYSTEM.T_USER
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014808 ON SYSTEM.T_USER
-(U_ID)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014809 ON SYSTEM.T_USER
-(PHONE_NUMBER)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.SYS_C0014810 ON SYSTEM.T_USER_ABILITY_REL
-(PK)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE UNIQUE INDEX SYSTEM.T_USER_U03 ON SYSTEM.T_USER
-(EMAIL)
-LOGGING
-TABLESPACE SYSTEM
-PCTFREE    10
-INITRANS   2
-MAXTRANS   255
-STORAGE    (
-            INITIAL          64K
-            NEXT             1M
-            MAXSIZE          UNLIMITED
-            MINEXTENTS       1
-            MAXEXTENTS       UNLIMITED
-            PCTINCREASE      0
-            FREELISTS        1
-            FREELIST GROUPS  1
-            BUFFER_POOL      DEFAULT
-           );
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_USER_DELETE
-AFTER DELETE
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    is_unit_manager CHAR(1) := 'N';
-    is_department_manager CHAR(1) := 'N' ;
-BEGIN
-    SELECT IS_UNIT_MANAGER_ROLE INTO is_unit_manager FROM T_ROLE WHERE PK = :old.ROLE_FK;
-    SELECT IS_DEPARTMENT_MANAGER_ROLE INTO is_department_manager FROM T_ROLE WHERE PK = :old.ROLE_FK;
-    
-    IF is_unit_manager = 'Y' THEN
-        UPDATE T_UNIT SET MANAGER_ID = NULL WHERE MANAGER_ID = :old.PK;
-    ELSIF is_department_manager = 'Y' THEN
-        UPDATE T_DEPARTMENT SET MANAGER_ID = NULL WHERE MANAGER_ID = :old.PK;       
-    END IF;     
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_USER_INSERT
-AFTER INSERT
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    is_unit_manager CHAR(1) := 'N';
-    is_department_manager CHAR(1) := 'N' ;
-    unit_id INTEGER;
-    dep_id INTEGER;
-BEGIN
-   
-    SELECT IS_UNIT_MANAGER_ROLE INTO is_unit_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-    SELECT IS_DEPARTMENT_MANAGER_ROLE INTO is_department_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-
-
-    BEGIN
-        SELECT T_UNIT.PK INTO unit_id FROM T_ROLE,T_UNIT WHERE T_ROLE.UNIT_FK = T_UNIT.PK AND T_ROLE.PK = :new.ROLE_FK;
-    EXCEPTION WHEN NO_DATA_FOUND THEN
-        unit_id := NULL;
-    END;
-    
-    BEGIN
-        SELECT T_DEPARTMENT.PK INTO dep_id FROM T_ROLE,T_DEPARTMENT WHERE T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK AND T_ROLE.PK = :new.ROLE_FK;        
-    EXCEPTION WHEN NO_DATA_FOUND THEN
-        dep_id := NULL;
-    END;  
-      
-    IF is_unit_manager = 'Y' THEN
-        UPDATE T_UNIT SET MANAGER_ID = :new.PK WHERE PK = unit_id;
-    ELSIF is_department_manager = 'Y' THEN
-        UPDATE T_DEPARTMENT SET MANAGER_ID = :new.PK WHERE PK = dep_id;        
-    END IF;    
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_USER_UPDATE 
-AFTER UPDATE
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    old_is_unit_manager CHAR(1) := 'N';
-    old_is_department_manager CHAR(1) := 'N' ;
-    new_is_unit_manager CHAR(1) := 'N';
-    new_is_department_manager CHAR(1) := 'N' ;
-    unit_id INTEGER;
-    dep_id INTEGER;    
-BEGIN
-    --Yeni Rolü Eski Rolüne Eşit Değilse
-    IF :old.ROLE_FK != :new.ROLE_FK THEN 
-        --Eski rolünün müdürlük ve yöneticilik bilgilerini al
-        SELECT IS_UNIT_MANAGER_ROLE INTO old_is_unit_manager FROM T_ROLE WHERE PK = :old.ROLE_FK;
-        SELECT IS_DEPARTMENT_MANAGER_ROLE INTO old_is_department_manager FROM T_ROLE WHERE PK = :old.ROLE_FK;
-     
-        --Yeni rolünün müdürlük ve yöneticilik bilgilerini al
-        SELECT IS_UNIT_MANAGER_ROLE INTO new_is_unit_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-        SELECT IS_DEPARTMENT_MANAGER_ROLE INTO new_is_department_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-        
-        --Yeni rolünün BIRIM VE DEPARTMAN bilgilerini al
-        SELECT UNIT_FK INTO unit_id FROM T_ROLE WHERE PK = :new.ROLE_FK;
-        SELECT DEPARTMENT_FK INTO dep_id FROM T_ROLE WHERE PK = :new.ROLE_FK;
-               
-        IF old_is_unit_manager = 'Y' THEN
-            --Eski rolü birim yöneticiliği ise rolün MANAGER_ID ını sıfırla
-            UPDATE T_UNIT SET MANAGER_ID = NULL WHERE MANAGER_ID = :old.PK;
-        ELSIF old_is_department_manager = 'Y' THEN
-            --Eski rolü müdürlük ise rolün MANAGER_ID ını sıfırla
-            UPDATE T_DEPARTMENT SET MANAGER_ID = NULL WHERE MANAGER_ID = :old.PK;
-        END IF;
-        
-        IF new_is_unit_manager = 'Y' THEN
-            --Yeni rolü birim yöneticiliği ise rolün MANAGER_ID ayarla
-            UPDATE T_UNIT SET MANAGER_ID = :new.PK WHERE PK = unit_id;
-        ELSIF new_is_department_manager = 'Y' THEN
-            --Yeni rolü müdürlük ise rolün MANAGER_ID ayarla
-            UPDATE T_DEPARTMENT SET MANAGER_ID = :new.PK  WHERE PK = dep_id;
-        END IF;    
-    END IF;
-          
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_USER_INSERT
-BEFORE INSERT
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    is_unit_manager CHAR(1) := 'N';
-    is_department_manager CHAR(1) := 'N' ;
-    is_any_user INTEGER;
-BEGIN
-   
-    SELECT IS_UNIT_MANAGER_ROLE INTO is_unit_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-    SELECT IS_DEPARTMENT_MANAGER_ROLE INTO is_department_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-    
-    IF  is_unit_manager = 'Y' OR is_department_manager = 'Y' THEN
-        SELECT COUNT(T_USER.PK) INTO is_any_user FROM T_USER WHERE T_USER.ROLE_FK = :new.ROLE_FK;
-        IF is_any_user = 1 THEN
-            UPDATE T_USER SET ROLE_FK = NULL WHERE ROLE_FK = :new.ROLE_FK;
-        END IF;    
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ROLE_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_ROLE
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_ROLE_PK.nextval;
-    END IF;    
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;    
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ROLE_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_ROLE
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  
-        (:new.ROLE_NAME != :old.ROLE_NAME OR
-            :new.UNIT_FK != :old.UNIT_FK OR 
-                :new.DEPARTMENT_FK != :old.DEPARTMENT_FK) THEN
-                
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_REL_NEW_RCRD 
-BEFORE INSERT
-ON SYSTEM.T_USER_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_USER_ABILITY_REL_PK.nextval;
-        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_USER_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-END;
-/
-
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  :new.PK IS NULL THEN
-        :new.PK := SEQ_USER_PK.nextval;
-        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-ALTER TABLE SYSTEM.T_ABILITY ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE,
-  UNIQUE (ABILITY_NAME)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_ABILITY_LEVEL ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE,
-  UNIQUE (LEVEL_NAME)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_DEPARTMENT ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE,
-  UNIQUE (DEPARTMENT_NAME)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_EDUCATION ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_EDUCATION_ABILITY_REL ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_EDUCATION_STATE_REL ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_EDUCATION_USER_REL ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_STATE ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE,
-  UNIQUE (STATE_NAME)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_UNIT ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE,
-  UNIQUE (UNIT_NAME)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_ROLE ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE,
-  UNIQUE (ROLE_NAME)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_USER ADD (
-  CONSTRAINT T_USER_PK
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL ADD (
-  PRIMARY KEY
-  (PK)
-  USING INDEX
-    TABLESPACE SYSTEM
-    PCTFREE    10
-    INITRANS   2
-    MAXTRANS   255
-    STORAGE    (
-                INITIAL          64K
-                NEXT             1M
-                MAXSIZE          UNLIMITED
-                MINEXTENTS       1
-                MAXEXTENTS       UNLIMITED
-                PCTINCREASE      0
-                FREELISTS        1
-                FREELIST GROUPS  1
-                BUFFER_POOL      DEFAULT
-               )
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_UNIT ADD (
-  FOREIGN KEY (DEPARTMENT_FK) 
-  REFERENCES SYSTEM.T_DEPARTMENT (PK)
-  ON DELETE CASCADE
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_ROLE ADD (
-  CONSTRAINT FK_ROLE_DEPARTMENT 
-  FOREIGN KEY (DEPARTMENT_FK) 
-  REFERENCES SYSTEM.T_DEPARTMENT (PK)
-  ON DELETE CASCADE
-  ENABLE VALIDATE,
-  FOREIGN KEY (UNIT_FK) 
-  REFERENCES SYSTEM.T_UNIT (PK)
-  ON DELETE CASCADE
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_USER ADD (
-  FOREIGN KEY (ROLE_FK) 
-  REFERENCES SYSTEM.T_ROLE (PK)
-  ON DELETE CASCADE
-  ENABLE VALIDATE);
-
-ALTER TABLE SYSTEM.T_USER_ABILITY_REL ADD (
-  CONSTRAINT T_USER_ABILITY_REL_R01 
-  FOREIGN KEY (ABILITY_FK) 
-  REFERENCES SYSTEM.T_ABILITY (PK)
-  ENABLE VALIDATE,
-  CONSTRAINT T_USER_ABILITY_REL_R02 
-  FOREIGN KEY (ABILITY_LEVEL_FK) 
-  REFERENCES SYSTEM.T_ABILITY_LEVEL (PK)
-  ENABLE VALIDATE,
-  CONSTRAINT T_USER_ABILITY_REL_R03 
-  FOREIGN KEY (USER_FK) 
-  REFERENCES SYSTEM.T_USER (PK)
-  ON DELETE CASCADE
-  ENABLE VALIDATE);
-DROP PROCEDURE SYSTEM.SP_ASSIGN_ABILITIES_TO_EDU;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_ABILITIES_TO_EDU" (edu_id IN INTEGER,ablty_ids IN INT_ARRAY,is_valid OUT CHAR)
-AS
-BEGIN
-    FOR i IN 1..ablty_ids.count LOOP
-        INSERT INTO T_EDUCATION_ABILITY_REL(EDUCATION_FK,ABILITY_FK) VALUES(edu_id,ablty_ids(i));  
-    END LOOP;  
-        
-    is_valid := '1';      
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_ASSIGN_ABILITIES_TO_USER;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_ABILITIES_TO_USER" (usr_id IN INTEGER,ablty_ids IN INT_ARRAY,level_ids IN INT_ARRAY,is_valid OUT CHAR)
-AS
-BEGIN
-    FOR i IN 1..ablty_ids.count LOOP
-        INSERT INTO T_USER_ABILITY_REL(USER_FK,ABILITY_FK,ABILITY_LEVEL_FK) VALUES(usr_id,ablty_ids(i),level_ids(i));  
-    END LOOP;
-    
-    is_valid := '1';  
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_ASSIGN_USERS_TO_EDU;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_ASSIGN_USERS_TO_EDU" (edu_id IN INTEGER,usr_ids IN INT_ARRAY,is_valid OUT CHAR)
-AS
-BEGIN
-    FOR i IN 1..usr_ids.count LOOP
-        INSERT INTO T_EDUCATION_USER_REL(EDUCATION_FK,USER_FK) VALUES(edu_id,usr_ids(i));  
-    END LOOP;  
-    
-    is_valid := '1';  
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ABILITY" (ablty_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY WHERE ability_name = ablty_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_ABILITY(ABILITY_NAME) VALUES(INITCAP(ablty_name));
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_ABILITY_LEVEL;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ABILITY_LEVEL" (lvl_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_ABILITY_LEVEL WHERE level_name = lvl_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_ABILITY_LEVEL(LEVEL_NAME) VALUES(lvl_name);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;     
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_DEPARTMENT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_DEPARTMENT" (dep_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_DEPARTMENT WHERE department_name = dep_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_DEPARTMENT(DEPARTMENT_NAME) VALUES(INITCAP(dep_name));
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATION;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_EDUCATION" (edu_subject IN VARCHAR,edu_content IN VARCHAR,
-planned_dte IN VARCHAR,complete_dte IN VARCHAR,edctr_id IN INTEGER,is_valid OUT CHAR)
-AS
-BEGIN
-    INSERT INTO T_EDUCATION(EDUCATION_SUBJECT,EDUCATION_CONTENT,PLANNED_DATE,COMPLETE_DATE,EDUCATOR_FK) 
-        VALUES(edu_subject,edu_content,TO_DATE(planned_dte,'dd-mm-yyyy'),
-            TO_DATE(complete_dte,'dd-mm-yyyy'),edctr_id);
-          
-    is_valid := '1';          
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_EDUCATOR;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_EDUCATOR" (edctr_name IN VARCHAR,is_inhuse IN CHAR,usr_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-    name_of_user VARCHAR(60);
-BEGIN
-    
-    IF is_inhuse = '1' THEN
-    
-        SELECT COUNT(*) INTO number_of_row FROM T_EDUCATOR WHERE USER_FK = usr_id;
-        
-        IF number_of_row = 0 THEN
-            
-            SELECT CONCAT(CONCAT(FIRST_NAME,' '),LAST_NAME) INTO name_of_user FROM T_USER WHERE PK = usr_id;       
-            INSERT INTO T_EDUCATOR(EDUCATOR_NAME,IS_INHOUSE,USER_FK) VALUES(INITCAP(name_of_user),is_inhuse,usr_id);            
-            is_valid := '1';
-        
-        ELSE       
-            is_valid := '0';            
-        END IF;
-        
-    ELSE
-        INSERT INTO T_EDUCATOR(EDUCATOR_NAME,IS_INHOUSE) VALUES(INITCAP(edctr_name),is_inhuse);        
-        is_valid := '1';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_ROLE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_ROLE" (r_name IN VARCHAR, unt_id IN INTEGER DEFAULT NULL, dep_id IN OUT INTEGER, is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_ROLE WHERE role_name = r_name;
-    
-    IF number_of_row = 0 THEN
-        --SADECE BIRIM BILGISI ALINDI ISE
-        IF dep_id IS NULL AND unt_id IS NOT NULL THEN
-            SELECT DEPARTMENT_FK INTO dep_id FROM T_UNIT WHERE PK = unt_id;
-            INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK) VALUES(INITCAP(r_name),unt_id,dep_id);
-            is_valid := '1';
-        --SADECE DEPARTMAN BILGISI ALINDI ISE    
-        ELSIF dep_id IS NOT NULL AND unt_id IS NULL THEN
-            INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK) VALUES(INITCAP(r_name),unt_id,dep_id);
-            is_valid := '1';
-        --DEPARTMAN VE BIRIM BILGILERI ALINMADI ISE    
-        ELSIF dep_id IS NULL AND unt_id IS NULL THEN
-            INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK) VALUES(INITCAP(r_name),unt_id,dep_id);
-            is_valid := '1';  
-        ELSE 
-            is_valid:= '0';
-        END IF;     
-    ELSE
-        is_valid := '0';        
-    END IF;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_STATE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_STATE" (stt_name IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row INTEGER;
-BEGIN    
-    SELECT COUNT(*) INTO number_of_row FROM T_STATE WHERE state_name = stt_name;
-    IF number_of_row = 0 THEN
-        INSERT INTO T_STATE(STATE_NAME) VALUES(stt_name);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;  
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_UNIT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_UNIT" (unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
-AS
-    --dep_id INTEGER;
-    number_of_row INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_UNIT WHERE unit_name = unt_name;
-    IF number_of_row = 0 THEN
-        --SELECT PK INTO dep_id FROM T_DEPARTMENT WHERE department_name = dep_name;
-        INSERT INTO T_UNIT(UNIT_NAME,DEPARTMENT_FK) VALUES(INITCAP(unt_name),dep_id);
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;        
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_CREATE_USER;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_USER" (usr_id IN VARCHAR,usr_pw IN VARCHAR,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
-    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,rle_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_user INTEGER;
-    number_of_email INTEGER;
-    number_of_phone INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE U_ID = usr_id;
-    SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
-    SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
-    
-    IF number_of_user = 0 AND number_of_email = 0 AND number_of_phone = 0 THEN
-        INSERT INTO T_USER(U_ID,U_PW,FIRST_NAME,LAST_NAME,DATE_OF_BIRTH,PHONE_NUMBER,ADDRESS,EMAIL,ROLE_FK) 
-            VALUES(usr_id,usr_pw,fname,lname,TO_DATE(dte_of_birth,'dd-mm-yyyy'),phne_num,addrss,e_mail,rle_id); 
-        
-        is_valid := '1';  
-          
-    ELSE
-        is_valid := '0';
-        
-    END IF;    
-           
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_ABILITY;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_ABILITY" (ablty_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_rows INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_rows FROM T_USER_ABILITY_REL WHERE ABILITY_FK = ablty_id;
-    IF number_of_rows = 0 THEN
-        DELETE FROM T_ABILITY WHERE PK = ablty_id;
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;
-    
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_DEPARTMENT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_DEPARTMENT" (dep_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_role INTEGER;
-    number_of_unit INTEGER;
-    number_of_user INTEGER;
-BEGIN
-    --Altinda birim olup olmadiginin kontrolu
-    SELECT COUNT(*) INTO number_of_unit FROM T_UNIT WHERE DEPARTMENT_FK = dep_id;
-    
-    --Altinda müdür rolünden farklı rolün olup olmadiginin kontrolü
-    SELECT COUNT(*) INTO number_of_role FROM T_ROLE WHERE DEPARTMENT_FK = dep_id AND IS_DEPARTMENT_MANAGER_ROLE = 'N';
-    
-    --Altinda user olup olmadiginin kontrolü
-    SELECT COUNT(*) INTO number_of_user FROM T_USER,T_ROLE WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.DEPARTMENT_FK =  dep_id;
-    
-    IF number_of_unit = 0 AND number_of_role = 0 AND number_of_user = 0 THEN
-        DELETE FROM T_DEPARTMENT WHERE PK = dep_id;
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_EDUCATOR;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_EDUCATOR" (edctr_id IN INTEGER,is_valid OUT CHAR)
-AS
-BEGIN 
-    DELETE FROM T_EDUCATOR WHERE PK = edctr_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_ROLE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_ROLE" (rle_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_user INTEGER;
-    is_manager_role INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE ROLE_FK = rle_id;
-    SELECT COUNT(*) INTO is_manager_role FROM T_ROLE WHERE PK = rle_id AND (IS_DEPARTMENT_MANAGER_ROLE = 'Y' OR IS_UNIT_MANAGER_ROLE = 'Y');
-    IF number_of_user = 0 AND is_manager_role = 0 THEN
-        DELETE FROM T_ROLE WHERE PK = rle_id;
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;    
-    
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_REMOVE_UNIT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_REMOVE_UNIT" (unt_id IN INTEGER,is_valid OUT CHAR)
-AS
-    number_of_role INTEGER;
-    number_of_user INTEGER;
-BEGIN
-    --Altinda yönetici rolünün olup,olmadiginin kontrolü
-    SELECT COUNT(*) INTO number_of_role FROM T_ROLE WHERE UNIT_FK = unt_id AND IS_UNIT_MANAGER_ROLE = 'N';
-    
-    --Altinda user olup olmadiginin kontrolü
-    SELECT COUNT(*) INTO number_of_user FROM T_USER,T_ROLE WHERE T_USER.ROLE_FK = T_ROLE.PK AND T_ROLE.UNIT_FK = unt_id;
-    
-    IF number_of_role = 0 AND number_of_user=0 THEN
-        DELETE FROM T_UNIT WHERE PK = unt_id;
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-    END IF;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ABILITY" (ablty_id IN INTEGER,ablty_name IN VARCHAR,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_ABILITY SET ABILITY_NAME = INITCAP(ablty_name) WHERE PK = ablty_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_ABILITY_LEVEL;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ABILITY_LEVEL" (lvl_id IN INTEGER,lvl_name IN VARCHAR,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_ABILITY_LEVEL SET LEVEL_NAME = lvl_name WHERE PK = lvl_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_DEPARTMENT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_DEPARTMENT" (dep_id IN INTEGER,dep_name IN VARCHAR,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_DEPARTMENT SET DEPARTMENT_NAME = INITCAP(dep_name) WHERE PK = dep_id;
-    is_valid := '1';
-    commit;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_EDUCATOR;
-
-CREATE OR REPLACE PROCEDURE SYSTEM.SP_UPDATE_EDUCATOR(edctr_id IN INTEGER,edctr_name IN VARCHAR,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_EDUCATOR SET EDUCATOR_NAME = INITCAP(edctr_name) WHERE PK = edctr_id;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_ROLE;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_ROLE" (rle_id IN INTEGER,rle_name IN VARCHAR,unt_id IN INTEGER,dep_id IN INTEGER,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_ROLE SET ROLE_NAME = INITCAP(rle_name),UNIT_FK = unt_id, DEPARTMENT_FK = dep_id WHERE PK = rle_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_UNIT;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_UNIT" (unt_id IN INTEGER,unt_name IN VARCHAR,dep_id IN INTEGER,is_valid OUT CHAR)
-AS
-BEGIN
-    UPDATE T_UNIT SET UNIT_NAME = INITCAP(unt_name),DEPARTMENT_FK = dep_id WHERE PK = unt_id;
-    is_valid := '1';
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_UPDATE_USER;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_UPDATE_USER" (usr_id IN INTEGER,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
-    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,ablty_ids IN INT_ARRAY,level_ids IN INT_ARRAY,is_valid OUT CHAR)
-AS
-    number_of_email INTEGER;
-    number_of_phone INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
-    SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
-    
-    IF number_of_email = 0 AND number_of_phone = 0 THEN
-        UPDATE T_USER SET EMAIL = e_mail, FIRST_NAME = fname, LAST_NAME = lname, 
-            DATE_OF_BIRTH = TO_DATE(dte_of_birth,'mm-dd-yyyy'), PHONE_NUMBER = phne_num, ADDRESS = addrss WHERE U_ID = usr_id;
-            
-        DELETE FROM T_USER_ABILITY_REL WHERE USER_FK = usr_id;
-        
-        FOR i IN 1..ablty_ids.count LOOP
-            INSERT INTO T_USER_ABILITY_REL(USER_FK,ABILITY_FK,ABILITY_LEVEL_FK) VALUES(usr_id,ablty_ids(i),level_ids(i));  
-        END LOOP;
-        
-        is_valid := '1';      
-    ELSE
-        is_valid := '0';
-    END IF;
-END;
-/
-
-
-DROP PROCEDURE SYSTEM.SP_USER_LOGIN;
-
-CREATE OR REPLACE PROCEDURE SYSTEM."SP_USER_LOGIN" (user_id IN VARCHAR,user_pw IN VARCHAR,is_valid OUT CHAR)
-AS
-    number_of_row NUMERIC ;
-BEGIN
-    SELECT COUNT(*) INTO number_of_row FROM T_USER WHERE u_id = user_id AND u_pw = user_pw;
-
-    IF number_of_row = 1 THEN
-        is_valid := '1';
-    ELSE
-        is_valid := '0';
-        
-    END IF;
-END;
-/
-DROP TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_ABILITY_LEVEL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_ABILITY_LEVEL_PK.nextval;
-    END IF;                   
-    IF :new.MODIFIED_TIME IS NULL THEN   
-        :new.MODIFIED_TIME := :new.CREATION_TIME; 
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_ABILITY_LEVEL_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_LEVEL_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_ABILITY_LEVEL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.LEVEL_NAME != :old.LEVEL_NAME THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_ABILITY_NEW_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_ABILITY
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL  THEN
-        :new.PK := SEQ_ABILITY_PK.nextval;
-        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-        
-    END IF;    
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_ABILITY_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ABILITY_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_ABILITY
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :old.ABILITY_NAME != :new.ABILITY_NAME THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_AFTER_DEPARTMENT_INSERT;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_DEPARTMENT_INSERT
-AFTER INSERT
-ON SYSTEM.T_DEPARTMENT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN 
-    INSERT INTO T_ROLE(ROLE_NAME,DEPARTMENT_FK,IS_DEPARTMENT_MANAGER_ROLE) VALUES(CONCAT(INITCAP(:new.DEPARTMENT_NAME),' Müdürü'),:new.PK,'Y');
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_AFTER_DEPARTMENT_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_DEPARTMENT_UPDATE
-BEFORE UPDATE
-ON SYSTEM.T_DEPARTMENT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    UPDATE T_ROLE SET ROLE_NAME = INITCAP(CONCAT(:new.DEPARTMENT_NAME,' Müdürü')) WHERE DEPARTMENT_FK = :new.PK AND IS_DEPARTMENT_MANAGER_ROLE = 'Y';
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_AFTER_UNIT_INSERT;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_UNIT_INSERT
-AFTER INSERT
-ON SYSTEM.T_UNIT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN   
-    INSERT INTO T_ROLE(ROLE_NAME,UNIT_FK,DEPARTMENT_FK,IS_UNIT_MANAGER_ROLE) VALUES(CONCAT(INITCAP(:new.UNIT_NAME),' Yöneticisi'),:new.PK,:new.DEPARTMENT_FK,'Y');    
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_AFTER_UNIT_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_UNIT_UPDATE
-BEFORE UPDATE
-ON SYSTEM.T_UNIT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    UPDATE T_ROLE SET ROLE_NAME = INITCAP(CONCAT(:new.UNIT_NAME,' Yöneticisi')) WHERE UNIT_FK = :new.PK AND IS_UNIT_MANAGER_ROLE = 'Y';
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_AFTER_USER_DELETE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_USER_DELETE
-AFTER DELETE
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    is_unit_manager CHAR(1) := 'N';
-    is_department_manager CHAR(1) := 'N' ;
-BEGIN
-    SELECT IS_UNIT_MANAGER_ROLE INTO is_unit_manager FROM T_ROLE WHERE PK = :old.ROLE_FK;
-    SELECT IS_DEPARTMENT_MANAGER_ROLE INTO is_department_manager FROM T_ROLE WHERE PK = :old.ROLE_FK;
-    
-    IF is_unit_manager = 'Y' THEN
-        UPDATE T_UNIT SET MANAGER_ID = NULL WHERE MANAGER_ID = :old.PK;
-    ELSIF is_department_manager = 'Y' THEN
-        UPDATE T_DEPARTMENT SET MANAGER_ID = NULL WHERE MANAGER_ID = :old.PK;       
-    END IF;     
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_AFTER_USER_INSERT;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_USER_INSERT
-AFTER INSERT
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    is_unit_manager CHAR(1) := 'N';
-    is_department_manager CHAR(1) := 'N' ;
-    unit_id INTEGER;
-    dep_id INTEGER;
-BEGIN
-   
-    SELECT IS_UNIT_MANAGER_ROLE INTO is_unit_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-    SELECT IS_DEPARTMENT_MANAGER_ROLE INTO is_department_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-
-
-    BEGIN
-        SELECT T_UNIT.PK INTO unit_id FROM T_ROLE,T_UNIT WHERE T_ROLE.UNIT_FK = T_UNIT.PK AND T_ROLE.PK = :new.ROLE_FK;
-    EXCEPTION WHEN NO_DATA_FOUND THEN
-        unit_id := NULL;
-    END;
-    
-    BEGIN
-        SELECT T_DEPARTMENT.PK INTO dep_id FROM T_ROLE,T_DEPARTMENT WHERE T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK AND T_ROLE.PK = :new.ROLE_FK;        
-    EXCEPTION WHEN NO_DATA_FOUND THEN
-        dep_id := NULL;
-    END;  
-      
-    IF is_unit_manager = 'Y' THEN
-        UPDATE T_UNIT SET MANAGER_ID = :new.PK WHERE PK = unit_id;
-    ELSIF is_department_manager = 'Y' THEN
-        UPDATE T_DEPARTMENT SET MANAGER_ID = :new.PK WHERE PK = dep_id;        
-    END IF;    
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_AFTER_USER_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_AFTER_USER_UPDATE 
-AFTER UPDATE
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    old_is_unit_manager CHAR(1) := 'N';
-    old_is_department_manager CHAR(1) := 'N' ;
-    new_is_unit_manager CHAR(1) := 'N';
-    new_is_department_manager CHAR(1) := 'N' ;
-    unit_id INTEGER;
-    dep_id INTEGER;    
-BEGIN
-    --Yeni Rolü Eski Rolüne Eşit Değilse
-    IF :old.ROLE_FK != :new.ROLE_FK THEN 
-        --Eski rolünün müdürlük ve yöneticilik bilgilerini al
-        SELECT IS_UNIT_MANAGER_ROLE INTO old_is_unit_manager FROM T_ROLE WHERE PK = :old.ROLE_FK;
-        SELECT IS_DEPARTMENT_MANAGER_ROLE INTO old_is_department_manager FROM T_ROLE WHERE PK = :old.ROLE_FK;
-     
-        --Yeni rolünün müdürlük ve yöneticilik bilgilerini al
-        SELECT IS_UNIT_MANAGER_ROLE INTO new_is_unit_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-        SELECT IS_DEPARTMENT_MANAGER_ROLE INTO new_is_department_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-        
-        --Yeni rolünün BIRIM VE DEPARTMAN bilgilerini al
-        SELECT UNIT_FK INTO unit_id FROM T_ROLE WHERE PK = :new.ROLE_FK;
-        SELECT DEPARTMENT_FK INTO dep_id FROM T_ROLE WHERE PK = :new.ROLE_FK;
-               
-        IF old_is_unit_manager = 'Y' THEN
-            --Eski rolü birim yöneticiliği ise rolün MANAGER_ID ını sıfırla
-            UPDATE T_UNIT SET MANAGER_ID = NULL WHERE MANAGER_ID = :old.PK;
-        ELSIF old_is_department_manager = 'Y' THEN
-            --Eski rolü müdürlük ise rolün MANAGER_ID ını sıfırla
-            UPDATE T_DEPARTMENT SET MANAGER_ID = NULL WHERE MANAGER_ID = :old.PK;
-        END IF;
-        
-        IF new_is_unit_manager = 'Y' THEN
-            --Yeni rolü birim yöneticiliği ise rolün MANAGER_ID ayarla
-            UPDATE T_UNIT SET MANAGER_ID = :new.PK WHERE PK = unit_id;
-        ELSIF new_is_department_manager = 'Y' THEN
-            --Yeni rolü müdürlük ise rolün MANAGER_ID ayarla
-            UPDATE T_DEPARTMENT SET MANAGER_ID = :new.PK  WHERE PK = dep_id;
-        END IF;    
-    END IF;
-          
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_BEFORE_DEPARMENT_INSERT;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_DEPARMENT_INSERT
-BEFORE INSERT
-ON SYSTEM.T_DEPARTMENT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_DEPARTMENT_PK.nextval;
-    END IF;    
-        
-    IF :new.MODIFIED_TIME IS NULL  THEN 
-        :new.MODIFIED_TIME := :new.CREATION_TIME;        
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_BEFORE_DEPARTMENT_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_DEPARTMENT_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_DEPARTMENT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :old.DEPARTMENT_NAME != :new.DEPARTMENT_NAME THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_BEFORE_UNIT_INSERT;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_UNIT_INSERT
-BEFORE INSERT
-ON SYSTEM.T_UNIT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_UNIT_PK.nextval;        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;  
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_BEFORE_UNIT_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_UNIT_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_UNIT
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  
-        (:old.UNIT_NAME != :new.UNIT_NAME OR 
-            :old.DEPARTMENT_FK != :new.DEPARTMENT_FK) THEN
-            
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-        
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_BEFORE_USER_INSERT;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_BEFORE_USER_INSERT
-BEFORE INSERT
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    is_unit_manager CHAR(1) := 'N';
-    is_department_manager CHAR(1) := 'N' ;
-    is_any_user INTEGER;
-BEGIN
-   
-    SELECT IS_UNIT_MANAGER_ROLE INTO is_unit_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-    SELECT IS_DEPARTMENT_MANAGER_ROLE INTO is_department_manager FROM T_ROLE WHERE PK = :new.ROLE_FK;
-    
-    IF  is_unit_manager = 'Y' OR is_department_manager = 'Y' THEN
-        SELECT COUNT(T_USER.PK) INTO is_any_user FROM T_USER WHERE T_USER.ROLE_FK = :new.ROLE_FK;
-        IF is_any_user = 1 THEN
-            UPDATE T_USER SET ROLE_FK = NULL WHERE ROLE_FK = :new.ROLE_FK;
-        END IF;    
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_NEW_RCRD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_NEW_RCRD 
-BEFORE INSERT
-ON SYSTEM.T_EDUCATION_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_EDUCATION_ABILITY_REL_PK.nextval;  
-    END IF;
-              
-    IF :new.MODIFIED_TIME IS NULL THEN 
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_ABILITY_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATION_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_EDUCATION_NEW_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_EDUCATION
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-    stt_id INTEGER;
-BEGIN
-    IF :new.PK IS NULL THEN 
-        :new.PK := SEQ_EDUCATION_PK.nextval;
-    END IF;            
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;    
-    END IF;
-    SELECT PK INTO stt_id FROM T_STATE WHERE STATE_NAME = 'PLANNED';
-    INSERT INTO T_EDUCATION_STATE_REL(STATE_ID,EDUCATION_ID) VALUES(stt_id,:new.PK);
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_EDUCATION_STATE_NEW_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_STATE_NEW_RECORD 
-BEFORE INSERT ON SYSTEM.T_EDUCATION_STATE_REL
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  :new.PK IS NULL THEN
-        :new.PK := SEQ_EDUCATION_STATE_REL_PK.nextval;        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_EDUCATION_STATE_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_STATE_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATION_STATE_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_EDUCATION_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATION
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  :new.EDUCATION_SUBJECT != :old.EDUCATION_SUBJECT OR
-            :new.EDUCATION_CONTENT != :old.EDUCATION_CONTENT OR
-                :new.EDUCATOR_FK != :old.EDUCATOR_FK OR
-                    :new.IS_ACTIVE != :old.IS_ACTIVE THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_EDUCATION_USER_REL_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATION_USER_REL_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATION_USER_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_EDUCATOR_NEW_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATOR_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_EDUCATOR
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_EDUCATOR_PK.nextval;
-    END IF;                   
-    IF :new.MODIFIED_TIME IS NULL THEN   
-        :new.MODIFIED_TIME := :new.CREATION_TIME; 
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_EDUCATOR_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_EDUCATOR_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_EDUCATOR
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.EDUCATOR_NAME != :old.EDUCATOR_NAME OR
-            :new.IS_INHOUSE != :old.IS_INHOUSE OR
-                :new.IS_ACTIVE != :old.IS_ACTIVE OR 
-                    :new.USER_FK != :old.USER_FK THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_ROLE_NEW_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ROLE_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_ROLE
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_ROLE_PK.nextval;
-    END IF;    
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;    
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_ROLE_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_ROLE_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_ROLE
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  
-        (:new.ROLE_NAME != :old.ROLE_NAME OR
-            :new.UNIT_FK != :old.UNIT_FK OR 
-                :new.DEPARTMENT_FK != :old.DEPARTMENT_FK) THEN
-                
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_STATE_NEW_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_STATE_NEW_RECORD 
-BEFORE INSERT ON SYSTEM.T_STATE
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_STATE_PK.nextval;
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;    
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_STATE_UPDATE_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_STATE_UPDATE_RECORD 
-BEFORE INSERT ON SYSTEM.T_STATE
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :old.STATE_NAME != :new.STATE_NAME THEN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-    END IF; 
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_USER_ABILITY_REL_NEW_RCRD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_REL_NEW_RCRD 
-BEFORE INSERT
-ON SYSTEM.T_USER_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF :new.PK IS NULL THEN
-        :new.PK := SEQ_USER_ABILITY_REL_PK.nextval;
-        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_USER_ABILITY_UPDATE;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_ABILITY_UPDATE 
-BEFORE UPDATE
-ON SYSTEM.T_USER_ABILITY_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-        :new.MODIFIED_TIME := CURRENT_TIMESTAMP;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_USER_EDUCATION_NEW_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_EDUCATION_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_EDUCATION_USER_REL
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  :new.PK IS NULL THEN
-        :new.PK := SEQ_USER_EDUCATION_REL_PK.nextval;
-        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-
-
-DROP TRIGGER SYSTEM.TRG_USER_NEW_RECORD;
-
-CREATE OR REPLACE TRIGGER SYSTEM.TRG_USER_NEW_RECORD 
-BEFORE INSERT
-ON SYSTEM.T_USER
-REFERENCING NEW AS NEW OLD AS OLD
-FOR EACH ROW
-DECLARE
-BEGIN
-    IF  :new.PK IS NULL THEN
-        :new.PK := SEQ_USER_PK.nextval;
-        
-    END IF;
-    IF :new.MODIFIED_TIME IS NULL THEN
-        :new.MODIFIED_TIME := :new.CREATION_TIME;
-    END IF;
-END;
-/
-DROP SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_ABILITY_LEVEL_PK
-  START WITH 21
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_ABILITY_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_ABILITY_PK
-  START WITH 81
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_DEPARTMENT_PK
-  START WITH 2100
-  INCREMENT BY 5
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 100
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_EDUCATION_ABILITY_REL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_ABILITY_REL_PK
-  START WITH 1
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_EDUCATION_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_PK
-  START WITH 21
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_EDUCATION_STATE_REL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_EDUCATION_STATE_REL_PK
-  START WITH 0
-  MAXVALUE 9999999999999999999999999999
-  MINVALUE 0
-  NOCYCLE
-  NOCACHE
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_EDUCATOR_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_EDUCATOR_PK
-  START WITH 4
-  MAXVALUE 9999999999999999999999999999
-  MINVALUE 0
-  NOCYCLE
-  NOCACHE
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_ROLE_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_ROLE_PK
-  START WITH 150000
-  INCREMENT BY 500
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 10000
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_STATE_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_STATE_PK
-  START WITH 3
-  MAXVALUE 9999999999999999999999999999
-  MINVALUE 0
-  NOCYCLE
-  NOCACHE
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_UNIT_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_UNIT_PK
-  START WITH 11000
-  INCREMENT BY 50
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1000
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_USER_ABILITY_REL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_USER_ABILITY_REL_PK
-  START WITH 1
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_USER_EDUCATION_REL_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_USER_EDUCATION_REL_PK
-  START WITH 1
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 1
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-
-
-DROP SEQUENCE SYSTEM.SEQ_USER_PK;
-
-CREATE SEQUENCE SYSTEM.SEQ_USER_PK
-  START WITH 5880
-  INCREMENT BY 4
-  MAXVALUE 999999999999999999999999999
-  MINVALUE 5000
-  NOCYCLE
-  CACHE 20
-  NOORDER
-  NOKEEP
-  GLOBAL;
-DROP TYPE SYSTEM.INT_ARRAY;
-
-CREATE OR REPLACE TYPE SYSTEM."INT_ARRAY" AS VARRAY(50) OF INTEGER;
-/
+--  There is no statement for index SYSTEM.SYS_C004732.
+--  The object is created when the parent object is created.
