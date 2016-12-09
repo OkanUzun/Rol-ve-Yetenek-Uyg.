@@ -69,6 +69,22 @@
                     </div>
                     <div class="col-xs-12 col-xl-6">
                       <div class="form-group">
+                        <select id="roleDepartment" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">
+                          <option value="Seçiniz">Seçiniz</option>
+                          <option value="Bilişim Departmanı">Bilişim Departmanı</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-xl-6">
+                      <div class="form-group">
+                        <select id="roleUnit" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">
+                          <option value="Seçiniz">Seçiniz</option>
+                          <option value="Yazılım Birimi">Yazılım Birimi</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-xl-6">
+                      <div class="form-group">
                         <?php
                           include "dbsettings.php";
                           $sql  = 'SELECT PK,ROLE_NAME FROM T_ROLE';

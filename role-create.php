@@ -66,43 +66,40 @@
           <div class="card-header">
             <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-account-check"></i>Rol Oluştur</a>
             <form id="formValidate" class="form-create form-inline hidden" method="post">
-              <div class="alert">
-                <strong>Uyarı!</strong> Lütfen rol oluştururken <u>departman</u> veya <u>birim</u> bilgilerinden sadece bir tanesini giriniz.
-              </div>
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Rol Adı Giriniz" name="role_name">
               </div>
-              <div class="form-group">
+              <!--              <div class="form-group">
                 <?php
-                  include "dbsettings.php";
-                  $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME 
-                  FROM T_DEPARTMENT
-                  ORDER BY DEP_NAME';
-                  $stmt = oci_parse($conn, $sql);
-                  $r    = oci_execute($stmt);
-                  echo '<select id="roleDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
-                  echo '<option>Seçiniz</option>';
-                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
-                    echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
-                  echo '</select>';
-                ?>
+                /*                  include "dbsettings.php";
+                                  $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME
+                                  FROM T_DEPARTMENT
+                                  ORDER BY DEP_NAME';
+                                  $stmt = oci_parse($conn, $sql);
+                                  $r    = oci_execute($stmt);
+                                  echo '<select id="roleDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
+                                  echo '<option>Seçiniz</option>';
+                                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
+                                    echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
+                                  echo '</select>';
+                                */ ?>
               </div>
               <div class="form-group">
                 <?php
-                  include "dbsettings.php";
-                  $sql  = 'SELECT T_UNIT.PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME 
-                  FROM T_UNIT,T_DEPARTMENT 
-                  WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK
-                  ORDER BY UNT_NAME';
-                  $stmt = oci_parse($conn, $sql);
-                  $r    = oci_execute($stmt);
-                  echo '<select id="roleUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Birimi Seçiniz">';
-                  echo '<option>Seçiniz</option>';
-                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
-                    echo '<option value ="'.$row["PK"].'">'.$row["UNT_NAME"].' | '.$row["DEP_NAME"].'</option>';
-                  echo '</select>';
-                ?>
-              </div>
+                /*                  include "dbsettings.php";
+                                  $sql  = 'SELECT T_UNIT.PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME
+                                  FROM T_UNIT,T_DEPARTMENT
+                                  WHERE T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK
+                                  ORDER BY UNT_NAME';
+                                  $stmt = oci_parse($conn, $sql);
+                                  $r    = oci_execute($stmt);
+                                  echo '<select id="roleUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Birimi Seçiniz">';
+                                  echo '<option>Seçiniz</option>';
+                                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
+                                    echo '<option value ="'.$row["PK"].'">'.$row["UNT_NAME"].' | '.$row["DEP_NAME"].'</option>';
+                                  echo '</select>';
+                                */ ?>
+              </div>-->
               <button type="submit" class="btn btn-success" name="create-role">Kaydet</button>
               <button type="button" class="btn btn-danger">İptal</button>
             </form>
@@ -166,32 +163,32 @@
               <input type="text" class="form-control" id="updateName" name="role_name">
               <input type="hidden" name="role_id" id="role_id">
             </div>
-            <div class="form-group">
+            <!--            <div class="form-group">
               <label for="updateDepartmentSelect" class="form-control-label">Departman:</label>
               <?php
-                include "dbsettings.php";
-                $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT ORDER BY DEP_NAME';
-                $stmt = oci_parse($conn, $sql);
-                $r    = oci_execute($stmt);
-                echo '<select id="updateDepartmentSelect" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
-                while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
-                  echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
-                echo '</select>';
-              ?>
+              /*                include "dbsettings.php";
+                              $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT ORDER BY DEP_NAME';
+                              $stmt = oci_parse($conn, $sql);
+                              $r    = oci_execute($stmt);
+                              echo '<select id="updateDepartmentSelect" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
+                              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
+                                echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
+                              echo '</select>';
+                            */ ?>
             </div>
             <div class="form-group">
               <label for="updateUnitSelect" class="form-control-label">Birim:</label>
               <?php
-                include "dbsettings.php";
-                $sql  = 'SELECT PK,INITCAP(UNIT_NAME) AS UNT_NAME FROM T_UNIT ORDER BY UNT_NAME';
-                $stmt = oci_parse($conn, $sql);
-                $r    = oci_execute($stmt);
-                echo '<select id="updateUnitSelect" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
-                while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
-                  echo '<option value ="'.$row["PK"].'">'.$row["UNT_NAME"].'</option>';
-                echo '</select>';
-              ?>
-            </div>
+              /*                include "dbsettings.php";
+                              $sql  = 'SELECT PK,INITCAP(UNIT_NAME) AS UNT_NAME FROM T_UNIT ORDER BY UNT_NAME';
+                              $stmt = oci_parse($conn, $sql);
+                              $r    = oci_execute($stmt);
+                              echo '<select id="updateUnitSelect" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5">';
+                              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC))
+                                echo '<option value ="'.$row["PK"].'">'.$row["UNT_NAME"].'</option>';
+                              echo '</select>';
+                            */ ?>
+            </div>-->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>

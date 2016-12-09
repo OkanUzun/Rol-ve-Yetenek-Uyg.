@@ -1,5 +1,6 @@
+// ***(Sonra ilgilenilecek)***
 // Form Validation
-$('#formValidate').validate({
+/*$('#formValidate').validate({
   debug: true,
   errorPlacement: function (error, element) {
   },
@@ -81,7 +82,8 @@ $('#formValidate2').validate({
 
 $('#formValidate select').on('change', function (e) {
   $('#formValidate').validate().element($(this));
-});
+ });*/
+// ***(Sonra ilgilenilecek)***
 
 // Datepicker
 window.onload = function () {
@@ -103,13 +105,11 @@ $('#updateModal').on('show.bs.modal', function (event) {
   var unit = button.data('unit');
   var ability = button.data('ability');
   var id = button.data('id');
+  var user = button.data('user');
   var modal = $(this);
 
-  modal.find('.modal-body').find("[data-id='updateDepartmentSelect']").attr('title', department).children('.filter-option').text(department);
-  modal.find('.modal-body #updateDepartmentSelect option:contains(' + department + ')').attr('selected', 'selected');
-
-  modal.find('.modal-body').find("[data-id='updateUnitSelect']").attr('title', unit).children('.filter-option').text(unit);
-  modal.find('.modal-body #updateUnitSelect option:contains(' + unit + ')').attr('selected', 'selected');
+  modal.find('.modal-body').find("[data-id='updateUserSelect']").attr('title', user).children('.filter-option').text(user);
+  modal.find('.modal-body #updateUserSelect option:contains(' + user + ')').attr('selected', 'selected');
 
   modal.find('.modal-body #updateName').val(name);
   modal.find('.modal-body #updateSurname').val(surname);
@@ -402,20 +402,20 @@ $(".form-create .btn-danger").click(function () {
   $(".form-create .form-group, .form-create .bootstrap-select").removeClass("has-error has-success");
 });
 
-$("#roleUnit").change(function () {
-  $("#roleDepartment").prop('disabled', true);
-  $('.selectpicker').selectpicker('refresh');
-  if ($(this).children('option:nth-child(2)').is(':selected')) {
-    $("#roleDepartment").prop('disabled', false);
-    $('.selectpicker').selectpicker('refresh');
-  }
-});
-
 $("#roleDepartment").change(function () {
   $("#roleUnit").prop('disabled', true);
   $('.selectpicker').selectpicker('refresh');
   if ($(this).children('option:nth-child(2)').is(':selected')) {
     $("#roleUnit").prop('disabled', false);
+    $('.selectpicker').selectpicker('refresh');
+  }
+});
+
+$("#roleUnit").change(function () {
+  $("#roleDepartment").prop('disabled', true);
+  $('.selectpicker').selectpicker('refresh');
+  if ($(this).children('option:nth-child(2)').is(':selected')) {
+    $("#roleDepartment").prop('disabled', false);
     $('.selectpicker').selectpicker('refresh');
   }
 });

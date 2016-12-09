@@ -44,7 +44,7 @@
           </div>
           <div class="card-block">
             <div class="row">
-              <div class="col-lg-6 col-xl-4">
+              <div class="col-lg-6 col-xl-5">
                 <form method="post" action="unit-detail.php">
                   <ul class="list-group">
                     <li class="list-group-item">

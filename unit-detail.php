@@ -43,14 +43,26 @@
           </div>
           <div class="card-block">
             <div class="row">
-              <div class="col-lg-6 col-xl-4">
+              <div class="col-lg-6 col-xl-5">
                 <form method="post">
                   <ul class="list-group">
                     <li class="list-group-item">
-                      <span class="tag tag-default float-xs-right">Çalışan Sayısı</span>
-                      Kayıtlı Roller
+                      <span class="tag tag-default tag-pill float-xs-right">Rol</span>
+                      Kayıtlı Kullanıcılar
                     </li>
-                    <?php 
+                    <li class="list-group-item">
+                      <span class="tag tag-default tag-pill float-xs-right">Java Developer</span>
+                      Deniz Güzel
+                    </li>
+                    <li class="list-group-item">
+                      <span class="tag tag-default tag-pill float-xs-right">Java Developer</span>
+                      Deniz Güzel
+                    </li>
+                    <li class="list-group-item">
+                      <span class="tag tag-default tag-pill float-xs-right">Java Developer</span>
+                      Deniz Güzel
+                    </li>
+                    <?php /*
                       $sql  = '
                       SELECT T_ROLE.PK,INITCAP(T_ROLE.ROLE_NAME) AS RLE_NAME,COUNT(T_USER.PK) AS X FROM T_ROLE
                       LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
@@ -67,7 +79,7 @@
                           </li>
                         ';
                       }
-                    ?>
+                    */ ?>
                   </ul>
                 </form>
               </div>

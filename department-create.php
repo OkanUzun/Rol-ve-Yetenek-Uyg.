@@ -55,6 +55,13 @@
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Departman Adı Giriniz" name="dep_name">
             </div>
+            <div class="form-group">
+              <select class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Müdürü Seçiniz">
+                <option value="Okan Uzun">Okan Uzun</option>
+                <option value="Okan Uzun">Okan Uzun</option>
+                <option value="Okan Uzun">Okan Uzun</option>
+              </select>
+            </div>
             <button type="submit" class="btn btn-success" name="create-dep">Kaydet</button>
             <button type="button" class="btn btn-danger">İptal</button>
           </form>
@@ -85,7 +92,7 @@
                   echo '<td>'.$row['X'].'</td>';
                   echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-department="'.$row['DEP_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['DEP_NAME'].'" data-user="Okan Uzun"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                       <a href="department-detail.php?dep_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
                      </td>';
@@ -114,8 +121,16 @@
         <div class="modal-body">
           <div class="form-group">
             <input type="hidden" name="dep_id" id="dep_id">
-            <label for="updateDepartment" class="form-control-label">Departman Adı:</label>
-            <input type="text" class="form-control" id="updateDepartment" name="dep_name">
+            <label for="updateName" class="form-control-label">Departman Adı:</label>
+            <input type="text" class="form-control" id="updateName" name="dep_name">
+          </div>
+          <div class="form-group">
+            <label for="updateUserSelect" class="form-control-label">Departman Müdürü:</label>
+            <select id="updateUserSelect" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Müdürü Seçiniz">
+              <option value="Okan Uzun">Okan Uzun</option>
+              <option value="Okan Uzun">Okan Uzun</option>
+              <option value="Okan Uzun">Okan Uzun</option>
+            </select>
           </div>
         </div>
         <div class="modal-footer">
