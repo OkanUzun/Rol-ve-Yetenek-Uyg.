@@ -3,7 +3,6 @@
     <div class="navbar-collapse collapse in">
       <div class="navbar-left">
         <button class="sidebar-toggle" type="button"><i class="mdi mdi-menu"></i></button>
-
         <div class="dropdown">
           <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Deniz Güzel

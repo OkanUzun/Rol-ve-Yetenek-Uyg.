@@ -1,10 +1,10 @@
-<?php 
-  include "header.php"; 
+<?php
+  include "header.php";
   include "dbsettings.php";
 
-  if (isset($_GET["unit_id"])){
+  if (isset($_GET["unit_id"])) {
     $unit_id = $_GET["unit_id"];
-    $sql  = '
+    $sql = '
     SELECT INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,
     INITCAP(T_USER.FIRST_NAME) AS F_NAME,
     UPPER(T_USER.LAST_NAME) AS L_NAME,
@@ -19,10 +19,10 @@
     $row = oci_fetch_assoc($stmt);
 
     $unit_name = $row["UNT_NAME"];
-    $f_name = $row["F_NAME"];   
-    $l_name = $row["L_NAME"]; 
-    $cr_time = $row["CR_TIME"];  
-    $md_time = $row["MD_TIME"]; 
+    $f_name = $row["F_NAME"];
+    $l_name = $row["L_NAME"];
+    $cr_time = $row["CR_TIME"];
+    $md_time = $row["MD_TIME"];
   }
 ?>
 
@@ -34,10 +34,12 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <div class="name"><?php echo $unit_name?><div class="manager"><strong>Birim Yöneticisi:</strong> <?php echo $f_name.' '.$l_name?></div></div>
+              <div class="name"><?php echo $unit_name ?>
+                <div class="manager"><strong>Birim Yöneticisi:</strong> <?php echo $f_name.' '.$l_name ?></div>
+              </div>
               <div class="date">
-                <span><strong>Oluşturulma Tarihi:</strong> <?php echo $cr_time?></span>
-                <span><strong>Düzenleme Tarihi:</strong> <?php echo $md_time?></span>
+                <span><strong>Oluşturulma Tarihi:</strong> <?php echo $cr_time ?></span>
+                <span><strong>Düzenleme Tarihi:</strong> <?php echo $md_time ?></span>
               </div>
             </div>
           </div>
@@ -50,7 +52,7 @@
                       <span class="tag tag-default tag-pill float-xs-right">Rol</span>
                       Birimdeki Kullanıcılar
                     </li>
-                    <?php 
+                    <?php
                       $sql  = '
                       SELECT T_USER.PK,T_USER.FIRST_NAME,T_USER.LAST_NAME,T_ROLE.ROLE_NAME
                       FROM T_USER
@@ -68,7 +70,7 @@
                           </li>
                         ';
                       }
-                     ?>
+                    ?>
                   </ul>
                 </form>
               </div>

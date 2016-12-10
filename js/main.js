@@ -108,8 +108,17 @@ $('#updateModal').on('show.bs.modal', function (event) {
   var user = button.data('user');
   var modal = $(this);
 
-  modal.find('.modal-body').find("[data-id='updateUserSelect']").attr('title', user).children('.filter-option').text(user);
-  modal.find('.modal-body #updateUserSelect option:contains(' + user + ')').attr('selected', 'selected');
+
+  modal.find('.modal-body').find("[data-id='updateDepSelect']").attr('title', department).children('.filter-option').text(department);
+  modal.find('.modal-body #updateDepSelect option:contains(' + department + ')').attr('selected', 'selected');
+  if (user === "") {
+    modal.find('.modal-body').find("[data-id='updateUserSelect']").attr('title', user).children('.filter-option').text("Birim Yöneticisi Seçiniz");
+    modal.find('.modal-body #updateUserSelect option:contains(' + user + ')').attr('selected', 'selected');
+  }
+  else {
+    modal.find('.modal-body').find("[data-id='updateUserSelect']").attr('title', user).children('.filter-option').text(user);
+    modal.find('.modal-body #updateUserSelect option:contains(' + user + ')').attr('selected', 'selected');
+  }
 
   modal.find('.modal-body #updateName').val(name);
   modal.find('.modal-body #updateSurname').val(surname);

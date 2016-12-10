@@ -37,9 +37,9 @@
                     echo '<tr>';
                     echo '<td>'.$row['F_NAME'].'</td>';
                     echo '<td>'.$row['L_NAME'].'</td>';
-                    echo '<td>'.($row['ROLE_NAME']!=null?$row['ROLE_NAME']:'Rolü yok').'</td>';
-                    echo '<td>'.($row['UNIT_NAME']!=null?$row['UNIT_NAME']:'Birime bağlı değil').'</td>';
-                    echo '<td>'.($row['DEPARTMENT_NAME']!=null?$row['DEPARTMENT_NAME']:'Departmana bağlı değil').'</td>';
+                    echo '<td>'.($row['ROLE_NAME'] != null ? $row['ROLE_NAME'] : 'Rolü yok').'</td>';
+                    echo '<td>'.($row['UNIT_NAME'] != null ? $row['UNIT_NAME'] : 'Birime bağlı değil').'</td>';
+                    echo '<td>'.($row['DEPARTMENT_NAME'] != null ? $row['DEPARTMENT_NAME'] : 'Departmana bağlı değil').'</td>';
                     echo '
                      <td class="text-xs-center">
                       <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></button>

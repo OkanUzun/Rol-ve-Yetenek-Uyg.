@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-icon-144x144.png">
   <link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="img/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/favicon/android-icon-192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
@@ -27,30 +27,30 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.min.css">
-<?php 
+  <?php
 
-  include "dbsettings.php";
-  if (isset($_POST["user-login"])){
-    $sql  = 'BEGIN SP_USER_LOGIN(:user_id,:user_pw,:is_valid); END;';
-    $stmt = oci_parse($conn, $sql);
+    include "dbsettings.php";
+    if (isset($_POST["user-login"])) {
+      $sql  = 'BEGIN SP_USER_LOGIN(:user_id,:user_pw,:is_valid); END;';
+      $stmt = oci_parse($conn, $sql);
 
-    oci_bind_by_name($stmt, ':user_id', $user_id);
-    oci_bind_by_name($stmt, ':user_pw', $user_pw);
-    oci_bind_by_name($stmt, ':is_valid', $message);
+      oci_bind_by_name($stmt, ':user_id', $user_id);
+      oci_bind_by_name($stmt, ':user_pw', $user_pw);
+      oci_bind_by_name($stmt, ':is_valid', $message);
 
-    $user_id = $_POST["user_id"];
-    $user_pw = md5($_POST["user_pw"]);
+      $user_id = $_POST["user_id"];
+      $user_pw = md5($_POST["user_pw"]);
 
-    oci_execute($stmt);
+      oci_execute($stmt);
 
-    if ($message == '1'){
-      header("Location:dashboard.php");    
+      if ($message == '1') {
+        header("Location:dashboard.php");
+      }
+      else { // HATALI GİRİŞ
+
+      }
     }
-    else{ // HATALI GİRİŞ
-          
-    }    
-  }
-?>  
+  ?>
 </head>
 <body class="login">
 <div class="container">

@@ -11,8 +11,8 @@
     oci_bind_by_name($stmt, ':mngr_id', $manager_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
-    $dep_name = $_POST["dep_name"];
-    $manager_id = $_POST["manager_id"];    
+    $dep_name   = $_POST["dep_name"];
+    $manager_id = $_POST["manager_id"];
 
     oci_execute($stmt);
     //echo "$message\n";
@@ -60,18 +60,18 @@
               <input type="text" class="form-control" placeholder="Departman Adı Giriniz" name="dep_name">
             </div>
             <div class="form-group">
-                  <?php
-                    include "dbsettings.php";
-                    $sql  = 'SELECT USR.PK,USR.FIRST_NAME,USR.LAST_NAME
+              <?php
+                include "dbsettings.php";
+                $sql  = 'SELECT USR.PK,USR.FIRST_NAME,USR.LAST_NAME
                   FROM T_USER USR';
-                    $stmt = oci_parse($conn, $sql);
-                    $r    = oci_execute($stmt);
-                    echo '<select name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Departman Müdürü Seçiniz">';
-                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                      echo '<option value ="'.$row["PK"].'">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</option>';
-                    }
-                    echo '</select>';
-                  ?>
+                $stmt = oci_parse($conn, $sql);
+                $r    = oci_execute($stmt);
+                echo '<select name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Departman Müdürü Seçiniz">';
+                while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                  echo '<option value ="'.$row["PK"].'">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</option>';
+                }
+                echo '</select>';
+              ?>
             </div>
             <button type="submit" class="btn btn-success" name="create-dep">Kaydet</button>
             <button type="button" class="btn btn-danger">İptal</button>
@@ -135,18 +135,19 @@
             <input type="text" class="form-control" id="updateName" name="dep_name">
           </div>
           <div class="form-group">
-                  <?php
-                    include "dbsettings.php";
-                    $sql  = 'SELECT PK,FIRST_NAME,LAST_NAME
+            <label for="updateUserSelect" class="form-control-label">Departman Müdürü:</label>
+            <?php
+              include "dbsettings.php";
+              $sql  = 'SELECT PK,FIRST_NAME,LAST_NAME
                     FROM T_USER';
-                    $stmt = oci_parse($conn, $sql);
-                    $r    = oci_execute($stmt);
-                    echo '<select name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Departman Müdürü Seçiniz">';
-                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                      echo '<option value ="'.$row["PK"].'">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</option>';
-                    }
-                    echo '</select>';
-                  ?>
+              $stmt = oci_parse($conn, $sql);
+              $r    = oci_execute($stmt);
+              echo '<select id="updateUserSelect" name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Müdürü Seçiniz">';
+              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                echo '<option value ="'.$row["PK"].'">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</option>';
+              }
+              echo '</select>';
+            ?>
           </div>
         </div>
         <div class="modal-footer">
@@ -180,11 +181,6 @@
     </div>
   </div>
 </div>
-</body>
-</html>
-
-
-
 
 
 <?php include "footer.php"; ?>

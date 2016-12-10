@@ -1,4 +1,4 @@
-<?php include "header.php";
+<?php
   include "header.php";
   include "dbsettings.php";
 
@@ -44,10 +44,10 @@
     $address       = $_POST["address"];
     $role_id       = $_POST["role_id"];
     $unit_id       = $_POST["unit_id"];
-    $dep_id       = $_POST["dep_id"];        
+    $dep_id = $_POST["dep_id"];
 
     oci_execute($stmt);
-
+  }
 ?>
 
   <div class="wrapper">
