@@ -48,22 +48,6 @@
 
     oci_execute($stmt);
 
-    if($message == '1'){
-      include "mail-config.php";
-      $mail -> Subject = "KULLANICI ŞİFRENİZ";
-      $mail -> Body = "Kullanıcı Şifreniz : <b>'".$r_pw."'</b>";
-      $mail -> AddAddress($e_mail);
-
-
-      if(!$mail->send()) {
-          echo 'Message could not be sent.';
-          echo 'Mailer Error: ' . $mail->ErrorInfo;
-      } else {
-          echo 'Message has been sent';
-      }
-    }
-  }
-
 ?>
 
   <div class="wrapper">
