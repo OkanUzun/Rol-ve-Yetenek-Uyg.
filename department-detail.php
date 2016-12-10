@@ -49,15 +49,16 @@
                   <ul class="list-group">
                     <li class="list-group-item">
                       <span class="tag tag-default float-xs-right">Çalışan Sayısı</span>
-                      Kayıtlı Birimler
+                      Departmandaki Birimler
                     </li>
                     <?php 
                       $sql  = '
-                      SELECT T_UNIT.PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,COUNT(T_USER.PK) AS X FROM T_UNIT
-                      INNER JOIN T_ROLE ON T_UNIT.PK = T_ROLE.UNIT_FK
-                      LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
+                      SELECT  T_UNIT.PK,T_UNIT.UNIT_NAME AS UNT_NAME,COUNT(T_USER.PK) AS X
+                      FROM T_UNIT
+                      LEFT JOIN T_USER ON T_USER.UNIT_FK = T_UNIT.PK
                       WHERE T_UNIT.DEPARTMENT_FK = '.$dep_id.'
-                      GROUP BY T_UNIT.PK,T_UNIT.UNIT_NAME';
+                      GROUP BY T_UNIT.PK,T_UNIT.UNIT_NAME
+                      ORDER BY T_UNIT.UNIT_NAME ';
                       $stmt = oci_parse($conn, $sql);
                       $r    = oci_execute($stmt);
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {

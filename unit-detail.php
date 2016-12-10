@@ -48,38 +48,27 @@
                   <ul class="list-group">
                     <li class="list-group-item">
                       <span class="tag tag-default tag-pill float-xs-right">Rol</span>
-                      Kayıtlı Kullanıcılar
+                      Birimdeki Kullanıcılar
                     </li>
-                    <li class="list-group-item">
-                      <span class="tag tag-default tag-pill float-xs-right">Java Developer</span>
-                      Deniz Güzel
-                    </li>
-                    <li class="list-group-item">
-                      <span class="tag tag-default tag-pill float-xs-right">Java Developer</span>
-                      Deniz Güzel
-                    </li>
-                    <li class="list-group-item">
-                      <span class="tag tag-default tag-pill float-xs-right">Java Developer</span>
-                      Deniz Güzel
-                    </li>
-                    <?php /*
+                    <?php 
                       $sql  = '
-                      SELECT T_ROLE.PK,INITCAP(T_ROLE.ROLE_NAME) AS RLE_NAME,COUNT(T_USER.PK) AS X FROM T_ROLE
-                      LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
-                      WHERE T_ROLE.UNIT_FK = '.$unit_id.'
-                      GROUP BY T_ROLE.PK,T_ROLE.ROLE_NAME';
+                      SELECT T_USER.PK,T_USER.FIRST_NAME,T_USER.LAST_NAME,T_ROLE.ROLE_NAME
+                      FROM T_USER
+                      LEFT JOIN T_ROLE ON T_ROLE.PK = T_USER.ROLE_FK
+                      WHERE T_USER.UNIT_FK = '.$unit_id.'
+                      ORDER BY T_USER.FIRST_NAME,T_USER.LAST_NAME';
                       $stmt = oci_parse($conn, $sql);
                       $r    = oci_execute($stmt);
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                         echo '
                           <li class="list-group-item">
-                            <span class="tag tag-default tag-pill float-xs-right">'.$row["X"].'</span>
+                            <span class="tag tag-default tag-pill float-xs-right">'.$row["ROLE_NAME"].'</span>
                             <input type="hidden" name="unit_id" id="unit_id" value="'.$row['PK'].'">
-                            <a href="unit-detail.php?unit_id='.$row['PK'].'" rel="tooltip" title="Detay">'.$row["RLE_NAME"].'</a>
+                            <a href="user-detail.php?user_id='.$row['PK'].'" rel="tooltip" title="Detay">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</a>
                           </li>
                         ';
                       }
-                    */ ?>
+                     ?>
                   </ul>
                 </form>
               </div>

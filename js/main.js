@@ -119,6 +119,7 @@ $('#updateModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body #role_id').val(id);
   modal.find('.modal-body #ability_id').val(id);
   modal.find('.modal-body #educator_id').val(id);
+  modal.find('.modal-body #manager_id').val(id);
 });
 
 $('#deleteModal').on('show.bs.modal', function (event) {

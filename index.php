@@ -27,6 +27,30 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.min.css">
+<?php 
+
+  include "dbsettings.php";
+  if (isset($_POST["user-login"])){
+    $sql  = 'BEGIN SP_USER_LOGIN(:user_id,:user_pw,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':user_id', $user_id);
+    oci_bind_by_name($stmt, ':user_pw', $user_pw);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+
+    $user_id = $_POST["user_id"];
+    $user_pw = md5($_POST["user_pw"]);
+
+    oci_execute($stmt);
+
+    if ($message == '1'){
+      header("Location:dashboard.php");    
+    }
+    else{ // HATALI GİRİŞ
+          
+    }    
+  }
+?>  
 </head>
 <body class="login">
 <div class="container">
@@ -37,15 +61,15 @@
           <div class="card-header"><span class="highlight">Roleaby</span> Giriş</div>
           <div class="card-block">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Kullanıcı Adı">
+              <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="user_id">
               <i class="mdi mdi-account"></i>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="********">
+              <input type="password" class="form-control" placeholder="********" name="user_pw">
               <i class="mdi mdi-key"></i>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-success">Giriş Yap</button>
+              <button type="submit" class="btn btn-success" name="user-login">Giriş Yap</button>
             </div>
             <div class="form-group">
               <input id="remember" type="checkbox" class="form-control">

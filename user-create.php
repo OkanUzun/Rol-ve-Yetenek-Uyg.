@@ -15,7 +15,7 @@
   }
 
   if (isset($_POST["create-user"])) {
-    $sql  = 'BEGIN SP_CREATE_USER(:usr_id,:usr_pw,:e_mail,:fname,:lname,:dte_of_birth,:phne_num,:addrss,:rle_id,:is_valid); END;';
+    $sql  = 'BEGIN SP_CREATE_USER(:usr_id,:usr_pw,:e_mail,:fname,:lname,:dte_of_birth,:phne_num,:addrss,:rle_id,:is_valid,:unt_id,:dep_id); END;';
     $stmt = oci_parse($conn, $sql);
 
 
@@ -28,6 +28,8 @@
     oci_bind_by_name($stmt, ':phne_num', $phone_number);
     oci_bind_by_name($stmt, ':addrss', $address);
     oci_bind_by_name($stmt, ':rle_id', $role_id);
+    oci_bind_by_name($stmt, ':unt_id', $unit_id);
+    oci_bind_by_name($stmt, ':dep_id', $dep_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
     $r_pw = randomPassword();
@@ -41,8 +43,25 @@
     $phone_number  = $_POST["phone_number"];
     $address       = $_POST["address"];
     $role_id       = $_POST["role_id"];
+    $unit_id       = $_POST["unit_id"];
+    $dep_id       = $_POST["dep_id"];        
 
     oci_execute($stmt);
+
+    if($message == '1'){
+      include "mail-config.php";
+      $mail -> Subject = "KULLANICI ŞİFRENİZ";
+      $mail -> Body = "Kullanıcı Şifreniz : <b>'".$r_pw."'</b>";
+      $mail -> AddAddress($e_mail);
+
+
+      if(!$mail->send()) {
+          echo 'Message could not be sent.';
+          echo 'Mailer Error: ' . $mail->ErrorInfo;
+      } else {
+          echo 'Message has been sent';
+      }
+    }
   }
 
 ?>
@@ -69,18 +88,32 @@
                     </div>
                     <div class="col-xs-12 col-xl-6">
                       <div class="form-group">
-                        <select id="roleDepartment" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">
-                          <option value="Seçiniz">Seçiniz</option>
-                          <option value="Bilişim Departmanı">Bilişim Departmanı</option>
-                        </select>
+                        <?php
+                          include "dbsettings.php";
+                          $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+                          $stmt = oci_parse($conn, $sql);
+                          $r    = oci_execute($stmt);
+                          echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">';
+                          while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                            echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
+                          }
+                          echo '</select>';
+                        ?>
                       </div>
                     </div>
                     <div class="col-xs-12 col-xl-6">
                       <div class="form-group">
-                        <select id="roleUnit" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">
-                          <option value="Seçiniz">Seçiniz</option>
-                          <option value="Yazılım Birimi">Yazılım Birimi</option>
-                        </select>
+                        <?php
+                          include "dbsettings.php";
+                          $sql  = 'SELECT PK,UNIT_NAME FROM T_UNIT';
+                          $stmt = oci_parse($conn, $sql);
+                          $r    = oci_execute($stmt);
+                          echo '<select name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">';
+                          while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                            echo '<option value ="'.$row["PK"].'">'.$row["UNIT_NAME"].'</option>';
+                          }
+                          echo '</select>';
+                        ?>
                       </div>
                     </div>
                     <div class="col-xs-12 col-xl-6">

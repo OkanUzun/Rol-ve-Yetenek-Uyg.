@@ -4,11 +4,11 @@
   include "dbsettings.php";
 
   if (isset($_POST["create-dep"])) {
-    $sql  = 'BEGIN SP_CREATE_DEPARTMENT(:dep_name,:manager_id,:is_valid); END;';
+    $sql  = 'BEGIN SP_CREATE_DEPARTMENT(:dep_name,:mngr_id,:is_valid); END;';
     $stmt = oci_parse($conn, $sql);
 
     oci_bind_by_name($stmt, ':dep_name', $dep_name);
-    oci_bind_by_name($stmt, ':manager_id', $manager_id);
+    oci_bind_by_name($stmt, ':mngr_id', $manager_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
     $dep_name = $_POST["dep_name"];
@@ -18,12 +18,12 @@
     //echo "$message\n";
   }
   else if (isset($_POST["update-dep"])) {
-    $sql  = 'BEGIN SP_UPDATE_DEPARTMENT(:dep_id,:dep_name,:manager_id,:is_valid); END;';
+    $sql  = 'BEGIN SP_UPDATE_DEPARTMENT(:dep_id,:dep_name,:mngr_id,:is_valid); END;';
     $stmt = oci_parse($conn, $sql);
 
     oci_bind_by_name($stmt, ':dep_id', $dep_id);
     oci_bind_by_name($stmt, ':dep_name', $dep_name);
-    oci_bind_by_name($stmt, ':manager_id', $manager_id);
+    oci_bind_by_name($stmt, ':mngr_id', $manager_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
     $dep_name = $_POST["dep_name"];
@@ -92,7 +92,7 @@
                 include "dbsettings.php";
                 $sql  = 'SELECT T_DEPARTMENT.PK, INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,COUNT(T_USER.PK) AS X
                 FROM T_DEPARTMENT
-                LEFT JOIN T_USER ON T_USER.PK = T_DEPARTMENT.MANAGER_ID
+                LEFT JOIN T_USER ON T_USER.DEPARTMENT_FK = T_DEPARTMENT.PK
                 GROUP BY T_DEPARTMENT.PK,T_DEPARTMENT.DEPARTMENT_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
@@ -137,8 +137,8 @@
           <div class="form-group">
                   <?php
                     include "dbsettings.php";
-                    $sql  = 'SELECT USR.PK,USR.FIRST_NAME,USR.LAST_NAME
-                  FROM T_USER USR';
+                    $sql  = 'SELECT PK,FIRST_NAME,LAST_NAME
+                    FROM T_USER';
                     $stmt = oci_parse($conn, $sql);
                     $r    = oci_execute($stmt);
                     echo '<select name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Departman Müdürü Seçiniz">';

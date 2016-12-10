@@ -26,11 +26,11 @@
                 <?php
                   include "dbsettings.php";
                   $sql  = 'SELECT T_USER.PK,INITCAP(T_USER.FIRST_NAME) AS F_NAME,UPPER(T_USER.LAST_NAME) AS L_NAME,T_ROLE.ROLE_NAME,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME 
-                FROM T_USER
-                LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
-                LEFT JOIN T_UNIT ON T_ROLE.UNIT_FK = T_UNIT.PK
-                LEFT JOIN T_DEPARTMENT ON T_ROLE.DEPARTMENT_FK = T_DEPARTMENT.PK
-                ORDER BY T_USER.FIRST_NAME,T_USER.LAST_NAME';
+                  FROM T_USER
+                  LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
+                  LEFT JOIN T_UNIT ON T_USER.UNIT_FK = T_UNIT.PK
+                  LEFT JOIN T_DEPARTMENT ON T_USER.DEPARTMENT_FK = T_DEPARTMENT.PK
+                  ORDER BY T_USER.FIRST_NAME,T_USER.LAST_NAME';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
