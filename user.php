@@ -42,7 +42,7 @@
                     echo '<td>'.($row['DEPARTMENT_NAME'] != null ? $row['DEPARTMENT_NAME'] : 'Departmana bağlı değil').'</td>';
                     echo '
                      <td class="text-xs-center">
-                      <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></button>
+                      <a href="user-detail.php?user_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
                      </td>';
                     echo '</tr>';
                   }

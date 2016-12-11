@@ -1,4 +1,28 @@
-<?php include "header.php"; ?>
+<?php 
+  include "header.php";
+  include "dbsettings.php";
+
+  if (isset($_GET["user_id"])) {
+    $user_id = $_GET["user_id"];
+    $sql  = '
+    SELECT T_USER.FIRST_NAME,T_USER.LAST_NAME,T_USER.U_ID,T_USER.DATE_OF_BIRTH,T_USER.EMAIL,T_USER.PHONE_NUMBER,T_USER.ADDRESS
+    FROM T_USER
+    WHERE PK = '.$user_id.'';
+    $stmt = oci_parse($conn, $sql);
+    $r = oci_execute($stmt);
+    $row = oci_fetch_assoc($stmt);
+
+    $f_name = $row["FIRST_NAME"];
+    $l_name = $row["LAST_NAME"];
+    $u_id = $row["U_ID"];
+    $date_of_birth = $row["DATE_OF_BIRTH"];
+    $email = $row["EMAIL"];
+    $address = $row["ADDRESS"];
+    $phone = $row["PHONE_NUMBER"];
+    //$cr_time = $row["CREATION_TIME"];
+    //$md_time = $row["MODIFIED_TIME"];
+  }   
+?>
 
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
@@ -41,22 +65,22 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="İsim" required>
+                        <input type="text" class="form-control" value=<?php echo $f_name?> placeholder="İsim" required>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Soyisim" required>
+                        <input type="text" class="form-control" value=<?php echo $l_name?> placeholder="Soyisim" required>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Kullanıcı Adı" required>
+                        <input type="text" class="form-control" value=<?php echo $u_id?> placeholder="Kullanıcı Adı" required>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" required>
+                        <input type="text" data-provide="datepicker" class="form-control datepicker" value=<?php echo $date_of_birth?> placeholder="Doğum Tarihi" required>
                       </div>
                     </div>
                   </div>
@@ -68,17 +92,17 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="form-group">
-                        <input type="email" class="form-control" placeholder="E-mail" name="stepEmail" id="stepEmail" required>
+                        <input type="email" class="form-control" placeholder="E-mail" value=<?php echo $email?> name="stepEmail" id="stepEmail" required>
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="form-group">
-                        <input type="number" class="form-control" placeholder="Mobil Telefon No" name="stepTel" id="stepTel" required>
+                        <input type="number" class="form-control" placeholder="Mobil Telefon No" value=<?php echo $phone?> name="stepTel" id="stepTel" required>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <textarea rows="5" class="form-control" placeholder="Adres..." name="stepAddress" id="stepAddress"></textarea>
+                        <textarea rows="5" class="form-control" placeholder="Adres..." name="stepAddress" id="stepAddress"><?php echo $address?></textarea>
                       </div>
                     </div>
                   </div>
