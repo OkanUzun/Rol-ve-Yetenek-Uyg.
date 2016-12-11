@@ -15,7 +15,7 @@
   }
 
   if (isset($_POST["create-user"])) {
-    $sql  = 'BEGIN SP_CREATE_USER(:usr_id,:usr_pw,:e_mail,:fname,:lname,:dte_of_birth,:phne_num,:addrss,:rle_id,:is_valid,:unt_id,:dep_id); END;';
+    $sql  = 'BEGIN SP_CREATE_USER(:usr_id,:usr_pw,:e_mail,:fname,:lname,:dte_of_birth,:phne_num,:addrss,:rle_id,:unt_id,:dep_id,:is_valid); END;';
     $stmt = oci_parse($conn, $sql);
 
 
@@ -32,6 +32,7 @@
     oci_bind_by_name($stmt, ':dep_id', $dep_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
+
     $r_pw = randomPassword();
 
     $user_id       = $_POST["u_name"];
@@ -44,7 +45,8 @@
     $address       = $_POST["address"];
     $role_id       = $_POST["role_id"];
     $unit_id       = $_POST["unit_id"];
-    $dep_id = $_POST["dep_id"];
+    $dep_id        = $_POST["dep_id"];
+
 
     oci_execute($stmt);
   }
