@@ -107,11 +107,11 @@
                 <tbody>
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT T_UNIT.PK AS PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,T_UNIT.MANAGER_ID AS MNGR_ID,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,COUNT(T_USER.PK) AS X
+                  $sql  = 'SELECT T_UNIT.PK AS PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,COUNT(T_USER.PK) AS X
                   FROM T_UNIT
                   INNER JOIN T_DEPARTMENT ON T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK
                   LEFT JOIN T_USER ON T_UNIT.PK = T_USER.UNIT_FK
-                  GROUP BY T_UNIT.PK,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME,T_UNIT.MANAGER_ID';
+                  GROUP BY T_UNIT.PK,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
@@ -121,7 +121,7 @@
                     echo '<td>'.$row['X'].'</td>';
                     echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNT_NAME'].'" data-department="'.$row['DEP_NAME'].'" data-user="'.$row['MNGR_ID'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNT_NAME'].'" data-department="'.$row['DEP_NAME'].'" data-user="Okan UZUN"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                       <a href="unit-detail.php?unit_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
                      </td>';
@@ -172,13 +172,13 @@
               <label for="updateUserSelect" class="form-control-label">Birim Yöneticisi:</label>
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT USR.PK,USR.FIRST_NAME,USR.LAST_NAME
+                $sql  = 'SELECT USR.PK,INITCAP(USR.FIRST_NAME) AS F_NAME,UPPER(USR.LAST_NAME) AS L_NAME
                   FROM T_USER USR';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 echo '<select id="updateUserSelect" name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Yöneticisi Seçiniz">';
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                  echo '<option value ="'.$row["PK"].'">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</option>';
+                  echo '<option value ="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].'</option>';
                 }
                 echo '</select>';
               ?>

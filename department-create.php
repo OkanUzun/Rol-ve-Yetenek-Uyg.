@@ -102,7 +102,7 @@
                   echo '<td>'.$row['X'].'</td>';
                   echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['DEP_NAME'].'" data-user="Okan Uzun"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['DEP_NAME'].'" data-user="Okan UZUN"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                       <a href="department-detail.php?dep_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
                      </td>';
@@ -138,13 +138,13 @@
             <label for="updateUserSelect" class="form-control-label">Departman Müdürü:</label>
             <?php
               include "dbsettings.php";
-              $sql  = 'SELECT PK,FIRST_NAME,LAST_NAME
+              $sql  = 'SELECT PK,INITCAP(FIRST_NAME) AS F_NAME,UPPER(LAST_NAME) AS L_NAME
                     FROM T_USER';
               $stmt = oci_parse($conn, $sql);
               $r    = oci_execute($stmt);
               echo '<select id="updateUserSelect" name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Müdürü Seçiniz">';
               while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                echo '<option value ="'.$row["PK"].'">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</option>';
+                echo '<option value ="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].'</option>';
               }
               echo '</select>';
             ?>
