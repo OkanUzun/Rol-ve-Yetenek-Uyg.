@@ -129,41 +129,27 @@
                       <tr>
                         <th>Yetenek Adı</th>
                         <th>Seviye</th>
-                        <th>Yetenek Adı</th>
-                        <th>Seviye</th>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <td>Java</td>
-                        <td>İyi</td>
-                        <td>PHP</td>
-                        <td>İyi</td>
-                      </tr>
-                      <tr>
-                        <td>Java</td>
-                        <td>İyi</td>
-                        <td>PHP</td>
-                        <td>İyi</td>
-                      </tr>
-                      <tr>
-                        <td>Java</td>
-                        <td>İyi</td>
-                        <td>PHP</td>
-                        <td>İyi</td>
-                      </tr>
-                      <tr>
-                        <td>Java</td>
-                        <td>İyi</td>
-                        <td>PHP</td>
-                        <td>İyi</td>
-                      </tr>
-                      <tr>
-                        <td>Java</td>
-                        <td>İyi</td>
-                        <td>PHP</td>
-                        <td>İyi</td>
-                      </tr>
+                      <?php
+                        include "dbsettings.php";
+                        $sql  = 'SELECT T_ABILITY.ABILITY_NAME AS AN,T_ABILITY_LEVEL.LEVEL_NAME AS LN
+                        FROM T_USER_ABILITY_REL,T_ABILITY,T_ABILITY_LEVEL 
+                        WHERE 
+                        T_USER_ABILITY_REL.ABILITY_FK = T_ABILITY.PK
+                        AND
+                        T_USER_ABILITY_REL.ABILITY_LEVEL_FK = T_ABILITY_LEVEL.PK AND
+                        T_USER_ABILITY_REL.USER_FK = '.$user_id.'';
+                        $stmt = oci_parse($conn, $sql);
+                        $r    = oci_execute($stmt);
+                        while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                          echo '<tr>';
+                          echo '<td>'.$row['AN'].'</td>';
+                          echo '<td>'.$row['LN'].'</td>';
+                          echo '</tr>';
+                        }
+                      ?>
                       </tbody>
                     </table>
                   </div>
