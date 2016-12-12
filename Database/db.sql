@@ -2119,25 +2119,24 @@ END;
 DROP PROCEDURE SYSTEM.SP_CREATE_USER;
 
 CREATE OR REPLACE PROCEDURE SYSTEM."SP_CREATE_USER" (usr_id IN VARCHAR,usr_pw IN VARCHAR,e_mail IN VARCHAR,fname IN VARCHAR,lname IN VARCHAR,
-    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,rle_id IN INTEGER,unt_id IN INTEGER,dep_id IN INTEGER,is_valid OUT CHAR)
+    dte_of_birth IN VARCHAR,phne_num IN VARCHAR,addrss IN VARCHAR,rle_id IN INTEGER,unt_id IN INTEGER,dep_id IN OUT INTEGER,is_valid OUT CHAR)
 AS
     number_of_user INTEGER;
     number_of_email INTEGER;
-    number_of_phone INTEGER;
-    dp_id INTEGER := NULL;--Sadece birim bilgisi geldi ise
+    number_of_phone INTEGER;--Sadece birim bilgisi geldi ise
 
 BEGIN
     SELECT COUNT(*) INTO number_of_user FROM T_USER WHERE U_ID = usr_id;
     SELECT COUNT(*) INTO number_of_email FROM T_USER WHERE EMAIL = e_mail;
     SELECT COUNT(*) INTO number_of_phone FROM T_USER WHERE PHONE_NUMBER = phne_num;
     
-    IF dep_id IS NULL AND unt_id IS NOT NULL THEN
-        SELECT DEPARTMENT_FK INTO dp_id FROM T_UNIT WHERE PK = unt_id;         
-    END IF;     
-
+    IF unt_id IS NOT NULL THEN
+        SELECT DEPARTMENT_FK INTO dep_id FROM T_UNIT WHERE PK = unt_id;
+    END IF;        
+    
     IF number_of_user = 0 AND number_of_email = 0 AND number_of_phone = 0 THEN
         INSERT INTO T_USER(U_ID,U_PW,FIRST_NAME,LAST_NAME,DATE_OF_BIRTH,PHONE_NUMBER,ADDRESS,EMAIL,ROLE_FK,UNIT_FK,DEPARTMENT_FK) 
-            VALUES(usr_id,usr_pw,fname,lname,TO_DATE(dte_of_birth,'dd-mm-yyyy'),phne_num,addrss,e_mail,rle_id,unt_id,dp_id); 
+            VALUES(usr_id,usr_pw,fname,lname,TO_DATE(dte_of_birth,'dd-mm-yyyy'),phne_num,addrss,e_mail,rle_id,unt_id,dep_id); 
         
         is_valid := '1';  
           
