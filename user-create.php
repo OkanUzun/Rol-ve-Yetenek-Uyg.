@@ -49,6 +49,21 @@
 
 
     oci_execute($stmt);
+    if ($message == 1){
+      require 'mail-config.php';
+      $mail->addAddress($e_mail, 'Joe User');
+      $mail->Subject = 'ROLEABY KULLANICI ŞİFRESİ';
+      $mail->Body    = 'Kullanıcı Şifreniz : <b>'.$r_pw.'</b>'; 
+
+      if(!$mail->send()) {
+        //echo 'Message could not be sent.';
+        //echo 'Mailer Error: ' . $mail->ErrorInfo;
+      } else {
+        //echo 'Message has been sent';
+      }
+    }
+
+    
   }
 ?>
 

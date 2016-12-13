@@ -43,7 +43,7 @@
 
       oci_execute($stmt);
 
-      if ($message == '1') {
+      if ($message == 1) {
         header("Location:dashboard.php");
       }
       else { // HATALI GİRİŞ
