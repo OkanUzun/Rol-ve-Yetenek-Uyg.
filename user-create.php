@@ -51,7 +51,7 @@
     oci_execute($stmt);
     if ($message == 1){
       require 'mail-config.php';
-      $mail->addAddress($e_mail, 'Joe User');
+      $mail->addAddress($e_mail, $f_name.' '.$l_name);
       $mail->Subject = 'ROLEABY KULLANICI ŞİFRESİ';
       $mail->Body    = 'Kullanıcı Şifreniz : <b>'.$r_pw.'</b>'; 
 
