@@ -75,7 +75,7 @@
 
   <!-- Visually Hidden Preheader Text : BEGIN -->
   <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
-    Selam Deniz, Roleaby uygulamamızda adına açılmış olan hesap için...
+    Selam <?php echo $f_name?>, Roleaby uygulamamızda adına açılmış olan hesap için...
   </div>
   <!-- Visually Hidden Preheader Text : END -->
 
@@ -96,7 +96,7 @@
       <td bgcolor="#ffffff" style="padding: 40px 40px 20px; font-size: 15px; line-height: 20px; color: #555555;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="left">
           <tr>
-            <td style="font-weight: 700;">Selam Deniz,</td>
+            <td style="font-weight: 700;">Selam <?php echo $f_name?>,</td>
           </tr>
           <tr>
             <td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş şifreni giriş yapmak için kullanabilirsin.</td>
@@ -106,7 +106,7 @@
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
           <tr>
             <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              Mu7BmUMu
+              <?php echo $r_pw?>
             </td>
           </tr>
         </table>

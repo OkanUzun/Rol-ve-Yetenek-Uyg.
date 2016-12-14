@@ -51,9 +51,11 @@
     oci_execute($stmt);
     if ($message == 1){
       require 'mail-config.php';
+      ob_start();
+      require_once('email.php');
       $mail->addAddress($e_mail, $f_name.' '.$l_name);
       $mail->Subject = 'ROLEABY KULLANICI ŞİFRESİ';
-      $mail->Body    = 'Kullanıcı Şifreniz : <b>'.$r_pw.'</b>'; 
+      $mail->Body    = ob_get_clean();
 
       if(!$mail->send()) {
         //echo 'Message could not be sent.';
