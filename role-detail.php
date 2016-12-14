@@ -15,8 +15,12 @@
     $row = oci_fetch_assoc($stmt);
 
     $role_name = $row["RLE_NAME"];
-    $cr_time = $row["CR_TIME"];
-    $md_time = $row["MD_TIME"];
+
+    $date = DateTime::createFromFormat("d#M#y H#i#s*A",$row["CR_TIME"]);
+    $cr_time = $date->format('d/m/y H:i:s');
+
+    $date = DateTime::createFromFormat("d#M#y H#i#s*A",$row["MD_TIME"]);
+    $md_time = $date->format('d/m/y H:i:s');
   }
 ?>
 
