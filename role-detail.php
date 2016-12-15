@@ -59,10 +59,16 @@
                     $stmt = oci_parse($conn, $sql);
                     $r    = oci_execute($stmt);
                     while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                      $format = ""; 
+                      $unit_department_format = ""; 
+                      if ($row["UNIT_NAME"]){
+                        $unit_department_format = $row["UNIT_NAME"].' / '.$row["DEPARTMENT_NAME"];                          
+                      }
+                      else if ($row["DEPARTMENT_NAME"]){
+                        $unit_department_format = $row["DEPARTMENT_NAME"];
+                      }
                       echo '
                       <li class="list-group-item">
-                        <span class="tag tag-default tag-pill float-xs-right">'.$row["UNIT_NAME"].' / '.$row["DEPARTMENT_NAME"].'</span>
+                        <span class="tag tag-default tag-pill float-xs-right">'.$unit_department_format.'</span>
                         <a href="user-detail.php?user_id='.$row['PK'].'" rel="tooltip">'.$row["F_NAME"].' '.$row["L_NAME"].'</a>
                       </li>
                         ';

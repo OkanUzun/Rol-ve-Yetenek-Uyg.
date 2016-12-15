@@ -15,7 +15,10 @@
     $f_name  = $row["FIRST_NAME"];
     $l_name  = $row["LAST_NAME"];
     $u_id    = $row["U_ID"];
-    $date_of_birth = $row["DATE_OF_BIRTH"];
+
+    $date = DateTime::createFromFormat("d#M#y",$row["DATE_OF_BIRTH"]);
+    $date_of_birth = $date->format('d/m/Y');
+
     $email   = $row["EMAIL"];
     $address = $row["ADDRESS"];
     $phone   = $row["PHONE_NUMBER"];
