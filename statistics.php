@@ -130,6 +130,22 @@
                   </div>
                   <div class="col-xs-12 col-lg-6 mb-3">
                     <div class="card-title">Departmanlar</div>
+                    <?php
+
+                    include "dbsettings.php";
+                    $sql  = 'SELECT T_DEPARTMENT.PK, INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,COUNT(T_USER.PK) AS X
+                    FROM T_DEPARTMENT
+                    LEFT JOIN T_USER ON T_USER.DEPARTMENT_FK = T_DEPARTMENT.PK
+                    GROUP BY T_DEPARTMENT.PK,T_DEPARTMENT.DEPARTMENT_NAME';
+                    $stmt = oci_parse($conn, $sql);
+                    $r    = oci_execute($stmt);
+                    $array_dep = array();
+                    $array_usr_count = array();
+                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                      array_push($array_dep, $row["DEP_NAME"]);
+                      array_push($array_usr_count, $row["X"]);
+                    }
+                    ?>
                     <div class="chart-block">
                       <canvas id="pieChart" height="300px"></canvas>
                       <script>
@@ -138,13 +154,13 @@
                           type: 'pie',
                           data: {
                             labels: [
-                              "Bilişim Departmanı",
-                              "İnsan Kaynakları Departmanı",
-                              "Mali İşler Departmanı"
+                            <?php echo '"'.implode('","', $array_dep).'"';?>
                             ],
                             datasets: [
                               {
-                                data: [42, 20, 15],
+                                data: [
+                                  <?php echo implode(",",$array_usr_count);?>
+                                ],
                                 backgroundColor: [
                                   dynamicColors(),
                                   dynamicColors(),
@@ -155,9 +171,26 @@
                         });
                       </script>
                     </div>
+                    
                   </div>
                   <div class="col-xs-12 col-lg-6 mb-3">
                     <div class="card-title">Birimler</div>
+                    <?php
+
+                    include "dbsettings.php";
+                    $sql  = 'SELECT T_UNIT.PK AS PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,COUNT(T_USER.PK) AS X
+                      FROM T_UNIT
+                      LEFT JOIN T_USER ON T_UNIT.PK = T_USER.UNIT_FK
+                      GROUP BY T_UNIT.PK,T_UNIT.UNIT_NAME';
+                    $stmt = oci_parse($conn, $sql);
+                    $r    = oci_execute($stmt);
+                    $array_unit = array();
+                    $array_usr_count = array();
+                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                      array_push($array_unit, $row["UNT_NAME"]);
+                      array_push($array_usr_count, $row["X"]);
+                    }
+                    ?>
                     <div class="chart-block">
                       <canvas id="pieChart2" height="300px"></canvas>
                       <script>
@@ -166,13 +199,13 @@
                           type: 'pie',
                           data: {
                             labels: [
-                              "Yazılım Birimi",
-                              "Ağ Birimi",
-                              "Muhasebe Birimi"
+                            <?php echo '"'.implode('","', $array_unit).'"';?>
                             ],
                             datasets: [
                               {
-                                data: [22, 11, 5],
+                                data: [
+                                  <?php echo implode(",",$array_usr_count);?>
+                                ],
                                 backgroundColor: [
                                   dynamicColors(),
                                   dynamicColors(),
@@ -186,31 +219,46 @@
                   </div>
                   <div class="col-xs-12 col-lg-6 mb-3">
                     <div class="card-title">Roller</div>
+                    <?php
+
+                    include "dbsettings.php";
+                    $sql  = 'SELECT T_ROLE.PK,T_ROLE.ROLE_NAME AS RLE_NAME,COUNT(T_USER.PK) AS X
+                    FROM T_ROLE
+                    LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
+                    GROUP BY T_ROLE.PK,T_ROLE.ROLE_NAME
+                    ORDER BY T_ROLE.ROLE_NAME';
+                    $stmt = oci_parse($conn, $sql);
+                    $r    = oci_execute($stmt);
+                    $array_role = array();
+                    $array_usr_count = array();
+                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                      array_push($array_role, $row["RLE_NAME"]);
+                      array_push($array_usr_count, $row["X"]);
+                    }
+                    ?>
                     <div class="chart-block">
                       <canvas id="pieChart3" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("pieChart3");
-                        var pieChart3 = new Chart(ctx, {
+                        var barChart = new Chart(ctx, {
                           type: 'bar',
                           data: {
                             labels: [
-                              "Ağ Uzmanı",
-                              "Android Developer",
-                              "Database Specialist",
-                              "Java Developer"
+                            <?php echo '"'.implode('","', $array_unit).'"';?>
                             ],
                             datasets: [
                               {
                                 label: "Rol Dağılımı",
-                                data: [2, 1, 3, 5],
+                                data: [
+                                  <?php echo implode(",",$array_usr_count);?>
+                                ],
                                 backgroundColor: [
-                                  dynamicColors(),
                                   dynamicColors(),
                                   dynamicColors(),
                                   dynamicColors()
                                 ]
                               }]
-                          },
+                          }
                           options: {
                             scales: {
                               xAxes: [{stacked: true}],
@@ -223,7 +271,7 @@
                                 }
                               }
                             }
-                          }
+                          }                          
                         });
                       </script>
                     </div>
