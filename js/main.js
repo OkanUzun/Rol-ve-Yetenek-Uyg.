@@ -1,87 +1,87 @@
 // ***(Sonra ilgilenilecek)***
 // Form Validation
 /*$('#formValidate').validate({
-  debug: true,
-  errorPlacement: function (error, element) {
-  },
-  highlight: function (element) {
-    $(element).parent().addClass("has-error").removeClass("has-success");
-  },
-  unhighlight: function (element) {
-    $(element).parent().removeClass("has-error").addClass("has-success");
-  },
-  rules: {
-    role_id: {
-      required: true
-    },
-    f_name: {
-      required: true
-    },
-    l_name: {
-      required: true
-    },
-    u_name: {
-      required: true
-    },
-    date_of_birth: {
-      required: true
-    },
-    e_mail: {
-      required: true,
-      email: true
-    },
-    phone_number: {
-      required: true
-    },
-    address: {
-      required: true
-    },
-    dep_name: {
-      required: true
-    },
-    unit_name: {
-      required: true
-    },
-    role_name: {
-      required: true
-    },
-    user_id: {
-      required: "#companyIn:checked"
-    },
-    educator_name: {
-      required: "#companyOut:checked"
-    },
-    ability_name: {
-      required: true
-    }
-  },
-  submitHandler: function (form) {
-    form.submit();
-  }
-});
+ debug: true,
+ errorPlacement: function (error, element) {
+ },
+ highlight: function (element) {
+ $(element).parent().addClass("has-error").removeClass("has-success");
+ },
+ unhighlight: function (element) {
+ $(element).parent().removeClass("has-error").addClass("has-success");
+ },
+ rules: {
+ role_id: {
+ required: true
+ },
+ f_name: {
+ required: true
+ },
+ l_name: {
+ required: true
+ },
+ u_name: {
+ required: true
+ },
+ date_of_birth: {
+ required: true
+ },
+ e_mail: {
+ required: true,
+ email: true
+ },
+ phone_number: {
+ required: true
+ },
+ address: {
+ required: true
+ },
+ dep_name: {
+ required: true
+ },
+ unit_name: {
+ required: true
+ },
+ role_name: {
+ required: true
+ },
+ user_id: {
+ required: "#companyIn:checked"
+ },
+ educator_name: {
+ required: "#companyOut:checked"
+ },
+ ability_name: {
+ required: true
+ }
+ },
+ submitHandler: function (form) {
+ form.submit();
+ }
+ });
 
-$('#formValidate2').validate({
-  debug: true,
-  errorPlacement: function (error, element) {
-  },
-  highlight: function (element) {
-    $(element).parent().addClass("has-error").removeClass("has-success");
-  },
-  unhighlight: function (element) {
-    $(element).parent().removeClass("has-error").addClass("has-success");
-  },
-  rules: {
-    dep_id: {
-      required: true
-    }
-  },
-  submitHandler: function (form) {
-    form.submit();
-  }
-});
+ $('#formValidate2').validate({
+ debug: true,
+ errorPlacement: function (error, element) {
+ },
+ highlight: function (element) {
+ $(element).parent().addClass("has-error").removeClass("has-success");
+ },
+ unhighlight: function (element) {
+ $(element).parent().removeClass("has-error").addClass("has-success");
+ },
+ rules: {
+ dep_id: {
+ required: true
+ }
+ },
+ submitHandler: function (form) {
+ form.submit();
+ }
+ });
 
-$('#formValidate select').on('change', function (e) {
-  $('#formValidate').validate().element($(this));
+ $('#formValidate select').on('change', function (e) {
+ $('#formValidate').validate().element($(this));
  });*/
 // ***(Sonra ilgilenilecek)***
 
@@ -412,20 +412,20 @@ $(".form-create .btn-danger").click(function () {
   $(".form-create .form-group, .form-create .bootstrap-select").removeClass("has-error has-success");
 });
 
-$("#roleDepartment").change(function () {
-  $("#roleUnit").prop('disabled', true);
+$("#userDepartment").change(function () {
+  $("#userUnit").prop('disabled', true);
   $('.selectpicker').selectpicker('refresh');
   if ($(this).children('option:nth-child(2)').is(':selected')) {
-    $("#roleUnit").prop('disabled', false);
+    $("#userUnit").prop('disabled', false);
     $('.selectpicker').selectpicker('refresh');
   }
 });
 
-$("#roleUnit").change(function () {
-  $("#roleDepartment").prop('disabled', true);
+$("#userUnit").change(function () {
+  $("#userDepartment").prop('disabled', true);
   $('.selectpicker').selectpicker('refresh');
   if ($(this).children('option:nth-child(2)').is(':selected')) {
-    $("#roleDepartment").prop('disabled', false);
+    $("#userDepartment").prop('disabled', false);
     $('.selectpicker').selectpicker('refresh');
   }
 });

@@ -75,7 +75,7 @@
 
   <!-- Visually Hidden Preheader Text : BEGIN -->
   <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
-    Selam <?php echo $f_name?>, Roleaby uygulamamızda adına açılmış olan hesap için...
+    Selam <?php echo $f_name ?>, Roleaby uygulamamızda adına açılmış olan hesap için...
   </div>
   <!-- Visually Hidden Preheader Text : END -->
 
@@ -96,17 +96,27 @@
       <td bgcolor="#ffffff" style="padding: 40px 40px 20px; font-size: 15px; line-height: 20px; color: #555555;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="left">
           <tr>
-            <td style="font-weight: 700;">Selam <?php echo $f_name?>,</td>
+            <td style="font-weight: 700;">Selam <?php echo $f_name ?>,</td>
           </tr>
           <tr>
-            <td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş şifreni giriş yapmak için kullanabilirsin.</td>
+            <td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin.</td>
           </tr>
         </table>
         <br><br>
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
           <tr>
+            <td style="padding-right: 10px;">Kullanıcı Adı:</td>
             <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              <?php echo $r_pw?>
+              denizmaradona
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 0;"></td>
+          </tr>
+          <tr>
+            <td style="padding-right: 10px;">Şifre:</td>
+            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+              <?php echo $r_pw ?>
             </td>
           </tr>
         </table>
@@ -135,16 +145,6 @@
     <!-- 2 Even Columns : END -->
   </table>
   <!-- Email Body : END -->
-
-  <!-- Email Footer : BEGIN -->
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="background-color: #F3F5F7;" class="email-container">
-    <tr>
-      <td style="padding: 20px 10px; width: 100%; font-size: 12px; line-height: 18px; text-align: center; color: #888888;">
-        Roleaby Yazılım<br><span class="mobile-link--footer">123. Cadde, Bahçelievler, İSTANBUL 34000 TR</span><br><span class="mobile-link--footer">(123) 456-7890</span>
-      </td>
-    </tr>
-  </table>
-  <!-- Email Footer : END -->
 </div>
 </body>
 </html>

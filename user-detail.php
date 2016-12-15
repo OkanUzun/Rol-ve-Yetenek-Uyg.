@@ -12,11 +12,11 @@
     $r = oci_execute($stmt);
     $row = oci_fetch_assoc($stmt);
 
-    $f_name  = $row["FIRST_NAME"];
-    $l_name  = $row["LAST_NAME"];
-    $u_id    = $row["U_ID"];
+    $f_name = $row["FIRST_NAME"];
+    $l_name = $row["LAST_NAME"];
+    $u_id   = $row["U_ID"];
 
-    $date = DateTime::createFromFormat("d#M#y",$row["DATE_OF_BIRTH"]);
+    $date = DateTime::createFromFormat("d#M#y", $row["DATE_OF_BIRTH"]);
     $date_of_birth = $date->format('d/m/Y');
 
     $email   = $row["EMAIL"];

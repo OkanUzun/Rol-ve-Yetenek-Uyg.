@@ -49,7 +49,7 @@
 
 
     oci_execute($stmt);
-    if ($message == 1){
+    if ($message == 1) {
       require 'mail-config.php';
       ob_start();
       require_once('email.php');
@@ -57,15 +57,14 @@
       $mail->Subject = 'ROLEABY KULLANICI ŞİFRESİ';
       $mail->Body    = ob_get_clean();
 
-      if(!$mail->send()) {
+      if (!$mail->send()) {
         //echo 'Message could not be sent.';
         //echo 'Mailer Error: ' . $mail->ErrorInfo;
-      } else {
+      }
+      else {
         //echo 'Message has been sent';
       }
     }
-
-    
   }
 ?>
 
@@ -96,7 +95,8 @@
                           $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
-                          echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">';
+                          echo '<select id="userDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">';
+                          echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                             echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
                           }
@@ -111,7 +111,8 @@
                           $sql  = 'SELECT PK,UNIT_NAME FROM T_UNIT';
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
-                          echo '<select name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">';
+                          echo '<select id="userUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">';
+                          echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                             echo '<option value ="'.$row["PK"].'">'.$row["UNIT_NAME"].'</option>';
                           }

@@ -10,6 +10,4 @@
 <script src="js/bootstrap-select.min.js"></script>
 <script src="js/bootstrap-select-defaults-tr_TR.min.js"></script>
 <script src="js/datatables.custom.js"></script>
-<script src="js/main.js"></script>
-</body>
-</html>
+<script src="js/main.js"></script></body></html>

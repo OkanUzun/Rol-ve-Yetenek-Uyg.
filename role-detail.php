@@ -1,5 +1,5 @@
-<?php 
-  include "header.php"; 
+<?php
+  include "header.php";
   include "dbsettings.php";
 
   if (isset($_GET["role_id"])) {
@@ -16,10 +16,10 @@
 
     $role_name = $row["RLE_NAME"];
 
-    $date = DateTime::createFromFormat("d#M#y H#i#s*A",$row["CR_TIME"]);
+    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CR_TIME"]);
     $cr_time = $date->format('d/m/y H:i:s');
 
-    $date = DateTime::createFromFormat("d#M#y H#i#s*A",$row["MD_TIME"]);
+    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["MD_TIME"]);
     $md_time = $date->format('d/m/y H:i:s');
   }
 ?>
@@ -50,30 +50,30 @@
                     </li>
 
                     <?php
-                    $sql  = '
+                      $sql  = '
                       SELECT T_USER.PK,INITCAP(T_USER.FIRST_NAME) AS F_NAME,UPPER(T_USER.LAST_NAME) AS L_NAME,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME
                       FROM T_USER
                       LEFT JOIN T_UNIT ON T_UNIT.PK = T_USER.UNIT_FK
                       LEFT JOIN T_DEPARTMENT ON T_DEPARTMENT.PK = T_USER.DEPARTMENT_FK
                       WHERE T_USER.ROLE_FK = '.$role_id.'';
-                    $stmt = oci_parse($conn, $sql);
-                    $r    = oci_execute($stmt);
-                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                      $unit_department_format = ""; 
-                      if ($row["UNIT_NAME"]){
-                        $unit_department_format = $row["UNIT_NAME"].' / '.$row["DEPARTMENT_NAME"];                          
-                      }
-                      else if ($row["DEPARTMENT_NAME"]){
-                        $unit_department_format = $row["DEPARTMENT_NAME"];
-                      }
-                      echo '
+                      $stmt = oci_parse($conn, $sql);
+                      $r    = oci_execute($stmt);
+                      while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                        $unit_department_format = "";
+                        if ($row["UNIT_NAME"]) {
+                          $unit_department_format = $row["UNIT_NAME"].' / '.$row["DEPARTMENT_NAME"];
+                        }
+                        else if ($row["DEPARTMENT_NAME"]) {
+                          $unit_department_format = $row["DEPARTMENT_NAME"];
+                        }
+                        echo '
                       <li class="list-group-item">
                         <span class="tag tag-default tag-pill float-xs-right">'.$unit_department_format.'</span>
                         <a href="user-detail.php?user_id='.$row['PK'].'" rel="tooltip">'.$row["F_NAME"].' '.$row["L_NAME"].'</a>
                       </li>
                         ';
-                    }
-                  ?>
+                      }
+                    ?>
                   </ul>
                 </form>
               </div>

@@ -22,10 +22,10 @@
     $dep_name = $row["DEP_NAME"];
     $f_name = $row["F_NAME"];
     $l_name = $row["L_NAME"];
-    $date = DateTime::createFromFormat("d#M#y H#i#s*A",$row["CR_TIME"]);
+    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CR_TIME"]);
     $cr_time = $date->format('d/m/y H:i:s');
 
-    $date = DateTime::createFromFormat("d#M#y H#i#s*A",$row["MD_TIME"]);
+    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["MD_TIME"]);
     $md_time = $date->format('d/m/y H:i:s');
   }
 ?>
