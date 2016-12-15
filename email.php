@@ -107,7 +107,7 @@
           <tr>
             <td style="padding-right: 10px;">Kullanıcı Adı:</td>
             <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              denizmaradona
+              <?php echo $user_id ?>
             </td>
           </tr>
           <tr>

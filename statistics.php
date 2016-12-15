@@ -142,9 +142,11 @@
                       $r               = oci_execute($stmt);
                       $array_dep       = array();
                       $array_usr_count = array();
+                      $array_dyn_color = array();
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                         array_push($array_dep, $row["DEP_NAME"]);
                         array_push($array_usr_count, $row["X"]);
+                        array_push($array_dyn_color,"dynamicColors()");
                       }
                     ?>
                     <div class="chart-block">
@@ -163,9 +165,7 @@
                                   <?php echo implode(",", $array_usr_count);?>
                                 ],
                                 backgroundColor: [
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors()
+                                  <?php echo implode(",", $array_dyn_color);?>
                                 ]
                               }]
                           }
@@ -188,9 +188,11 @@
                       $r               = oci_execute($stmt);
                       $array_unit      = array();
                       $array_usr_count = array();
+                      $array_dyn_color = array();
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                         array_push($array_unit, $row["UNT_NAME"]);
                         array_push($array_usr_count, $row["X"]);
+                        array_push($array_dyn_color,"dynamicColors()");
                       }
                     ?>
                     <div class="chart-block">
@@ -209,9 +211,7 @@
                                   <?php echo implode(",", $array_usr_count);?>
                                 ],
                                 backgroundColor: [
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors()
+                                  <?php echo implode(",", $array_dyn_color);?>
                                 ]
                               }]
                           }
