@@ -243,25 +243,27 @@
                       <canvas id="pieChart3" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("pieChart3");
-                        var barChart = new Chart(ctx, {
+                        var pieChart3 = new Chart(ctx, {
                           type: 'bar',
                           data: {
                             labels: [
-                              <?php echo '"'.implode('","', $array_unit).'"';?>
+                              "Ağ Uzmanı",
+                              "Android Developer",
+                              "Database Specialist",
+                              "Java Developer"
                             ],
                             datasets: [
                               {
                                 label: "Rol Dağılımı",
-                                data: [
-                                  <?php echo implode(",", $array_usr_count);?>
-                                ],
+                                data: [2, 1, 3, 5],
                                 backgroundColor: [
+                                  dynamicColors(),
                                   dynamicColors(),
                                   dynamicColors(),
                                   dynamicColors()
                                 ]
                               }]
-                          }
+                          },
                           options: {
                             scales: {
                               xAxes: [{stacked: true}],
