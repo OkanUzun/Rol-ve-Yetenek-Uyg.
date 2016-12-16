@@ -150,9 +150,9 @@
                       }
                     ?>
                     <div class="chart-block">
-                      <canvas id="pieChart" height="300px"></canvas>
+                      <canvas id="dep_pie" height="300px"></canvas>
                       <script>
-                        var ctx = document.getElementById("pieChart");
+                        var ctx = document.getElementById("dep_pie");
                         var pieChart = new Chart(ctx, {
                           type: 'pie',
                           data: {
@@ -196,9 +196,9 @@
                       }
                     ?>
                     <div class="chart-block">
-                      <canvas id="pieChart2" height="300px"></canvas>
+                      <canvas id="unit_pie" height="300px"></canvas>
                       <script>
-                        var ctx = document.getElementById("pieChart2");
+                        var ctx = document.getElementById("unit_pie");
                         var pieChart = new Chart(ctx, {
                           type: 'pie',
                           data: {
@@ -234,33 +234,31 @@
                       $r               = oci_execute($stmt);
                       $array_role      = array();
                       $array_usr_count = array();
+                      $array_dyn_color = array();
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                         array_push($array_role, $row["RLE_NAME"]);
                         array_push($array_usr_count, $row["X"]);
+                        array_push($array_dyn_color,"dynamicColors()");
                       }
                     ?>
                     <div class="chart-block">
-                      <canvas id="pieChart3" height="300px"></canvas>
+                      <canvas id="role_bar" height="300px"></canvas>
                       <script>
-                        var ctx = document.getElementById("pieChart3");
+                        var ctx = document.getElementById("role_bar");
                         var pieChart3 = new Chart(ctx, {
                           type: 'bar',
                           data: {
                             labels: [
-                              "Ağ Uzmanı",
-                              "Android Developer",
-                              "Database Specialist",
-                              "Java Developer"
+                              <?php echo '"'.implode('","', $array_role).'"';?>
                             ],
                             datasets: [
                               {
                                 label: "Rol Dağılımı",
-                                data: [2, 1, 3, 5],
+                                data: [
+                                  <?php echo implode(",", $array_usr_count);?>
+                                ],
                                 backgroundColor: [
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors()
+                                  <?php echo implode(",", $array_dyn_color);?>
                                 ]
                               }]
                           },
@@ -283,52 +281,43 @@
                   </div>
                   <div class="col-xs-12 col-lg-6">
                     <div class="card-title">Yetenekler</div>
+                    <?php
+                    include "dbsettings.php";
+                    $sql = '
+                    SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME,COUNT(T_USER_ABILITY_REL.USER_FK) AS X FROM T_ABILITY
+                    LEFT JOIN T_USER_ABILITY_REL ON T_ABILITY.PK = T_USER_ABILITY_REL.ABILITY_FK
+                    GROUP BY T_ABILITY.PK,T_ABILITY.ABILITY_NAME
+                    ';
+
+                      $stmt            = oci_parse($conn, $sql);
+                      $r               = oci_execute($stmt);
+                      $array_ably     = array();
+                      $array_usr_count = array();
+                      $array_dyn_color = array();
+                      while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                        array_push($array_ably, $row["ABLY_NAME"]);
+                        array_push($array_usr_count, $row["X"]);
+                        array_push($array_dyn_color,"dynamicColors()");
+                      }
+                    ?>
                     <div class="chart-block">
-                      <canvas id="barChart" height="300px"></canvas>
+                      <canvas id="ability_bar" height="300px"></canvas>
                       <script>
-                        var ctx = document.getElementById("barChart");
+                        var ctx = document.getElementById("ability_bar");
                         var barChart = new Chart(ctx, {
                           type: 'bar',
                           data: {
                             labels: [
-                              "Java",
-                              "Android",
-                              "IOS",
-                              "SQL",
-                              "PHP",
-                              "HTML",
-                              "CSS",
-                              "Javascript",
-                              "Ajax",
-                              "C#",
-                              "C++",
-                              "C",
-                              "ASP.NET",
-                              "PYTHON",
-                              "RUBY",
-                              "XML"
+                              <?php echo '"'.implode('","', $array_ably).'"';?>
                             ],
                             datasets: [
                               {
                                 label: "Yetenek Dağılımı",
-                                data: [2, 1, 3, 5, 1, 3, 9, 6, 3, 7, 1, 3, 4, 1, 10, 12],
+                                data: [
+                                  <?php echo implode(",", $array_usr_count);?>
+                                ],
                                 backgroundColor: [
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors(),
-                                  dynamicColors()
+                                  <?php echo implode(",", $array_dyn_color);?>  
                                 ]
                               }]
                           },
