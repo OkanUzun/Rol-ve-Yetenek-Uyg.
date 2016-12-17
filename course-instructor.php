@@ -74,8 +74,8 @@
                   <?php
                     include "dbsettings.php";
                     $sql  = 'SELECT USR.PK,USR.FIRST_NAME,USR.LAST_NAME,RLE.ROLE_NAME 
-                  FROM T_USER USR,T_ROLE RLE 
-                  WHERE USR.ROLE_FK = RLE.PK';
+                    FROM T_USER USR
+                    LEFT JOIN T_ROLE RLE ON RLE.PK = USR.ROLE_FK';
                     $stmt = oci_parse($conn, $sql);
                     $r    = oci_execute($stmt);
                     echo '<select name="user_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Eğitmen Seçiniz">';
