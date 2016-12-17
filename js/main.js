@@ -470,6 +470,7 @@ function changeSide() {
 
     $("#skill .table-all tbody").append(select);
     $('.selectpicker').selectpicker("refresh");
+    changeSide();
   });
 
 
@@ -500,6 +501,7 @@ function changeSide() {
     var row = "<tr><td>" + text + "</td><td>" + selectValue + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
 
     $("#skill .table-specific tbody").append(row);
+    changeSide();
   });
 }
 changeSide();
