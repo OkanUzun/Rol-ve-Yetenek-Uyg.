@@ -804,7 +804,6 @@ textarea {
                 border: 1px solid #F2F2F2;
                 font-size: 14.4px;
                 a {
-                  color: #333;
                   &:hover {
                     text-decoration: underline;
                   }
@@ -847,6 +846,21 @@ textarea {
                     border-radius: 3px;
                     border: 1px solid @info;
                     color: darken(@info, 10%);
+                  }
+                }
+              }
+              .select-level {
+                display: flex;
+                justify-content: space-between;
+                align-content: center;
+                .bootstrap-select {
+                  height: 33px;
+                  margin-right: 10px;
+                  .dropdown-toggle {
+                    padding: 7px 16px !important;
+                    &:after {
+                      top: 5px;
+                    }
                   }
                 }
               }
@@ -919,6 +933,34 @@ textarea {
               padding: 5px 10px;
               font-size: 13px;
             }
+          }
+        }
+
+        .nav-tabs {
+          margin-bottom: 10px;
+          .nav-item {
+            margin-left: 5px;
+            .nav-link {
+              color: #525252;
+              border: 1px solid @grey;
+              border-bottom: 0;
+              &:hover {
+                background-color: @primary;
+                color: #fff;
+              }
+            }
+            .active {
+              background-color: @primary;
+              color: #fff;
+            }
+          }
+          .nav-item:first-child {
+            margin-left: 0;
+          }
+        }
+        .tab-content {
+          .tab-pane {
+
           }
         }
       }

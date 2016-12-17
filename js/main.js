@@ -163,220 +163,222 @@ $(".mCustomScrollbar").mCustomScrollbar({
   scrollInertia: 250
 });
 
+/***************************************/
 
-// Yetenek Tablosunu Görüntüleme AJAX
-$("#abilityShow").click(function () {
-  $("#ability-container").removeClass("hidden");
-  $("#ability-container").html('<div class="text-xs-center"><img src="img/loading.gif"/></div>');
-  setTimeout(function () {
-    $.ajax({
-      type: "POST",
-      url: "deneme2.php",
-      dataType: "json",
-      success: function (data) {
-        $("#ability-container").html(
-          '<div class="card-title">' +
-          '<span>Yetenekler</span>' +
-          '<div class="card-buttons">' +
-          '<button type="button" class="btn btn-danger">İPTAL</button>' +
-          '<button type="submit" class="btn btn-success">KAYDET</button>' +
-          '</div>' +
-          '</div>' +
-          '<table class="table" id="dataTable-addability">' +
-          '<thead>' +
-          '<th>Yetenek Adı</th>' +
-          '<th>Yok</th>' +
-          '<th>Çok Kötü</th>' +
-          '<th>Kötü</th>' +
-          '<th>Orta</th>' +
-          '<th>İyi</th>' +
-          '<th>Çok İyi</th>' +
-          '</thead>' +
-          '<tbody></tbody>' +
-          '</table>');
-        $.each(data, function (i, data) {
-          data.id += 1;
-          $('#dataTable-addability').dataTable({
-            bRetrieve: true,
-            "language": {
-              "lengthMenu": "Sayfada _MENU_ kayıt göster",
-              "zeroRecords": "Hiçbirşey bulunamadı.",
-              "info": "_TOTAL_ kayıttan _START_ - _END_ arası kayıtlar",
-              "infoEmpty": "Kayıt bulunamadı.",
-              "infoFiltered": "(Toplam _MAX_ kayıttan filtreleme yapıldı)",
-              "search": "",
-              "searchPlaceholder": "Kayıt Arama",
-              "paginate": {
-                "previous": "Önceki",
-                "next": "Sonraki"
-              }
-            },
-            responsive: {
-              breakpoints: [
-                {name: 'desktop', width: Infinity},
-                {name: 'mobile', width: 768}
-              ]
-            },
-            columnDefs: [
-              {className: 'desktop', targets: [2, 3, 4, 5, 6]}
-            ],
-            "columns": [
-              null,
-              {"orderable": false},
-              {"orderable": false},
-              {"orderable": false},
-              {"orderable": false},
-              {"orderable": false},
-              {"orderable": false}
-            ]
-          }).fnAddData([
-            data.ability,
-            '<input name="' + data.ability + '" type="radio" class="form-control" checked><label for="' + data.id++ + '"></label>',
-            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
-            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
-            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
-            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
-            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id + '"></label>'
-          ]);
-        });
-        $("#ability-container .btn-danger").click(function () {
-          $("#ability-container").empty().addClass("hidden");
-        });
-        if ($(window).width() < 768) {
-          $("td.desktop").remove();
-        }
-      },
-      error: function (xhr, status, error) {
-        alert(xhr.responseText);
-      }
-    });
-  }, 1000);
-});
+// AJAX şimdilik kaldırıldı.
 
-// Eğitime Kullanıcı Ekleme AJAX
-$("#courseAddUserButton").click(function () {
-  $("#courseAddUser").removeClass("hidden").html("<div class='text-xs-center'><img src='img/loading.gif'/></div>");
-  setTimeout(function () {
-    $.ajax({
-      type: "POST",
-      url: "deneme.php",
-      dataType: "json",
-      success: function (data) {
-        $("#courseAddUser").html(
-          '<div class="card-title">' +
-          '<span>Kayıtlı Olmayan Katılımcılar</span>' +
-          '<div class="card-buttons">' +
-          '<button type="button" class="btn btn-danger">İPTAL</button>' +
-          '<button type="submit" class="btn btn-success">KAYDET</button>' +
-          '</div>' +
-          '</div>' +
-          '<form method="post">' +
-          '<table class="table" id="dataTable2">' +
-          '<thead>' +
-          '<th>Çalışan</th>' +
-          '<th>Yetenek</th>' +
-          '<th>Seviye</th>' +
-          '<th>İşlemler</th>' +
-          '</thead>' +
-          '<tbody></tbody>' +
-          '</table>' +
-          '</form>');
-        $.each(data, function (i, data) {
-          $('#dataTable2').dataTable({
-            bRetrieve: true,
-            responsive: true,
-            "language": {
-              "lengthMenu": "Sayfada _MENU_ kayıt göster",
-              "zeroRecords": "Hiçbirşey bulunamadı.",
-              "info": "_TOTAL_ kayıttan _START_ - _END_ arası kayıtlar",
-              "infoEmpty": "Kayıt bulunamadı.",
-              "infoFiltered": "(Toplam _MAX_ kayıttan filtreleme yapıldı)",
-              "search": "",
-              "searchPlaceholder": "Kayıt Arama",
-              "paginate": {
-                "previous": "Önceki",
-                "next": "Sonraki"
-              }
-            },
-            "columns": [
-              null,
-              null,
-              null,
-              {"orderable": false}
-            ]
-          }).fnAddData([
-            data.ad + " " + data.soyad,
-            data.yetenek,
-            data.seviye,
-            '<input id="' + data.id + '" type="checkbox" class="form-control"><label for="' + data.id + '">Ekle</label>'
-          ]);
-        });
-        $("#courseAddUser .btn-danger").click(function () {
-          $("#courseAddUser").empty().addClass("hidden");
-        });
-      }
-    });
-  }, 1000);
-});
+/*// Yetenek Tablosunu Görüntüleme AJAX
+ $("#abilityShow").click(function () {
+ $("#ability-container").removeClass("hidden");
+ $("#ability-container").html('<div class="text-xs-center"><img src="img/loading.gif"/></div>');
+ setTimeout(function () {
+ $.ajax({
+ type: "POST",
+ url: "deneme2.php",
+ dataType: "json",
+ success: function (data) {
+ $("#ability-container").html(
+ '<div class="card-title">' +
+ '<span>Yetenekler</span>' +
+ '<div class="card-buttons">' +
+ '<button type="button" class="btn btn-danger">İPTAL</button>' +
+ '<button type="submit" class="btn btn-success">KAYDET</button>' +
+ '</div>' +
+ '</div>' +
+ '<table class="table" id="dataTable-addability">' +
+ '<thead>' +
+ '<th>Yetenek Adı</th>' +
+ '<th>Çok Kötü</th>' +
+ '<th>Kötü</th>' +
+ '<th>Orta</th>' +
+ '<th>İyi</th>' +
+ '<th>Çok İyi</th>' +
+ '</thead>' +
+ '<tbody></tbody>' +
+ '</table>');
+ $.each(data, function (i, data) {
+ data.id += 1;
+ $('#dataTable-addability').dataTable({
+ bRetrieve: true,
+ "language": {
+ "lengthMenu": "Sayfada _MENU_ kayıt göster",
+ "zeroRecords": "Hiçbirşey bulunamadı.",
+ "info": "_TOTAL_ kayıttan _START_ - _END_ arası kayıtlar",
+ "infoEmpty": "Kayıt bulunamadı.",
+ "infoFiltered": "(Toplam _MAX_ kayıttan filtreleme yapıldı)",
+ "search": "",
+ "searchPlaceholder": "Kayıt Arama",
+ "paginate": {
+ "previous": "Önceki",
+ "next": "Sonraki"
+ }
+ },
+ responsive: {
+ breakpoints: [
+ {name: 'desktop', width: Infinity},
+ {name: 'mobile', width: 768}
+ ]
+ },
+ columnDefs: [
+ {className: 'desktop', targets: [2, 3, 4, 5, 6]}
+ ],
+ "columns": [
+ null,
+ {"orderable": false},
+ {"orderable": false},
+ {"orderable": false},
+ {"orderable": false},
+ {"orderable": false}
+ ]
+ }).fnAddData([
+ data.ability,
+ '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
+ '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
+ '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
+ '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
+ '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id + '"></label>'
+ ]);
+ });
+ $("#ability-container .btn-danger").click(function () {
+ $("#ability-container").empty().addClass("hidden");
+ });
+ if ($(window).width() < 768) {
+ $("td.desktop").remove();
+ }
+ },
+ error: function (xhr, status, error) {
+ alert(xhr.responseText);
+ }
+ });
+ }, 1000);
+ });
 
-// Eğitim Konu Düzenleme AJAX
-$("#courseAbilityChange").click(function () {
-  $("#ability-container").removeClass("hidden");
-  $("#ability-container").html('<div class="text-xs-center"><img src="img/loading.gif"/></div>');
-  setTimeout(function () {
-    $.ajax({
-      type: "POST",
-      url: "deneme2.php",
-      dataType: "json",
-      success: function (data) {
-        $("#ability-container").html(
-          '<div class="card-title">' +
-          '<span>Yetenekler</span>' +
-          '<div class="card-buttons">' +
-          '<button type="button" class="btn btn-danger">İPTAL</button>' +
-          '<button type="submit" class="btn btn-success">KAYDET</button>' +
-          '</div>' +
-          '</div>' +
-          '<table class="table" id="dataTable-adduser">' +
-          '<thead>' +
-          '<th>Konu</th>' +
-          '<th>İşlemler</th>' +
-          '</thead>' +
-          '<tbody></tbody>' +
-          '</table>');
-        $.each(data, function (i, data) {
-          $('#dataTable-adduser').dataTable({
-            bRetrieve: true,
-            responsive: true,
-            "language": {
-              "lengthMenu": "Sayfada _MENU_ kayıt göster",
-              "zeroRecords": "Hiçbirşey bulunamadı.",
-              "info": "_TOTAL_ kayıttan _START_ - _END_ arası kayıtlar",
-              "infoEmpty": "Kayıt bulunamadı.",
-              "infoFiltered": "(Toplam _MAX_ kayıttan filtreleme yapıldı)",
-              "search": "",
-              "searchPlaceholder": "Kayıt Arama",
-              "paginate": {
-                "previous": "Önceki",
-                "next": "Sonraki"
-              }
-            },
-            "columns": [
-              null,
-              {"orderable": false}
-            ]
-          }).fnAddData([
-            data.b,
-            '<input id="' + data.a + '" type="checkbox" class="form-control"><label for="' + data.a + '">Ekle</label>'
-          ]);
-        });
-        $("#ability-container .btn-danger").click(function () {
-          $("#ability-container").empty().addClass("hidden");
-        });
-      }
-    });
-  }, 1000);
-});
+ // Eğitime Kullanıcı Ekleme AJAX
+ $("#courseAddUserButton").click(function () {
+ $("#courseAddUser").removeClass("hidden").html("<div class='text-xs-center'><img src='img/loading.gif'/></div>");
+ setTimeout(function () {
+ $.ajax({
+ type: "POST",
+ url: "deneme.php",
+ dataType: "json",
+ success: function (data) {
+ $("#courseAddUser").html(
+ '<div class="card-title">' +
+ '<span>Kayıtlı Olmayan Katılımcılar</span>' +
+ '<div class="card-buttons">' +
+ '<button type="button" class="btn btn-danger">İPTAL</button>' +
+ '<button type="submit" class="btn btn-success">KAYDET</button>' +
+ '</div>' +
+ '</div>' +
+ '<form method="post">' +
+ '<table class="table" id="dataTable2">' +
+ '<thead>' +
+ '<th>Çalışan</th>' +
+ '<th>Yetenek</th>' +
+ '<th>Seviye</th>' +
+ '<th>İşlemler</th>' +
+ '</thead>' +
+ '<tbody></tbody>' +
+ '</table>' +
+ '</form>');
+ $.each(data, function (i, data) {
+ $('#dataTable2').dataTable({
+ bRetrieve: true,
+ responsive: true,
+ "language": {
+ "lengthMenu": "Sayfada _MENU_ kayıt göster",
+ "zeroRecords": "Hiçbirşey bulunamadı.",
+ "info": "_TOTAL_ kayıttan _START_ - _END_ arası kayıtlar",
+ "infoEmpty": "Kayıt bulunamadı.",
+ "infoFiltered": "(Toplam _MAX_ kayıttan filtreleme yapıldı)",
+ "search": "",
+ "searchPlaceholder": "Kayıt Arama",
+ "paginate": {
+ "previous": "Önceki",
+ "next": "Sonraki"
+ }
+ },
+ "columns": [
+ null,
+ null,
+ null,
+ {"orderable": false}
+ ]
+ }).fnAddData([
+ data.ad + " " + data.soyad,
+ data.yetenek,
+ data.seviye,
+ '<input id="' + data.id + '" type="checkbox" class="form-control"><label for="' + data.id + '">Ekle</label>'
+ ]);
+ });
+ $("#courseAddUser .btn-danger").click(function () {
+ $("#courseAddUser").empty().addClass("hidden");
+ });
+ }
+ });
+ }, 1000);
+ });
+
+ // Eğitim Konu Düzenleme AJAX
+ $("#courseAbilityChange").click(function () {
+ $("#ability-container").removeClass("hidden");
+ $("#ability-container").html('<div class="text-xs-center"><img src="img/loading.gif"/></div>');
+ setTimeout(function () {
+ $.ajax({
+ type: "POST",
+ url: "deneme2.php",
+ dataType: "json",
+ success: function (data) {
+ $("#ability-container").html(
+ '<div class="card-title">' +
+ '<span>Yetenekler</span>' +
+ '<div class="card-buttons">' +
+ '<button type="button" class="btn btn-danger">İPTAL</button>' +
+ '<button type="submit" class="btn btn-success">KAYDET</button>' +
+ '</div>' +
+ '</div>' +
+ '<table class="table" id="dataTable-adduser">' +
+ '<thead>' +
+ '<th>Konu</th>' +
+ '<th>İşlemler</th>' +
+ '</thead>' +
+ '<tbody></tbody>' +
+ '</table>');
+ $.each(data, function (i, data) {
+ $('#dataTable-adduser').dataTable({
+ bRetrieve: true,
+ responsive: true,
+ "language": {
+ "lengthMenu": "Sayfada _MENU_ kayıt göster",
+ "zeroRecords": "Hiçbirşey bulunamadı.",
+ "info": "_TOTAL_ kayıttan _START_ - _END_ arası kayıtlar",
+ "infoEmpty": "Kayıt bulunamadı.",
+ "infoFiltered": "(Toplam _MAX_ kayıttan filtreleme yapıldı)",
+ "search": "",
+ "searchPlaceholder": "Kayıt Arama",
+ "paginate": {
+ "previous": "Önceki",
+ "next": "Sonraki"
+ }
+ },
+ "columns": [
+ null,
+ {"orderable": false}
+ ]
+ }).fnAddData([
+ data.b,
+ '<input id="' + data.a + '" type="checkbox" class="form-control"><label for="' + data.a + '">Ekle</label>'
+ ]);
+ });
+ $("#ability-container .btn-danger").click(function () {
+ $("#ability-container").empty().addClass("hidden");
+ });
+ }
+ });
+ }, 1000);
+ });*/
+
+/***************************************/
 
 $(".create").click(function () {
   $(this).hide();
@@ -438,3 +440,66 @@ $(window).resize(function () {
     $("td.desktop").remove();
   }
 });
+
+
+function changeSide() {
+  // Deleting
+  $("#topic .table-specific .btn-danger").on("click", function () {
+    $(this).text("Ekle").removeClass("btn-danger").addClass("btn-success");
+    $("#topic .card-title button").removeAttr("disabled");
+
+    var row = $(this).parent().parent().detach();
+
+    $("#topic .table-all tbody").append(row);
+  });
+  $("#user .table-specific .btn-danger").on("click", function () {
+    $(this).text("Ekle").removeClass("btn-danger").addClass("btn-success");
+    $("#user .card-title button").removeAttr("disabled");
+
+    var row = $(this).parent().parent().detach();
+
+    $("#user .table-all tbody").append(row);
+  });
+  $("#skill .table-specific .btn-danger").on("click", function (event) {
+    event.stopImmediatePropagation();
+    $("#skill .card-title button").removeAttr("disabled");
+    var text = $(this).parent().parent().children().first().text();
+    $(this).parent().parent().remove();
+
+    var select = "<tr><td>" + text + "</td><td class='select-level'><select class='form-control selectpicker' data-container='body'><option value='Çok Kötü'>Çok Kötü</option><option value='Kötü'>Kötü</option><option value='Orta'>Orta</option><option value='İyi'>İyi</option><option value='Çok İyi'>Çok İyi</option></select><a href='javascript:void(0)' onclick='changeSide()' class='btn btn-success'>Ekle</a></td></tr>";
+
+    $("#skill .table-all tbody").append(select);
+    $('.selectpicker').selectpicker("refresh");
+  });
+
+
+  // Adding
+  $("#topic .table-all .btn-success").on("click", function () {
+    $(this).text("Sil").removeClass("btn-success").addClass("btn-danger");
+    $("#topic .card-title button").removeAttr("disabled");
+
+    var row = $(this).parent().parent().detach();
+
+    $("#topic .table-specific tbody").append(row);
+  });
+  $("#user .table-all .btn-success").on("click", function () {
+    $(this).text("Sil").removeClass("btn-success").addClass("btn-danger");
+    $("#user .card-title button").removeAttr("disabled");
+
+    var row = $(this).parent().parent().detach();
+
+    $("#user .table-specific tbody").append(row);
+  });
+  $("#skill .table-all .btn-success").on("click", function (event) {
+    event.stopImmediatePropagation();
+    $("#skill .card-title button").removeAttr("disabled");
+    var selectValue = $(this).prev().find("option:selected").text();
+    var text = $(this).parent().parent().children().first().text();
+    $(this).parent().parent().remove();
+
+    var row = "<tr><td>" + text + "</td><td>" + selectValue + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
+
+    $("#skill .table-specific tbody").append(row);
+  });
+}
+changeSide();

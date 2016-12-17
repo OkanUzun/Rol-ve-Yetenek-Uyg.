@@ -56,7 +56,7 @@
                     ORDER BY IS_INHOUSE DESC,EDUCATOR_NAME';
                     $stmt = oci_parse($conn, $sql);
                     $r    = oci_execute($stmt);
-                    echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Eğitmen Seçiniz">';
+                    echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
                     while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                       echo '<option value ="'.$row["PK"].'">'.$row["EDUCATOR_NAME"].' | '.($row["IS_INHOUSE"]==1?"Şirket İçi":"Şirket Dışı").' | '.$row["ROLE_NAME"].'</option>';
                     }
