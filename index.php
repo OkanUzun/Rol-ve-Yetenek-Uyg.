@@ -44,6 +44,9 @@
       oci_execute($stmt);
 
       if ($message == 1) {
+        session_start();
+        $_SESSION['timeout'] = time();
+        $_SESSION['username'] = $user_id;
         header("Location:dashboard.php");
       }
       else { // HATALI GİRİŞ
@@ -74,7 +77,7 @@
             <div class="form-group">
               <input id="remember" type="checkbox" class="form-control">
               <label for="remember">Beni Hatırla</label>
-              <a href="#" class="forgot">Şifremi Unuttum</a>
+              <a href="pass-recovery.php" class="forgot">Şifremi Unuttum</a>
             </div>
           </div>
         </div>

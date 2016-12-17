@@ -1,4 +1,6 @@
-<?php include "header.php"; ?>
+<?php 
+  include "header.php"; 
+?>
 
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
@@ -15,7 +17,6 @@
                 <thead>
                 <tr>
                   <th>Eğitim Adı</th>
-                  <th>Eğitim İçeriği</th>
                   <th>Eğitmen</th>
                   <th>Başlangıç Tarihi</th>
                   <th>Bitiş Tarihi</th>
@@ -24,78 +25,32 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Java Eğitimi</td>
-                  <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                  <td>Deniz Güzel</td>
-                  <td>02/02/2016</td>
-                  <td>04/02/2016</td>
-                  <td class="text-xs-center">
-                    <div class="course-status">
-                      <span class="wait hidden">Beklemede<i class="mdi mdi-timer"></i></span>
-                      <span class="on hidden">Devam Ediyor<i class="mdi mdi-timer-sand"></i></span>
-                      <span class="off hidden">Sona Erdi<i class="mdi mdi-check"></i></span>
-                      <span class="cancel">İptal Edildi<i class="mdi mdi-timer-off"></i></span>
-                    </div>
-                  </td>
-                  <td class="text-xs-center">
-                    <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Java Eğitimi</td>
-                  <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                  <td>Deniz Güzel</td>
-                  <td>02/02/2016</td>
-                  <td>04/02/2016</td>
-                  <td class="text-xs-center">
-                    <div class="course-status">
-                      <span class="wait hidden">Beklemede<i class="mdi mdi-timer"></i></span>
-                      <span class="on">Devam Ediyor<i class="mdi mdi-timer-sand"></i></span>
-                      <span class="off hidden">Sona Erdi<i class="mdi mdi-check"></i></span>
-                      <span class="cancel hidden">İptal Edildi<i class="mdi mdi-timer-off"></i></span>
-                    </div>
-                  </td>
-                  <td class="text-xs-center">
-                    <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Java Eğitimi</td>
-                  <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                  <td>Deniz Güzel</td>
-                  <td>02/02/2016</td>
-                  <td>04/02/2016</td>
-                  <td class="text-xs-center">
-                    <div class="course-status">
-                      <span class="wait">Beklemede<i class="mdi mdi-timer"></i></span>
-                      <span class="on hidden">Devam Ediyor<i class="mdi mdi-timer-sand"></i></span>
-                      <span class="off hidden">Sona Erdi<i class="mdi mdi-check"></i></span>
-                      <span class="cancel hidden">İptal Edildi<i class="mdi mdi-timer-off"></i></span>
-                    </div>
-                  </td>
-                  <td class="text-xs-center">
-                    <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Java Eğitimi</td>
-                  <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                  <td>Deniz Güzel</td>
-                  <td>02/02/2016</td>
-                  <td>04/02/2016</td>
-                  <td class="text-xs-center">
-                    <div class="course-status">
-                      <span class="wait hidden">Beklemede<i class="mdi mdi-timer"></i></span>
-                      <span class="on hidden">Devam Ediyor<i class="mdi mdi-timer-sand"></i></span>
-                      <span class="off">Sona Erdi<i class="mdi mdi-check"></i></span>
-                      <span class="cancel hidden">İptal Edildi<i class="mdi mdi-timer-off"></i></span>
-                    </div>
-                  </td>
-                  <td class="text-xs-center">
-                    <button type="submit" class="btn btn-table" rel="tooltip" title="Detay"><i class="mdi mdi-magnify"></i></button>
-                  </td>
-                </tr>
+                <?php
+                  include "dbsettings.php";
+                  $sql  = 'SELECT T_EDUCATION.PK,T_EDUCATION.EDUCATION_SUBJECT AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME AS EDCTR_NAME, T_EDUCATION.PLANNED_DATE AS PLND_DTE,T_EDUCATION.COMPLETE_DATE AS CMPLT_DTE,INITCAP(T_EDUCATION.CURRENT_STATE) AS CRR_STT
+                    FROM T_EDUCATION
+                    LEFT JOIN T_EDUCATOR ON T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK';
+                  $stmt = oci_parse($conn, $sql);
+                  $r    = oci_execute($stmt);
+                  while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                    $date = DateTime::createFromFormat("d#M#y", $row["PLND_DTE"]);
+                    $started_date = $date->format('d/m/Y');
+                    $date = DateTime::createFromFormat("d#M#y", $row["CMPLT_DTE"]);
+                    $complete_date = $date->format('d/m/Y');
+                    echo '<tr>';
+                    echo '<td>'.$row['SUBJECT'].'</td>';
+                    echo '<td>'.$row['EDCTR_NAME'].'</td>';
+                    echo '<td>'.$started_date.'</td>';
+                    echo '<td>'.$complete_date.'</td>';
+                    echo '<td>'.$row['CRR_STT'].'</td>';
+                    echo '
+                    <td class="text-xs-center">
+                      <a href="course-detail.php?course_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
+                    </td>
+                       ';
+                    echo '</tr>';
+                  }
+              ?>
                 </tbody>
               </table>
             </form>

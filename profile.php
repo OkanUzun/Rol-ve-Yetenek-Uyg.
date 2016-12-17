@@ -1,4 +1,45 @@
-<?php include "header.php"; ?>
+<?php 
+  include "header.php";
+  include "dbsettings.php";
+
+  
+    $sql = "
+    SELECT T_USER.FIRST_NAME,T_USER.LAST_NAME,T_USER.U_ID,T_USER.DATE_OF_BIRTH,T_USER.EMAIL,T_USER.PHONE_NUMBER,T_USER.ADDRESS
+    FROM T_USER
+    WHERE T_USER.U_ID = '".$_SESSION['username']."'";
+
+    $stmt = oci_parse($conn, $sql);
+    $r = oci_execute($stmt);
+    $row = oci_fetch_assoc($stmt);
+
+    $f_name = $row["FIRST_NAME"];
+    $l_name = $row["LAST_NAME"];
+    $u_id   = $row["U_ID"];
+
+    $date = DateTime::createFromFormat("d#M#y", $row["DATE_OF_BIRTH"]);
+    $date_of_birth = $date->format('d/m/Y');
+
+    $email   = $row["EMAIL"];
+    $address = $row["ADDRESS"];
+    $phone   = $row["PHONE_NUMBER"];
+  
+ 
+
+  if (isset($_POST["change-pw"])) {
+    $sql  = 'BEGIN SP_UPDATE_PASSWORD(:usr_id,:new_pw,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':usr_id', $user_id);
+    oci_bind_by_name($stmt, ':new_pw', $new_pw);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+
+    $user_id    = $_SESSION["username"];
+    $new_pw  = md5($_POST["new_pw"]);
+
+    oci_execute($stmt);
+    //echo "$message\n";
+  }  
+?>
 
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
@@ -9,7 +50,7 @@
           <form method="post">
             <div class="card-header">
               <div class="card-title">Profil Bilgileri</div>
-              <button type="submit" class="btn btn-success">Kaydet</button>
+              <button type="submit" class="btn btn-success" name="update-information">Kaydet</button>
             </div>
             <div class="card-block">
               <div class="row">
@@ -20,22 +61,22 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="İsim" name="stepName" id="stepName" required>
+                        <input type="text" value=<?php echo $f_name ?> class="form-control" placeholder="İsim" name="f_name" id="stepName" required>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Soyisim" name="stepSurname" id="stepSurname" required>
+                        <input type="text" value=<?php echo $l_name ?> class="form-control" placeholder="Soyisim" name="l_name" id="stepSurname" required>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="stepUsername" id="stepUsername" required>
+                        <input type="text" value=<?php echo $u_id ?> class="form-control" placeholder="Kullanıcı Adı" name="u_name" id="stepUsername" required>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" name="stepBirthdate" id="stepBirthdate" required>
+                        <input type="text" value=<?php echo $date_of_birth ?> data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" name="date_of_birth" id="stepBirthdate" required>
                       </div>
                     </div>
                   </div>
@@ -47,17 +88,17 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="email" class="form-control" placeholder="E-mail" name="stepEmail" id="stepEmail" required>
+                        <input type="email" value=<?php echo $email ?> class="form-control" placeholder="E-mail" name="e_mail" id="stepEmail" required>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="number" class="form-control" placeholder="Mobil Telefon No" name="stepTel" id="stepTel" required>
+                        <input type="number" value=<?php echo $phone ?> class="form-control" placeholder="Mobil Telefon No" name="phone_num" id="stepTel" required>
                       </div>
                     </div>
                     <div class="col-xs-12">
                       <div class="form-group">
-                        <textarea rows="5" class="form-control" placeholder="Adres..." name="stepAddress" id="stepAddress"></textarea>
+                        <textarea rows="5" class="form-control" placeholder="Adres..." name="address" id="stepAddress"><?php echo $address ?></textarea>
                       </div>
                     </div>
                   </div>
@@ -82,15 +123,15 @@
         <form method="post">
           <div class="modal-body">
             <div class="form-group">
-              <input type="password" class="form-control" id="new_password" placeholder="Yeni Şifreniz">
+              <input type="password" class="form-control" name="new_pw" id="new_password" placeholder="Yeni Şifreniz">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" id="new_password_again" placeholder="Yeni Şifreniz Tekrar">
+              <input type="password" class="form-control" name="new_pw_again" id="new_password_again" placeholder="Yeni Şifreniz Tekrar">
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-            <button type="submit" class="btn btn-success">Değiştir</button>
+            <button type="submit" class="btn btn-success" name="change-pw">Değiştir</button>
           </div>
         </form>
       </div>
