@@ -39,10 +39,10 @@
           <div class="card-block">
             <ul class="nav nav-tabs">
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#info">Bilgiler</a>
+                <a class="nav-link active" data-toggle="tab" href="#info">Bilgiler</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#skill">Yetenekler</a>
+                <a class="nav-link" data-toggle="tab" href="#skill">Yetenekler</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#course">Eğitimler</a>
@@ -50,7 +50,7 @@
             </ul>
 
             <div class="tab-content">
-              <div class="tab-pane fade" id="info">
+              <div class="tab-pane fade in active" id="info">
                 <form method="post">
                   <div class="row">
                     <div class="col-xs-12">
@@ -129,7 +129,7 @@
                   </div>
                 </form>
               </div>
-              <div class="tab-pane fade in active" id="skill">
+              <div class="tab-pane fade" id="skill">
                 <form method="post">
                   <div class="row">
                     <div class="col-xs-12">
