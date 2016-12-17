@@ -131,7 +131,6 @@
                   <div class="col-xs-12 col-lg-6 mb-3">
                     <div class="card-title">Departmanlar</div>
                     <?php
-
                       include "dbsettings.php";
                       $sql = 'SELECT T_DEPARTMENT.PK, INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,COUNT(T_USER.PK) AS X
                     FROM T_DEPARTMENT
@@ -146,14 +145,14 @@
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                         array_push($array_dep, $row["DEP_NAME"]);
                         array_push($array_usr_count, $row["X"]);
-                        array_push($array_dyn_color,"dynamicColors()");
+                        array_push($array_dyn_color, "dynamicColors()");
                       }
                     ?>
                     <div class="chart-block">
                       <canvas id="dep_pie" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("dep_pie");
-                        var pieChart = new Chart(ctx, {
+                        var dep_pie = new Chart(ctx, {
                           type: 'pie',
                           data: {
                             labels: [
@@ -172,12 +171,10 @@
                         });
                       </script>
                     </div>
-
                   </div>
                   <div class="col-xs-12 col-lg-6 mb-3">
                     <div class="card-title">Birimler</div>
                     <?php
-
                       include "dbsettings.php";
                       $sql = 'SELECT T_UNIT.PK AS PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,COUNT(T_USER.PK) AS X
                       FROM T_UNIT
@@ -192,14 +189,14 @@
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                         array_push($array_unit, $row["UNT_NAME"]);
                         array_push($array_usr_count, $row["X"]);
-                        array_push($array_dyn_color,"dynamicColors()");
+                        array_push($array_dyn_color, "dynamicColors()");
                       }
                     ?>
                     <div class="chart-block">
                       <canvas id="unit_pie" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("unit_pie");
-                        var pieChart = new Chart(ctx, {
+                        var unit_pie = new Chart(ctx, {
                           type: 'pie',
                           data: {
                             labels: [
@@ -219,7 +216,7 @@
                       </script>
                     </div>
                   </div>
-                  <div class="col-xs-12 col-lg-6 mb-3">
+                  <div class="col-xs-12 mb-3">
                     <div class="card-title">Roller</div>
                     <?php
 
@@ -245,7 +242,7 @@
                       <canvas id="role_bar" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("role_bar");
-                        var pieChart3 = new Chart(ctx, {
+                        var role_bar = new Chart(ctx, {
                           type: 'bar',
                           data: {
                             labels: [
@@ -279,7 +276,7 @@
                       </script>
                     </div>
                   </div>
-                  <div class="col-xs-12 col-lg-6">
+                  <div class="col-xs-12">
                     <div class="card-title">Yetenekler</div>
                     <?php
                     include "dbsettings.php";
@@ -304,7 +301,7 @@
                       <canvas id="ability_bar" height="300px"></canvas>
                       <script>
                         var ctx = document.getElementById("ability_bar");
-                        var barChart = new Chart(ctx, {
+                        var ability_bar = new Chart(ctx, {
                           type: 'bar',
                           data: {
                             labels: [

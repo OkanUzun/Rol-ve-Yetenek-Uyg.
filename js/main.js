@@ -195,7 +195,7 @@ $("#abilityShow").click(function () {
           '<tbody></tbody>' +
           '</table>');
         $.each(data, function (i, data) {
-          data.a += 1;
+          data.id += 1;
           $('#dataTable-addability').dataTable({
             bRetrieve: true,
             "language": {
@@ -230,13 +230,13 @@ $("#abilityShow").click(function () {
               {"orderable": false}
             ]
           }).fnAddData([
-            data.b,
-            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control" checked><label for="' + data.a++ + '"></label>',
-            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a++ + '"></label>',
-            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a++ + '"></label>',
-            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a++ + '"></label>',
-            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a++ + '"></label>',
-            '<input id="' + data.a + '" name="' + data.b + '" type="radio" class="form-control"><label for="' + data.a + '"></label>'
+            data.ability,
+            '<input name="' + data.ability + '" type="radio" class="form-control" checked><label for="' + data.id++ + '"></label>',
+            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
+            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
+            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
+            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
+            '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id + '"></label>'
           ]);
         });
         $("#ability-container .btn-danger").click(function () {
@@ -245,6 +245,9 @@ $("#abilityShow").click(function () {
         if ($(window).width() < 768) {
           $("td.desktop").remove();
         }
+      },
+      error: function (xhr, status, error) {
+        alert(xhr.responseText);
       }
     });
   }, 1000);
