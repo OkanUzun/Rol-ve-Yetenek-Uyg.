@@ -30,6 +30,7 @@
     //
   }
 
+  else if (isset($_POST['update-abilities'])){
 
     echo "ahmet";
     $user_id = $_GET["user_id"];
