@@ -25,7 +25,7 @@
                 <tbody>
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT T_USER.PK,INITCAP(T_USER.FIRST_NAME) AS F_NAME,UPPER(T_USER.LAST_NAME) AS L_NAME,T_ROLE.ROLE_NAME,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME 
+                  $sql  = 'SELECT T_USER.PK,INITCAP(T_USER.FIRST_NAME) AS F_NAME,UPPER(T_USER.LAST_NAME) AS L_NAME,INITCAP(T_ROLE.ROLE_NAME) AS RLE_NAME,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME
                   FROM T_USER
                   LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
                   LEFT JOIN T_UNIT ON T_USER.UNIT_FK = T_UNIT.PK
@@ -37,9 +37,9 @@
                     echo '<tr>';
                     echo '<td>'.$row['F_NAME'].'</td>';
                     echo '<td>'.$row['L_NAME'].'</td>';
-                    echo '<td>'.($row['ROLE_NAME'] != null ? $row['ROLE_NAME'] : 'Rolü yok').'</td>';
-                    echo '<td>'.($row['UNIT_NAME'] != null ? $row['UNIT_NAME'] : 'Birime bağlı değil').'</td>';
-                    echo '<td>'.($row['DEPARTMENT_NAME'] != null ? $row['DEPARTMENT_NAME'] : 'Departmana bağlı değil').'</td>';
+                    echo '<td>'.($row['RLE_NAME'] != null ? $row['RLE_NAME'] : 'Rolü yok').'</td>';
+                    echo '<td>'.($row['UNT_NAME'] != null ? $row['UNT_NAME'] : 'Birime bağlı değil').'</td>';
+                    echo '<td>'.($row['DEP_NAME'] != null ? $row['DEP_NAME'] : 'Departmana bağlı değil').'</td>';
                     echo '
                      <td class="text-xs-center">
                       <a href="user-detail.php?user_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
@@ -56,4 +56,4 @@
     </div>
   </div>
 
-<?php include 'footer.php' ?>
+<?php include 'footer.php' ?>S
