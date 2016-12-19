@@ -134,6 +134,7 @@
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
                           echo '<select name="role_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Rol Seçiniz">';
+                          echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                             echo '<option value ="'.$row["PK"].'">'.$row["ROLE_NAME"].'</option>';
                           }
