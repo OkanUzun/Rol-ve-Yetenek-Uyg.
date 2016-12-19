@@ -30,6 +30,7 @@
   <?php
 
     include "dbsettings.php";
+
     if (isset($_POST["user-login"])) {
       $sql  = 'BEGIN SP_USER_LOGIN(:user_id,:user_pw,:is_valid); END;';
       $stmt = oci_parse($conn, $sql);
@@ -44,7 +45,17 @@
       oci_execute($stmt);
 
       if ($message == 1) {
+        if (isset($_POST["rememberme"])){
+          setcookie('username', $_POST["user_id"], time() + (86400 * 30), "/");
+          setcookie('password', $_POST["user_pw"], time() + (86400 * 30), "/");       
+        }
+        else{
+          setcookie('username', $_POST["user_id"], false);
+          setcookie('password', $_POST["user_pw"], false);         
+        }
+
         session_start();
+
         $_SESSION['timeout'] = time();
         $_SESSION['username'] = $user_id;
         header("Location:dashboard.php");
@@ -64,18 +75,18 @@
           <div class="card-header"><span class="highlight">Roleaby</span> Giriş</div>
           <div class="card-block">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="user_id">
+              <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="user_id" value="<?php echo $_COOKIE["username"]?>">
               <i class="mdi mdi-account"></i>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="********" name="user_pw">
+              <input type="password" class="form-control" placeholder="********" name="user_pw" value="<?php echo $_COOKIE["password"]?>">
               <i class="mdi mdi-key"></i>
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-success" name="user-login">Giriş Yap</button>
             </div>
             <div class="form-group">
-              <input id="remember" type="checkbox" class="form-control">
+              <input id="remember" type="checkbox" name="rememberme" class="form-control"/>
               <label for="remember">Beni Hatırla</label>
               <a href="pass-recovery.php" class="forgot">Şifremi Unuttum</a>
             </div>
