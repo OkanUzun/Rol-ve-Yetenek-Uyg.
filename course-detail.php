@@ -1,4 +1,64 @@
-<?php include "header.php"; ?>
+<?php 
+  include "header.php";
+  include "dbsettings.php";
+
+    if (isset($_GET["course_id"])) {
+    $course_id = $_GET["course_id"];
+    $sql = '
+    SELECT T_EDUCATOR.EDUCATOR_NAME,T_EDUCATION.EDUCATION_SUBJECT,T_EDUCATION.EDUCATION_CONTENT,T_EDUCATION.PLANNED_DATE,T_EDUCATION.COMPLETE_DATE
+    FROM T_EDUCATION,T_EDUCATOR
+    WHERE T_EDUCATION.PK = '.$course_id.' AND T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK';
+    $stmt = oci_parse($conn, $sql);
+    $r = oci_execute($stmt);
+    $row = oci_fetch_assoc($stmt);
+
+    $educator_name = $row["EDUCATOR_NAME"];
+    $education_subject   = $row["EDUCATION_SUBJECT"];
+    $education_content   = $row["EDUCATION_CONTENT"];
+
+    $started = $row["PLANNED_DATE"];
+    $completed = $row["COMPLETE_DATE"];
+
+    $date = DateTime::createFromFormat("d#M#y", $row["PLANNED_DATE"]);
+    $started_date = $date->format('d/m/Y');
+
+    $date = DateTime::createFromFormat("d#M#y", $row["COMPLETE_DATE"]);
+    $complete_date = $date->format('d/m/Y');
+
+    $sql = 'SELECT SYSDATE AS NOW FROM DUAL';
+    $stmt = oci_parse($conn, $sql);
+    $r = oci_execute($stmt);
+    $row = oci_fetch_assoc($stmt);
+
+    if ($row["NOW"] < $started){
+      $text = "Planlandı";
+      $span_class = "wait";
+      $i_class = "mdi mdi-timer";
+    }
+
+    else if ($row["NOW"] == $started) {
+      $text = "Başladı";
+      $span_class = "on";
+      $i_class = "mdi mdi-timer-sand";
+    }
+    else if ($row["NOW"] < $completed){
+      $text = "Devam Ediyor";
+      $span_class = "on";
+      $i_class = "mdi mdi-timer-sand";
+    }
+    else if ($row["NOW"] == $completed){
+      $text = "Bitmek Üzere";
+      $span_class = "on";
+      $i_class = "mdi mdi-timer-sand";
+    }
+
+    else{
+      $text = "Sona Erdi";
+      $span_class = "off";
+      $i_class = "mdi mdi-check";      
+    }
+  } 
+?>
 
 <div class="wrapper">
   <?php include "sidebar.php"; ?>
@@ -15,10 +75,7 @@
         </div>
         <div class="card-block">
           <div class="course-status">Eğitim Durumu:
-            <span class="wait">Beklemede<i class="mdi mdi-timer"></i></span>
-            <span class="on">Devam Ediyor<i class="mdi mdi-timer-sand"></i></span>
-            <span class="off">Sona Erdi<i class="mdi mdi-check"></i></span>
-            <span class="cancel">İptal Edildi<i class="mdi mdi-timer-off"></i></span>
+            <?php echo '<span class="'.$span_class.'">'.$text.'<i class="'.$i_class.'"></i></span>';?>
           </div>
           <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -42,27 +99,27 @@
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Eğitim Adı">
+                      <input type="text" class="form-control" value=<?php echo $education_subject?> name="education_name" placeholder="Eğitim Adı">
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Eğitmen">
+                      <input type="text" class="form-control" value="<?php echo $educator_name?>" name="educator_name" placeholder="Eğitmen">
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                      <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Başlangıç Tarihi">
+                      <input type="text" data-provide="datepicker" value=<?php echo $started_date?> name="started_date" class="form-control datepicker" placeholder="Başlangıç Tarihi">
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                      <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Bitiş Tarihi">
+                      <input type="text" data-provide="datepicker" value=<?php echo $complete_date?> name="complete_date" class="form-control datepicker" placeholder="Bitiş Tarihi">
                     </div>
                   </div>
                   <div class="col-xs-12">
                     <div class="form-group">
-                      <textarea rows="5" class="form-control" placeholder="Eğitim Detayları"></textarea>
+                      <textarea rows="5" class="form-control" name="education_detail" placeholder="Eğitim Detayları"><?php echo $education_content?></textarea>
                     </div>
                   </div>
                 </div>
