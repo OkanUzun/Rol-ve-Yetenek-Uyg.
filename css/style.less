@@ -126,8 +126,29 @@ input[type=number] {
   }
 }
 
-.datepicker {
+.datetimepicker {
   padding: 8px 12px;
+  th {
+    position: relative;
+    .glyphicon-arrow-left {
+      &:before {
+        content: "\F04D";
+        font-family: 'Material Design Icons';
+        position: absolute;
+        top: 0;
+        left: 3px;
+      }
+    }
+    .glyphicon-arrow-right {
+      &:before {
+        content: "\F054";
+        font-family: 'Material Design Icons';
+        position: absolute;
+        top: 0;
+        right: 3px;
+      }
+    }
+  }
 }
 
 .has-error {
@@ -853,15 +874,9 @@ textarea {
                 display: flex;
                 justify-content: space-between;
                 align-content: center;
-                .bootstrap-select {
-                  height: 33px;
-                  margin-right: 10px;
-                  .dropdown-toggle {
-                    padding: 7px 16px !important;
-                    &:after {
-                      top: 5px;
-                    }
-                  }
+                .btn-success {
+                  margin-left: 10px;
+                  line-height: 24px;
                 }
               }
             }

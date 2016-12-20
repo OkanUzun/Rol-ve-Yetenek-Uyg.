@@ -92,8 +92,29 @@ input[type=number] {
   border-color: #c8d1d3 !important;
   color: #c8d1d3 !important;
 }
-.datepicker {
+
+.datetimepicker {
   padding: 8px 12px;
+}
+
+.datetimepicker th {
+  position: relative;
+}
+
+.datetimepicker th .glyphicon-arrow-left:before {
+  content: "\F04D";
+  font-family: 'Material Design Icons';
+  position: absolute;
+  top: 0;
+  left: 3px;
+}
+
+.datetimepicker th .glyphicon-arrow-right:before {
+  content: "\F054";
+  font-family: 'Material Design Icons';
+  position: absolute;
+  top: 0;
+  right: 3px;
 }
 .has-error .form-control {
   box-shadow: none;
@@ -738,24 +759,15 @@ textarea {
   border: 1px solid #26C6DA;
   color: #1e9faf;
 }
-
 .wrapper .page-content .card .card-block .table tbody tr .select-level {
   display: flex;
   justify-content: space-between;
   align-content: center;
 }
 
-.wrapper .page-content .card .card-block .table tbody tr .select-level .bootstrap-select {
-  height: 33px;
-  margin-right: 10px;
-}
-
-.wrapper .page-content .card .card-block .table tbody tr .select-level .bootstrap-select .dropdown-toggle {
-  padding: 7px 16px !important;
-}
-
-.wrapper .page-content .card .card-block .table tbody tr .select-level .bootstrap-select .dropdown-toggle:after {
-  top: 5px;
+.wrapper .page-content .card .card-block .table tbody tr .select-level .btn-success {
+  margin-left: 10px;
+  line-height: 24px;
 }
 .wrapper .page-content .card .card-block .pagination li a {
   color: #000;
@@ -811,31 +823,25 @@ textarea {
   padding: 5px 10px;
   font-size: 13px;
 }
-
 .wrapper .page-content .card .card-block .nav-tabs {
   margin-bottom: 10px;
 }
-
 .wrapper .page-content .card .card-block .nav-tabs .nav-item {
   margin-left: 5px;
 }
-
 .wrapper .page-content .card .card-block .nav-tabs .nav-item .nav-link {
   color: #525252;
   border: 1px solid #c8d1d3;
   border-bottom: 0;
 }
-
 .wrapper .page-content .card .card-block .nav-tabs .nav-item .nav-link:hover {
   background-color: #2196F3;
   color: #fff;
 }
-
 .wrapper .page-content .card .card-block .nav-tabs .nav-item .active {
   background-color: #2196F3;
   color: #fff;
 }
-
 .wrapper .page-content .card .card-block .nav-tabs .nav-item:first-child {
   margin-left: 0;
 }

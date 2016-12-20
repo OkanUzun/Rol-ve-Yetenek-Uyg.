@@ -85,7 +85,7 @@
  });*/
 // ***(Sonra ilgilenilecek)***
 
-// Datepicker
+/*// Datepicker
 window.onload = function () {
   $('.datepicker').datepicker({
     format: 'dd/mm/yyyy',
@@ -94,7 +94,18 @@ window.onload = function () {
     todayHighlight: true,
     autoclose: true
   });
-};
+ };*/
+
+$(".datetimepicker").datetimepicker({
+  format: "dd MM yyyy - hh:ii",
+  autoclose: true,
+  todayBtn: true,
+  todayHighlight: true,
+  startDate: "2000-01-01 10:00",
+  endDate: "2020-12-31 23:59",
+  language: "tr",
+  weekStart: 1
+});
 
 // Getting data to modal
 $('#updateModal').on('show.bs.modal', function (event) {
@@ -444,61 +455,83 @@ $(window).resize(function () {
 
 function changeSide() {
   // Deleting
-  $("#topic .table-specific .btn-danger").on("click", function () {
-    $(this).text("Ekle").removeClass("btn-danger").addClass("btn-success");
+  $("#topic .table-specific .btn-danger").on("click", function (event) {
+    event.stopImmediatePropagation();
     $("#topic .card-title button").removeAttr("disabled");
 
-    var row = $(this).parent().parent().detach();
+    var text = $(this).parent().parent().children().first().text();
+    text = text.replace("Sil", "");
+    $(this).parent().parent().remove();
 
-    $("#topic .table-all tbody").append(row);
+    $("#topic .table-all .selectpicker").prepend("<option value='" + text + "'>" + text + "</option>");
+    $(".selectpicker").selectpicker("refresh");
+
+    changeSide();
   });
-  $("#user .table-specific .btn-danger").on("click", function () {
-    $(this).text("Ekle").removeClass("btn-danger").addClass("btn-success");
+  $("#user .table-specific .btn-danger").on("click", function (event) {
+    event.stopImmediatePropagation();
     $("#user .card-title button").removeAttr("disabled");
 
-    var row = $(this).parent().parent().detach();
+    var text = $(this).parent().text();
+    text = text.replace("Sil", "");
+    $(this).parent().parent().remove();
 
-    $("#user .table-all tbody").append(row);
+    $("#user .table-all .selectpicker").prepend("<option value='" + text + "'>" + text + "</option>");
+    $(".selectpicker").selectpicker("refresh");
+
+    changeSide();
   });
   $("#skill .table-specific .btn-danger").on("click", function (event) {
     event.stopImmediatePropagation();
     $("#skill .card-title button").removeAttr("disabled");
-    var text = $(this).parent().parent().children().first().text();
+
+    var selectedSkill = $(this).parent().parent().children().first().text();
     $(this).parent().parent().remove();
 
-    var select = "<tr><td>" + text + "</td><td class='select-level'><select class='form-control selectpicker' data-container='body'><option value='Çok Kötü'>Çok Kötü</option><option value='Kötü'>Kötü</option><option value='Orta'>Orta</option><option value='İyi'>İyi</option><option value='Çok İyi'>Çok İyi</option></select><a href='javascript:void(0)' onclick='changeSide()' class='btn btn-success'>Ekle</a></td></tr>";
+    $("#skill .table-all tbody tr td:first-child .selectpicker").prepend("<option value='" + selectedSkill + "'>" + selectedSkill + "</option>");
+    $(".selectpicker").selectpicker("refresh");
 
-    $("#skill .table-all tbody").append(select);
-    $('.selectpicker').selectpicker("refresh");
     changeSide();
   });
 
 
   // Adding
-  $("#topic .table-all .btn-success").on("click", function () {
-    $(this).text("Sil").removeClass("btn-success").addClass("btn-danger");
+  $("#topic .table-all .btn-success").on("click", function (event) {
+    event.stopImmediatePropagation();
     $("#topic .card-title button").removeAttr("disabled");
 
-    var row = $(this).parent().parent().detach();
+    var selectSkill = $(this).prev().find("option:selected").text();
+    $(this).prev().find("option:selected", this).remove();
+    $(".selectpicker").selectpicker("refresh");
+
+    var row = "<tr><td>" + selectSkill + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
 
     $("#topic .table-specific tbody").append(row);
+    changeSide();
   });
-  $("#user .table-all .btn-success").on("click", function () {
-    $(this).text("Sil").removeClass("btn-success").addClass("btn-danger");
+  $("#user .table-all .btn-success").on("click", function (event) {
+    event.stopImmediatePropagation();
     $("#user .card-title button").removeAttr("disabled");
 
-    var row = $(this).parent().parent().detach();
+    var selectUser = $(this).prev().find("option:selected").text();
+    $(this).prev().find("option:selected", this).remove();
+    $(".selectpicker").selectpicker("refresh");
+
+    var row = "<tr><td>" + selectUser + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
 
     $("#user .table-specific tbody").append(row);
+    changeSide();
   });
   $("#skill .table-all .btn-success").on("click", function (event) {
     event.stopImmediatePropagation();
     $("#skill .card-title button").removeAttr("disabled");
-    var selectValue = $(this).prev().find("option:selected").text();
-    var text = $(this).parent().parent().children().first().text();
-    $(this).parent().parent().remove();
 
-    var row = "<tr><td>" + text + "</td><td>" + selectValue + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
+    var selectSkill = $(this).parent().parent().children(":first-child").find("option:selected").text();
+    var selectLevel = $(this).prev().find("option:selected").text();
+    $(this).parent().parent().children(":first-child").find("option:selected", this).remove();
+    $(".selectpicker").selectpicker("refresh");
+
+    var row = "<tr><td>" + selectSkill + "</td><td>" + selectLevel + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
 
     $("#skill .table-specific tbody").append(row);
     changeSide();
