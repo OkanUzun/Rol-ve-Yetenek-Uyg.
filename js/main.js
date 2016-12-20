@@ -86,14 +86,14 @@
 // ***(Sonra ilgilenilecek)***
 
 /*// Datepicker
-window.onload = function () {
-  $('.datepicker').datepicker({
-    format: 'dd/mm/yyyy',
-    clearBtn: true,
-    language: 'tr',
-    todayHighlight: true,
-    autoclose: true
-  });
+ window.onload = function () {
+ $('.datepicker').datepicker({
+ format: 'dd/mm/yyyy',
+ clearBtn: true,
+ language: 'tr',
+ todayHighlight: true,
+ autoclose: true
+ });
  };*/
 
 $(".datetimepicker").datetimepicker({

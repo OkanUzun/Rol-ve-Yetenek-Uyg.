@@ -8,9 +8,10 @@
       SELECT T_EDUCATOR.EDUCATOR_NAME,T_EDUCATION.EDUCATION_SUBJECT,T_EDUCATION.EDUCATION_CONTENT,T_EDUCATION.PLANNED_DATE,T_EDUCATION.COMPLETE_DATE
       FROM T_EDUCATION,T_EDUCATOR
       WHERE T_EDUCATION.PK = '.$course_id.' AND T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK';
-    $stmt      = oci_parse($conn, $sql);
-    $r         = oci_execute($stmt);
-    $row       = oci_fetch_assoc($stmt);
+
+    $stmt = oci_parse($conn, $sql);
+    $r    = oci_execute($stmt);
+    $row  = oci_fetch_assoc($stmt);
 
     $educator_name     = $row["EDUCATOR_NAME"];
     $education_subject = $row["EDUCATION_SUBJECT"];
@@ -188,17 +189,17 @@
                           </td>
                         </tr>
                         <?php
-                          /*                          $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME FROM T_ABILITY
-                                                    WHERE T_ABILITY.PK
-                                                    NOT IN (SELECT ABILITY_FK FROM T_EDUCATION_ABILITY_REL WHERE EDUCATION_FK = '.$course_id.')
-                                                    ORDER BY ABLY_NAME';
-                                                    $stmt = oci_parse($conn, $sql);
-                                                    $r    = oci_execute($stmt);
-                                                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                                      echo '<tr>';
-                                                      echo '<td>'.$row["ABLY_NAME"].'<a href="javascript:void(0)" onclick="changeSide()" class="btn btn-success float-xs-right">Ekle</a></td>';
-                                                      echo '</tr>';
-                                                    }*/
+                          $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME FROM T_ABILITY
+                          WHERE T_ABILITY.PK
+                          NOT IN (SELECT ABILITY_FK FROM T_EDUCATION_ABILITY_REL WHERE EDUCATION_FK = '.$course_id.')
+                          ORDER BY ABLY_NAME';
+                          $stmt = oci_parse($conn, $sql);
+                          $r    = oci_execute($stmt);
+                          while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                            echo '<tr>';
+                            echo '<td>'.$row["ABLY_NAME"].'<a href="javascript:void(0)" onclick="changeSide()" class="btn btn-success float-xs-right">Ekle</a></td>';
+                            echo '</tr>';
+                          }
                         ?>
                         </tbody>
                       </table>
@@ -263,17 +264,17 @@
                           </td>
                         </tr>
                         <?php
-                          /*                          $sql  = "SELECT T_USER.FIRST_NAME AS F_NAME,T_USER.LAST_NAME AS L_NAME,T_ROLE.ROLE_NAME AS RLE_NAME FROM T_USER
-                                                    LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
-                                                    WHERE T_USER.PK NOT IN (SELECT USER_FK FROM T_EDUCATION_USER_REL WHERE T_EDUCATION_USER_REL.EDUCATION_FK = '.$course_id.') ORDER BY F_NAME,L_NAME";
-                                                    $stmt = oci_parse($conn, $sql);
-                                                    $r    = oci_execute($stmt);
-                                                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                                      echo '<tr>';
-                                                      echo '<td>'.$row["F_NAME"].' '.$row["L_NAME"].'</td>';
-                                                      echo '<td>'.$row["RLE_NAME"].'<a href="javascript:void(0)" onclick="changeSide()" class="btn btn-success float-xs-right">Ekle</a></td>';
-                                                      echo '</tr>';
-                                                    }*/
+                          /*$sql  = "SELECT T_USER.FIRST_NAME AS F_NAME,T_USER.LAST_NAME AS L_NAME,T_ROLE.ROLE_NAME AS RLE_NAME FROM T_USER
+                          LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
+                          WHERE T_USER.PK NOT IN (SELECT USER_FK FROM T_EDUCATION_USER_REL WHERE T_EDUCATION_USER_REL.EDUCATION_FK = '.$course_id.') ORDER BY F_NAME,L_NAME";
+                          $stmt = oci_parse($conn, $sql);
+                          $r    = oci_execute($stmt);
+                          while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                            echo '<tr>';
+                            echo '<td>'.$row["F_NAME"].' '.$row["L_NAME"].'</td>';
+                            echo '<td>'.$row["RLE_NAME"].'<a href="javascript:void(0)" onclick="changeSide()" class="btn btn-success float-xs-right">Ekle</a></td>';
+                            echo '</tr>';
+                          }*/
                         ?>
                         </tbody>
                       </table>

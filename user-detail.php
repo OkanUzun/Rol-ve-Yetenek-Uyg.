@@ -4,19 +4,19 @@
 
   if (isset($_GET["user_id"])) {
     $user_id = $_GET["user_id"];
-    $sql = '
+    $sql     = '
     SELECT T_USER.FIRST_NAME,T_USER.LAST_NAME,T_USER.U_ID,T_USER.DATE_OF_BIRTH,T_USER.EMAIL,T_USER.PHONE_NUMBER,T_USER.ADDRESS
     FROM T_USER
     WHERE PK = '.$user_id.'';
-    $stmt = oci_parse($conn, $sql);
-    $r = oci_execute($stmt);
-    $row = oci_fetch_assoc($stmt);
+    $stmt    = oci_parse($conn, $sql);
+    $r       = oci_execute($stmt);
+    $row     = oci_fetch_assoc($stmt);
 
     $f_name = $row["FIRST_NAME"];
     $l_name = $row["LAST_NAME"];
     $u_id   = $row["U_ID"];
 
-    $date = DateTime::createFromFormat("d#M#y", $row["DATE_OF_BIRTH"]);
+    $date          = DateTime::createFromFormat("d#M#y", $row["DATE_OF_BIRTH"]);
     $date_of_birth = $date->format('d/m/Y');
 
     $email   = $row["EMAIL"];
@@ -34,8 +34,8 @@
 
     echo "ahmet";
     $user_id = $_GET["user_id"];
-    $sql = 'BEGIN SP_ASSIGN_ABILITIES_TO_USER(:usr_id,:ablty_ids,:level_ids,:is_valid); END;';
-    $stmt = oci_parse($conn, $sql);
+    $sql     = 'BEGIN SP_ASSIGN_ABILITIES_TO_USER(:usr_id,:ablty_ids,:level_ids,:is_valid); END;';
+    $stmt    = oci_parse($conn, $sql);
 
 
     oci_bind_by_name($stmt, ':usr_id', $user_id);
@@ -46,7 +46,7 @@
     $contents = $_POST['contents'];
 
     $ability_ids = array();
-    $level_ids = array();
+    $level_ids   = array();
 
     for ($i = 0; $i < sizeof($contents); $i++) {
       array_push($ability_ids, $contents[ $i ][0]);
@@ -210,7 +210,7 @@
                             ORDER BY AN';
                             $stmt = oci_parse($conn, $sql);
                             $r    = oci_execute($stmt);
-                            $i = 0;
+                            $i    = 0;
                             while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                               echo '<tr>';
                               echo '<input type="hidden" value="'.$row["AB_PK"].'" name="contents['.$i.'][0]"/>';
@@ -264,28 +264,28 @@
                             </td>
                           </tr>
                           <?php
-                            /*                            $sql1  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME FROM T_ABILITY WHERE T_ABILITY.PK
-                                                        NOT IN (SELECT T_USER_ABILITY_REL.ABILITY_FK FROM T_USER_ABILITY_REL WHERE T_USER_ABILITY_REL.USER_FK = '.$user_id.')
-                                                        ORDER BY ABILITY_NAME';
-                                                        $stmt1 = oci_parse($conn, $sql1);
-                                                        $r1    = oci_execute($stmt1);
-                                                        while ($row1 = oci_fetch_array($stmt1, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                                          echo '<tr>';
-                                                          echo '<td>'.$row1["ABILITY_NAME"].'</td>';
-                                                          echo '<td class="select-level">';
-                                                          $sql2  = 'SELECT PK,LEVEL_NAME FROM T_ABILITY_LEVEL ORDER BY LEVEL_ORDER';
-                                                          $stmt2 = oci_parse($conn, $sql2);
-                                                          $r2    = oci_execute($stmt2);
-                                                          echo '<select name="level_id" class="form-control selectpicker" data-container="body">';
-                                                          while ($row2 = oci_fetch_array($stmt2, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                                            echo '<option value ="'.$row2["PK"].'">'.$row2["LEVEL_NAME"].'</option>';
-                                                          }
-                                                          echo '</select>';
-                                                          echo '<a href="javascript:void(0)" onclick="changeSide()" class="btn btn-success">Ekle</a>';
-                                                          echo '</td>';
+                            /*$sql1  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME FROM T_ABILITY WHERE T_ABILITY.PK
+                            NOT IN (SELECT T_USER_ABILITY_REL.ABILITY_FK FROM T_USER_ABILITY_REL WHERE T_USER_ABILITY_REL.USER_FK = '.$user_id.')
+                            ORDER BY ABILITY_NAME';
+                            $stmt1 = oci_parse($conn, $sql1);
+                            $r1    = oci_execute($stmt1);
+                            while ($row1 = oci_fetch_array($stmt1, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                              echo '<tr>';
+                              echo '<td>'.$row1["ABILITY_NAME"].'</td>';
+                              echo '<td class="select-level">';
+                              $sql2  = 'SELECT PK,LEVEL_NAME FROM T_ABILITY_LEVEL ORDER BY LEVEL_ORDER';
+                              $stmt2 = oci_parse($conn, $sql2);
+                              $r2    = oci_execute($stmt2);
+                              echo '<select name="level_id" class="form-control selectpicker" data-container="body">';
+                              while ($row2 = oci_fetch_array($stmt2, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                                echo '<option value ="'.$row2["PK"].'">'.$row2["LEVEL_NAME"].'</option>';
+                              }
+                              echo '</select>';
+                              echo '<a href="javascript:void(0)" onclick="changeSide()" class="btn btn-success">Ekle</a>';
+                              echo '</td>';
 
-                                                          echo '</tr>';
-                                                        }*/
+                              echo '</tr>';
+                            }*/
                           ?>
                           </tbody>
                         </table>
@@ -327,10 +327,9 @@
                         echo '<td>'.$complete_date.'</td>';
                         echo '<td>'.$row['CRR_STT'].'</td>';
                         echo '
-                    <td class="text-xs-center">
-                      <a href="course-detail.php?course_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
-                    </td>
-                       ';
+                          <td class="text-xs-center">
+                            <a href="course-detail.php?course_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
+                          </td>';
                         echo '</tr>';
                       }
                     ?>
