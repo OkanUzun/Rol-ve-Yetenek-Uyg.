@@ -94,7 +94,7 @@
                         <div class="col-xs-12 col-xl-6">
                           <div class="form-group">
                           <?php
-                            $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+                            $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT ORDER BY DEPARTMENT_NAME';
                             $stmt = oci_parse($conn, $sql);
                             $r    = oci_execute($stmt);
                             echo '<select id="userDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">';
@@ -109,7 +109,7 @@
                         <div class="col-xs-12 col-xl-6">
                           <div class="form-group">
                         <?php
-                          $sql  = 'SELECT PK,UNIT_NAME FROM T_UNIT';
+                          $sql  = 'SELECT PK,UNIT_NAME FROM T_UNIT ORDER BY UNIT_NAME';
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
                           echo '<select id="userUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">';
@@ -124,7 +124,7 @@
                         <div class="col-xs-12 col-xl-6">
                           <div class="form-group">
                         <?php
-                          $sql  = 'SELECT PK,ROLE_NAME FROM T_ROLE';
+                          $sql  = 'SELECT PK,ROLE_NAME FROM T_ROLE ORDER BY ROLE_NAME';
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
                           echo '<select name="role_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Rol Seçiniz">';
@@ -206,7 +206,8 @@
                             FROM T_USER_ABILITY_REL,T_ABILITY,T_ABILITY_LEVEL WHERE
                             T_USER_ABILITY_REL.ABILITY_FK = T_ABILITY.PK AND
                             T_USER_ABILITY_REL.ABILITY_LEVEL_FK = T_ABILITY_LEVEL.PK AND
-                            T_USER_ABILITY_REL.USER_FK = '.$user_id.'';
+                            T_USER_ABILITY_REL.USER_FK = '.$user_id.'
+                            ORDER BY AN';
                             $stmt = oci_parse($conn, $sql);
                             $r    = oci_execute($stmt);
                             $i = 0;
@@ -235,7 +236,8 @@
                           <tbody> 
                           <?php
                             $sql1  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME FROM T_ABILITY WHERE T_ABILITY.PK 
-                            NOT IN (SELECT T_USER_ABILITY_REL.ABILITY_FK FROM T_USER_ABILITY_REL WHERE T_USER_ABILITY_REL.USER_FK = '.$user_id.')';
+                            NOT IN (SELECT T_USER_ABILITY_REL.ABILITY_FK FROM T_USER_ABILITY_REL WHERE T_USER_ABILITY_REL.USER_FK = '.$user_id.')
+                            ORDER BY ABILITY_NAME';
                             $stmt1 = oci_parse($conn, $sql1);
                             $r1    = oci_execute($stmt1);
                             while ($row1 = oci_fetch_array($stmt1, OCI_RETURN_NULLS + OCI_ASSOC)) {                        
