@@ -3,7 +3,7 @@
   include "dbsettings.php";
 
   if (isset($_POST["create-course"])) {
-    $sql  = 'BEGIN SP_CREATE_EDUCATION(:edu_subject,:edu_content,:planned_dte,:complete_dte,:edctr_id,:is_valid); END;';
+    $sql  = 'BEGIN SP_CREATE_EDUCATION(:edu_subject,:edu_content,:planned_dte,:complete_dte,:edctr_id,:lounge_id,:is_valid); END;';
     $stmt = oci_parse($conn, $sql);
 
     oci_bind_by_name($stmt, ':edu_subject', $edu_subject);
@@ -11,6 +11,7 @@
     oci_bind_by_name($stmt, ':planned_dte', $planned_date);
     oci_bind_by_name($stmt, ':complete_dte', $complete_date);
     oci_bind_by_name($stmt, ':edctr_id', $educator_id);
+    oci_bind_by_name($stmt, ':lounge_id', $lounge_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
     $edu_subject   = $_POST["course_name"];
@@ -18,6 +19,7 @@
     $planned_date  = $_POST["starting_date"];
     $complete_date = $_POST["complete_date"];
     $educator_id   = $_POST["educator_id"];
+    $lounge_id   = $_POST["lounge_id"];
 
     oci_execute($stmt);
     //echo "$message\n";    
@@ -48,7 +50,6 @@
                 <div class="col-lg-6 col-xl-3">
                   <div class="form-group">
                     <?php
-                      include "dbsettings.php";
                       $sql  = 'SELECT T_EDUCATOR.PK,T_EDUCATOR.EDUCATOR_NAME,T_EDUCATOR.IS_INHOUSE,T_ROLE.ROLE_NAME
                     FROM T_EDUCATOR
                     LEFT JOIN T_USER ON T_USER.PK = T_EDUCATOR.USER_FK
@@ -66,24 +67,26 @@
                 </div>
                 <div class="col-lg-6 col-xl-2">
                   <div class="form-group">
-                    <select class="form-control selectpicker">
-                      <option value="Eğitim Salonu Seçiniz">Eğitim Salonu Seçiniz</option>
-                      <option value="Salon A">Salon A</option>
-                      <option value="Salon B">Salon B</option>
-                      <option value="Salon C">Salon C</option>
-                      <option value="Salon D">Salon D</option>
-                      <option value="Salon E">Salon E</option>
-                    </select>
+                  <?php
+                    $sql  = 'SELECT PK,LOUNGE_NAME FROM T_LOUNGE ORDER BY LOUNGE_NAME';
+                    $stmt = oci_parse($conn, $sql);
+                    $r    = oci_execute($stmt);
+                    echo '<select name="lounge_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Salon Seçiniz">';
+                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                      echo '<option value ="'.$row["PK"].'">'.$row["LOUNGE_NAME"].'</option>';
+                    }
+                    echo '</select>';
+                  ?>
                   </div>
                 </div>
                 <div class="col-lg-6 col-xl-2">
                   <div class="form-group">
-                    <input type="text" class="form-control datetimepicker" placeholder="Başlangıç Zamanı">
+                    <input type="text" class="form-control datetimepicker" placeholder="Başlangıç Zamanı" name="starting_date">
                   </div>
                 </div>
                 <div class="col-lg-6 col-xl-2">
                   <div class="form-group">
-                    <input type="text" class="form-control datetimepicker" placeholder="Bitiş Zamanı">
+                    <input type="text" class="form-control datetimepicker" placeholder="Bitiş Zamanı" name="complete_date">
                   </div>
                 </div>
                 <div class="col-md-12">
