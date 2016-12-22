@@ -92,29 +92,19 @@ input[type=number] {
   border-color: #c8d1d3 !important;
   color: #c8d1d3 !important;
 }
-
-.datetimepicker {
-  padding: 8px 12px;
+.bootstrap-datetimepicker-widget {
+  padding: 10px !important;
+  width: 16em !important;
 }
-
-.datetimepicker th {
-  position: relative;
+.bootstrap-datetimepicker-widget .timepicker a {
+  color: #2196F3;
+  padding: 3.5px 0 !important;
+  font-size: 20px;
 }
-
-.datetimepicker th .glyphicon-arrow-left:before {
-  content: "\F04D";
-  font-family: 'Material Design Icons';
-  position: absolute;
-  top: 0;
-  left: 3px;
-}
-
-.datetimepicker th .glyphicon-arrow-right:before {
-  content: "\F054";
-  font-family: 'Material Design Icons';
-  position: absolute;
-  top: 0;
-  right: 3px;
+.bootstrap-datetimepicker-widget .timepicker a span {
+  height: 46px;
+  width: 46px;
+  line-height: 46px;
 }
 .has-error .form-control {
   box-shadow: none;
@@ -764,7 +754,6 @@ textarea {
   justify-content: space-between;
   align-content: center;
 }
-
 .wrapper .page-content .card .card-block .table tbody tr .select-level .btn-success {
   margin-left: 10px;
   line-height: 24px;

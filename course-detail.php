@@ -21,10 +21,10 @@
     $completed = $row["COMPLETE_DATE"];
 
     $date         = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLANNED_DATE"]);
-    $started_date = $date->format('d/m/Y h:i');
+    $started_date = $date->format('d/m/Y - H:i');
 
     $date          = DateTime::createFromFormat("d#M#y H#i#s*A", $row["COMPLETE_DATE"]);
-    $complete_date = $date->format('d/m/Y h:i');
+    $complete_date = $date->format('d/m/Y - H:i');
 
     $sql  = 'select CURRENT_TIMESTAMP AS NOW from dual';
     $stmt = oci_parse($conn, $sql);
@@ -110,12 +110,12 @@
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                      <input type="text" data-provide="datepicker" value=<?php echo $started_date ?> name="started_date" class="form-control datepicker" placeholder="Başlangıç Tarihi">
+                      <input type="text" value=<?php echo $started_date ?> name="started_date" class="form-control datetimepicker" placeholder="Başlangıç Zamanı">
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                      <input type="text" data-provide="datepicker" value=<?php echo $complete_date ?> name="complete_date" class="form-control datepicker" placeholder="Bitiş Tarihi">
+                      <input type="text" value=<?php echo $complete_date ?> name="complete_date" class="form-control datetimepicker" placeholder="Bitiş Zamanı">
                     </div>
                   </div>
                   <div class="col-xs-12">

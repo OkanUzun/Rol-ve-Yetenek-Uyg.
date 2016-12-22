@@ -31,7 +31,6 @@
   <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css">
   <link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/datatables.bootstrap4.min.css"/>
-  <!--<link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css">-->
   <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
   <link rel="stylesheet" type="text/css" href="css/mCustomScrollbar.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">

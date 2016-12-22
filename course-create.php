@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-lg-6 col-xl-2">
                   <div class="form-group">
-                    <input type="text" class="form-control datetimepicker" placeholder="Bitiş Zamanı" name="complete_date">
+                    <input type="text" class="form-control datetimepicker2" placeholder="Bitiş Zamanı" name="complete_date">
                   </div>
                 </div>
                 <div class="col-md-12">

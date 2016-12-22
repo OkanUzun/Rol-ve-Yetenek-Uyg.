@@ -1,8 +1,8 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.validate.min.js"></script>
+<script src="js/moment.min.js"></script>
 <script src="js/tether.min.js"></script>
-<script src="js/bootstrap.min.js"></script><!--<script src="js/bootstrap-datepicker.min.js"></script>
-<script src="js/bootstrap-datepicker.tr.min.js" charset="UTF-8"></script>-->
+<script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-datetimepicker.min.js"></script>
 <script src="js/bootstrap-datetimepicker.tr.js" charset="UTF-8"></script>
 <script src="js/datatables.min.js"></script>

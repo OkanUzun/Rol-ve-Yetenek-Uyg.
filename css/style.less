@@ -126,26 +126,18 @@ input[type=number] {
   }
 }
 
-.datetimepicker {
-  padding: 8px 12px;
-  th {
-    position: relative;
-    .glyphicon-arrow-left {
-      &:before {
-        content: "\F04D";
-        font-family: 'Material Design Icons';
-        position: absolute;
-        top: 0;
-        left: 3px;
-      }
-    }
-    .glyphicon-arrow-right {
-      &:before {
-        content: "\F054";
-        font-family: 'Material Design Icons';
-        position: absolute;
-        top: 0;
-        right: 3px;
+.bootstrap-datetimepicker-widget {
+  padding: 10px !important;
+  width: 16em !important;
+  .timepicker {
+    a {
+      color: @primary;
+      padding: 3.5px 0 !important;
+      font-size: 20px;
+      span {
+        height: 46px;
+        width: 46px;
+        line-height: 46px;
       }
     }
   }

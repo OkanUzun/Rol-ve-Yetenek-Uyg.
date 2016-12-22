@@ -151,22 +151,22 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="İsim" name="f_name" required>
+                        <input type="text" class="form-control" placeholder="İsim" name="f_name">
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Soyisim" name="l_name" required>
+                        <input type="text" class="form-control" placeholder="Soyisim" name="l_name">
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="u_name" required>
+                        <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="u_name">
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" name="date_of_birth" required>
+                        <input type="text" class="form-control datepicker" placeholder="Doğum Tarihi" name="date_of_birth">
                       </div>
                     </div>
                   </div>
@@ -178,17 +178,17 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="form-group">
-                        <input type="email" class="form-control" placeholder="E-mail" name="e_mail" required>
+                        <input type="email" class="form-control" placeholder="E-mail" name="e_mail">
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="form-group">
-                        <input type="number" class="form-control" placeholder="Mobil Telefon No" name="phone_number" required>
+                        <input type="number" class="form-control" placeholder="Mobil Telefon No" name="phone_number">
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <textarea rows="5" class="form-control" placeholder="Adres..." name="address" required></textarea>
+                        <textarea rows="5" class="form-control" placeholder="Adres..." name="address"></textarea>
                       </div>
                     </div>
                   </div>

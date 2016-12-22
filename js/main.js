@@ -96,15 +96,88 @@
  });
  };*/
 
-$(".datetimepicker").datetimepicker({
-  format: "dd-mm-yyyy - hh:ii",
-  autoclose: true,
-  todayBtn: true,
-  todayHighlight: true,
-  startDate: "2000-01-01 10:00",
-  endDate: "2020-12-31 23:59",
-  language: "tr",
-  weekStart: 1
+$(".datepicker").datetimepicker({
+  useCurrent: false,
+  locale: "tr",
+  format: 'D-M-YYYY',
+  showTodayButton: true,
+  showClear: true,
+  icons: {
+    time: 'mdi mdi-timer',
+    date: 'mdi mdi-calendar',
+    up: 'mdi mdi-arrow-up',
+    down: 'mdi mdi-arrow-down',
+    previous: 'mdi mdi-arrow-left-bold',
+    next: 'mdi mdi-arrow-right-bold',
+    today: 'mdi mdi-calendar-today',
+    clear: 'mdi mdi-delete',
+    close: 'mdi mdi-close'
+  },
+  tooltips: {
+    today: 'Bugünü Seç',
+    clear: 'Temizle',
+    close: 'Kapat',
+    selectMonth: 'Ay Seç',
+    prevMonth: 'Önceki Ay',
+    nextMonth: 'Sonraki Ay',
+    selectYear: 'Yıl Seç',
+    prevYear: 'Önceki Yıl',
+    nextYear: 'Sonraki Yıl',
+    selectDecade: 'Onyıl Seç',
+    prevDecade: 'Önceki Onyıl',
+    nextDecade: 'Sonraki Onyıl',
+    prevCentury: 'Önceki Yüzyıl',
+    nextCentury: 'Sonraki Yüzyıl'
+  }
+});
+
+$(".datetimepicker, .datetimepicker2").datetimepicker({
+  useCurrent: false,
+  locale: "tr",
+  format: 'D-M-YYYY - HH:mm',
+  showTodayButton: true,
+  showClear: true,
+  icons: {
+    time: 'mdi mdi-timer',
+    date: 'mdi mdi-calendar',
+    up: 'mdi mdi-arrow-up',
+    down: 'mdi mdi-arrow-down',
+    previous: 'mdi mdi-arrow-left-bold',
+    next: 'mdi mdi-arrow-right-bold',
+    today: 'mdi mdi-calendar-today',
+    clear: 'mdi mdi-delete',
+    close: 'mdi mdi-close'
+  },
+  tooltips: {
+    today: 'Bugünü Seç',
+    clear: 'Temizle',
+    close: 'Kapat',
+    selectMonth: 'Ay Seç',
+    prevMonth: 'Önceki Ay',
+    nextMonth: 'Sonraki Ay',
+    selectYear: 'Yıl Seç',
+    prevYear: 'Önceki Yıl',
+    nextYear: 'Sonraki Yıl',
+    selectDecade: 'Onyıl Seç',
+    prevDecade: 'Önceki Onyıl',
+    nextDecade: 'Sonraki Onyıl',
+    prevCentury: 'Önceki Yüzyıl',
+    nextCentury: 'Sonraki Yüzyıl',
+    selectTime: 'Saat Seç',
+    incrementHour: 'Saat Artır',
+    decrementHour: 'Saat Azalt',
+    incrementMinute: 'Dakika Artır',
+    decrementMinute: 'Dakika Azalt',
+    pickHour: 'Saat Seç',
+    pickMinute: 'Dakika Seç'
+  }
+});
+
+$(".datetimepicker").on("dp.change", function (e) {
+  $(".datetimepicker2").data("DateTimePicker").minDate(e.date);
+});
+$(".datetimepicker2").on("dp.change", function (e) {
+  $(".datetimepicker").data("DateTimePicker").maxDate(e.date);
 });
 
 // Getting data to modal
