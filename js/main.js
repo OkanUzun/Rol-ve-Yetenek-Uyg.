@@ -97,7 +97,7 @@
  };*/
 
 $(".datetimepicker").datetimepicker({
-  format: "dd MM yyyy - hh:ii",
+  format: "dd-mm-yyyy - hh:ii",
   autoclose: true,
   todayBtn: true,
   todayHighlight: true,

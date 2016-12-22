@@ -33,10 +33,10 @@
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                    $date = DateTime::createFromFormat("d#M#y", $row["PLND_DTE"]);
+                    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLND_DTE"]);
                     $started_date = $date->format('d/m/Y');
-                    $date = DateTime::createFromFormat("d#M#y", $row["CMPLT_DTE"]);
-                    $complete_date = $date->format('d/m/Y');
+                    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CMPLT_DTE"]);
+                    $complete_date = $date->format('d/m/Y H:i');
                     echo '<tr>';
                     echo '<td>'.$row['SUBJECT'].'</td>';
                     echo '<td>'.$row['EDCTR_NAME'].'</td>';

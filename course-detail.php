@@ -20,13 +20,13 @@
     $started   = $row["PLANNED_DATE"];
     $completed = $row["COMPLETE_DATE"];
 
-    $date         = DateTime::createFromFormat("d#M#y", $row["PLANNED_DATE"]);
-    $started_date = $date->format('d/m/Y');
+    $date         = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLANNED_DATE"]);
+    $started_date = $date->format('d/m/Y h:i');
 
-    $date          = DateTime::createFromFormat("d#M#y", $row["COMPLETE_DATE"]);
-    $complete_date = $date->format('d/m/Y');
+    $date          = DateTime::createFromFormat("d#M#y H#i#s*A", $row["COMPLETE_DATE"]);
+    $complete_date = $date->format('d/m/Y h:i');
 
-    $sql  = 'SELECT SYSDATE AS NOW FROM DUAL';
+    $sql  = 'select CURRENT_TIMESTAMP AS NOW from dual';
     $stmt = oci_parse($conn, $sql);
     $r    = oci_execute($stmt);
     $row  = oci_fetch_assoc($stmt);

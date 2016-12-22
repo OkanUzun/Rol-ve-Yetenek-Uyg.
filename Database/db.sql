@@ -1961,8 +1961,8 @@ planned_dte IN VARCHAR,complete_dte IN VARCHAR,edctr_id IN INTEGER,lounge_id IN 
 AS
 BEGIN
     INSERT INTO T_EDUCATION(EDUCATION_SUBJECT,EDUCATION_CONTENT,PLANNED_DATE,COMPLETE_DATE,EDUCATOR_FK,LOUNGE_FK) 
-        VALUES(edu_subject,edu_content,TO_DATE(planned_dte,'DD-MM-YYYY HH:MI'),
-            TO_DATE(complete_dte,'DD-MM-YYYY HH:MI'),edctr_id,lounge_id);
+        VALUES(edu_subject,edu_content,TO_DATE(planned_dte,'DD-MM-YYYY HH24:MI'),
+            TO_DATE(complete_dte,'DD-MM-YYYY HH24:MI'),edctr_id,lounge_id);
           
     is_valid := '1';          
 END;

@@ -1,8 +1,8 @@
-<?php 
-  include "header.php"; 
+<?php
+  include "header.php";
   include "dbsettings.php";
 
-  if (isset($_POST["create-course"])){
+  if (isset($_POST["create-course"])) {
     $sql  = 'BEGIN SP_CREATE_EDUCATION(:edu_subject,:edu_content,:planned_dte,:complete_dte,:edctr_id,:lounge_id,:is_valid); END;';
     $stmt = oci_parse($conn, $sql);
 
@@ -15,8 +15,8 @@
     oci_bind_by_name($stmt, ':is_valid', $message);
 
     $edu_subject   = $_POST["course_name"];
-    $edu_content = $_POST["course_detail"];
-    $planned_date   = $_POST["starting_date"];
+    $edu_content   = $_POST["course_detail"];
+    $planned_date  = $_POST["starting_date"];
     $complete_date = $_POST["complete_date"];
     $educator_id   = $_POST["educator_id"];
     $lounge_id   = $_POST["lounge_id"];
@@ -49,20 +49,20 @@
                 </div>
                 <div class="col-lg-6 col-xl-3">
                   <div class="form-group">
-                  <?php
-                    $sql  = 'SELECT T_EDUCATOR.PK,T_EDUCATOR.EDUCATOR_NAME,T_EDUCATOR.IS_INHOUSE,T_ROLE.ROLE_NAME
+                    <?php
+                      $sql  = 'SELECT T_EDUCATOR.PK,T_EDUCATOR.EDUCATOR_NAME,T_EDUCATOR.IS_INHOUSE,T_ROLE.ROLE_NAME
                     FROM T_EDUCATOR
                     LEFT JOIN T_USER ON T_USER.PK = T_EDUCATOR.USER_FK
                     LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
                     ORDER BY IS_INHOUSE DESC,EDUCATOR_NAME';
-                    $stmt = oci_parse($conn, $sql);
-                    $r    = oci_execute($stmt);
-                    echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
-                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                      echo '<option value ="'.$row["PK"].'">'.$row["EDUCATOR_NAME"].' | '.($row["IS_INHOUSE"]==1?"Şirket İçi":"Şirket Dışı").' | '.$row["ROLE_NAME"].'</option>';
-                    }
-                    echo '</select>';
-                  ?>
+                      $stmt = oci_parse($conn, $sql);
+                      $r    = oci_execute($stmt);
+                      echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
+                      while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                        echo '<option value ="'.$row["PK"].'">'.$row["EDUCATOR_NAME"].' | '.($row["IS_INHOUSE"] == 1 ? "Şirket İçi" : "Şirket Dışı").' | '.$row["ROLE_NAME"].'</option>';
+                      }
+                      echo '</select>';
+                    ?>
                   </div>
                 </div>
                 <div class="col-lg-6 col-xl-2">
@@ -81,12 +81,12 @@
                 </div>
                 <div class="col-lg-6 col-xl-2">
                   <div class="form-group">
-                    <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Başlangıç Tarihi" name="starting_date">
+                    <input type="text" class="form-control datetimepicker" placeholder="Başlangıç Zamanı" name="starting_date">
                   </div>
                 </div>
                 <div class="col-lg-6 col-xl-2">
                   <div class="form-group">
-                    <input type="text" data-provide="datepicker" class="form-control datepicker" placeholder="Bitiş Tarihi" name="complete_date">
+                    <input type="text" class="form-control datetimepicker" placeholder="Bitiş Zamanı" name="complete_date">
                   </div>
                 </div>
                 <div class="col-md-12">
