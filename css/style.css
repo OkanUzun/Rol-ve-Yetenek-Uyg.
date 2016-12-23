@@ -755,7 +755,7 @@ textarea {
   align-content: center;
 }
 .wrapper .page-content .card .card-block .table tbody tr .select-level .btn-success {
-  margin-left: 10px;
+  margin: 0 10px;
   line-height: 24px;
 }
 .wrapper .page-content .card .card-block .pagination li a {

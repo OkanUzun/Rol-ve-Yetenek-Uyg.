@@ -72,14 +72,9 @@
 </head>
 <body width="100%" style="margin: 0; mso-line-height-rule: exactly;">
 <div style="width: 100%;">
-
-  <!-- Visually Hidden Preheader Text : BEGIN -->
   <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
     Selam <?php echo $f_name ?>, Roleaby uygulamamızda adına açılmış olan hesap için...
   </div>
-  <!-- Visually Hidden Preheader Text : END -->
-
-  <!-- Email Header : BEGIN -->
   <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="background-color: #F3F5F7;" class="email-container">
     <tr>
       <td style="padding: 20px 0; text-align: center; color: #9C9B9D; font-size: 20px;">
@@ -87,27 +82,30 @@
       </td>
     </tr>
   </table>
-  <!-- Email Header : END -->
-
-  <!-- Email Body : BEGIN -->
   <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin: auto;" class="email-container">
-    <!-- 1 Column Text : BEGIN -->
     <tr>
       <td bgcolor="#ffffff" style="padding: 40px 40px 20px; font-size: 15px; line-height: 20px; color: #555555;">
-        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="left">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="left" style="width: 100%;">
           <tr>
             <td style="font-weight: 700;">Selam <?php echo $f_name ?>,</td>
           </tr>
           <tr>
-            <td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin.</td>
+            <!-- ŞİFRE MESAJI -->
+            <!--<td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin.</td>-->
+
+            <!-- EĞİTİM MESAJI -->
+            <td style="color: #9C9B9D; padding: 20px 0;">Kaydının yapılmış olduğu yeni eğitimin için tebrik ederiz! Aşağıda eğitim bilgilerini bulabilirsin.</td>
           </tr>
         </table>
         <br><br>
+
+        <!-- ŞİFRE İÇİN BU TABLO -->
+        <!--
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
           <tr>
             <td style="padding-right: 10px;">Kullanıcı Adı:</td>
             <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              <?php echo $user_id ?>
+              <?php /*echo $user_id*/ ?>
             </td>
           </tr>
           <tr>
@@ -116,15 +114,42 @@
           <tr>
             <td style="padding-right: 10px;">Şifre:</td>
             <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              <?php echo $r_pw ?>
+              <?php /*echo $r_pw*/ ?>
+            </td>
+          </tr>
+        </table>-->
+
+
+        <!-- EĞİTİM İÇİN BU TABLO -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+          <tr>
+            <td style="padding-right: 10px;">Eğitim Adı:</td>
+            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+              Java Eğitimi
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 0;"></td>
+          </tr>
+          <tr>
+            <td style="padding-right: 10px;">Eğitimci:</td>
+            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+              Okan Uzun
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 0;"></td>
+          </tr>
+          <tr>
+            <td style="padding-right: 10px;">Eğitim Salonu:</td>
+            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+              Salon A
             </td>
           </tr>
         </table>
+
       </td>
     </tr>
-    <!-- 1 Column Text : BEGIN -->
-
-    <!-- 2 Even Columns : BEGIN -->
     <tr>
       <td bgcolor="#ffffff" style="padding: 0 40px 40px; font-size: 15px; line-height: 20px;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
@@ -142,9 +167,7 @@
         </table>
       </td>
     </tr>
-    <!-- 2 Even Columns : END -->
   </table>
-  <!-- Email Body : END -->
 </div>
 </body>
 </html>

@@ -19,7 +19,7 @@
     $planned_date  = $_POST["starting_date"];
     $complete_date = $_POST["complete_date"];
     $educator_id   = $_POST["educator_id"];
-    $lounge_id   = $_POST["lounge_id"];
+    $lounge_id     = $_POST["lounge_id"];
 
     oci_execute($stmt);
     //echo "$message\n";    
@@ -67,16 +67,16 @@
                 </div>
                 <div class="col-lg-6 col-xl-2">
                   <div class="form-group">
-                  <?php
-                    $sql  = 'SELECT PK,LOUNGE_NAME FROM T_LOUNGE ORDER BY LOUNGE_NAME';
-                    $stmt = oci_parse($conn, $sql);
-                    $r    = oci_execute($stmt);
-                    echo '<select name="lounge_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Salon Seçiniz">';
-                    while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                      echo '<option value ="'.$row["PK"].'">'.$row["LOUNGE_NAME"].'</option>';
-                    }
-                    echo '</select>';
-                  ?>
+                    <?php
+                      $sql  = 'SELECT PK,LOUNGE_NAME FROM T_LOUNGE ORDER BY LOUNGE_NAME';
+                      $stmt = oci_parse($conn, $sql);
+                      $r    = oci_execute($stmt);
+                      echo '<select name="lounge_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Salon Seçiniz">';
+                      while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                        echo '<option value ="'.$row["PK"].'">'.$row["LOUNGE_NAME"].'</option>';
+                      }
+                      echo '</select>';
+                    ?>
                   </div>
                 </div>
                 <div class="col-lg-6 col-xl-2">

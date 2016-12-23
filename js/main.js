@@ -525,7 +525,7 @@ $(window).resize(function () {
   }
 });
 
-
+/*
 function changeSide() {
   // Deleting
   $("#topic .table-specific .btn-danger").on("click", function (event) {
@@ -611,3 +611,4 @@ function changeSide() {
   });
 }
 changeSide();
+*/

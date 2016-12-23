@@ -1,6 +1,4 @@
-<?php 
-  include "header.php"; 
-?>
+<?php include "header.php"; ?>
 
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
@@ -18,6 +16,7 @@
                 <tr>
                   <th>Eğitim Adı</th>
                   <th>Eğitmen</th>
+                  <th>Eğitim Salonu</th>
                   <th>Başlangıç Tarihi</th>
                   <th>Bitiş Tarihi</th>
                   <th>Durum</th>
@@ -33,13 +32,14 @@
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLND_DTE"]);
-                    $started_date = $date->format('d/m/Y - H:i');
-                    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CMPLT_DTE"]);
+                    $date          = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLND_DTE"]);
+                    $started_date  = $date->format('d/m/Y - H:i');
+                    $date          = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CMPLT_DTE"]);
                     $complete_date = $date->format('d/m/Y - H:i');
                     echo '<tr>';
                     echo '<td>'.$row['SUBJECT'].'</td>';
                     echo '<td>'.$row['EDCTR_NAME'].'</td>';
+                    echo '<td>Salon A</td>';
                     echo '<td>'.$started_date.'</td>';
                     echo '<td>'.$complete_date.'</td>';
                     echo '<td>'.$row['CRR_STT'].'</td>';
@@ -50,7 +50,7 @@
                        ';
                     echo '</tr>';
                   }
-              ?>
+                ?>
                 </tbody>
               </table>
             </form>

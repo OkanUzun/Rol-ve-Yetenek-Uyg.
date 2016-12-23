@@ -133,9 +133,9 @@
                     <?php
                       include "dbsettings.php";
                       $sql = 'SELECT T_DEPARTMENT.PK, INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,COUNT(T_USER.PK) AS X
-                    FROM T_DEPARTMENT
-                    LEFT JOIN T_USER ON T_USER.DEPARTMENT_FK = T_DEPARTMENT.PK
-                    GROUP BY T_DEPARTMENT.PK,T_DEPARTMENT.DEPARTMENT_NAME';
+                      FROM T_DEPARTMENT
+                      LEFT JOIN T_USER ON T_USER.DEPARTMENT_FK = T_DEPARTMENT.PK
+                      GROUP BY T_DEPARTMENT.PK,T_DEPARTMENT.DEPARTMENT_NAME';
 
                       $stmt            = oci_parse($conn, $sql);
                       $r               = oci_execute($stmt);
@@ -222,10 +222,10 @@
 
                       include "dbsettings.php";
                       $sql = 'SELECT T_ROLE.PK,T_ROLE.ROLE_NAME AS RLE_NAME,COUNT(T_USER.PK) AS X
-                    FROM T_ROLE
-                    LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
-                    GROUP BY T_ROLE.PK,T_ROLE.ROLE_NAME
-                    ORDER BY T_ROLE.ROLE_NAME';
+                      FROM T_ROLE
+                      LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
+                      GROUP BY T_ROLE.PK,T_ROLE.ROLE_NAME
+                      ORDER BY T_ROLE.ROLE_NAME';
 
                       $stmt            = oci_parse($conn, $sql);
                       $r               = oci_execute($stmt);
@@ -235,7 +235,7 @@
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                         array_push($array_role, $row["RLE_NAME"]);
                         array_push($array_usr_count, $row["X"]);
-                        array_push($array_dyn_color,"dynamicColors()");
+                        array_push($array_dyn_color, "dynamicColors()");
                       }
                     ?>
                     <div class="chart-block">
@@ -279,22 +279,21 @@
                   <div class="col-xs-12">
                     <div class="card-title">Yetenekler</div>
                     <?php
-                    include "dbsettings.php";
-                    $sql = '
-                    SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME,COUNT(T_USER_ABILITY_REL.USER_FK) AS X FROM T_ABILITY
-                    LEFT JOIN T_USER_ABILITY_REL ON T_ABILITY.PK = T_USER_ABILITY_REL.ABILITY_FK
-                    GROUP BY T_ABILITY.PK,T_ABILITY.ABILITY_NAME
-                    ';
+                      include "dbsettings.php";
+                      $sql = '
+                      SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME,COUNT(T_USER_ABILITY_REL.USER_FK) AS X FROM T_ABILITY
+                      LEFT JOIN T_USER_ABILITY_REL ON T_ABILITY.PK = T_USER_ABILITY_REL.ABILITY_FK
+                      GROUP BY T_ABILITY.PK,T_ABILITY.ABILITY_NAME';
 
                       $stmt            = oci_parse($conn, $sql);
                       $r               = oci_execute($stmt);
-                      $array_ably     = array();
+                      $array_ably      = array();
                       $array_usr_count = array();
                       $array_dyn_color = array();
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                         array_push($array_ably, $row["ABLY_NAME"]);
                         array_push($array_usr_count, $row["X"]);
-                        array_push($array_dyn_color,"dynamicColors()");
+                        array_push($array_dyn_color, "dynamicColors()");
                       }
                     ?>
                     <div class="chart-block">
@@ -314,7 +313,7 @@
                                   <?php echo implode(",", $array_usr_count);?>
                                 ],
                                 backgroundColor: [
-                                  <?php echo implode(",", $array_dyn_color);?>  
+                                  <?php echo implode(",", $array_dyn_color);?>
                                 ]
                               }]
                           },

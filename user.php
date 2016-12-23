@@ -56,4 +56,4 @@
     </div>
   </div>
 
-<?php include 'footer.php' ?>S
+<?php include 'footer.php' ?>

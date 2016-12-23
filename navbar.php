@@ -5,7 +5,7 @@
         <button class="sidebar-toggle" type="button"><i class="mdi mdi-menu"></i></button>
         <div class="dropdown">
           <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <?php echo $_SESSION["username"];?>
+            <?php echo $_SESSION["username"]; ?>
             <i class="mdi mdi-arrow-down-drop-circle-outline"></i>
           </button>
           <div class="dropdown-menu">

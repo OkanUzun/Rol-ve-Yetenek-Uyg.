@@ -11,15 +11,15 @@
     T_ROLE.MODIFIED_TIME AS MD_TIME 
     FROM T_ROLE WHERE T_ROLE.PK = '.$role_id.'';
     $stmt = oci_parse($conn, $sql);
-    $r = oci_execute($stmt);
-    $row = oci_fetch_assoc($stmt);
+    $r    = oci_execute($stmt);
+    $row  = oci_fetch_assoc($stmt);
 
     $role_name = $row["RLE_NAME"];
 
-    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CR_TIME"]);
+    $date    = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CR_TIME"]);
     $cr_time = $date->format('d/m/y H:i:s');
 
-    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["MD_TIME"]);
+    $date    = DateTime::createFromFormat("d#M#y H#i#s*A", $row["MD_TIME"]);
     $md_time = $date->format('d/m/y H:i:s');
   }
 ?>
@@ -48,7 +48,6 @@
                       <span class="tag tag-default float-xs-right">Birim / Departman</span>
                       Kayıtlı Kullanıcılar
                     </li>
-
                     <?php
                       $sql  = '
                       SELECT T_USER.PK,INITCAP(T_USER.FIRST_NAME) AS F_NAME,UPPER(T_USER.LAST_NAME) AS L_NAME,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME

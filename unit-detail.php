@@ -4,7 +4,7 @@
 
   if (isset($_GET["unit_id"])) {
     $unit_id = $_GET["unit_id"];
-    $sql = '
+    $sql     = '
     SELECT INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,
     INITCAP(T_USER.FIRST_NAME) AS F_NAME,
     UPPER(T_USER.LAST_NAME) AS L_NAME,
@@ -14,17 +14,18 @@
     LEFT JOIN T_USER 
     ON  T_UNIT.MANAGER_ID = T_USER.PK
     WHERE T_UNIT.PK = '.$unit_id.'';
+
     $stmt = oci_parse($conn, $sql);
-    $r = oci_execute($stmt);
-    $row = oci_fetch_assoc($stmt);
+    $r    = oci_execute($stmt);
+    $row  = oci_fetch_assoc($stmt);
 
     $unit_name = $row["UNT_NAME"];
-    $f_name = $row["F_NAME"];
-    $l_name = $row["L_NAME"];
-    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CR_TIME"]);
-    $cr_time = $date->format('d/m/y H:i:s');
+    $f_name    = $row["F_NAME"];
+    $l_name    = $row["L_NAME"];
+    $date      = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CR_TIME"]);
+    $cr_time   = $date->format('d/m/y H:i:s');
 
-    $date = DateTime::createFromFormat("d#M#y H#i#s*A", $row["MD_TIME"]);
+    $date    = DateTime::createFromFormat("d#M#y H#i#s*A", $row["MD_TIME"]);
     $md_time = $date->format('d/m/y H:i:s');
   }
 ?>
@@ -70,8 +71,7 @@
                             <span class="tag tag-default tag-pill float-xs-right">'.$row["ROLE_NAME"].'</span>
                             <input type="hidden" name="unit_id" id="unit_id" value="'.$row['PK'].'">
                             <a href="user-detail.php?user_id='.$row['PK'].'" rel="tooltip" title="Detay">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</a>
-                          </li>
-                        ';
+                          </li>';
                       }
                     ?>
                   </ul>

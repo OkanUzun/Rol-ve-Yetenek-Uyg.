@@ -1,4 +1,4 @@
-<?php 
+<?php
   session_start();
 ?>
 <!DOCTYPE html>
@@ -36,6 +36,7 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.min.css">
 
+  <script src="js/jquery.min.js"></script>
   <script src="js/chart.bundle.min.js"></script>
 </head>
 <body>

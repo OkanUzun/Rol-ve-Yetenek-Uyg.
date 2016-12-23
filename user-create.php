@@ -44,16 +44,16 @@
     $phone_number  = $_POST["phone_number"];
     $address       = $_POST["address"];
 
-    if (isset($_POST["role_id"])){
+    if (isset($_POST["role_id"])) {
       $role_id = $_POST["role_id"];
     }
-    if (isset($_POST["unit_id"])){
+    if (isset($_POST["unit_id"])) {
       $unit_id = $_POST["unit_id"];
     }
-    if(isset($_POST["dep_id"])){
+    if (isset($_POST["dep_id"])) {
       $dep_id = $_POST["dep_id"];
     }
-    
+
     oci_execute($stmt);
     if ($message == 1) {
       require 'mail-config.php';

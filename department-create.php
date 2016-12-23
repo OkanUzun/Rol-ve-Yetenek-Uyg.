@@ -26,9 +26,9 @@
     oci_bind_by_name($stmt, ':mngr_id', $manager_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
-    $dep_name = $_POST["dep_name"];
+    $dep_name   = $_POST["dep_name"];
     $manager_id = $_POST["manager_id"];
-    $dep_id   = $_POST["dep_id"];
+    $dep_id     = $_POST["dep_id"];
 
     oci_execute($stmt);
 

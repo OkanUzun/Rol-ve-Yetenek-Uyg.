@@ -107,13 +107,11 @@
         </div>
         <form method="post">
           <div class="modal-body">
-
             <div class="form-group">
               <label for="updateName" class="form-control-label">Yetenek Adı:</label>
               <input type="text" class="form-control" id="updateName" name="ability_name">
               <input type="hidden" name="ability_id" id="ability_id">
             </div>
-
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
@@ -139,10 +137,8 @@
             <input type="hidden" name="ability_id" id="ability_id">
           </div>
           <div class="modal-footer">
-
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
             <button type="submit" class="btn btn-danger" name="delete-ability">Sil</button>
-
           </div>
         </form>
       </div>
