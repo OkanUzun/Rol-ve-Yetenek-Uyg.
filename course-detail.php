@@ -60,61 +60,125 @@
     }
   }
 
-  if (isset($_POST["insert-education-ability"])){
+  if (isset($_POST["insert-education-ability"])) {
 
-    $sql     = 'BEGIN SP_ASSIGN_ABILITY_TO_EDUCATION(:edu_id,:ablyt_id,:is_valid); END;';
-    $stmt    = oci_parse($conn, $sql);
-
-    oci_bind_by_name($stmt, ':edu_id', $course_id);
-    oci_bind_by_name($stmt, ':ablyt_id', $ability_id);
-    oci_bind_by_name($stmt, ':is_valid', $message);
-
-    $course_id = $_GET["course_id"];
-    $ability_id = $_POST["ability_id"];
-
-    oci_execute($stmt);
-  }
-  else if(isset($_POST["delete-education-ability"])){
-
-    $sql     = 'BEGIN SP_DELETE_ABILITY_FROM_EDU(:edu_id,:ablyt_id,:is_valid); END;';
-    $stmt    = oci_parse($conn, $sql);
+    $sql  = 'BEGIN SP_ASSIGN_ABILITY_TO_EDUCATION(:edu_id,:ablyt_id,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
 
     oci_bind_by_name($stmt, ':edu_id', $course_id);
     oci_bind_by_name($stmt, ':ablyt_id', $ability_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
-    $course_id = $_GET["course_id"];
+    $course_id  = $_GET["course_id"];
     $ability_id = $_POST["ability_id"];
 
     oci_execute($stmt);
-  }
-  else if(isset($_POST["insert-education-user"])){
 
-    $sql     = 'BEGIN SP_ASSIGN_USER_TO_EDUCATION(:edu_id,:usr_id,:is_valid); END;';
-    $stmt    = oci_parse($conn, $sql);
+    echo '
+    <script type="text/javascript">
+      $(document).ready(function() {
+          if (location.hash) {
+              $("a[href=\'" + location.hash + "\']").tab("show");
+          }
+          $(document.body).on("click", "a[data-toggle]", function() {
+              location.hash = this.getAttribute("href");
+          });
+      });
+      $(window).on("popstate", function() {
+          var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
+          $("a[href=\'" + anchor + "\']").tab("show");
+      });
+     </script>';
+  }
+  else if (isset($_POST["delete-education-ability"])) {
+
+    $sql  = 'BEGIN SP_DELETE_ABILITY_FROM_EDU(:edu_id,:ablyt_id,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':edu_id', $course_id);
+    oci_bind_by_name($stmt, ':ablyt_id', $ability_id);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+
+    $course_id  = $_GET["course_id"];
+    $ability_id = $_POST["ability_id"];
+
+    oci_execute($stmt);
+
+    echo '
+    <script type="text/javascript">
+      $(document).ready(function() {
+          if (location.hash) {
+              $("a[href=\'" + location.hash + "\']").tab("show");
+          }
+          $(document.body).on("click", "a[data-toggle]", function() {
+              location.hash = this.getAttribute("href");
+          });
+      });
+      $(window).on("popstate", function() {
+          var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
+          $("a[href=\'" + anchor + "\']").tab("show");
+      });
+     </script>';
+  }
+  else if (isset($_POST["insert-education-user"])) {
+
+    $sql  = 'BEGIN SP_ASSIGN_USER_TO_EDUCATION(:edu_id,:usr_id,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
 
     oci_bind_by_name($stmt, ':edu_id', $course_id);
     oci_bind_by_name($stmt, ':usr_id', $user_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
     $course_id = $_GET["course_id"];
-    $user_id = $_POST["user_id"];
+    $user_id   = $_POST["user_id"];
 
     oci_execute($stmt);
-  }
-  else if(isset($_POST["delete-education-user"])){
 
-    $sql     = 'BEGIN SP_DELETE_USER_FROM_EDUCATION(:edu_id,:usr_id,:is_valid); END;';
-    $stmt    = oci_parse($conn, $sql);
+    echo '
+    <script type="text/javascript">
+      $(document).ready(function() {
+          if (location.hash) {
+              $("a[href=\'" + location.hash + "\']").tab("show");
+          }
+          $(document.body).on("click", "a[data-toggle]", function() {
+              location.hash = this.getAttribute("href");
+          });
+      });
+      $(window).on("popstate", function() {
+          var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
+          $("a[href=\'" + anchor + "\']").tab("show");
+      });
+     </script>';
+  }
+  else if (isset($_POST["delete-education-user"])) {
+
+    $sql  = 'BEGIN SP_DELETE_USER_FROM_EDUCATION(:edu_id,:usr_id,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
 
     oci_bind_by_name($stmt, ':edu_id', $course_id);
     oci_bind_by_name($stmt, ':usr_id', $user_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
     $course_id = $_GET["course_id"];
-    $user_id = $_POST["user_id"];
+    $user_id   = $_POST["user_id"];
 
     oci_execute($stmt);
+
+    echo '
+    <script type="text/javascript">
+      $(document).ready(function() {
+          if (location.hash) {
+              $("a[href=\'" + location.hash + "\']").tab("show");
+          }
+          $(document.body).on("click", "a[data-toggle]", function() {
+              location.hash = this.getAttribute("href");
+          });
+      });
+      $(window).on("popstate", function() {
+          var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
+          $("a[href=\'" + anchor + "\']").tab("show");
+      });
+     </script>';
   }
 ?>
 
@@ -147,7 +211,7 @@
             </li>
           </ul>
           <div class="tab-content">
-            <div class="tab-pane fade in active" id="info">
+            <div class="tab-pane active" id="info">
               <form method="post">
                 <div class="row">
                   <div class="col-xs-12">
@@ -191,14 +255,14 @@
                 </div>
               </form>
             </div>
-            <div class="tab-pane fade" id="topic">              
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="card-title">Eğitim Konuları</div>
-                  </div>
-                  <div class="col-xs-12 col-xl-6">
-                    <div class="table-responsive">
-                      <form method="post">
+            <div class="tab-pane" id="topic">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="card-title">Eğitim Konuları</div>
+                </div>
+                <div class="col-xs-12 col-xl-6">
+                  <div class="table-responsive">
+                    <form method="post" action="course-detail.php?course_id=<?php echo $course_id ?>#topic">
                       <table class="table table-specific">
                         <thead>
                         <tr>
@@ -207,7 +271,7 @@
                         </thead>
                         <tbody>
                         <?php
-                        $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME FROM T_EDUCATION,T_ABILITY,T_EDUCATION_ABILITY_REL
+                          $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME FROM T_EDUCATION,T_ABILITY,T_EDUCATION_ABILITY_REL
                           WHERE T_EDUCATION_ABILITY_REL.ABILITY_FK = T_ABILITY.PK AND T_EDUCATION_ABILITY_REL.EDUCATION_FK = '.$course_id.'
                           ORDER BY ABLY_NAME';
                           $stmt = oci_parse($conn, $sql);
@@ -222,12 +286,12 @@
                         ?>
                         </tbody>
                       </table>
-                      </form>
-                    </div>
+                    </form>
                   </div>
-                  <div class="col-xs-12 col-xl-6">
-                    <div class="table-responsive">
-                      <form method="post">
+                </div>
+                <div class="col-xs-12 col-xl-6">
+                  <div class="table-responsive">
+                    <form method="post" action="course-detail.php?course_id=<?php echo $course_id ?>#topic">
                       <table class="table table-all">
                         <thead>
                         <tr>
@@ -244,9 +308,9 @@
                               ORDER BY ABLY_NAME';
                               $stmt = oci_parse($conn, $sql);
                               $r    = oci_execute($stmt);
-                              echo '<select name="ability_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Yetenek Seçiniz">';
+                              echo '<select name="ability_id" class="form-control selectpicker" data-container="body" data-live-search="true" data-size="5" title="Yetenek Seçiniz">';
                               while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                  echo '<option value ="'.$row["PK"].'">'.$row["ABLY_NAME"].'</option>';
+                                echo '<option value ="'.$row["PK"].'">'.$row["ABLY_NAME"].'</option>';
                               }
                               echo '</select>';
                             ?>
@@ -255,21 +319,25 @@
                         </tr>
                         </tbody>
                       </table>
-                      </form>
-                    </div>
+                    </form>
                   </div>
                 </div>
+              </div>
             </div>
-            <div class="tab-pane fade" id="user">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="card-title">Eğitimdeki Kullanıcılar</div>
-                  </div>
-                  <div class="col-xs-12 col-xl-6">
-                    <div class="table-responsive">
-                      <form method="post">
+            <div class="tab-pane" id="user">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="card-title">Eğitimdeki Kullanıcılar</div>
+                </div>
+                <div class="col-xs-12 col-xl-6">
+                  <div class="table-responsive">
+                    <form method="post" action="course-detail.php?course_id=<?php echo $course_id ?>#user">
                       <table class="table table-specific">
                         <thead>
+                          <th>Eğitimdeki Kullanıcılar</th>
+                          <th>Rol</th>
+                        </thead>
+                        <tbody>
                         <?php
                           $sql  = 'SELECT T_USER.PK AS US_PK,INITCAP(T_USER.FIRST_NAME) AS F_NAME,INITCAP(T_USER.LAST_NAME) AS L_NAME,INITCAP(T_ROLE.ROLE_NAME) AS RLE_NAME FROM T_EDUCATION_USER_REL,T_USER
                           LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
@@ -287,43 +355,43 @@
                         ?>
                         </tbody>
                       </table>
-                      </form>
-                    </div>
+                    </form>
                   </div>
-                  <div class="col-xs-12 col-xl-6">
-                    <div class="table-responsive">
-                      <form method="post">
+                </div>
+                <div class="col-xs-12 col-xl-6">
+                  <div class="table-responsive">
+                    <form method="post" action="course-detail.php?course_id=<?php echo $course_id ?>#user">
                       <table class="table table-all">
                         <thead>
                         <tr>
                           <th>Tüm Kullanıcılar</th>
                         </tr>
                         </thead>
-                        <tbody>                    
-                          <tr>
+                        <tbody>
+                        <tr>
                           <td class="select-level">
-                          <?php
-                          $sql  = 'SELECT T_USER.PK,T_USER.FIRST_NAME AS F_NAME,T_USER.LAST_NAME AS L_NAME,T_ROLE.ROLE_NAME AS RLE_NAME FROM T_USER
+                            <?php
+                              $sql  = 'SELECT T_USER.PK,T_USER.FIRST_NAME AS F_NAME,T_USER.LAST_NAME AS L_NAME,T_ROLE.ROLE_NAME AS RLE_NAME FROM T_USER
                           LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
                           WHERE T_USER.PK NOT IN (SELECT USER_FK FROM T_EDUCATION_USER_REL WHERE T_EDUCATION_USER_REL.EDUCATION_FK = '.$course_id.') ORDER BY F_NAME,L_NAME';
-                          $stmt = oci_parse($conn, $sql);
-                          $r    = oci_execute($stmt);
-                          echo '<select name="user_id" class="form-control selectpicker" data-container="body" data-live-search="true" data-size="5" title="Katılımcı Seçiniz">';
-                          while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                            echo '<option value="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].' | '.$row["RLE_NAME"].'
-                            </option>';             
-                          }
-                          echo '</select>';
-                          ?>
-                          <button type="submit" name="insert-education-user" class="btn btn-success">Ekle</button>
+                              $stmt = oci_parse($conn, $sql);
+                              $r    = oci_execute($stmt);
+                              echo '<select name="user_id" class="form-control selectpicker" data-container="body" data-live-search="true" data-size="5" title="Katılımcı Seçiniz">';
+                              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                                echo '<option value="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].' | '.$row["RLE_NAME"].'
+                            </option>';
+                              }
+                              echo '</select>';
+                            ?>
+                            <button type="submit" name="insert-education-user" class="btn btn-success">Ekle</button>
                           </td>
-                          </tr>
+                        </tr>
                         </tbody>
                       </table>
-                      </form>
-                    </div>
+                    </form>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>
