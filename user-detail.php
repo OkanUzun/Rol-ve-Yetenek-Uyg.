@@ -2,6 +2,8 @@
   include "header.php";
   include "dbsettings.php";
 
+  $user_id = null;
+
   if (isset($_GET["user_id"])) {
     $user_id = $_GET["user_id"];
     $sql     = '
@@ -31,32 +33,51 @@
     //
   }
 
-  else if (isset($_POST['update-abilities'])) {
+  if (isset($_POST["insert-user-ability"])) {
 
-    echo "ahmet";
-    $user_id = $_GET["user_id"];
-    $sql     = 'BEGIN SP_ASSIGN_ABILITIES_TO_USER(:usr_id,:ablty_ids,:level_ids,:is_valid); END;';
+    $sql     = 'BEGIN SP_ASSIGN_ABILITY_TO_USER(:usr_id,:ablyt_id,:lvl_id,:is_valid); END;';
     $stmt    = oci_parse($conn, $sql);
 
-
     oci_bind_by_name($stmt, ':usr_id', $user_id);
-    oci_bind_by_name($stmt, ':ablty_ids', $ability_ids);
-    oci_bind_by_name($stmt, ':level_ids', $level_ids);
+    oci_bind_by_name($stmt, ':ablyt_id', $ability_id);
+    oci_bind_by_name($stmt, ':lvl_id', $level_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
-    $contents = $_POST['contents'];
-
-    $ability_ids = array();
-    $level_ids   = array();
-
-    for ($i = 0; $i < sizeof($contents); $i++) {
-      array_push($ability_ids, $contents[ $i ][0]);
-      array_push($level_ids, $contents[ $i ][1]);
-    }
+    $user_id = $_GET["user_id"];
+    $ability_id = $_POST["ability_id"];
+    $level_id = $_POST["level_id"];
 
     oci_execute($stmt);
-    echo "$message\n";
   }
+  else if (isset($_POST["update-user-ability"])) {
+
+    $sql     = 'BEGIN SP_UPDATE_ABILITY_ON_USER(:usr_id,:ablyt_id,:lvl_id,:is_valid); END;';
+    $stmt    = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':usr_id', $user_id);
+    oci_bind_by_name($stmt, ':ablyt_id', $ability_id);
+    oci_bind_by_name($stmt, ':lvl_id', $level_id);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+
+    $user_id = $_GET["user_id"];
+    $ability_id = $_POST["ability_id"];
+    $level_id = $_POST["level_id"];
+
+    oci_execute($stmt);
+  }
+  else if (isset($_POST["delete-user-ability"])) {
+    $sql     = 'BEGIN SP_DELETE_ABILITY_FROM_USER(:usr_id,:ablyt_id,:is_valid); END;';
+    $stmt    = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':usr_id', $user_id);
+    oci_bind_by_name($stmt, ':ablyt_id', $ability_id);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+
+    $user_id = $_GET["user_id"];
+    $ability_id = $_POST["ability_id"];
+
+    oci_execute($stmt);
+  }    
 ?>
 
   <div class="wrapper">
@@ -185,13 +206,13 @@
                 </form>
               </div>
               <div class="tab-pane fade" id="skill">
-                <form method="post">
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="card-title">Yetenekler</div>
                     </div>
                     <div class="col-xs-12 col-xl-6">
                       <div class="table-responsive">
+                        <form method="post">
                         <table class="table table-specific">
                           <thead>
                           <tr>
@@ -200,126 +221,89 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr>
-                            <td>Java</td>
-                            <td class="select-level">
-                              <select class="form-control selectpicker" data-container="body">
-                                <option value="Çok Kötü">Çok Kötü</option>
-                                <option value="Kötü">Kötü</option>
-                                <option value="Orta">Orta</option>
-                                <option value="İyi">İyi</option>
-                                <option value="Çok İyi">Çok İyi</option>
-                              </select>
-                              <button type="submit" class="btn btn-success">Güncelle</button>
-                              <button type="submit" class="btn btn-danger">Sil</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Php</td>
-                            <td class="select-level">
-                              <select class="form-control selectpicker" data-container="body">
-                                <option value="Çok Kötü">Çok Kötü</option>
-                                <option value="Kötü">Kötü</option>
-                                <option value="Orta">Orta</option>
-                                <option value="İyi">İyi</option>
-                                <option value="Çok İyi">Çok İyi</option>
-                              </select>
-                              <button type="submit" class="btn btn-success">Güncelle</button>
-                              <button type="submit" class="btn btn-danger">Sil</button>
-                            </td>
-                          </tr>
                           <?php
-                            /*$sql  = 'SELECT T_ABILITY.PK AS AB_PK,T_ABILITY.ABILITY_NAME AS AN,T_ABILITY_LEVEL.PK AS LE_PK,T_ABILITY_LEVEL.LEVEL_NAME AS LN
+                            $sql1  = 'SELECT T_ABILITY.PK AS AB_PK,T_ABILITY.ABILITY_NAME AS AN,T_ABILITY_LEVEL.PK AS LE_PK,T_ABILITY_LEVEL.LEVEL_NAME AS LN
                             FROM T_USER_ABILITY_REL,T_ABILITY,T_ABILITY_LEVEL WHERE
                             T_USER_ABILITY_REL.ABILITY_FK = T_ABILITY.PK AND
                             T_USER_ABILITY_REL.ABILITY_LEVEL_FK = T_ABILITY_LEVEL.PK AND
                             T_USER_ABILITY_REL.USER_FK = '.$user_id.'
                             ORDER BY AN';
-                            $stmt = oci_parse($conn, $sql);
-                            $r    = oci_execute($stmt);
-                            $i    = 0;
-                            while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                              echo '<tr>';
-                              echo '<input type="hidden" value="'.$row["AB_PK"].'" name="contents['.$i.'][0]"/>';
-                              echo '<input type="hidden" value="'.$row["LE_PK"].'" name="contents['.$i.'][1]"/>';
-                              echo '<td>'.$row['AN'].'</td>';
-                              echo '<td>'.$row['LN'].'<a href="javascript:void(0)" onclick="changeSide()" class="btn btn-danger float-xs-right">Sil</a></td>';
-                              echo '</tr>';
-                            }*/
-                          ?>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-xl-6">
-                      <div class="table-responsive">
-                        <table class="table table-all">
-                          <thead>
-                          <tr>
-                            <th>Tüm Yetenekler</th>
-                            <th>Seviye</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                            <td>
-                              <select class="form-control selectpicker" data-container="body" data-live-search="true" data-size="5">
-                                <option value="Java">Java</option>
-                                <option value="Php">Php</option>
-                                <option value="Ajax">Ajax</option>
-                                <option value="Android">Android</option>
-                                <option value="Android">Android</option>
-                                <option value="Android">Android</option>
-                                <option value="Android">Android</option>
-                                <option value="Android">Android</option>
-                                <option value="Android">Android</option>
-                                <option value="Android">Android</option>
-                                <option value="Android">Android</option>
-                                <option value="Android">Android</option>
-                                <option value="Android">Android</option>
-                              </select>
-                            </td>
-                            <td class="select-level">
-                              <select class="form-control selectpicker" data-container="body">
-                                <option value="Çok Kötü">Çok Kötü</option>
-                                <option value="Kötü">Kötü</option>
-                                <option value="Orta">Orta</option>
-                                <option value="İyi">İyi</option>
-                                <option value="Çok İyi">Çok İyi</option>
-                              </select>
-                              <button type="submit" class="btn btn-success">Ekle</button>
-                            </td>
-                          </tr>
-                          <?php
-                            /*$sql1  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME FROM T_ABILITY WHERE T_ABILITY.PK
-                            NOT IN (SELECT T_USER_ABILITY_REL.ABILITY_FK FROM T_USER_ABILITY_REL WHERE T_USER_ABILITY_REL.USER_FK = '.$user_id.')
-                            ORDER BY ABILITY_NAME';
                             $stmt1 = oci_parse($conn, $sql1);
                             $r1    = oci_execute($stmt1);
                             while ($row1 = oci_fetch_array($stmt1, OCI_RETURN_NULLS + OCI_ASSOC)) {
                               echo '<tr>';
-                              echo '<td>'.$row1["ABILITY_NAME"].'</td>';
+                              echo '<td>'.$row1["AN"].'</td>';
+                              echo '<input type="hidden" value='.$row1["AB_PK"].' name="ability_id"/>';
                               echo '<td class="select-level">';
                               $sql2  = 'SELECT PK,LEVEL_NAME FROM T_ABILITY_LEVEL ORDER BY LEVEL_ORDER';
                               $stmt2 = oci_parse($conn, $sql2);
                               $r2    = oci_execute($stmt2);
                               echo '<select name="level_id" class="form-control selectpicker" data-container="body">';
                               while ($row2 = oci_fetch_array($stmt2, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                echo '<option value ="'.$row2["PK"].'">'.$row2["LEVEL_NAME"].'</option>';
+                                echo '<option value="'.$row2["PK"].'" '.($row2["PK"]==$row1["LE_PK"]?'selected="selected"':"").'>'.
+                                $row2["LEVEL_NAME"].'</option>';
                               }
                               echo '</select>';
-                              echo '<a href="javascript:void(0)" onclick="changeSide()" class="btn btn-success">Ekle</a>';
+                              echo '<input type="hidden" value='.$row2["PK"].' name="level_id"/>';
+                              echo '<button type="submit" name="update-user-ability" class="btn btn-success">Güncelle</button>';
+                              echo '<button type="submit" name="delete-user-ability" class="btn btn-danger">Sil</button>';
                               echo '</td>';
-
                               echo '</tr>';
-                            }*/
+                            }
                           ?>
                           </tbody>
                         </table>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-xl-6">
+                      <div class="table-responsive">
+                        <form method="post">                      
+                        <table class="table table-all">        
+                          <thead>
+                          <tr>
+                            <th>Tüm Yetenekler</th>
+                            <th>Seviye</th>
+                          </tr>
+                          </thead>
+
+                          <tbody>
+                          <tr>
+                            <td>
+                          <?php
+                            $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME FROM T_ABILITY WHERE T_ABILITY.PK
+                            NOT IN (SELECT T_USER_ABILITY_REL.ABILITY_FK FROM T_USER_ABILITY_REL WHERE T_USER_ABILITY_REL.USER_FK = '.$user_id.')
+                            ORDER BY ABILITY_NAME';
+                            $stmt = oci_parse($conn, $sql);
+                            $r    = oci_execute($stmt);
+                            echo '<select name="ability_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Yetenek Seçiniz">';
+                            while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                                echo '<option value ="'.$row["PK"].'">'.$row["ABILITY_NAME"].'</option>';
+                            }
+                            echo '</select>';
+                          ?>
+                            </td>
+                            <td class="select-level">
+                            <?php
+                              $sql  = 'SELECT PK,LEVEL_NAME FROM T_ABILITY_LEVEL ORDER BY LEVEL_ORDER';
+                              $stmt = oci_parse($conn, $sql);
+                              $r    = oci_execute($stmt);
+                              echo '<select name="level_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Seviye Seçiniz">';
+                              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                                echo '<option value ="'.$row["PK"].'">'.$row["LEVEL_NAME"].'</option>';
+                              }
+                              echo '</select>';
+                            ?>
+                            <button type="submit" name="insert-user-ability" class="btn btn-success">Ekle</button>  
+                            </td>
+                          </tr>
+                          </tbody> 
+                       
+                        </table>
+                        </form>                         
                       </div>
                     </div>
                   </div>
-                </form>
               </div>
               <div class="tab-pane fade" id="course">
                 <div class="table-responsive">
