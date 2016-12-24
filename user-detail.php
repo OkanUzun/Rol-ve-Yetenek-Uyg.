@@ -2,12 +2,47 @@
   include "header.php";
   include "dbsettings.php";
 
-  $user_id = null;
+  $user_id = $_GET["user_id"];
+
+  if (isset($_POST["update-user"])) {
+    $sql  = 'BEGIN SP_UPDATE_USER(:usr_id,:e_mail,:fname,:lname,:dte_of_birth,:phne_num,:addrss,:is_valid,:rle_id,:unt_id,:dep_id,:u_name); END;';
+    $stmt = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':usr_id', $user_id);
+    oci_bind_by_name($stmt, ':e_mail', $_POST["e_mail"]);
+    oci_bind_by_name($stmt, ':fname', $_POST["f_name"]);
+    oci_bind_by_name($stmt, ':lname', $_POST["l_name"]);
+    oci_bind_by_name($stmt, ':dte_of_birth', $_POST["date_of_birth"]);
+    oci_bind_by_name($stmt, ':phne_num', $_POST["phone_number"]);
+    oci_bind_by_name($stmt, ':addrss', $_POST["address"]);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+    oci_bind_by_name($stmt, ':rle_id', $_POST["role_id"]);
+    oci_bind_by_name($stmt, ':unt_id', $_POST["unit_id"]);
+    oci_bind_by_name($stmt, ':dep_id', $_POST["dep_id"]);
+    oci_bind_by_name($stmt, ':u_name', $_POST["u_name"]);
+    
+
+    if (isset($_POST["role_id"])) {
+      $role_id = $_POST["role_id"];
+    }
+    if (isset($_POST["unit_id"])) {
+      $unit_id = $_POST["unit_id"];
+    }
+    if (isset($_POST["dep_id"])) {
+      $dep_id = $_POST["dep_id"];
+    }
+
+    oci_execute($stmt);
+    if ($message == 1) {
+
+    }
+  }
 
   if (isset($_GET["user_id"])) {
-    $user_id = $_GET["user_id"];
+    
     $sql     = '
-    SELECT T_USER.FIRST_NAME,T_USER.LAST_NAME,T_USER.U_ID,T_USER.DATE_OF_BIRTH,T_USER.EMAIL,T_USER.PHONE_NUMBER,T_USER.ADDRESS
+    SELECT T_USER.FIRST_NAME,T_USER.LAST_NAME,T_USER.U_ID,T_USER.DATE_OF_BIRTH,T_USER.EMAIL,T_USER.PHONE_NUMBER,T_USER.ADDRESS,
+    T_USER.ROLE_FK,T_USER.DEPARTMENT_FK,T_USER.UNIT_FK
     FROM T_USER
     WHERE PK = '.$user_id.'';
 
@@ -18,6 +53,9 @@
     $f_name = $row["FIRST_NAME"];
     $l_name = $row["LAST_NAME"];
     $u_id   = $row["U_ID"];
+    $role_id   = $row["ROLE_FK"];
+    $dep_id   = $row["DEPARTMENT_FK"];
+    $unit_id   = $row["UNIT_FK"];
 
     $date          = DateTime::createFromFormat("d#M#y", $row["DATE_OF_BIRTH"]);
     $date_of_birth = $date->format('d-m-Y');
@@ -27,10 +65,6 @@
     $phone   = $row["PHONE_NUMBER"];
     //$cr_time = $row["CREATION_TIME"];
     //$md_time = $row["MODIFIED_TIME"];
-  }
-
-  else if (isset($_POST["update-user"])) {
-    //
   }
 
   if (isset($_POST["insert-user-ability"])) {
@@ -163,13 +197,13 @@
                         <div class="col-xs-12 col-xl-6">
                           <div class="form-group">
                             <?php
-                              $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT ORDER BY DEPARTMENT_NAME';
+                              $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT ORDER BY DEPARTMENT_NAME';
                               $stmt = oci_parse($conn, $sql);
                               $r    = oci_execute($stmt);
                               echo '<select id="userDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">';
                               echo '<option value="Seçiniz">Seçiniz</option>';
                               while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
+                                echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $dep_id ? 'selected="selected"' : "").'>'.$row["DEP_NAME"].'</option>';
                               }
                               echo '</select>';
                             ?>
@@ -178,13 +212,13 @@
                         <div class="col-xs-12 col-xl-6">
                           <div class="form-group">
                             <?php
-                              $sql  = 'SELECT PK,UNIT_NAME FROM T_UNIT ORDER BY UNIT_NAME';
+                              $sql  = 'SELECT PK,INITCAP(UNIT_NAME) AS UNT_NAME FROM T_UNIT ORDER BY UNIT_NAME';
                               $stmt = oci_parse($conn, $sql);
                               $r    = oci_execute($stmt);
                               echo '<select id="userUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">';
                               echo '<option value="Seçiniz">Seçiniz</option>';
                               while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                echo '<option value ="'.$row["PK"].'">'.$row["UNIT_NAME"].'</option>';
+                                echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $unit_id ? 'selected="selected"' : "").'>'.$row["UNT_NAME"].'</option>';
                               }
                               echo '</select>';
                             ?>
@@ -193,12 +227,12 @@
                         <div class="col-xs-12 col-xl-6">
                           <div class="form-group">
                             <?php
-                              $sql  = 'SELECT PK,ROLE_NAME FROM T_ROLE ORDER BY ROLE_NAME';
+                              $sql  = 'SELECT PK,INITCAP(ROLE_NAME) AS RLE_NAME FROM T_ROLE ORDER BY ROLE_NAME';
                               $stmt = oci_parse($conn, $sql);
                               $r    = oci_execute($stmt);
                               echo '<select name="role_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Rol Seçiniz">';
                               while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                echo '<option value ="'.$row["PK"].'">'.$row["ROLE_NAME"].'</option>';
+                                echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $role_id ? 'selected="selected"' : "").'>'.$row["RLE_NAME"].'</option>';
                               }
                               echo '</select>';
                             ?>
@@ -210,22 +244,22 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <input type="text" class="form-control" value="<?php echo $f_name ?>" placeholder="İsim">
+                            <input type="text" class="form-control" name="f_name" value="<?php echo $f_name ?>" placeholder="İsim">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <input type="text" class="form-control" value="<?php echo $l_name ?>" placeholder="Soyisim">
+                            <input type="text" class="form-control" name="l_name" value="<?php echo $l_name ?>" placeholder="Soyisim">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <input type="text" class="form-control" value="<?php echo $u_id ?>" placeholder="Kullanıcı Adı">
+                            <input type="text" class="form-control" name="u_name" value="<?php echo $u_id ?>" placeholder="Kullanıcı Adı">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <input type="text" data-provide="datepicker" class="form-control datepicker" value="<?php echo $date_of_birth ?>" placeholder="Doğum Tarihi">
+                            <input type="text" data-provide="datepicker" name="date_of_birth" class="form-control datepicker" value="<?php echo $date_of_birth ?>" placeholder="Doğum Tarihi">
                           </div>
                         </div>
                       </div>
@@ -234,17 +268,17 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-6">
                           <div class="form-group">
-                            <input type="email" class="form-control" placeholder="E-mail" value="<?php echo $email ?>" name="stepEmail" id="stepEmail">
+                            <input type="email" class="form-control" name="e_mail" placeholder="E-mail" value="<?php echo $email ?>" name="stepEmail" id="stepEmail">
                           </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                           <div class="form-group">
-                            <input type="number" class="form-control" placeholder="Mobil Telefon No" value="<?php echo $phone ?>" name="stepTel" id="stepTel">
+                            <input type="number" class="form-control" name="phone_number" placeholder="Mobil Telefon No" value="<?php echo $phone ?>" name="stepTel" id="stepTel">
                           </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
-                            <textarea rows="5" class="form-control" placeholder="Adres..." name="stepAddress" id="stepAddress"><?php echo $address ?></textarea>
+                            <textarea rows="5" class="form-control" placeholder="Adres..." name="address" id="stepAddress"><?php echo $address ?></textarea>
                           </div>
                         </div>
                       </div>
