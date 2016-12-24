@@ -5,7 +5,7 @@
   if (isset($_GET["course_id"])) {
     $course_id = $_GET["course_id"];
     $sql       = '
-      SELECT T_EDUCATOR.EDUCATOR_NAME,T_EDUCATION.EDUCATION_SUBJECT,T_EDUCATION.EDUCATION_CONTENT,T_EDUCATION.PLANNED_DATE,T_EDUCATION.COMPLETE_DATE
+      SELECT T_EDUCATOR.EDUCATOR_NAME,T_EDUCATION.EDUCATION_SUBJECT,T_EDUCATION.EDUCATION_CONTENT,T_EDUCATION.PLANNED_DATE,T_EDUCATION.COMPLETE_DATE,T_EDUCATION.LOUNGE_FK
       FROM T_EDUCATION,T_EDUCATOR
       WHERE T_EDUCATION.PK = '.$course_id.' AND T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK';
 
@@ -16,6 +16,8 @@
     $educator_name     = $row["EDUCATOR_NAME"];
     $education_subject = $row["EDUCATION_SUBJECT"];
     $education_content = $row["EDUCATION_CONTENT"];
+
+    $lounge_id = $row["LOUNGE_FK"];
 
     $started   = $row["PLANNED_DATE"];
     $completed = $row["COMPLETE_DATE"];
@@ -37,22 +39,11 @@
       $i_class    = "mdi mdi-timer";
     }
 
-    else if ($row["NOW"] == $started) {
-      $text       = "Başladı";
-      $span_class = "on";
-      $i_class    = "mdi mdi-timer-sand";
-    }
-    else if ($row["NOW"] < $completed) {
+    else if ($row["NOW"] > $started) {
       $text       = "Devam Ediyor";
       $span_class = "on";
       $i_class    = "mdi mdi-timer-sand";
     }
-    else if ($row["NOW"] == $completed) {
-      $text       = "Bitmek Üzere";
-      $span_class = "on";
-      $i_class    = "mdi mdi-timer-sand";
-    }
-
     else {
       $text       = "Sona Erdi";
       $span_class = "off";
@@ -191,8 +182,8 @@
         <div class="card-header hidden-xs-down">
           <div class="card-title">Eğitim Detayları</div>
           <div class="card-buttons">
-            <button type="submit" class="btn btn-danger">İptal Et</button>
-            <button type="submit" class="btn btn-danger">Sonlandır</button>
+            <button type="submit" name="cancel-education" class="btn btn-danger">İptal Et</button>
+            <button type="submit" name="terminate-education" class="btn btn-danger">Sonlandır</button>
           </div>
         </div>
         <div class="card-block">
@@ -231,10 +222,17 @@
                   </div>
                   <div class="col-xs-12 col-md-4">
                     <div class="form-group">
-                      <select class="form-control selectpicker" title="Eğitim Salonu">
-                        <option value="Salon A">Salon A</option>
-                        <option value="Salon B">Salon B</option>
-                      </select>
+                            <?php
+                              $sql  = 'SELECT PK,INITCAP(LOUNGE_NAME) AS LNG_NAME FROM T_LOUNGE ORDER BY LNG_NAME';
+                              $stmt = oci_parse($conn, $sql);
+                              $r    = oci_execute($stmt);
+                              echo '<select id="userDepartment" name="lounge_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Salon Seçiniz">';
+                              echo '<option value="Seçiniz">Seçiniz</option>';
+                              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                                echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $lounge_id ? 'selected="selected"' : "").'>'.$row["LNG_NAME"].'</option>';
+                              }
+                              echo '</select>';
+                            ?>
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-6">
