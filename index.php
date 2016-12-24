@@ -75,11 +75,11 @@
           <div class="card-header"><span class="highlight">Roleaby</span> Giriş</div>
           <div class="card-block">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="user_id" value="<?php echo $_COOKIE["username"] ?>">
+              <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="user_id" value="<?php ($_COOKIE["username"]==null?"":$_COOKIE["username"]) ?>">
               <i class="mdi mdi-account"></i>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="********" name="user_pw" value="<?php echo $_COOKIE["password"] ?>">
+              <input type="password" class="form-control" placeholder="********" name="user_pw" value="<?php ($_COOKIE["password"]==null?"":$_COOKIE["password"]) ?>">
               <i class="mdi mdi-key"></i>
             </div>
             <div class="form-group">
