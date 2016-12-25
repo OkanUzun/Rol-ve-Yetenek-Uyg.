@@ -2017,7 +2017,7 @@ AS
 BEGIN
     INSERT INTO T_EDUCATION(EDUCATION_SUBJECT,EDUCATION_CONTENT,PLANNED_DATE,COMPLETE_DATE,EDUCATOR_FK,LOUNGE_FK) 
         VALUES(edu_subject,edu_content,TO_DATE(planned_dte,'DD-MM-YYYY HH24:MI'),
-            TO_DATE(complete_dte,'DD-MM-YYYY HH24:MI'),edctr_id,lounge_id);
+            TO_DATE(complete_dte,'DD/MM/YYYY HH24:MI'),edctr_id,lounge_id);
           
     is_valid := '1';          
 END;
@@ -2129,7 +2129,7 @@ BEGIN
     
     IF number_of_user = 0 AND number_of_email = 0 AND number_of_phone = 0 THEN
         INSERT INTO T_USER(U_ID,U_PW,FIRST_NAME,LAST_NAME,DATE_OF_BIRTH,PHONE_NUMBER,ADDRESS,EMAIL,ROLE_FK,UNIT_FK,DEPARTMENT_FK) 
-            VALUES(usr_id,usr_pw,fname,lname,TO_DATE(dte_of_birth,'dd-mm-yyyy'),phne_num,addrss,e_mail,rle_id,unt_id,dep_id); 
+            VALUES(usr_id,usr_pw,fname,lname,TO_DATE(dte_of_birth,'DD/MM/YYYY'),phne_num,addrss,e_mail,rle_id,unt_id,dep_id); 
         
         is_valid := '1';  
           
@@ -2370,7 +2370,7 @@ BEGIN
        
     IF number_of_email = 0 AND number_of_phone = 0 AND number_of_username = 0 THEN
         UPDATE T_USER SET EMAIL = e_mail, FIRST_NAME = fname, LAST_NAME = lname, DEPARTMENT_FK = dep_id, UNIT_FK = unt_id, 
-        DATE_OF_BIRTH = TO_DATE(dte_of_birth,'mm-dd-yyyy'), PHONE_NUMBER = phne_num, ADDRESS = addrss, ROLE_FK = rle_id, U_ID = u_name                
+        DATE_OF_BIRTH = TO_DATE(dte_of_birth,'DD/MM/YYYY'), PHONE_NUMBER = phne_num, ADDRESS = addrss, ROLE_FK = rle_id, U_ID = u_name                
         WHERE PK = usr_id;
         
         is_valid := '1';      
@@ -2988,7 +2988,7 @@ CREATE SEQUENCE ROLEABY.SEQ_DEPARTMENT_PK
 DROP SEQUENCE ROLEABY.SEQ_EDUCATION_ABILITY_REL_PK;
 
 CREATE SEQUENCE ROLEABY.SEQ_EDUCATION_ABILITY_REL_PK
-  START WITH 21
+  START WITH 61
   MAXVALUE 999999999999999999999999999
   MINVALUE 1
   NOCYCLE
@@ -3094,7 +3094,7 @@ CREATE SEQUENCE ROLEABY.SEQ_UNIT_PK
 DROP SEQUENCE ROLEABY.SEQ_USER_ABILITY_REL_PK;
 
 CREATE SEQUENCE ROLEABY.SEQ_USER_ABILITY_REL_PK
-  START WITH 101
+  START WITH 121
   MAXVALUE 999999999999999999999999999
   MINVALUE 1
   NOCYCLE
