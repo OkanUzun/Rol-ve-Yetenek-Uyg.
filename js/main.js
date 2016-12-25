@@ -50,7 +50,7 @@ var showtoast = new ToastBuilder();
 $(".datepicker").datetimepicker({
   useCurrent: false,
   locale: "tr",
-  format: 'D/M/YYYY',
+  format: 'DD/MM/YYYY',
   showTodayButton: true,
   showClear: true,
   icons: {
@@ -85,7 +85,7 @@ $(".datepicker").datetimepicker({
 $(".datetimepicker, .datetimepicker2").datetimepicker({
   useCurrent: false,
   locale: "tr",
-  format: 'D/M/YYYY - HH:mm',
+  format: 'DD/MM/YYYY - HH:mm',
   showTodayButton: true,
   showClear: true,
   icons: {

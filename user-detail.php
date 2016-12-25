@@ -312,6 +312,7 @@
 
                             $stmt1 = oci_parse($conn, $sql1);
                             $r1    = oci_execute($stmt1);
+                            $i = 0;
                             while ($row1 = oci_fetch_array($stmt1, OCI_RETURN_NULLS + OCI_ASSOC)) {
                               echo '<tr>';
                               echo '<td>'.$row1["AN"].'</td>';
@@ -320,16 +321,17 @@
                               $sql2  = 'SELECT PK,LEVEL_NAME FROM T_ABILITY_LEVEL ORDER BY LEVEL_ORDER';
                               $stmt2 = oci_parse($conn, $sql2);
                               $r2    = oci_execute($stmt2);
-                              echo '<select name="level_id" class="form-control selectpicker" data-container="body">';
+                              echo '<select id='.$i.' name="level_id" class="form-control selectpicker" data-container="body">';
                               while ($row2 = oci_fetch_array($stmt2, OCI_RETURN_NULLS + OCI_ASSOC)) {
                                 echo '<option value="'.$row2["PK"].'" '.($row2["PK"] == $row1["LE_PK"] ? 'selected="selected"' : "").'>'.$row2["LEVEL_NAME"].'</option>';
                               }
                               echo '</select>';
-                              echo '<input type="hidden" value='.$row2["PK"].' name="level_id"/>';
+                              
                               echo '<button type="submit" name="update-user-ability" class="btn btn-success">Güncelle</button>';
                               echo '<button type="submit" name="delete-user-ability" class="btn btn-danger">Sil</button>';
                               echo '</td>';
                               echo '</tr>';
+                              $i++;
                             }
                           ?>
                           </tbody>

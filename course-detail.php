@@ -269,7 +269,7 @@
                         </thead>
                         <tbody>
                         <?php
-                          $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME FROM T_EDUCATION,T_ABILITY,T_EDUCATION_ABILITY_REL
+                          $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME FROM T_ABILITY,T_EDUCATION_ABILITY_REL
                           WHERE T_EDUCATION_ABILITY_REL.ABILITY_FK = T_ABILITY.PK AND T_EDUCATION_ABILITY_REL.EDUCATION_FK = '.$course_id.'
                           ORDER BY ABLY_NAME';
                           $stmt = oci_parse($conn, $sql);
