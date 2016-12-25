@@ -957,7 +957,7 @@ textarea {
   line-height: initial !important;
 }
 .modal {
-  z-index: 20000 !important;
+  z-index: 100 !important;
 }
 .modal .modal-dialog {
   max-width: 400px;
@@ -978,7 +978,7 @@ textarea {
   padding: 8px 16px;
 }
 .modal-backdrop {
-  z-index: 19999 !important;
+  z-index: 99 !important;
 }
 .dataTables_wrapper .dataTables_length label {
   font-size: 14px;
@@ -1009,6 +1009,18 @@ textarea {
 }
 .mCustomScrollbar .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
   background-color: #A0A0A0 !important;
+}
+.toast {
+  padding: 15px 20px;
+  color: #fff;
+  background: rgba(0, 0, 10, 0.7);
+  display: inline-block;
+  position: fixed;
+  top: -300px;
+  right: 15px;
+  opacity: 0;
+  transition: all 0.4s ease-out;
+  z-index: 101;
 }
 /* MAIN CONTENT CSS */
 [type=checkbox]:checked,

@@ -46,7 +46,7 @@
       <?php include "navbar.php"; ?>
       <div class="container-fluid">
         <div class="card">
-          <form method="post">
+          <form method="post" id="validate-profile">
             <div class="card-header">
               <div class="card-title">Profil Bilgileri</div>
               <button type="submit" class="btn btn-success" name="update-information">Kaydet</button>
@@ -60,22 +60,22 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" value="<?php echo $f_name ?>" class="form-control" placeholder="İsim" name="f_name" id="stepName" required>
+                        <input type="text" value="<?php echo $f_name ?>" class="form-control" placeholder="İsim" name="f_name">
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" value="<?php echo $l_name ?>" class="form-control" placeholder="Soyisim" name="l_name" id="stepSurname" required>
+                        <input type="text" value="<?php echo $l_name ?>" class="form-control" placeholder="Soyisim" name="l_name">
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" value="<?php echo $u_id ?>" class="form-control" placeholder="Kullanıcı Adı" name="u_name" id="stepUsername" required>
+                        <input type="text" value="<?php echo $u_id ?>" class="form-control" placeholder="Kullanıcı Adı" name="u_name">
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="text" value="<?php echo $date_of_birth ?>" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" name="date_of_birth" id="stepBirthdate" required>
+                        <input type="text" value="<?php echo $date_of_birth ?>" data-provide="datepicker" class="form-control datepicker" placeholder="Doğum Tarihi" name="date_of_birth">
                       </div>
                     </div>
                   </div>
@@ -87,17 +87,17 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="email" value="<?php echo $email ?>" class="form-control" placeholder="E-mail" name="e_mail" id="stepEmail" required>
+                        <input type="email" value="<?php echo $email ?>" class="form-control" placeholder="E-mail" name="e_mail">
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="number" value="<?php echo $phone ?>" class="form-control" placeholder="Mobil Telefon No" name="phone_num" id="stepTel" required>
+                        <input type="number" value="<?php echo $phone ?>" class="form-control" placeholder="Mobil Telefon No" name="phone_num" minlength="10" maxlength="10">
                       </div>
                     </div>
                     <div class="col-xs-12">
                       <div class="form-group">
-                        <textarea rows="5" class="form-control" placeholder="Adres..." name="address" id="stepAddress"><?php echo $address ?></textarea>
+                        <textarea rows="5" class="form-control" placeholder="Adres..." name="address"><?php echo $address ?></textarea>
                       </div>
                     </div>
                   </div>
@@ -119,7 +119,7 @@
           </button>
           <h4 class="modal-title" id="passwordModalLabel">Şifremi Değiştir</h4>
         </div>
-        <form method="post">
+        <form method="post" id="validate-profileModal">
           <div class="modal-body">
             <div class="form-group">
               <input type="password" class="form-control" name="new_pw" id="new_password" placeholder="Yeni Şifreniz">

@@ -1,100 +1,51 @@
-// ***(Sonra ilgilenilecek)***
-// Form Validation
-/*$('#formValidate').validate({
- debug: true,
- errorPlacement: function (error, element) {
- },
- highlight: function (element) {
- $(element).parent().addClass("has-error").removeClass("has-success");
- },
- unhighlight: function (element) {
- $(element).parent().removeClass("has-error").addClass("has-success");
- },
- rules: {
- role_id: {
- required: true
- },
- f_name: {
- required: true
- },
- l_name: {
- required: true
- },
- u_name: {
- required: true
- },
- date_of_birth: {
- required: true
- },
- e_mail: {
- required: true,
- email: true
- },
- phone_number: {
- required: true
- },
- address: {
- required: true
- },
- dep_name: {
- required: true
- },
- unit_name: {
- required: true
- },
- role_name: {
- required: true
- },
- user_id: {
- required: "#companyIn:checked"
- },
- educator_name: {
- required: "#companyOut:checked"
- },
- ability_name: {
- required: true
- }
- },
- submitHandler: function (form) {
- form.submit();
- }
- });
+// Toast Notification
+function ToastBuilder(options) {
+  // options are optional
+  var opts = options || {};
 
- $('#formValidate2').validate({
- debug: true,
- errorPlacement: function (error, element) {
- },
- highlight: function (element) {
- $(element).parent().addClass("has-error").removeClass("has-success");
- },
- unhighlight: function (element) {
- $(element).parent().removeClass("has-error").addClass("has-success");
- },
- rules: {
- dep_id: {
- required: true
- }
- },
- submitHandler: function (form) {
- form.submit();
- }
- });
+  // setup some defaults
+  opts.defaultText = opts.defaultText || 'default text';
+  opts.displayTime = opts.displayTime || 3000;
+  opts.target = opts.target || 'body';
 
- $('#formValidate select').on('change', function (e) {
- $('#formValidate').validate().element($(this));
- });*/
-// ***(Sonra ilgilenilecek)***
+  return function (text) {
+    $('<div/>')
+    .addClass('toast')
+    .prependTo($(opts.target))
+    .text(text || opts.defaultText)
+    .queue(function(next) {
+      $(this).css({
+        'opacity': 1
+      });
+      var topOffset = 15;
+      $('.toast').each(function() {
+        var $this = $(this);
+        var height = $this.outerHeight();
+        var offset = 15;
+        $this.css('top', topOffset + 'px');
 
-/*// Datepicker
- window.onload = function () {
- $('.datepicker').datepicker({
- format: 'dd/mm/yyyy',
- clearBtn: true,
- language: 'tr',
- todayHighlight: true,
- autoclose: true
- });
- };*/
+        topOffset += height + offset;
+      });
+      next();
+    })
+    .delay(opts.displayTime)
+    .queue(function(next) {
+      var $this = $(this);
+      var width = $this.outerWidth() + 20;
+      $this.css({
+        'right': '-' + width + 'px',
+        'opacity': 0
+      });
+      next();
+    })
+    .delay(600)
+    .queue(function(next) {
+      $(this).remove();
+      next();
+    });
+  };
+}
+var showtoast = new ToastBuilder();
 
 $(".datepicker").datetimepicker({
   useCurrent: false,
@@ -526,89 +477,89 @@ $(window).resize(function () {
 });
 
 /*
-function changeSide() {
-  // Deleting
-  $("#topic .table-specific .btn-danger").on("click", function (event) {
-    event.stopImmediatePropagation();
-    $("#topic .card-title button").removeAttr("disabled");
+ function changeSide() {
+ // Deleting
+ $("#topic .table-specific .btn-danger").on("click", function (event) {
+ event.stopImmediatePropagation();
+ $("#topic .card-title button").removeAttr("disabled");
 
-    var text = $(this).parent().parent().children().first().text();
-    text = text.replace("Sil", "");
-    $(this).parent().parent().remove();
+ var text = $(this).parent().parent().children().first().text();
+ text = text.replace("Sil", "");
+ $(this).parent().parent().remove();
 
-    $("#topic .table-all .selectpicker").prepend("<option value='" + text + "'>" + text + "</option>");
-    $(".selectpicker").selectpicker("refresh");
+ $("#topic .table-all .selectpicker").prepend("<option value='" + text + "'>" + text + "</option>");
+ $(".selectpicker").selectpicker("refresh");
 
-    changeSide();
-  });
-  $("#user .table-specific .btn-danger").on("click", function (event) {
-    event.stopImmediatePropagation();
-    $("#user .card-title button").removeAttr("disabled");
+ changeSide();
+ });
+ $("#user .table-specific .btn-danger").on("click", function (event) {
+ event.stopImmediatePropagation();
+ $("#user .card-title button").removeAttr("disabled");
 
-    var text = $(this).parent().text();
-    text = text.replace("Sil", "");
-    $(this).parent().parent().remove();
+ var text = $(this).parent().text();
+ text = text.replace("Sil", "");
+ $(this).parent().parent().remove();
 
-    $("#user .table-all .selectpicker").prepend("<option value='" + text + "'>" + text + "</option>");
-    $(".selectpicker").selectpicker("refresh");
+ $("#user .table-all .selectpicker").prepend("<option value='" + text + "'>" + text + "</option>");
+ $(".selectpicker").selectpicker("refresh");
 
-    changeSide();
-  });
-  $("#skill .table-specific .btn-danger").on("click", function (event) {
-    event.stopImmediatePropagation();
-    $("#skill .card-title button").removeAttr("disabled");
+ changeSide();
+ });
+ $("#skill .table-specific .btn-danger").on("click", function (event) {
+ event.stopImmediatePropagation();
+ $("#skill .card-title button").removeAttr("disabled");
 
-    var selectedSkill = $(this).parent().parent().children().first().text();
-    $(this).parent().parent().remove();
+ var selectedSkill = $(this).parent().parent().children().first().text();
+ $(this).parent().parent().remove();
 
-    $("#skill .table-all tbody tr td:first-child .selectpicker").prepend("<option value='" + selectedSkill + "'>" + selectedSkill + "</option>");
-    $(".selectpicker").selectpicker("refresh");
+ $("#skill .table-all tbody tr td:first-child .selectpicker").prepend("<option value='" + selectedSkill + "'>" + selectedSkill + "</option>");
+ $(".selectpicker").selectpicker("refresh");
 
-    changeSide();
-  });
+ changeSide();
+ });
 
 
-  // Adding
-  $("#topic .table-all .btn-success").on("click", function (event) {
-    event.stopImmediatePropagation();
-    $("#topic .card-title button").removeAttr("disabled");
+ // Adding
+ $("#topic .table-all .btn-success").on("click", function (event) {
+ event.stopImmediatePropagation();
+ $("#topic .card-title button").removeAttr("disabled");
 
-    var selectSkill = $(this).prev().find("option:selected").text();
-    $(this).prev().find("option:selected", this).remove();
-    $(".selectpicker").selectpicker("refresh");
+ var selectSkill = $(this).prev().find("option:selected").text();
+ $(this).prev().find("option:selected", this).remove();
+ $(".selectpicker").selectpicker("refresh");
 
-    var row = "<tr><td>" + selectSkill + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
+ var row = "<tr><td>" + selectSkill + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
 
-    $("#topic .table-specific tbody").append(row);
-    changeSide();
-  });
-  $("#user .table-all .btn-success").on("click", function (event) {
-    event.stopImmediatePropagation();
-    $("#user .card-title button").removeAttr("disabled");
+ $("#topic .table-specific tbody").append(row);
+ changeSide();
+ });
+ $("#user .table-all .btn-success").on("click", function (event) {
+ event.stopImmediatePropagation();
+ $("#user .card-title button").removeAttr("disabled");
 
-    var selectUser = $(this).prev().find("option:selected").text();
-    $(this).prev().find("option:selected", this).remove();
-    $(".selectpicker").selectpicker("refresh");
+ var selectUser = $(this).prev().find("option:selected").text();
+ $(this).prev().find("option:selected", this).remove();
+ $(".selectpicker").selectpicker("refresh");
 
-    var row = "<tr><td>" + selectUser + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
+ var row = "<tr><td>" + selectUser + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
 
-    $("#user .table-specific tbody").append(row);
-    changeSide();
-  });
-  $("#skill .table-all .btn-success").on("click", function (event) {
-    event.stopImmediatePropagation();
-    $("#skill .card-title button").removeAttr("disabled");
+ $("#user .table-specific tbody").append(row);
+ changeSide();
+ });
+ $("#skill .table-all .btn-success").on("click", function (event) {
+ event.stopImmediatePropagation();
+ $("#skill .card-title button").removeAttr("disabled");
 
-    var selectSkill = $(this).parent().parent().children(":first-child").find("option:selected").text();
-    var selectLevel = $(this).prev().find("option:selected").text();
-    $(this).parent().parent().children(":first-child").find("option:selected", this).remove();
-    $(".selectpicker").selectpicker("refresh");
+ var selectSkill = $(this).parent().parent().children(":first-child").find("option:selected").text();
+ var selectLevel = $(this).prev().find("option:selected").text();
+ $(this).parent().parent().children(":first-child").find("option:selected", this).remove();
+ $(".selectpicker").selectpicker("refresh");
 
-    var row = "<tr><td>" + selectSkill + "</td><td>" + selectLevel + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
+ var row = "<tr><td>" + selectSkill + "</td><td>" + selectLevel + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
 
-    $("#skill .table-specific tbody").append(row);
-    changeSide();
-  });
-}
-changeSide();
-*/
+ $("#skill .table-specific tbody").append(row);
+ changeSide();
+ });
+ }
+ changeSide();
+ */
