@@ -65,7 +65,7 @@
               <div class="form-group">
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT ORDER BY DEP_NAME';
+                  $sql  = 'SELECT * FROM V_DEPARTMENTS';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
@@ -107,11 +107,7 @@
                 <tbody>
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT T_UNIT.PK AS PK,INITCAP(T_UNIT.UNIT_NAME) AS UNT_NAME,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,COUNT(T_USER.PK) AS X
-                  FROM T_UNIT
-                  INNER JOIN T_DEPARTMENT ON T_UNIT.DEPARTMENT_FK = T_DEPARTMENT.PK
-                  LEFT JOIN T_USER ON T_UNIT.PK = T_USER.UNIT_FK
-                  GROUP BY T_UNIT.PK,T_UNIT.UNIT_NAME,T_DEPARTMENT.DEPARTMENT_NAME';
+                  $sql  = 'SELECT * FROM V_UNITS_BY_DEPARTMENTS';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
@@ -156,14 +152,12 @@
             <div class="form-group">
               <label for="updateDepSelect" class="form-control-label">Bağlı Olduğu Departman:</label>
               <?php
-                include "dbsettings.php";
-                $sql  = 'SELECT PK,DEPARTMENT_NAME
-                    FROM T_DEPARTMENT';
+                $sql  = 'SELECT * FROM V_DEPARTMENTS';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 echo '<select id="updateDepSelect" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">';
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                  echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
+                  echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
                 }
                 echo '</select>';
               ?>
@@ -171,9 +165,7 @@
             <div class="form-group">
               <label for="updateUserSelect" class="form-control-label">Birim Yöneticisi:</label>
               <?php
-                include "dbsettings.php";
-                $sql  = 'SELECT USR.PK,INITCAP(USR.FIRST_NAME) AS F_NAME,UPPER(USR.LAST_NAME) AS L_NAME
-                  FROM T_USER USR';
+                $sql  = 'SELECT * FROM V_USER_F_L_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 echo '<select id="updateUserSelect" name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Yöneticisi Seçiniz">';

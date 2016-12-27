@@ -132,11 +132,7 @@
                     <div class="card-title">Departmanlar</div>
                     <?php
                       include "dbsettings.php";
-                      $sql = 'SELECT T_DEPARTMENT.PK, INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,COUNT(T_USER.PK) AS X
-                      FROM T_DEPARTMENT
-                      LEFT JOIN T_USER ON T_USER.DEPARTMENT_FK = T_DEPARTMENT.PK
-                      GROUP BY T_DEPARTMENT.PK,T_DEPARTMENT.DEPARTMENT_NAME';
-
+                      $sql = 'SELECT * FROM V_DEPARTMENTS_WITH_USER_COUNT';
                       $stmt            = oci_parse($conn, $sql);
                       $r               = oci_execute($stmt);
                       $array_dep       = array();

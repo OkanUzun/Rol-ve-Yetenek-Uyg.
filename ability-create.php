@@ -72,8 +72,7 @@
               <tbody>
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME,(SELECT COUNT(*) FROM T_USER_ABILITY_REL
-                WHERE T_ABILITY.PK = T_USER_ABILITY_REL.ABILITY_FK) AS X FROM T_ABILITY';
+                $sql  = 'SELECT * FROM V_ABILITIES';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {

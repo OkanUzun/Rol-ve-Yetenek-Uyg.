@@ -71,11 +71,7 @@
                 <tbody>
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT T_ROLE.PK,T_ROLE.ROLE_NAME AS RLE_NAME,COUNT(T_USER.PK) AS X
-                  FROM T_ROLE
-                  LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
-                  GROUP BY T_ROLE.PK,T_ROLE.ROLE_NAME
-                  ORDER BY T_ROLE.ROLE_NAME';
+                  $sql  = 'SELECT * FROM V_ROLES_WITH_USER_COUNT';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {

@@ -83,7 +83,7 @@
 
     oci_execute($stmt);
 
-    echo '
+    /*echo '
       <script type="text/javascript">
         $(document).ready(function() {
             if (location.hash) {
@@ -97,7 +97,7 @@
             var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
             $("a[href=\'" + anchor + "\']").tab("show");
         });
-       </script>';
+       </script>';*/
   }
   else if (isset($_POST["update-user-ability"])) {
 
@@ -115,8 +115,8 @@
 
     oci_execute($stmt);
 
-    echo '
-    <script type="text/javascript">
+    /*echo '
+    /*<script type="text/javascript">
       $(document).ready(function() {
           if (location.hash) {
               $("a[href=\'" + location.hash + "\']").tab("show");
@@ -129,7 +129,7 @@
           var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
           $("a[href=\'" + anchor + "\']").tab("show");
       });
-     </script>';
+     </script>';*/
   }
   else if (isset($_POST["delete-user-ability"])) {
     $sql  = 'BEGIN SP_DELETE_ABILITY_FROM_USER(:usr_id,:ablyt_id,:is_valid); END;';
@@ -144,7 +144,7 @@
 
     oci_execute($stmt);
 
-    echo '
+    /*echo '
     <script type="text/javascript">
       $(document).ready(function() {
           if (location.hash) {
@@ -158,7 +158,7 @@
           var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
           $("a[href=\'" + anchor + "\']").tab("show");
       });
-     </script>';
+     </script>';*/
   }
 ?>
 
@@ -197,7 +197,7 @@
                         <div class="col-xs-12 col-xl-6">
                           <div class="form-group">
                             <?php
-                              $sql  = 'SELECT PK,INITCAP(DEPARTMENT_NAME) AS DEP_NAME FROM T_DEPARTMENT ORDER BY DEPARTMENT_NAME';
+                              $sql  = 'SELECT * FROM V_DEPARTMENTS';
                               $stmt = oci_parse($conn, $sql);
                               $r    = oci_execute($stmt);
                               echo '<select id="userDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">';
@@ -212,7 +212,7 @@
                         <div class="col-xs-12 col-xl-6">
                           <div class="form-group">
                             <?php
-                              $sql  = 'SELECT PK,INITCAP(UNIT_NAME) AS UNT_NAME FROM T_UNIT ORDER BY UNIT_NAME';
+                              $sql  = 'SELECT * FROM V_UNITS';
                               $stmt = oci_parse($conn, $sql);
                               $r    = oci_execute($stmt);
                               echo '<select id="userUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">';
@@ -227,7 +227,7 @@
                         <div class="col-xs-12 col-xl-6">
                           <div class="form-group">
                             <?php
-                              $sql  = 'SELECT PK,INITCAP(ROLE_NAME) AS RLE_NAME FROM T_ROLE ORDER BY ROLE_NAME';
+                              $sql  = 'SELECT * FROM V_ROLES';
                               $stmt = oci_parse($conn, $sql);
                               $r    = oci_execute($stmt);
                               echo '<select name="role_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Rol Seçiniz">';
@@ -312,8 +312,8 @@
 
                             $stmt1 = oci_parse($conn, $sql1);
                             $r1    = oci_execute($stmt1);
-                            $i = 0;
                             while ($row1 = oci_fetch_array($stmt1, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                              echo '<form method="post" action="user-detail.php?user_id='.$user_id.'#skill">';
                               echo '<tr>';
                               echo '<td>'.$row1["AN"].'</td>';
                               echo '<input type="hidden" value='.$row1["AB_PK"].' name="ability_id"/>';
@@ -321,7 +321,7 @@
                               $sql2  = 'SELECT PK,LEVEL_NAME FROM T_ABILITY_LEVEL ORDER BY LEVEL_ORDER';
                               $stmt2 = oci_parse($conn, $sql2);
                               $r2    = oci_execute($stmt2);
-                              echo '<select id='.$i.' name="level_id" class="form-control selectpicker" data-container="body">';
+                              echo '<select name="level_id" class="form-control selectpicker" data-container="body">';
                               while ($row2 = oci_fetch_array($stmt2, OCI_RETURN_NULLS + OCI_ASSOC)) {
                                 echo '<option value="'.$row2["PK"].'" '.($row2["PK"] == $row1["LE_PK"] ? 'selected="selected"' : "").'>'.$row2["LEVEL_NAME"].'</option>';
                               }
@@ -331,12 +331,12 @@
                               echo '<button type="submit" name="delete-user-ability" class="btn btn-danger">Sil</button>';
                               echo '</td>';
                               echo '</tr>';
-                              $i++;
+                              echo '</form>';
                             }
                           ?>
                           </tbody>
                         </table>
-                      </form>
+                      
                     </div>
                   </div>
                   <div class="col-xs-12 col-xl-6">

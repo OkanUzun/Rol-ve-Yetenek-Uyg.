@@ -98,13 +98,13 @@
                       <div class="form-group">
                         <?php
                           include "dbsettings.php";
-                          $sql  = 'SELECT PK,DEPARTMENT_NAME FROM T_DEPARTMENT';
+                          $sql  = 'SELECT * FROM V_DEPARTMENTS';
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
                           echo '<select id="userDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">';
                           echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                            echo '<option value ="'.$row["PK"].'">'.$row["DEPARTMENT_NAME"].'</option>';
+                            echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
                           }
                           echo '</select>';
                         ?>
@@ -114,13 +114,13 @@
                       <div class="form-group">
                         <?php
                           include "dbsettings.php";
-                          $sql  = 'SELECT PK,UNIT_NAME FROM T_UNIT';
+                          $sql  = 'SELECT * FROM V_UNITS';
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
                           echo '<select id="userUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">';
                           echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                            echo '<option value ="'.$row["PK"].'">'.$row["UNIT_NAME"].'</option>';
+                            echo '<option value ="'.$row["PK"].'">'.$row["UNT_NAME"].'</option>';
                           }
                           echo '</select>';
                         ?>
@@ -130,13 +130,13 @@
                       <div class="form-group">
                         <?php
                           include "dbsettings.php";
-                          $sql  = 'SELECT PK,ROLE_NAME FROM T_ROLE';
+                          $sql  = 'SELECT * FROM V_ROLES';
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
                           echo '<select name="role_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Rol Seçiniz">';
                           echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                            echo '<option value ="'.$row["PK"].'">'.$row["ROLE_NAME"].'</option>';
+                            echo '<option value ="'.$row["PK"].'">'.$row["RLE_NAME"].'</option>';
                           }
                           echo '</select>';
                         ?>

@@ -73,14 +73,12 @@
                 <div class="form-group">
                   <?php
                     include "dbsettings.php";
-                    $sql  = 'SELECT USR.PK,USR.FIRST_NAME,USR.LAST_NAME,RLE.ROLE_NAME 
-                    FROM T_USER USR
-                    LEFT JOIN T_ROLE RLE ON RLE.PK = USR.ROLE_FK';
+                    $sql  = 'SELECT * FROM V_USERS_WITH_ROLE';
                     $stmt = oci_parse($conn, $sql);
                     $r    = oci_execute($stmt);
                     echo '<select name="user_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Eğitmen Seçiniz">';
                     while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                      echo '<option value ="'.$row["PK"].'">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].' | '.$row["ROLE_NAME"].'</option>';
+                      echo '<option value ="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].' | '.$row["RLE_NAME"].'</option>';
                     }
                     echo '</select>';
                   ?>
@@ -109,7 +107,7 @@
               <tbody>
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT * FROM T_EDUCATOR';
+                $sql  = 'SELECT * FROM V_EDUCATORS';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {

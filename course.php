@@ -26,10 +26,7 @@
                 <tbody>
                 <?php
                   include "dbsettings.php";
-                  $sql  = 'SELECT T_EDUCATION.PK,T_EDUCATION.EDUCATION_SUBJECT AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME AS EDCTR_NAME, T_EDUCATION.PLANNED_DATE AS PLND_DTE,T_EDUCATION.COMPLETE_DATE AS CMPLT_DTE,INITCAP(T_EDUCATION.CURRENT_STATE) AS CRR_STT,INITCAP(T_LOUNGE.LOUNGE_NAME) AS LNG_NAME
-                    FROM T_LOUNGE,T_EDUCATION
-                    LEFT JOIN T_EDUCATOR ON T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK
-                    WHERE T_EDUCATION.LOUNGE_FK = T_LOUNGE.PK';
+                  $sql  = 'SELECT * FROM V_EDUCATIONS';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {

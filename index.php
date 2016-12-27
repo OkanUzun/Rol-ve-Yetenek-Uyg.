@@ -75,18 +75,25 @@
           <div class="card-header"><span class="highlight">Roleaby</span> Giriş</div>
           <div class="card-block">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="user_id" value="<?php ($_COOKIE["username"]==null?"":$_COOKIE["username"]) ?>">
+              <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="user_id" value="<?php if (isset($_COOKIE["username"]))
+                echo $_COOKIE["username"];
+              else
+                echo "";?>">
               <i class="mdi mdi-account"></i>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="********" name="user_pw" value="<?php ($_COOKIE["password"]==null?"":$_COOKIE["password"]) ?>">
+              <input type="password" class="form-control" placeholder="********" name="user_pw" 
+              value="<?php if (isset($_COOKIE["password"]))
+                echo $_COOKIE["password"];
+              else
+                echo ""; ?>">
               <i class="mdi mdi-key"></i>
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-success" name="user-login">Giriş Yap</button>
             </div>
             <div class="form-group">
-              <input id="remember" type="checkbox" name="rememberme" class="form-control"/>
+              <input id="remember" type="checkbox" name="rememberme" class="form-control" checked="true" />
               <label for="remember">Beni Hatırla</label>
               <a href="pass-recovery.php" class="forgot">Şifremi Unuttum</a>
             </div>

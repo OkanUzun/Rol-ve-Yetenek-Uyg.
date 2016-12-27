@@ -223,7 +223,7 @@
                   <div class="col-xs-12 col-md-4">
                     <div class="form-group">
                             <?php
-                              $sql  = 'SELECT PK,INITCAP(LOUNGE_NAME) AS LNG_NAME FROM T_LOUNGE ORDER BY LNG_NAME';
+                              $sql  = 'SELECT * FROM V_LOUNGES';
                               $stmt = oci_parse($conn, $sql);
                               $r    = oci_execute($stmt);
                               echo '<select id="userDepartment" name="lounge_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Salon Seçiniz">';

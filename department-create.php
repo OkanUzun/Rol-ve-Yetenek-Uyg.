@@ -62,13 +62,12 @@
             <div class="form-group">
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT USR.PK,USR.FIRST_NAME,USR.LAST_NAME
-                  FROM T_USER USR';
+                $sql  = 'SELECT * FROM V_USER_F_L_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 echo '<select name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Departman Müdürü Seçiniz">';
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                  echo '<option value ="'.$row["PK"].'">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</option>';
+                  echo '<option value ="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].'</option>';
                 }
                 echo '</select>';
               ?>
@@ -90,10 +89,7 @@
               <tbody>
               <?php
                 include "dbsettings.php";
-                $sql  = 'SELECT T_DEPARTMENT.PK, INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,COUNT(T_USER.PK) AS X
-                FROM T_DEPARTMENT
-                LEFT JOIN T_USER ON T_USER.DEPARTMENT_FK = T_DEPARTMENT.PK
-                GROUP BY T_DEPARTMENT.PK,T_DEPARTMENT.DEPARTMENT_NAME';
+                $sql  = 'SELECT * FROM V_DEPARTMENTS_WITH_USER_COUNT';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
@@ -138,8 +134,7 @@
             <label for="updateUserSelect" class="form-control-label">Departman Müdürü:</label>
             <?php
               include "dbsettings.php";
-              $sql  = 'SELECT PK,INITCAP(FIRST_NAME) AS F_NAME,UPPER(LAST_NAME) AS L_NAME
-                    FROM T_USER';
+              $sql  = 'SELECT * FROM V_USER_F_L_NAME';
               $stmt = oci_parse($conn, $sql);
               $r    = oci_execute($stmt);
               echo '<select id="updateUserSelect" name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Müdürü Seçiniz">';

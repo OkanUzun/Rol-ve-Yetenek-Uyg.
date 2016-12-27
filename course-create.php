@@ -50,16 +50,12 @@
                 <div class="col-lg-6 col-xl-3">
                   <div class="form-group">
                     <?php
-                      $sql  = 'SELECT T_EDUCATOR.PK,T_EDUCATOR.EDUCATOR_NAME,T_EDUCATOR.IS_INHOUSE,T_ROLE.ROLE_NAME
-                    FROM T_EDUCATOR
-                    LEFT JOIN T_USER ON T_USER.PK = T_EDUCATOR.USER_FK
-                    LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
-                    ORDER BY IS_INHOUSE DESC,EDUCATOR_NAME';
+                      $sql  = 'SELECT * FROM V_EDUCATORS_WITH_INHOUSE_INFO';
                       $stmt = oci_parse($conn, $sql);
                       $r    = oci_execute($stmt);
                       echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                        echo '<option value ="'.$row["PK"].'">'.$row["EDUCATOR_NAME"].' | '.($row["IS_INHOUSE"] == 1 ? "Şirket İçi" : "Şirket Dışı").' | '.$row["ROLE_NAME"].'</option>';
+                        echo '<option value ="'.$row["PK"].'">'.$row["EDUCATOR_NAME"].' | '.($row["IS_INHOUSE"] == 1 ? "Şirket İçi" : "Şirket Dışı").' | '.$row["RLE_NAME"].'</option>';
                       }
                       echo '</select>';
                     ?>
