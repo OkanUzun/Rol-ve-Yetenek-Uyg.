@@ -2,55 +2,6 @@
   include "header.php";
   include "dbsettings.php";
 
-  if (isset($_GET["course_id"])) {
-    $course_id = $_GET["course_id"];
-    $sql       = '
-      SELECT T_EDUCATOR.EDUCATOR_NAME,T_EDUCATION.EDUCATION_SUBJECT,T_EDUCATION.EDUCATION_CONTENT,T_EDUCATION.PLANNED_DATE,T_EDUCATION.COMPLETE_DATE,T_EDUCATION.LOUNGE_FK
-      FROM T_EDUCATION,T_EDUCATOR
-      WHERE T_EDUCATION.PK = '.$course_id.' AND T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK';
-
-    $stmt = oci_parse($conn, $sql);
-    $r    = oci_execute($stmt);
-    $row  = oci_fetch_assoc($stmt);
-
-    $educator_name     = $row["EDUCATOR_NAME"];
-    $education_subject = $row["EDUCATION_SUBJECT"];
-    $education_content = $row["EDUCATION_CONTENT"];
-
-    $lounge_id = $row["LOUNGE_FK"];
-
-    $started   = $row["PLANNED_DATE"];
-    $completed = $row["COMPLETE_DATE"];
-
-    $date         = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLANNED_DATE"]);
-    $started_date = $date->format('d/m/Y - H:i');
-
-    $date          = DateTime::createFromFormat("d#M#y H#i#s*A", $row["COMPLETE_DATE"]);
-    $complete_date = $date->format('d/m/Y - H:i');
-
-    $sql  = 'select CURRENT_TIMESTAMP AS NOW from dual';
-    $stmt = oci_parse($conn, $sql);
-    $r    = oci_execute($stmt);
-    $row  = oci_fetch_assoc($stmt);
-
-    if ($row["NOW"] < $started) {
-      $text       = "Planlandı";
-      $span_class = "wait";
-      $i_class    = "mdi mdi-timer";
-    }
-
-    else if ($row["NOW"] > $started) {
-      $text       = "Devam Ediyor";
-      $span_class = "on";
-      $i_class    = "mdi mdi-timer-sand";
-    }
-    else {
-      $text       = "Sona Erdi";
-      $span_class = "off";
-      $i_class    = "mdi mdi-check";
-    }
-  }
-
   if (isset($_POST["insert-education-ability"])) {
 
     $sql  = 'BEGIN SP_ASSIGN_ABILITY_TO_EDUCATION(:edu_id,:ablyt_id,:is_valid); END;';
@@ -171,6 +122,106 @@
       });
      </script>';
   }
+
+  else if (isset($_POST["terminate-education"])){
+    $sql  = 'BEGIN SP_TERMINATE_EDUCATION(:edu_id,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':edu_id', $course_id);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+
+    $course_id   = $_GET["course_id"];
+
+    oci_execute($stmt);
+    //echo "$message\n";
+  }
+  else if (isset($_POST["cancel-education"])){
+    $sql  = 'BEGIN SP_CANCEL_EDUCATION(:edu_id,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':edu_id', $course_id);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+
+    $course_id   = $_GET["course_id"];
+    
+    oci_execute($stmt);
+    //echo "$message\n";
+  }
+  else if (isset($_POST["update-education"])){
+    $sql  = 'BEGIN SP_UPDATE_EDUCATION(:edu_id,:edu_subject,:edu_content,:edctr_id,:lounge_id,:planned_dte,:complete_dte,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':edu_id', $course_id);
+    oci_bind_by_name($stmt, ':edu_subject', $edu_subject);
+    oci_bind_by_name($stmt, ':edu_content', $edu_content);
+    oci_bind_by_name($stmt, ':planned_dte', $planned_date);
+    oci_bind_by_name($stmt, ':complete_dte', $complete_date);
+    oci_bind_by_name($stmt, ':edctr_id', $educator_id);
+    oci_bind_by_name($stmt, ':lounge_id', $lounge_id);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+
+    $course_id   = $_GET["course_id"];    
+
+    $edu_subject   = $_POST["education_name"];
+    $edu_content   = $_POST["education_detail"];
+    $planned_date  = $_POST["started_date"];
+    $complete_date = $_POST["complete_date"];
+    $educator_id   = $_POST["educator_id"];
+    $lounge_id     = $_POST["lounge_id"];
+
+    oci_execute($stmt);
+    //echo "$message\n";
+  }
+
+  if (isset($_GET["course_id"])) {
+    $course_id = $_GET["course_id"];
+    $sql       = '
+      SELECT T_EDUCATION.EDUCATOR_FK,T_EDUCATION.EDUCATION_SUBJECT,T_EDUCATION.EDUCATION_CONTENT,T_EDUCATION.PLANNED_DATE,T_EDUCATION.COMPLETE_DATE,T_EDUCATION.LOUNGE_FK
+      FROM T_EDUCATION
+      WHERE T_EDUCATION.PK = '.$course_id.'';
+
+    $stmt = oci_parse($conn, $sql);
+    $r    = oci_execute($stmt);
+    $row  = oci_fetch_assoc($stmt);
+
+    $educator_id     = $row["EDUCATOR_FK"];
+    $education_subject = $row["EDUCATION_SUBJECT"];
+    $education_content = $row["EDUCATION_CONTENT"];
+
+    $lounge_id = $row["LOUNGE_FK"];
+
+    $started   = $row["PLANNED_DATE"];
+    $completed = $row["COMPLETE_DATE"];
+
+    $date         = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLANNED_DATE"]);
+    $started_date = $date->format('d/m/Y - H:i');
+
+    $date          = DateTime::createFromFormat("d#M#y H#i#s*A", $row["COMPLETE_DATE"]);
+    $complete_date = $date->format('d/m/Y - H:i');
+
+    $sql  = 'select CURRENT_TIMESTAMP AS NOW from dual';
+    $stmt = oci_parse($conn, $sql);
+    $r    = oci_execute($stmt);
+    $row  = oci_fetch_assoc($stmt);
+
+    if ($row["NOW"] < $started) {
+      $text       = "Planlandı";
+      $span_class = "wait";
+      $i_class    = "mdi mdi-timer";
+    }
+
+    else if ($row["NOW"] > $started) {
+      $text       = "Devam Ediyor";
+      $span_class = "on";
+      $i_class    = "mdi mdi-timer-sand";
+    }
+    else {
+      $text       = "Sona Erdi";
+      $span_class = "off";
+      $i_class    = "mdi mdi-check";
+    }
+  }
+
 ?>
 
 <div class="wrapper">
@@ -182,8 +233,10 @@
         <div class="card-header hidden-xs-down">
           <div class="card-title">Eğitim Detayları</div>
           <div class="card-buttons">
+          <form method="post">
             <button type="submit" name="cancel-education" class="btn btn-danger">İptal Et</button>
-            <button type="submit" name="terminate-education" class="btn btn-danger">Sonlandır</button>
+            <button type="submit" name="terminate-education" class="btn btn-danger">Sonlandır</button>            
+          </form>
           </div>
         </div>
         <div class="card-block">
@@ -207,7 +260,7 @@
                 <div class="row">
                   <div class="col-xs-12">
                     <div class="card-title">Eğitim Bilgileri
-                      <button type="submit" class="btn btn-success">Kaydet</button>
+                      <button type="submit" name="update-education" class="btn btn-success">Kaydet</button>
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-4">
@@ -217,7 +270,17 @@
                   </div>
                   <div class="col-xs-12 col-md-4">
                     <div class="form-group">
-                      <input type="text" class="form-control" value="<?php echo $educator_name ?>" name="educator_name" placeholder="Eğitmen">
+                            <?php
+                              $sql  = 'SELECT * FROM V_EDUCATORS_WITH_INHOUSE_INFO';
+                              $stmt = oci_parse($conn, $sql);
+                              $r    = oci_execute($stmt);
+                              echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
+                              echo '<option value="Seçiniz">Seçiniz</option>';
+                              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                                echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $educator_id ? 'selected="selected"' : "").'>'.$row["EDUCATOR_NAME"].'</option>';
+                              }
+                              echo '</select>';
+                            ?>
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-4">
@@ -260,7 +323,6 @@
                 </div>
                 <div class="col-xs-12 col-xl-6">
                   <div class="table-responsive">
-                    <form method="post" action="course-detail.php?course_id=<?php echo $course_id ?>#topic">
                       <table class="table table-specific">
                         <thead>
                         <tr>
@@ -275,16 +337,17 @@
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                            echo '<form method="post" action="course-detail.php?course_id='.$course_id.'#topic">';
                             echo '<tr>';
                             echo '<input type="hidden" value='.$row["PK"].' name="ability_id"/>';
                             echo '<td>'.$row["ABLY_NAME"].'<button type="submit" name="delete-education-ability" class="btn btn-danger float-xs-right">Sil</button>';
                             echo '</td>';
                             echo '</tr>';
+                            echo '</form>';
                           }
                         ?>
                         </tbody>
-                      </table>
-                    </form>
+                      </table>    
                   </div>
                 </div>
                 <div class="col-xs-12 col-xl-6">
@@ -369,7 +432,7 @@
                         <tr>
                           <td class="select-level">
                             <?php
-                              $sql  = 'SELECT T_USER.PK,T_USER.FIRST_NAME AS F_NAME,T_USER.LAST_NAME AS L_NAME,T_ROLE.ROLE_NAME AS RLE_NAME FROM T_USER
+                              $sql  = 'SELECT T_USER.PK,INITCAP(T_USER.FIRST_NAME) AS F_NAME,UPPER(T_USER.LAST_NAME) AS L_NAME,INITCAP(T_ROLE.ROLE_NAME) AS RLE_NAME FROM T_USER
                           LEFT JOIN T_ROLE ON T_USER.ROLE_FK = T_ROLE.PK
                           WHERE T_USER.PK NOT IN (SELECT USER_FK FROM T_EDUCATION_USER_REL WHERE T_EDUCATION_USER_REL.EDUCATION_FK = '.$course_id.') ORDER BY F_NAME,L_NAME';
                               $stmt = oci_parse($conn, $sql);
