@@ -111,10 +111,13 @@
 
     $user_id    = $_GET["user_id"];
     $ability_id = $_POST["ability_id"];
-    $level_id   = $_POST["level_id"];
+    $level_id   = $_POST['level_id'];
+
+    echo $ability_id;
+    echo $level_id;
 
     oci_execute($stmt);
-
+  }
     /*echo '
     /*<script type="text/javascript">
       $(document).ready(function() {
@@ -130,7 +133,6 @@
           $("a[href=\'" + anchor + "\']").tab("show");
       });
      </script>';*/
-  }
   else if (isset($_POST["delete-user-ability"])) {
     $sql  = 'BEGIN SP_DELETE_ABILITY_FROM_USER(:usr_id,:ablyt_id,:is_valid); END;';
     $stmt = oci_parse($conn, $sql);
@@ -161,7 +163,6 @@
      </script>';*/
   }
 ?>
-
   <div class="wrapper">
     <?php include "sidebar.php"; ?>
     <div class="page-content">
@@ -293,7 +294,6 @@
                   </div>
                   <div class="col-xs-12 col-xl-6">
                     <div class="table-responsive">
-                      <form method="post" action="user-detail.php?user_id=<?php echo $user_id ?>#skill">
                         <table class="table table-specific">
                           <thead>
                           <tr>
@@ -303,30 +303,28 @@
                           </thead>
                           <tbody>
                           <?php
+                            $i=0;
                             $sql1 = 'SELECT T_ABILITY.PK AS AB_PK,T_ABILITY.ABILITY_NAME AS AN,T_ABILITY_LEVEL.PK AS LE_PK,T_ABILITY_LEVEL.LEVEL_NAME AS LN
                             FROM T_USER_ABILITY_REL,T_ABILITY,T_ABILITY_LEVEL WHERE
                             T_USER_ABILITY_REL.ABILITY_FK = T_ABILITY.PK AND
                             T_USER_ABILITY_REL.ABILITY_LEVEL_FK = T_ABILITY_LEVEL.PK AND
                             T_USER_ABILITY_REL.USER_FK = '.$user_id.'
                             ORDER BY AN';
-
                             $stmt1 = oci_parse($conn, $sql1);
                             $r1    = oci_execute($stmt1);
                             while ($row1 = oci_fetch_array($stmt1, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                              echo '<form method="post" action="user-detail.php?user_id='.$user_id.'#skill">';
+                              echo '<form id = "'.$i.'" method="post">';
                               echo '<tr>';
-                              echo '<td>'.$row1["AN"].'</td>';
-                              echo '<input type="hidden" value='.$row1["AB_PK"].' name="ability_id"/>';
+                              echo '<td>'.$row1["AN"].'<input type="hidden" name="ability_id" value="'.$row1["AB_PK"].'"/></td>';
                               echo '<td class="select-level">';
                               $sql2  = 'SELECT PK,LEVEL_NAME FROM T_ABILITY_LEVEL ORDER BY LEVEL_ORDER';
                               $stmt2 = oci_parse($conn, $sql2);
                               $r2    = oci_execute($stmt2);
-                              echo '<select name="level_id" class="form-control selectpicker" data-container="body">';
+                              echo '<select id="'.$i.'" name="level_id" class="form-control selectpicker" data-container="body" data-live-search="true" data-size="5" title="Seviye Seçiniz">';
                               while ($row2 = oci_fetch_array($stmt2, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                echo '<option value="'.$row2["PK"].'" '.($row2["PK"] == $row1["LE_PK"] ? 'selected="selected"' : "").'>'.$row2["LEVEL_NAME"].'</option>';
+                                echo '<option '.($row2["PK"] == $row1["LE_PK"] ? 'selected="selected"' : "").' value="'.$row2["PK"].'">'.$row2["LEVEL_NAME"].'</option>';
                               }
                               echo '</select>';
-                              
                               echo '<button type="submit" name="update-user-ability" class="btn btn-success">Güncelle</button>';
                               echo '<button type="submit" name="delete-user-ability" class="btn btn-danger">Sil</button>';
                               echo '</td>';
@@ -403,10 +401,11 @@
                     <tbody>
                     <?php
                       include "dbsettings.php";
-                      $sql  = 'SELECT T_EDUCATION.PK,T_EDUCATION.EDUCATION_SUBJECT AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME AS EDCTR_NAME,T_EDUCATION.PLANNED_DATE AS PLND_DTE,T_EDUCATION.COMPLETE_DATE AS CMPLT_DTE,INITCAP(T_EDUCATION.CURRENT_STATE) AS CRR_STT
-                    FROM T_EDUCATION_USER_REL,T_USER,T_EDUCATION
+                      $sql  = 'SELECT T_EDUCATION.PK,T_EDUCATION.EDUCATION_SUBJECT AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME AS EDCTR_NAME,T_EDUCATION.PLANNED_DATE AS PLND_DTE,T_EDUCATION.COMPLETE_DATE AS CMPLT_DTE,INITCAP(T_STATE.STATE_NAME) AS CRR_STT
+                    FROM T_EDUCATION_USER_REL,T_USER,T_STATE,T_EDUCATION
                     LEFT JOIN T_EDUCATOR ON T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK
-                    WHERE T_EDUCATION.PK = T_EDUCATION_USER_REL.EDUCATION_FK AND T_EDUCATION_USER_REL.USER_FK = '.$user_id.'';
+                    WHERE T_EDUCATION.STATE_FK = T_STATE.PK 
+                    AND T_EDUCATION.PK = T_EDUCATION_USER_REL.EDUCATION_FK AND T_EDUCATION_USER_REL.USER_FK = '.$user_id;
                       $stmt = oci_parse($conn, $sql);
                       $r    = oci_execute($stmt);
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
