@@ -1,8 +1,18 @@
-$('#validate-profileModal').validate({
-  onfocusout: false,
-  onkeyup: false,
-  onclick: false,
+jQuery.validator.setDefaults({
   debug: true,
+  errorElement: "span",
+  success: "valid",
+  ignore: ":not(select:hidden, input:visible, textarea:visible, .selectpicker)"
+});
+
+$('form[id^="validate-"] select').on('change', function () {
+  $('form[id^="validate-"]').validate().element($(this));
+});
+
+$('#validate-profileModal').validate({
+  errorPlacement: function (error, element) {
+    error.appendTo(element.parent());
+  },
   rules: {
     new_pw: {
       required: true,
@@ -25,23 +35,12 @@ $('#validate-profileModal').validate({
       minlength: "Şifreniz en az 6 karakter olmalıdır"
     }
   },
-  errorPlacement: function (error) {
-    showtoast(error.text());
-  },
   submitHandler: function (form) {
     form.submit();
   }
 });
 
-/*$('#formValidate select').on('change', function (e) {
-  $('#formValidate').validate().element($(this));
-});*/
-
 $('#validate-profile').validate({
-  onfocusout: false,
-  onkeyup: false,
-  onclick: false,
-  debug: true,
   rules: {
     f_name: {
       required: true
@@ -60,7 +59,9 @@ $('#validate-profile').validate({
       email: true
     },
     phone_num: {
-      required: true
+      required: true,
+      minlength: 10,
+      maxlength: 10
     },
     address: {
       required: true
@@ -82,14 +83,173 @@ $('#validate-profile').validate({
     },
     address: "Adres giriniz"
   },
-  errorPlacement: function (error) {
-    showtoast(error.text());
+  errorPlacement: function (error, element) {
+    error.appendTo(element.parent());
   },
   submitHandler: function (form) {
     form.submit();
   }
 });
 
-$('#formValidate select').on('change', function (e) {
-  $('#formValidate').validate().element($(this));
+$('#validate-userCreate').validate({
+  rules: {
+    f_name: {
+      required: true
+    },
+    l_name: {
+      required: true
+    },
+    u_name: {
+      required: true
+    },
+    date_of_birth: {
+      required: true
+    },
+    e_mail: {
+      required: true,
+      email: true
+    },
+    phone_number: {
+      required: true,
+      minlength: 10,
+      maxlength: 10
+    },
+    address: {
+      required: true
+    },
+    dep_id: {
+      require_from_group: [1, ".selectone"]
+    },
+    unit_id: {
+      require_from_group: [1, ".selectone"]
+    },
+    role_id: {
+      required: true
+    }
+  },
+  messages: {
+    f_name: "İsim giriniz",
+    l_name: "Soyisim giriniz",
+    u_name: "Kullanıcı adı giriniz",
+    date_of_birth: "Doğum tarihi seçiniz",
+    e_mail: {
+      required: "E-mail adresi giriniz",
+      email: "Geçerli bir e-mail adresi giriniz"
+    },
+    phone_number: {
+      required: "Mobil telefon giriniz",
+      minlength: "Mobil telefon en az 10 haneli olmalı",
+      maxlength: "Mobil telefon en fazla 10 haneli olmalı"
+    },
+    address: "Adres giriniz",
+    dep_id: {
+      require_from_group: "Departman ya da Birim seçiniz"
+    },
+    unit_id: {
+      require_from_group: "Departman ya da Birim seçiniz"
+    },
+    role_id: "Rol Seçiniz"
+  },
+  errorPlacement: function (error, element) {
+    error.appendTo(element.parent());
+  },
+  submitHandler: function (form) {
+    form.submit();
+  }
 });
+
+$('#validate-userInfo, #validate-userSkill').validate({
+  rules: {
+    f_name: {
+      required: true
+    },
+    l_name: {
+      required: true
+    },
+    u_name: {
+      required: true
+    },
+    date_of_birth: {
+      required: true
+    },
+    e_mail: {
+      required: true,
+      email: true
+    },
+    phone_number: {
+      required: true,
+      minlength: 10,
+      maxlength: 10
+    },
+    address: {
+      required: true
+    },
+    dep_id: {
+      require_from_group: [1, ".selectone"]
+    },
+    unit_id: {
+      require_from_group: [1, ".selectone"]
+    },
+    role_id: {
+      required: true
+    },
+    ability_id: {
+      required: true
+    },
+    level_id: {
+      required: true
+    }
+  },
+  messages: {
+    f_name: "İsim giriniz",
+    l_name: "Soyisim giriniz",
+    u_name: "Kullanıcı adı giriniz",
+    date_of_birth: "Doğum tarihi seçiniz",
+    e_mail: {
+      required: "E-mail adresi giriniz",
+      email: "Geçerli bir e-mail adresi giriniz"
+    },
+    phone_number: {
+      required: "Mobil telefon giriniz",
+      minlength: "Mobil telefon en az 10 haneli olmalı",
+      maxlength: "Mobil telefon en fazla 10 haneli olmalı"
+    },
+    address: "Adres giriniz",
+    dep_id: {
+      require_from_group: "Departman ya da Birim seçiniz"
+    },
+    unit_id: {
+      require_from_group: "Departman ya da Birim seçiniz"
+    },
+    role_id: "Rol seçiniz",
+    ability_id: "Yetenek seçiniz",
+    level_id: "Seviye seçiniz"
+  },
+  errorPlacement: function (error, element) {
+    error.appendTo(element.parent());
+  },
+  submitHandler: function (form) {
+    form.submit();
+  }
+});
+
+/*$('#validate-userSkill').validate({
+  rules: {
+    ability_id: {
+      required: true
+    },
+    level_id: {
+      required: true
+    }
+  },
+  messages: {
+    ability_id: "Yetenek seçiniz",
+    level_id: "Seviye seçiniz"
+  },
+  errorPlacement: function (error, element) {
+    error.appendTo(element.parent());
+  },
+  submitHandler: function (form) {
+    form.submit();
+  }
+});*/

@@ -80,7 +80,7 @@
       <?php include "navbar.php"; ?>
       <div class="container-fluid">
         <div class="card">
-          <form id="formValidate" method="post">
+          <form method="post" id="validate-userCreate">
             <div class="card-header">
               <div class="card-title">Kullanıcı Tanımlama</div>
               <div class="card-buttons">
@@ -101,7 +101,7 @@
                           $sql  = 'SELECT * FROM V_DEPARTMENTS';
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
-                          echo '<select id="userDepartment" name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Seçiniz">';
+                          echo '<select id="userDepartment" name="dep_id" class="form-control selectpicker selectone" data-live-search="true" data-size="5" title="Departman Seçiniz">';
                           echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                             echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
@@ -117,7 +117,7 @@
                           $sql  = 'SELECT * FROM V_UNITS';
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
-                          echo '<select id="userUnit" name="unit_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Seçiniz">';
+                          echo '<select id="userUnit" name="unit_id" class="form-control selectpicker selectone" data-live-search="true" data-size="5" title="Birim Seçiniz">';
                           echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                             echo '<option value ="'.$row["PK"].'">'.$row["UNT_NAME"].'</option>';

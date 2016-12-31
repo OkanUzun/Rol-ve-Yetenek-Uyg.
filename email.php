@@ -91,10 +91,13 @@
           </tr>
           <tr>
             <!-- ŞİFRE MESAJI -->
-<td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin.</td>
+            <td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin.</td>
 
             <!-- EĞİTİM MESAJI -->
             <!--<td style="color: #9C9B9D; padding: 20px 0;">Kaydının yapılmış olduğu yeni eğitimin için tebrik ederiz! Aşağıda eğitim bilgilerini bulabilirsin.</td>-->
+
+            <!-- ŞİFREMİ UNUTTUM MESAJI -->
+            <!--<td style="color: #9C9B9D; padding: 20px 0;">İsteğin üzerine sisteme giriş yapabileceğin yeni şifreni gönderdik.</td>-->
           </tr>
         </table>
         <br><br>
@@ -117,6 +120,16 @@
             </td>
           </tr>
         </table>
+
+        <!-- ŞİFREMİ UNUTTUM İÇİN BU TABLO -->
+        <!--<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+          <tr>
+            <td style="padding-right: 10px;">Yeni Şifre:</td>
+            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+              <?php /*echo $r_pw */ ?>
+            </td>
+          </tr>
+        </table>-->
 
 
         <!-- EĞİTİM İÇİN BU TABLO -->

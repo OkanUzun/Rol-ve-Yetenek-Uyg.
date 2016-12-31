@@ -60,6 +60,12 @@
         </a>
       </li>
       <li>
+        <a href="search.php">
+          <div class="icon"><i class="mdi mdi-account-search"></i></div>
+          <div class="title">Arama</div>
+        </a>
+      </li>
+      <li>
         <a href="statistics.php">
           <div class="icon"><i class="mdi mdi-chart-bar"></i></div>
           <div class="title">İstatistikler</div>

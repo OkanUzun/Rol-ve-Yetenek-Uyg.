@@ -92,7 +92,7 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="form-group">
-                        <input type="number" value="<?php echo $phone ?>" class="form-control" placeholder="Mobil Telefon No" name="phone_num" minlength="10" maxlength="10">
+                        <input type="number" value="<?php echo $phone ?>" class="form-control" placeholder="Mobil Telefon No" name="phone_num">
                       </div>
                     </div>
                     <div class="col-xs-12">

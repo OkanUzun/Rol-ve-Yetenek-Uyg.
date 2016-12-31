@@ -123,31 +123,31 @@
      </script>';
   }
 
-  else if (isset($_POST["terminate-education"])){
+  else if (isset($_POST["terminate-education"])) {
     $sql  = 'BEGIN SP_TERMINATE_EDUCATION(:edu_id,:is_valid); END;';
     $stmt = oci_parse($conn, $sql);
 
     oci_bind_by_name($stmt, ':edu_id', $course_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
-    $course_id   = $_GET["course_id"];
+    $course_id = $_GET["course_id"];
 
     oci_execute($stmt);
     //echo "$message\n";
   }
-  else if (isset($_POST["cancel-education"])){
+  else if (isset($_POST["cancel-education"])) {
     $sql  = 'BEGIN SP_CANCEL_EDUCATION(:edu_id,:is_valid); END;';
     $stmt = oci_parse($conn, $sql);
 
     oci_bind_by_name($stmt, ':edu_id', $course_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
-    $course_id   = $_GET["course_id"];
-    
+    $course_id = $_GET["course_id"];
+
     oci_execute($stmt);
     //echo "$message\n";
   }
-  else if (isset($_POST["update-education"])){
+  else if (isset($_POST["update-education"])) {
     $sql  = 'BEGIN SP_UPDATE_EDUCATION(:edu_id,:edu_subject,:edu_content,:edctr_id,:lounge_id,:planned_dte,:complete_dte,:is_valid); END;';
     $stmt = oci_parse($conn, $sql);
 
@@ -160,7 +160,7 @@
     oci_bind_by_name($stmt, ':lounge_id', $lounge_id);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
-    $course_id   = $_GET["course_id"];    
+    $course_id = $_GET["course_id"];
 
     $edu_subject   = $_POST["education_name"];
     $edu_content   = $_POST["education_detail"];
@@ -184,7 +184,7 @@
     $r    = oci_execute($stmt);
     $row  = oci_fetch_assoc($stmt);
 
-    $educator_id     = $row["EDUCATOR_FK"];
+    $educator_id       = $row["EDUCATOR_FK"];
     $education_subject = $row["EDUCATION_SUBJECT"];
     $education_content = $row["EDUCATION_CONTENT"];
 
@@ -233,10 +233,12 @@
         <div class="card-header hidden-xs-down">
           <div class="card-title">Eğitim Detayları</div>
           <div class="card-buttons">
-          <form method="post">
-            <button type="submit" name="cancel-education" class="btn btn-danger">İptal Et</button>
-            <button type="submit" name="terminate-education" class="btn btn-danger">Sonlandır</button>            
-          </form>
+            <form method="post">
+              <button type="submit" name="" class="btn btn-info">Aktifleştir</button>
+              <button type="submit" name="" class="btn btn-success">Eğitimi Başlat</button>
+              <button type="submit" name="cancel-education" class="btn btn-danger">İptal Et</button>
+              <button type="submit" name="terminate-education" class="btn btn-danger">Sonlandır</button>
+            </form>
           </div>
         </div>
         <div class="card-block">
@@ -270,32 +272,32 @@
                   </div>
                   <div class="col-xs-12 col-md-4">
                     <div class="form-group">
-                            <?php
-                              $sql  = 'SELECT * FROM V_EDUCATORS_WITH_INHOUSE_INFO';
-                              $stmt = oci_parse($conn, $sql);
-                              $r    = oci_execute($stmt);
-                              echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
-                              echo '<option value="Seçiniz">Seçiniz</option>';
-                              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $educator_id ? 'selected="selected"' : "").'>'.$row["EDUCATOR_NAME"].'</option>';
-                              }
-                              echo '</select>';
-                            ?>
+                      <?php
+                        $sql  = 'SELECT * FROM V_EDUCATORS_WITH_INHOUSE_INFO';
+                        $stmt = oci_parse($conn, $sql);
+                        $r    = oci_execute($stmt);
+                        echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
+                        echo '<option value="Seçiniz">Seçiniz</option>';
+                        while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                          echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $educator_id ? 'selected="selected"' : "").'>'.$row["EDUCATOR_NAME"].'</option>';
+                        }
+                        echo '</select>';
+                      ?>
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-4">
                     <div class="form-group">
-                            <?php
-                              $sql  = 'SELECT * FROM V_LOUNGES';
-                              $stmt = oci_parse($conn, $sql);
-                              $r    = oci_execute($stmt);
-                              echo '<select id="userDepartment" name="lounge_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Salon Seçiniz">';
-                              echo '<option value="Seçiniz">Seçiniz</option>';
-                              while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                                echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $lounge_id ? 'selected="selected"' : "").'>'.$row["LNG_NAME"].'</option>';
-                              }
-                              echo '</select>';
-                            ?>
+                      <?php
+                        $sql  = 'SELECT * FROM V_LOUNGES';
+                        $stmt = oci_parse($conn, $sql);
+                        $r    = oci_execute($stmt);
+                        echo '<select id="userDepartment" name="lounge_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Salon Seçiniz">';
+                        echo '<option value="Seçiniz">Seçiniz</option>';
+                        while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                          echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $lounge_id ? 'selected="selected"' : "").'>'.$row["LNG_NAME"].'</option>';
+                        }
+                        echo '</select>';
+                      ?>
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-6">
@@ -323,31 +325,31 @@
                 </div>
                 <div class="col-xs-12 col-xl-6">
                   <div class="table-responsive">
-                      <table class="table table-specific">
-                        <thead>
-                        <tr>
-                          <th>Kayıtlı Konular</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                          $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME FROM T_ABILITY,T_EDUCATION_ABILITY_REL
+                    <table class="table table-specific">
+                      <thead>
+                      <tr>
+                        <th>Kayıtlı Konular</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <?php
+                        $sql  = 'SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME FROM T_ABILITY,T_EDUCATION_ABILITY_REL
                           WHERE T_EDUCATION_ABILITY_REL.ABILITY_FK = T_ABILITY.PK AND T_EDUCATION_ABILITY_REL.EDUCATION_FK = '.$course_id.'
                           ORDER BY ABLY_NAME';
-                          $stmt = oci_parse($conn, $sql);
-                          $r    = oci_execute($stmt);
-                          while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                            echo '<form method="post" action="course-detail.php?course_id='.$course_id.'#topic">';
-                            echo '<tr>';
-                            echo '<input type="hidden" value='.$row["PK"].' name="ability_id"/>';
-                            echo '<td>'.$row["ABLY_NAME"].'<button type="submit" name="delete-education-ability" class="btn btn-danger float-xs-right">Sil</button>';
-                            echo '</td>';
-                            echo '</tr>';
-                            echo '</form>';
-                          }
-                        ?>
-                        </tbody>
-                      </table>    
+                        $stmt = oci_parse($conn, $sql);
+                        $r    = oci_execute($stmt);
+                        while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
+                          echo '<form method="post" action="course-detail.php?course_id='.$course_id.'#topic">';
+                          echo '<tr>';
+                          echo '<input type="hidden" value='.$row["PK"].' name="ability_id"/>';
+                          echo '<td>'.$row["ABLY_NAME"].'<button type="submit" name="delete-education-ability" class="btn btn-danger float-xs-right">Sil</button>';
+                          echo '</td>';
+                          echo '</tr>';
+                          echo '</form>';
+                        }
+                      ?>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div class="col-xs-12 col-xl-6">
@@ -395,8 +397,8 @@
                     <form method="post" action="course-detail.php?course_id=<?php echo $course_id ?>#user">
                       <table class="table table-specific">
                         <thead>
-                          <th>Eğitimdeki Kullanıcılar</th>
-                          <th>Rol</th>
+                        <th>Eğitimdeki Kullanıcılar</th>
+                        <th>Rol</th>
                         </thead>
                         <tbody>
                         <?php

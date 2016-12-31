@@ -9,16 +9,12 @@ function ToastBuilder(options) {
   opts.target = opts.target || 'body';
 
   return function (text) {
-    $('<div/>')
-    .addClass('toast')
-    .prependTo($(opts.target))
-    .text(text || opts.defaultText)
-    .queue(function(next) {
+    $('<div/>').addClass('toast').prependTo($(opts.target)).text(text || opts.defaultText).queue(function (next) {
       $(this).css({
         'opacity': 1
       });
       var topOffset = 15;
-      $('.toast').each(function() {
+      $('.toast').each(function () {
         var $this = $(this);
         var height = $this.outerHeight();
         var offset = 15;
@@ -27,9 +23,7 @@ function ToastBuilder(options) {
         topOffset += height + offset;
       });
       next();
-    })
-    .delay(opts.displayTime)
-    .queue(function(next) {
+    }).delay(opts.displayTime).queue(function (next) {
       var $this = $(this);
       var width = $this.outerWidth() + 20;
       $this.css({
@@ -37,9 +31,7 @@ function ToastBuilder(options) {
         'opacity': 0
       });
       next();
-    })
-    .delay(600)
-    .queue(function(next) {
+    }).delay(600).queue(function (next) {
       $(this).remove();
       next();
     });
@@ -177,7 +169,6 @@ $('#deleteModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body #educator_id').val(id);
 });
 
-
 // Mobile sidebar toggle
 $(".sidebar-toggle").click(function () {
   $(".wrapper, .side-navigation").addClass("active");
@@ -186,7 +177,6 @@ $(".sidebar-toggle").click(function () {
 $(".side-navigation .close").click(function () {
   $(".wrapper, .side-navigation").removeClass("active");
 });
-
 
 // Tooltip Initialization
 $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip({
@@ -197,223 +187,6 @@ $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip({
 $(".mCustomScrollbar").mCustomScrollbar({
   scrollInertia: 250
 });
-
-/***************************************/
-
-// AJAX şimdilik kaldırıldı.
-
-/*// Yetenek Tablosunu Görüntüleme AJAX
- $("#abilityShow").click(function () {
- $("#ability-container").removeClass("hidden");
- $("#ability-container").html('<div class="text-xs-center"><img src="img/loading.gif"/></div>');
- setTimeout(function () {
- $.ajax({
- type: "POST",
- url: "deneme2.php",
- dataType: "json",
- success: function (data) {
- $("#ability-container").html(
- '<div class="card-title">' +
- '<span>Yetenekler</span>' +
- '<div class="card-buttons">' +
- '<button type="button" class="btn btn-danger">İPTAL</button>' +
- '<button type="submit" class="btn btn-success">KAYDET</button>' +
- '</div>' +
- '</div>' +
- '<table class="table" id="dataTable-addability">' +
- '<thead>' +
- '<th>Yetenek Adı</th>' +
- '<th>Çok Kötü</th>' +
- '<th>Kötü</th>' +
- '<th>Orta</th>' +
- '<th>İyi</th>' +
- '<th>Çok İyi</th>' +
- '</thead>' +
- '<tbody></tbody>' +
- '</table>');
- $.each(data, function (i, data) {
- data.id += 1;
- $('#dataTable-addability').dataTable({
- bRetrieve: true,
- "language": {
- "lengthMenu": "Sayfada _MENU_ kayıt göster",
- "zeroRecords": "Hiçbirşey bulunamadı.",
- "info": "_TOTAL_ kayıttan _START_ - _END_ arası kayıtlar",
- "infoEmpty": "Kayıt bulunamadı.",
- "infoFiltered": "(Toplam _MAX_ kayıttan filtreleme yapıldı)",
- "search": "",
- "searchPlaceholder": "Kayıt Arama",
- "paginate": {
- "previous": "Önceki",
- "next": "Sonraki"
- }
- },
- responsive: {
- breakpoints: [
- {name: 'desktop', width: Infinity},
- {name: 'mobile', width: 768}
- ]
- },
- columnDefs: [
- {className: 'desktop', targets: [2, 3, 4, 5, 6]}
- ],
- "columns": [
- null,
- {"orderable": false},
- {"orderable": false},
- {"orderable": false},
- {"orderable": false},
- {"orderable": false}
- ]
- }).fnAddData([
- data.ability,
- '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
- '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
- '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
- '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id++ + '"></label>',
- '<input name="' + data.ability + '" type="radio" class="form-control"><label for="' + data.id + '"></label>'
- ]);
- });
- $("#ability-container .btn-danger").click(function () {
- $("#ability-container").empty().addClass("hidden");
- });
- if ($(window).width() < 768) {
- $("td.desktop").remove();
- }
- },
- error: function (xhr, status, error) {
- alert(xhr.responseText);
- }
- });
- }, 1000);
- });
-
- // Eğitime Kullanıcı Ekleme AJAX
- $("#courseAddUserButton").click(function () {
- $("#courseAddUser").removeClass("hidden").html("<div class='text-xs-center'><img src='img/loading.gif'/></div>");
- setTimeout(function () {
- $.ajax({
- type: "POST",
- url: "deneme.php",
- dataType: "json",
- success: function (data) {
- $("#courseAddUser").html(
- '<div class="card-title">' +
- '<span>Kayıtlı Olmayan Katılımcılar</span>' +
- '<div class="card-buttons">' +
- '<button type="button" class="btn btn-danger">İPTAL</button>' +
- '<button type="submit" class="btn btn-success">KAYDET</button>' +
- '</div>' +
- '</div>' +
- '<form method="post">' +
- '<table class="table" id="dataTable2">' +
- '<thead>' +
- '<th>Çalışan</th>' +
- '<th>Yetenek</th>' +
- '<th>Seviye</th>' +
- '<th>İşlemler</th>' +
- '</thead>' +
- '<tbody></tbody>' +
- '</table>' +
- '</form>');
- $.each(data, function (i, data) {
- $('#dataTable2').dataTable({
- bRetrieve: true,
- responsive: true,
- "language": {
- "lengthMenu": "Sayfada _MENU_ kayıt göster",
- "zeroRecords": "Hiçbirşey bulunamadı.",
- "info": "_TOTAL_ kayıttan _START_ - _END_ arası kayıtlar",
- "infoEmpty": "Kayıt bulunamadı.",
- "infoFiltered": "(Toplam _MAX_ kayıttan filtreleme yapıldı)",
- "search": "",
- "searchPlaceholder": "Kayıt Arama",
- "paginate": {
- "previous": "Önceki",
- "next": "Sonraki"
- }
- },
- "columns": [
- null,
- null,
- null,
- {"orderable": false}
- ]
- }).fnAddData([
- data.ad + " " + data.soyad,
- data.yetenek,
- data.seviye,
- '<input id="' + data.id + '" type="checkbox" class="form-control"><label for="' + data.id + '">Ekle</label>'
- ]);
- });
- $("#courseAddUser .btn-danger").click(function () {
- $("#courseAddUser").empty().addClass("hidden");
- });
- }
- });
- }, 1000);
- });
-
- // Eğitim Konu Düzenleme AJAX
- $("#courseAbilityChange").click(function () {
- $("#ability-container").removeClass("hidden");
- $("#ability-container").html('<div class="text-xs-center"><img src="img/loading.gif"/></div>');
- setTimeout(function () {
- $.ajax({
- type: "POST",
- url: "deneme2.php",
- dataType: "json",
- success: function (data) {
- $("#ability-container").html(
- '<div class="card-title">' +
- '<span>Yetenekler</span>' +
- '<div class="card-buttons">' +
- '<button type="button" class="btn btn-danger">İPTAL</button>' +
- '<button type="submit" class="btn btn-success">KAYDET</button>' +
- '</div>' +
- '</div>' +
- '<table class="table" id="dataTable-adduser">' +
- '<thead>' +
- '<th>Konu</th>' +
- '<th>İşlemler</th>' +
- '</thead>' +
- '<tbody></tbody>' +
- '</table>');
- $.each(data, function (i, data) {
- $('#dataTable-adduser').dataTable({
- bRetrieve: true,
- responsive: true,
- "language": {
- "lengthMenu": "Sayfada _MENU_ kayıt göster",
- "zeroRecords": "Hiçbirşey bulunamadı.",
- "info": "_TOTAL_ kayıttan _START_ - _END_ arası kayıtlar",
- "infoEmpty": "Kayıt bulunamadı.",
- "infoFiltered": "(Toplam _MAX_ kayıttan filtreleme yapıldı)",
- "search": "",
- "searchPlaceholder": "Kayıt Arama",
- "paginate": {
- "previous": "Önceki",
- "next": "Sonraki"
- }
- },
- "columns": [
- null,
- {"orderable": false}
- ]
- }).fnAddData([
- data.b,
- '<input id="' + data.a + '" type="checkbox" class="form-control"><label for="' + data.a + '">Ekle</label>'
- ]);
- });
- $("#ability-container .btn-danger").click(function () {
- $("#ability-container").empty().addClass("hidden");
- });
- }
- });
- }, 1000);
- });*/
-
-/***************************************/
 
 $(".create").click(function () {
   $(this).hide();
@@ -476,90 +249,7 @@ $(window).resize(function () {
   }
 });
 
-/*
- function changeSide() {
- // Deleting
- $("#topic .table-specific .btn-danger").on("click", function (event) {
- event.stopImmediatePropagation();
- $("#topic .card-title button").removeAttr("disabled");
-
- var text = $(this).parent().parent().children().first().text();
- text = text.replace("Sil", "");
- $(this).parent().parent().remove();
-
- $("#topic .table-all .selectpicker").prepend("<option value='" + text + "'>" + text + "</option>");
- $(".selectpicker").selectpicker("refresh");
-
- changeSide();
- });
- $("#user .table-specific .btn-danger").on("click", function (event) {
- event.stopImmediatePropagation();
- $("#user .card-title button").removeAttr("disabled");
-
- var text = $(this).parent().text();
- text = text.replace("Sil", "");
- $(this).parent().parent().remove();
-
- $("#user .table-all .selectpicker").prepend("<option value='" + text + "'>" + text + "</option>");
- $(".selectpicker").selectpicker("refresh");
-
- changeSide();
- });
- $("#skill .table-specific .btn-danger").on("click", function (event) {
- event.stopImmediatePropagation();
- $("#skill .card-title button").removeAttr("disabled");
-
- var selectedSkill = $(this).parent().parent().children().first().text();
- $(this).parent().parent().remove();
-
- $("#skill .table-all tbody tr td:first-child .selectpicker").prepend("<option value='" + selectedSkill + "'>" + selectedSkill + "</option>");
- $(".selectpicker").selectpicker("refresh");
-
- changeSide();
- });
-
-
- // Adding
- $("#topic .table-all .btn-success").on("click", function (event) {
- event.stopImmediatePropagation();
- $("#topic .card-title button").removeAttr("disabled");
-
- var selectSkill = $(this).prev().find("option:selected").text();
- $(this).prev().find("option:selected", this).remove();
- $(".selectpicker").selectpicker("refresh");
-
- var row = "<tr><td>" + selectSkill + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
-
- $("#topic .table-specific tbody").append(row);
- changeSide();
- });
- $("#user .table-all .btn-success").on("click", function (event) {
- event.stopImmediatePropagation();
- $("#user .card-title button").removeAttr("disabled");
-
- var selectUser = $(this).prev().find("option:selected").text();
- $(this).prev().find("option:selected", this).remove();
- $(".selectpicker").selectpicker("refresh");
-
- var row = "<tr><td>" + selectUser + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
-
- $("#user .table-specific tbody").append(row);
- changeSide();
- });
- $("#skill .table-all .btn-success").on("click", function (event) {
- event.stopImmediatePropagation();
- $("#skill .card-title button").removeAttr("disabled");
-
- var selectSkill = $(this).parent().parent().children(":first-child").find("option:selected").text();
- var selectLevel = $(this).prev().find("option:selected").text();
- $(this).parent().parent().children(":first-child").find("option:selected", this).remove();
- $(".selectpicker").selectpicker("refresh");
-
- var row = "<tr><td>" + selectSkill + "</td><td>" + selectLevel + "<a href='javascript:void(0)' onclick='changeSide()' class='btn btn-danger float-xs-right'>Sil</a></td></tr>";
-
- $("#skill .table-specific tbody").append(row);
- changeSide();
- });
- }
- changeSide();
- */
+$('.table-specific select').change(function () {
+  var level = $(this).val();
+  $("input[name='level_id']").val(level);
+});

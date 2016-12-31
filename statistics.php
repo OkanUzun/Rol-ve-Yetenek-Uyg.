@@ -132,7 +132,7 @@
                     <div class="card-title">Departmanlar</div>
                     <?php
                       include "dbsettings.php";
-                      $sql = 'SELECT * FROM V_DEPARTMENTS_WITH_USER_COUNT';
+                      $sql             = 'SELECT * FROM V_DEPARTMENTS_WITH_USER_COUNT';
                       $stmt            = oci_parse($conn, $sql);
                       $r               = oci_execute($stmt);
                       $array_dep       = array();

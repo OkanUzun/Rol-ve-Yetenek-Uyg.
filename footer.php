@@ -1,4 +1,5 @@
 <script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.validate.additional.min.js"></script>
 <script src="js/moment.min.js"></script>
 <script src="js/tether.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

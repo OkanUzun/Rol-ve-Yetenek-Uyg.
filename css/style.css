@@ -106,22 +106,6 @@ input[type=number] {
   width: 46px;
   line-height: 46px;
 }
-.has-error .form-control {
-  box-shadow: none;
-  border-color: #F44336 !important;
-}
-.has-error .form-control:focus {
-  box-shadow: none;
-  border-color: #F44336 !important;
-}
-.has-success .form-control {
-  box-shadow: none;
-  border-color: #8BC34A !important;
-}
-.has-success .form-control:focus {
-  box-shadow: none;
-  border-color: #8BC34A !important;
-}
 .form-group {
   margin-bottom: 12px;
   position: relative;
@@ -140,18 +124,6 @@ input[type=number] {
   color: #999;
   font-weight: 400;
   font-size: 14px;
-}
-.has-error .form-control {
-  box-shadow: 0 1px 2px #F44336;
-}
-.has-error .form-control:focus {
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(57, 195, 218, 0.6);
-}
-.has-success .form-control {
-  box-shadow: 0 1px 2px #66BB6A;
-}
-.has-success .form-control:focus {
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(57, 195, 218, 0.6);
 }
 .bootstrap-select.has-error {
   box-shadow: 0 1px 2px #F44336;
@@ -264,6 +236,30 @@ textarea {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #A0A0A0;
 }
+span.error {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background-color: #F44336;
+  color: #fff;
+  padding: 3px;
+  border-radius: 3px;
+  font-size: 12px;
+  pointer-events: none;
+}
+span.error.valid {
+  background-color: transparent;
+}
+span.error.valid:before {
+  content: "\F134";
+  font-family: "Material Design Icons";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  color: #66BB6A;
+  font-size: 16px;
+  pointer-events: none;
+}
 .bootstrap-select .dropdown-toggle {
   height: 100%;
   border: 0;
@@ -301,6 +297,26 @@ textarea {
 .bootstrap-select .dropdown-menu li a span {
   display: block;
   margin: 0 !important;
+}
+.bootstrap-select .dropdown-menu li.selected a {
+  position: relative;
+}
+.bootstrap-select .dropdown-menu li.selected a:after {
+  content: "\F12C";
+  font-family: 'Material Design Icons';
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: #66bb6a;
+  font-size: 24px;
+  pointer-events: none;
+}
+.bootstrap-select span.error {
+  right: 22px;
+}
+.bootstrap-select span.error.valid:before {
+  top: 2px;
+  right: 0;
 }
 /* MAIN CONTENT CSS */
 .card {
@@ -585,6 +601,7 @@ textarea {
   transition: all 0.3s ease !important;
 }
 .wrapper .page-content .card-buttons .btn {
+  padding: 8px 16px !important;
   margin-left: 10px;
 }
 .wrapper .page-content .card {
@@ -598,6 +615,19 @@ textarea {
   background-color: #fff;
   border-radius: 0;
   padding: 12px 15px;
+}
+.wrapper .page-content .card .card-header .filter {
+  display: block;
+  width: 100%;
+}
+.wrapper .page-content .card .card-header .filter .filter-header {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  background-color: #26C6DA;
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 5px;
 }
 .wrapper .page-content .card .card-header .card-title {
   position: relative;
