@@ -113,9 +113,6 @@
     $ability_id = $_POST["ability_id"];
     $level_id   = $_POST['level_id'];
 
-    echo $ability_id;
-    echo $level_id;
-
     oci_execute($stmt);
   }
   /*echo '

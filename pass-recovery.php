@@ -32,12 +32,12 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-      <form action="">
+      <form action="index.php">
         <div class="card card-login">
           <div class="card-header">Şifremi Unuttum</div>
           <div class="card-block">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="E-mail">
+              <input type="text" name="email" class="form-control" placeholder="E-mail">
               <i class="mdi mdi-email"></i>
             </div>
             <div class="form-group text-xs-center">
