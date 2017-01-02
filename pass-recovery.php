@@ -32,7 +32,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-      <form action="index.php">
+      <form action="change.php" method="post">
         <div class="card card-login">
           <div class="card-header">Şifremi Unuttum</div>
           <div class="card-block">
@@ -41,7 +41,7 @@
               <i class="mdi mdi-email"></i>
             </div>
             <div class="form-group text-xs-center">
-              <button type="submit" class="btn btn-success">Gönder</button>
+              <button type="submit" name="forgot-password" class="btn btn-success">Gönder</button>
             </div>
           </div>
         </div>
