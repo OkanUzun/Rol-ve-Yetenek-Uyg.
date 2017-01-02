@@ -23,7 +23,7 @@
       require 'mail-config.php';
       $salt     = "498#2D83B631%3800EBD!801600D*7E3CC13";
       $password = hash('sha512', $salt.$row["EMAIL"]);
-      $pwrurl   = "localhost/reset-password.php?q=".$password;
+      $pwrurl   = "localhost/pass-change.php?q=".$password;
 
       $mail->addAddress($email);
       $mail->Subject = 'Şifre Sıfırlama Bağlantısı';

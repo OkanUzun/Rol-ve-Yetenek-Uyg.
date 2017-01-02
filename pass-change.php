@@ -32,7 +32,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-      <form method="post">
+      <form method="post" action="reset.php">
         <div class="card card-login">
           <div class="card-header">Yeni Şifre</div>
           <div class="card-block">
@@ -41,16 +41,23 @@
               <i class="mdi mdi-email"></i>
             </div>
             <div class="form-group">
-              <input type="text" name="email" class="form-control" placeholder="Yeni Şifre">
+              <input type="text" name="new_password" class="form-control" placeholder="Yeni Şifre">
               <i class="mdi mdi-key"></i>
             </div>
             <div class="form-group">
-              <input type="text" name="email" class="form-control" placeholder="Yeni Şifre Tekrar">
+              <input type="text" name="new_password_again" class="form-control" placeholder="Yeni Şifre Tekrar">
               <i class="mdi mdi-key-change"></i>
             </div>
             <div class="form-group text-xs-center">
-              <button type="submit" class="btn btn-success">Gönder</button>
+              <button type="submit" name = "change-password" class="btn btn-success">Gönder</button>
             </div>
+            <?php 
+              echo '<input type="hidden" name="q" value="';
+              if (isset($_GET["q"])){
+                echo $_GET["q"];
+              }
+              echo '"/>'; 
+            ?>
           </div>
         </div>
       </form>

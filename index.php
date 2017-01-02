@@ -40,7 +40,8 @@
       oci_bind_by_name($stmt, ':is_valid', $message);
 
       $user_id = $_POST["user_id"];
-      $user_pw = md5($_POST["user_pw"]);
+      $salt = "498#2D83B631%3800EBD!801600D*7E3CC13";
+      $user_pw = hash('sha512',$salt.$_POST["user_pw"]);
 
       oci_execute($stmt);
 
