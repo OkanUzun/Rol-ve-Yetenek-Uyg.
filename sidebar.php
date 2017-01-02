@@ -72,7 +72,7 @@
         </a>
       </li>
       <li class="exit">
-        <a href="index.php">
+        <a href="exit.php">
           <div class="icon"><i class="mdi mdi-exit-to-app"></i></div>
           <div class="title">Çıkış Yap</div>
         </a>

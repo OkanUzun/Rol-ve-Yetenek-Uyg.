@@ -311,7 +311,11 @@ if (isset($_GET["course_id"])) {
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="card-title">Eğitim Bilgileri
-                        <button type="submit" name="update-education" class="btn btn-success">Kaydet</button>
+                      <?php  
+                        if ($allow_to_change_details == 1){
+                          echo '<button type="submit" name="update-education" class="btn btn-success">Kaydet</button>';
+                        }
+                        ?>        
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-4">
