@@ -90,36 +90,86 @@
             <td style="font-weight: 700;">Selam <?php echo $f_name ?>,</td>
           </tr>
           <tr>
-            <!-- ŞİFRE MESAJI -->
-            <td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin.</td>
-
-            <!-- EĞİTİM MESAJI -->
-            <!--<td style="color: #9C9B9D; padding: 20px 0;">Kaydının yapılmış olduğu yeni eğitimin için tebrik ederiz! Aşağıda eğitim bilgilerini bulabilirsin.</td>-->
-
-            <!-- ŞİFREMİ UNUTTUM MESAJI -->
-            <!--<td style="color: #9C9B9D; padding: 20px 0;">İsteğin üzerine sisteme giriş yapabileceğin yeni şifreni gönderdik.</td>-->
+            <?php  
+              if (isset($_POST["create-user"])){
+                echo '            <td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin. Giriş yaptıktan sonra şifreni değiştirmen tavsiye edilir.</td>';
+              }
+              else if (isset($_POST["insert-education-user"])){
+                echo '<td style="color: #9C9B9D; padding: 20px 0;">Kaydının yapılmış olduğu yeni eğitimin için tebrik ederiz! Aşağıda eğitim bilgilerini bulabilirsin.</td>';
+              }
+              else if (isset($_POST["change-password"])){
+                echo '<td style="color: #9C9B9D; padding: 20px 0;">Şifreniz başarıyla değiştirilmiştir.</td>';
+              }
+            ?>
           </tr>
         </table>
         <br><br>
+        <?php 
+          if (isset($_POST["create-user"])){
+            echo '        
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+              <tr>
+                <td style="padding-right: 10px;">Kullanıcı Adı:</td>
+                <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+                  '.$user_id.'
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 5px 0;"></td>
+              </tr>
+              <tr>
+                <td style="padding-right: 10px;">Şifre:</td>
+                <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+                  '.$r_pw.'
+                </td>
+              </tr>
+            </table>';
+          }
+          else if (isset($_POST["insert-education-user"])){
+            echo '
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+              <tr>
+                <td style="padding-right: 10px;">Eğitimin Konusu:</td>
+                <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+                  '.$education_subject.'
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 5px 0;"></td>
+              </tr>
+              <tr>
+                <td style="padding-right: 10px;">Eğitimci Adı:</td>
+                <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+                  '.$educator_name.'
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 5px 0;"></td>
+              </tr>
+              <tr>
+                <td style="padding-right: 10px;">Eğitim Yeri:</td>
+                <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+                  '.$lounge_name.'
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 5px 0;"></td>
+              </tr>
+              <tr>
+                <td style="padding-right: 10px;">Başlangıç Zamanı:</td>
+                <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+                  '.$started_date.'
+                </td>
+              </tr>
+            </table>';
+          }
+          else if (isset($_POST["change-password"])){
+            echo '';
+          }
+        ?>
 
         <!-- ŞİFRE İÇİN BU TABLO -->
-        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
-          <tr>
-            <td style="padding-right: 10px;">Kullanıcı Adı:</td>
-            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              <?php echo $user_id ?>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 5px 0;"></td>
-          </tr>
-          <tr>
-            <td style="padding-right: 10px;">Şifre:</td>
-            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              <?php echo $r_pw ?>
-            </td>
-          </tr>
-        </table>
+
 
         <!-- ŞİFREMİ UNUTTUM İÇİN BU TABLO -->
         <!--<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
@@ -133,32 +183,7 @@
 
 
         <!-- EĞİTİM İÇİN BU TABLO -->
-        <!--<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
-          <tr>
-            <td style="padding-right: 10px;">Eğitim Adı:</td>
-            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              Java Eğitimi
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 5px 0;"></td>
-          </tr>
-          <tr>
-            <td style="padding-right: 10px;">Eğitimci:</td>
-            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              Okan Uzun
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 5px 0;"></td>
-          </tr>
-          <tr>
-            <td style="padding-right: 10px;">Eğitim Salonu:</td>
-            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              Salon A
-            </td>
-          </tr>
-        </table>-->
+        <!---->
 
       </td>
     </tr>

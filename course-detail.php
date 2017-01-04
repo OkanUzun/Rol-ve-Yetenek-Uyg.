@@ -76,6 +76,45 @@
 
     oci_execute($stmt);
 
+    $sql       = 'SELECT EMAIL,FIRST_NAME,LAST_NAME FROM T_USER WHERE PK = '.$user_id.'';
+    $stmt = oci_parse($conn, $sql);
+    $r    = oci_execute($stmt);
+    $row  = oci_fetch_assoc($stmt);
+
+    $f_name = $row["FIRST_NAME"];
+    $l_name = $row["LAST_NAME"];
+    $email = $row["EMAIL"];
+
+    $sql       = 'SELECT T_EDUCATION.PLANNED_DATE,INITCAP(T_EDUCATION.EDUCATION_SUBJECT) AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME,INITCAP(T_LOUNGE.LOUNGE_NAME) AS LOUNGE FROM T_EDUCATOR,T_EDUCATION,T_LOUNGE WHERE T_EDUCATION.LOUNGE_FK = T_LOUNGE.PK AND T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK AND T_EDUCATION.PK = '.$course_id.'';
+    $stmt = oci_parse($conn, $sql);
+    $r    = oci_execute($stmt);
+    $row  = oci_fetch_assoc($stmt);
+
+    $education_subject = $row["SUBJECT"];
+    $educator_name = $row["EDUCATOR_NAME"];
+    $lounge_name = $row["LOUNGE"]; 
+
+    $date         = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLANNED_DATE"]);
+    $started_date = $date->format('d/m/Y - H:i');         
+
+    if ($message == 1) {
+      require 'mail-config.php';
+      ob_start();
+      require_once('email.php');
+
+      $mail->addAddress($email, $f_name.' '.$l_name);
+      $mail->Subject = 'EĞİTİM BİLGİLERİNİZ';
+      $mail->Body    = ob_get_clean();
+
+      if (!$mail->send()) {
+        //echo 'Message could not be sent.';
+        //echo 'Mailer Error: ' . $mail->ErrorInfo;
+      }
+      else {
+        //echo 'Message has been sent';
+      }
+    }
+
     echo '
   <script type="text/javascript">
     $(document).ready(function() {

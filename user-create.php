@@ -36,13 +36,15 @@
     $r_pw = randomPassword();
 
     $user_id       = $_POST["u_name"];
-    $user_pw       = md5($r_pw);
     $e_mail        = $_POST["e_mail"];
     $f_name        = $_POST["f_name"];
     $l_name        = $_POST["l_name"];
     $date_of_birth = $_POST["date_of_birth"];
     $phone_number  = $_POST["phone_number"];
     $address       = $_POST["address"];
+
+    $salt = "498#2D83B631%3800EBD!801600D*7E3CC13";
+    $user_pw = hash('sha512',$salt.$r_pw);
 
     if (isset($_POST["role_id"])) {
       $role_id = $_POST["role_id"];
