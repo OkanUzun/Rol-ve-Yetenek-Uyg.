@@ -43,8 +43,8 @@ var multi = $.extend(options, {
 
 $('#dataTable-user').DataTable(user);
 $('#dataTable-course').DataTable(course);
-$('#dataTable-role, #dataTable-ability, #dataTable-instructor').DataTable(multi);
-$('#dataTable-department, #dataTable-unit, #dataTable-courseusers').DataTable({
+$('#dataTable-role, #dataTable-ability, #dataTable-instructor, #dataTable-department').DataTable(multi);
+$('#dataTable-unit, #dataTable-courseusers').DataTable({
   responsive: true,
   "language": {
     "lengthMenu": "Sayfada _MENU_ kayıt göster",

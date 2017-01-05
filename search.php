@@ -13,7 +13,7 @@
             <div class="filter">
               <div class="filter-header">Filtreleme için seçim yapınız</div>
               <div class="row">
-                <div class="col-lg-3">
+                <div class="col-md-6 col-lg-3">
                   <div class="form-group">
                     <?php
                       $sql  = 'SELECT * FROM V_DEPARTMENTS';
@@ -28,7 +28,7 @@
                     ?>
                   </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-6 col-lg-3">
                   <div class="form-group">
                     <?php
                       $sql  = 'SELECT * FROM V_UNITS';
@@ -43,7 +43,7 @@
                     ?>
                   </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-6 col-lg-3">
                   <div class="form-group">
                     <?php
                       $sql  = 'SELECT * FROM V_ROLES';
@@ -57,7 +57,7 @@
                     ?>
                   </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-6 col-lg-3">
                   <div class="form-group">
                     <select class="form-control selectpicker" data-live-search="true" data-size="5" title="Yetenek Seçiniz" multiple>
                       <option value="PHP">PHP</option>

@@ -13,7 +13,10 @@
     $ablty_name = $_POST["ability_name"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Yetenek Oluşturuldu");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Yetenek Oluşturulamadı");</script>';
   }
 
   else if (isset($_POST["update-ability"])) {
@@ -28,6 +31,10 @@
     $ablty_name = $_POST["ability_name"];
 
     oci_execute($stmt);
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Yetenek Güncellendi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Yetenek Güncellenemedi");</script>';
   }
 
   else if (isset($_POST["delete-ability"])) {
@@ -41,6 +48,10 @@
     $ablty_id = $_POST["ability_id"];
 
     oci_execute($stmt);
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Yetenek Silindi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Yetenek Silinemedi");</script>';
   }
 ?>
 

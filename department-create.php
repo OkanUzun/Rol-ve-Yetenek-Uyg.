@@ -15,7 +15,10 @@
     $manager_id = $_POST["manager_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Departman Oluşturuldu");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Departman Oluşturulamadı");</script>';
   }
   else if (isset($_POST["update-dep"])) {
     $sql  = 'BEGIN SP_UPDATE_DEPARTMENT(:dep_id,:dep_name,:mngr_id,:is_valid); END;';
@@ -32,7 +35,10 @@
 
     oci_execute($stmt);
 
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Departman Güncellendi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Departman Güncellenemedi");</script>';
   }
   else if (isset($_POST["delete-dep"])) {
     $sql  = 'BEGIN SP_REMOVE_DEPARTMENT(:dep_id,:is_valid); END;';
@@ -44,6 +50,10 @@
     $dep_id = $_POST["dep_id"];
 
     oci_execute($stmt);
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Departman Silindi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Departman Silinemedi");</script>';
   }
 
 ?>

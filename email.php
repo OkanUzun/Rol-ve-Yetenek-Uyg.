@@ -168,8 +168,6 @@
           }
         ?>
 
-        <!-- ŞİFRE İÇİN BU TABLO -->
-
 
         <!-- ŞİFREMİ UNUTTUM İÇİN BU TABLO -->
         <!--<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
@@ -181,9 +179,6 @@
           </tr>
         </table>-->
 
-
-        <!-- EĞİTİM İÇİN BU TABLO -->
-        <!---->
 
       </td>
     </tr>

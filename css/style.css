@@ -1041,16 +1041,17 @@ span.error.valid:before {
   background-color: #A0A0A0 !important;
 }
 .toast {
-  padding: 15px 20px;
+  padding: 10px 20px;
   color: #fff;
   background: rgba(0, 0, 10, 0.7);
   display: inline-block;
   position: fixed;
-  top: -300px;
+  top: 20px !important;
   right: 15px;
   opacity: 0;
   transition: all 0.4s ease-out;
   z-index: 101;
+  border-radius: 5px;
 }
 /* MAIN CONTENT CSS */
 [type=checkbox]:checked,
@@ -1294,6 +1295,10 @@ span.error.valid:before {
   .wrapper .page-content .card .card-header .card-title .date {
     display: none;
   }
+  .wrapper .page-content .card .card-header .filter .filter-header {
+    width: 100%;
+    text-align: center;
+  }
   .wrapper .page-content .card .card-block .card-title .card-buttons .btn {
     margin-left: 5px;
     padding: 8px;
@@ -1308,11 +1313,38 @@ span.error.valid:before {
   .wrapper .page-content .card .card-block .table thead tr th:after {
     content: none !important;
   }
-  .wrapper .page-content .card .card-block .table tbody tr td .btn-table {
-    margin-bottom: 15px;
+  .wrapper .page-content .card .card-block .table tbody tr td.text-xs-center {
+    width: 100px;
+    padding: .75rem 5px;
   }
-  .wrapper .page-content .card .card-block .table tbody tr td .btn-table:last-child {
-    margin-bottom: 0;
+  .wrapper .page-content .card .card-block .table tbody tr td.text-xs-center .btn-table {
+    margin: 0;
+  }
+  .wrapper .page-content .card .card-block .nav-tabs {
+    display: flex;
+    justify-content: center;
+  }
+  .wrapper .page-content .card .card-block .nav-tabs .nav-item {
+    float: none;
+    margin: 0 5px !important;
+  }
+  .wrapper .page-content .card .card-block .list-group .list-group-item .tag {
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .wrapper .page-content .card .card-block .list-group .list-group-item .tag-normal {
+    width: initial;
+    white-space: initial;
+    overflow: initial;
+    text-overflow: initial;
+  }
+  .wrapper .page-content .card .card-block .list-group .list-group-item:first-child .tag {
+    width: initial;
+    white-space: initial;
+    overflow: initial;
+    text-overflow: initial;
   }
   .wrapper .page-content a.card .card-block .card-body i {
     font-size: 48px;
@@ -1357,6 +1389,9 @@ span.error.valid:before {
   .dataTables_wrapper table.dtr-inline.collapsed thead tr th:after {
     content: none;
   }
+  .dataTables_wrapper table.dtr-inline.collapsed tbody tr td:first-child {
+    padding-left: .75rem;
+  }
   .dataTables_wrapper table.dtr-inline.collapsed tbody tr td:first-child:before {
     top: 15px;
     left: -22px;
@@ -1370,14 +1405,21 @@ span.error.valid:before {
     border: 0;
     margin-bottom: 10px;
   }
-  .dataTables_wrapper table.dtr-inline.collapsed tbody tr.child ul li .dtr-data .btn-table {
-    margin-left: 5px;
-    margin-bottom: 0;
-  }
-  .dataTables_wrapper table.dtr-inline.collapsed tbody tr.child ul li:last-child {
-    margin-bottom: 0;
-  }
   .modal .modal-content .modal-header .modal-title {
     font-size: 20px;
+  }
+}
+@media (max-width: 320px) {
+  .wrapper .page-content .card .card-block .nav-tabs .nav-item .nav-link {
+    padding: .5rem 11px;
+  }
+  .wrapper .page-content .card .card-block .list-group .list-group-item:first-child {
+    font-size: 13px;
+  }
+  .wrapper .page-content .card .card-block .list-group .list-group-item:first-child .tag {
+    font-size: 11px;
+  }
+  .wrapper .page-content .card .card-block .list-group .list-group-item a {
+    font-size: 14px;
   }
 }

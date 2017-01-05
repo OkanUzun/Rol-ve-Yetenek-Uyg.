@@ -38,7 +38,10 @@
     $user_id = $_SESSION["username"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Şifre Değiştirildi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Şifre Değiştirilemedi");</script>';
   }
 ?>
 

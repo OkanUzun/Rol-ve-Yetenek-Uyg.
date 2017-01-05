@@ -13,7 +13,10 @@
     $role_name = $_POST["role_name"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Rol Oluşturuldu");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Rol Oluşturulamadı");</script>';
   }
   else if (isset($_POST["update-role"])) {
     $sql  = 'BEGIN SP_UPDATE_ROLE(:rle_id,:rle_name,:is_valid); END;';
@@ -27,7 +30,10 @@
     $role_name = $_POST["role_name"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Rol Güncellendi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Rol Güncellenemedi");</script>';
   }
   else if (isset($_POST["delete-role"])) {
     $sql  = 'BEGIN SP_REMOVE_ROLE(:rle_id,:is_valid); END;';
@@ -39,7 +45,10 @@
     $role_id = $_POST["role_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Rol Silindi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Rol Silinemedi");</script>';
   }
 ?>
   <div class="wrapper">

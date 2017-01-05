@@ -70,7 +70,7 @@
                     while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                       echo '
                           <li class="list-group-item">
-                            <span class="tag tag-default tag-pill float-xs-right">'.$row["X"].'</span>
+                            <span class="tag tag-default tag-pill tag-normal float-xs-right">'.$row["X"].'</span>
                             <input type="hidden" name="unit_id" id="unit_id" value="'.$row['PK'].'">
                             <a href="unit-detail.php?unit_id='.$row['PK'].'" rel="tooltip" title="Detay">'.$row["UNT_NAME"].'</a>
                           </li>

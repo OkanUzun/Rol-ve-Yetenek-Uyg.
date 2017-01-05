@@ -16,7 +16,10 @@
     $manager_id = $_POST["manager_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Birim Oluşturuldu");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Birim Oluşturulamadı");</script>';
   }
   else if (isset($_POST["update-unit"])) {
     $sql  = 'BEGIN SP_UPDATE_UNIT(:unt_id,:unt_name,:dep_id,:mngr_id,:is_valid); END;';
@@ -34,7 +37,10 @@
     $dep_id     = $_POST["dep_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Birim Güncellendi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Birim Güncellenemedi");</script>';
   }
   else if (isset($_POST["delete-unit"])) {
     $sql  = 'BEGIN SP_REMOVE_UNIT(:unt_id,:is_valid); END;';
@@ -46,7 +52,10 @@
     $unit_id = $_POST["unit_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Birim Silindi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Birim Silinemedi");</script>';
   }
 
 ?>

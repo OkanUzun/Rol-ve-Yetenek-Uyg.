@@ -17,7 +17,10 @@
     $user_id       = $_POST["user_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Eğitimci Oluşturuldu");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Eğitimci Oluşturulamadı");</script>';
 
   }
   else if (isset($_POST["update-educator"])) {
@@ -33,7 +36,10 @@
     $educator_name = $_POST["educator_name"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Eğitimci Güncellendi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Eğitimci Güncellenemedi");</script>';
   }
   else if (isset($_POST["delete-educator"])) {
     $sql  = 'BEGIN SP_REMOVE_EDUCATOR(:edctr_id,:is_valid); END;';
@@ -46,7 +52,10 @@
     $educator_id = $_POST["educator_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Eğitimci Silindi");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Eğitimci Silinemedi");</script>';
   }
 ?>
 

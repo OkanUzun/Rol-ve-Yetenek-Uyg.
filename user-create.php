@@ -91,7 +91,7 @@
             </div>
             <div class="card-block">
               <div class="row">
-                <div class="col-xs-12 col-md-12 col-lg-6 mb-1">
+                <div class="col-xs-12 col-lg-6 mb-1">
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="card-title">Meslek Bilgisi</div>
@@ -146,7 +146,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-md-12 col-lg-6 mb-1">
+                <div class="col-xs-12 col-lg-6 mb-1">
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="card-title">Kişisel Bilgiler</div>
@@ -173,22 +173,22 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-md-12 col-lg-12 col-xl-6">
+                <div class="col-xs-12 col-xl-6">
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="card-title">İletişim Bilgileri</div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-xs-12 col-md-6">
                       <div class="form-group">
                         <input type="email" class="form-control" placeholder="E-mail" name="e_mail">
                       </div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-xs-12 col-md-6">
                       <div class="form-group">
                         <input type="number" class="form-control" placeholder="Mobil Telefon No" name="phone_number">
                       </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-xs-12">
                       <div class="form-group">
                         <textarea rows="5" class="form-control" placeholder="Adres..." name="address"></textarea>
                       </div>
