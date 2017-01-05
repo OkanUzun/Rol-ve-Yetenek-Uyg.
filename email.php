@@ -61,6 +61,15 @@
       text-decoration: underline !important;
     }
 
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     /* Media Queries */
     @media screen and (max-width: 600px) {
       .email-container {
@@ -90,22 +99,23 @@
             <td style="font-weight: 700;">Selam <?php echo $f_name ?>,</td>
           </tr>
           <tr>
-            <?php  
-              if (isset($_POST["create-user"])){
+            <td style="color: #9C9B9D; padding: 20px 0;">Talebin üzerine gönderilen şifre sıfırlama linkine tıklayarak yeni şifreni oluşturabilirsin.</td>
+            <?php
+              if (isset($_POST["create-user"])) {
                 echo '            <td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin. Giriş yaptıktan sonra şifreni değiştirmen tavsiye edilir.</td>';
               }
-              else if (isset($_POST["insert-education-user"])){
+              else if (isset($_POST["insert-education-user"])) {
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Kaydının yapılmış olduğu yeni eğitimin için tebrik ederiz! Aşağıda eğitim bilgilerini bulabilirsin.</td>';
               }
-              else if (isset($_POST["change-password"])){
+              else if (isset($_POST["change-password"])) {
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Şifreniz başarıyla değiştirilmiştir.</td>';
               }
             ?>
           </tr>
         </table>
         <br><br>
-        <?php 
-          if (isset($_POST["create-user"])){
+        <?php
+          if (isset($_POST["create-user"])) {
             echo '        
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
               <tr>
@@ -125,7 +135,7 @@
               </tr>
             </table>';
           }
-          else if (isset($_POST["insert-education-user"])){
+          else if (isset($_POST["insert-education-user"])) {
             echo '
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
               <tr>
@@ -163,22 +173,20 @@
               </tr>
             </table>';
           }
-          else if (isset($_POST["change-password"])){
+          else if (isset($_POST["change-password"])) {
             echo '';
           }
         ?>
 
 
         <!-- ŞİFREMİ UNUTTUM İÇİN BU TABLO -->
-        <!--<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
           <tr>
-            <td style="padding-right: 10px;">Yeni Şifre:</td>
             <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              <?php /*echo $r_pw */ ?>
+              <a href="#">Şifrenizi değiştirmek için tıklayınız</a>
             </td>
           </tr>
-        </table>-->
-
+        </table>
 
       </td>
     </tr>
