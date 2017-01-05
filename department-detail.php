@@ -6,7 +6,7 @@
     $dep_id = $_GET["dep_id"];
 
     $sql = '
-    SELECT INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,
+    SELECT T_USER.PK AS U_PK,INITCAP(T_DEPARTMENT.DEPARTMENT_NAME) AS DEP_NAME,
     INITCAP(T_USER.FIRST_NAME) AS F_NAME,
     UPPER(T_USER.LAST_NAME) AS L_NAME,
     T_DEPARTMENT.CREATION_TIME AS CR_TIME,
@@ -21,6 +21,7 @@
     $row  = oci_fetch_assoc($stmt);
 
     $dep_name = $row["DEP_NAME"];
+    $user_pk = $row["U_PK"];
     $f_name   = $row["F_NAME"];
     $l_name   = $row["L_NAME"];
     $date     = DateTime::createFromFormat("d#M#y H#i#s*A", $row["CR_TIME"]);
@@ -40,7 +41,7 @@
         <div class="card-header">
           <div class="card-title">
             <div class="name"><?php echo $dep_name ?>
-              <div class="manager"><strong>Departman Müdürü:</strong> <?php echo $f_name.' '.$l_name ?></div>
+              <div class="manager"><strong>Departman Müdürü:</strong> <?php  ($user_pk == null ? print ('Henüz Atanmamış') : print($f_name.' '.$l_name)) ?></div>
             </div>
             <div class="date">
               <span><strong>Oluşturulma Tarihi:</strong> <?php echo $cr_time ?></span>
