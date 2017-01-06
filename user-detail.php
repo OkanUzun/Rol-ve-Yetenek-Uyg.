@@ -399,11 +399,13 @@
                     <tbody>
                     <?php
                       include "dbsettings.php";
-                      $sql  = 'SELECT T_EDUCATION.PK,T_EDUCATION.EDUCATION_SUBJECT AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME AS EDCTR_NAME,T_EDUCATION.PLANNED_DATE AS PLND_DTE,T_EDUCATION.COMPLETE_DATE AS CMPLT_DTE,INITCAP(T_STATE.STATE_NAME) AS CRR_STT
-                    FROM T_EDUCATION_USER_REL,T_USER,T_STATE,T_EDUCATION
-                    LEFT JOIN T_EDUCATOR ON T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK
-                    WHERE T_EDUCATION.STATE_FK = T_STATE.PK 
-                    AND T_EDUCATION.PK = T_EDUCATION_USER_REL.EDUCATION_FK AND T_EDUCATION_USER_REL.USER_FK = '.$user_id;
+                      $sql  = 'SELECT T_EDUCATION.PK,T_EDUCATION.EDUCATION_SUBJECT AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME AS EDCTR_NAME,T_EDUCATION.PLANNED_DATE AS PLND_DTE,T_EDUCATION.COMPLETE_DATE AS CMPLT_DTE,INITCAP(T_STATE.STATE_NAME) AS CRR_STT,INITCAP(T_LOUNGE.LOUNGE_NAME) AS LOUNGE
+                    FROM T_EDUCATION_USER_REL
+                    INNER JOIN T_EDUCATION ON T_EDUCATION_USER_REL.EDUCATION_FK = T_EDUCATION.PK 
+                    INNER JOIN T_LOUNGE ON T_LOUNGE.PK = T_EDUCATION.LOUNGE_FK
+                    INNER JOIN T_STATE ON T_STATE.PK = T_EDUCATION.STATE_FK
+                    INNER JOIN T_EDUCATOR ON T_EDUCATOR.PK = T_EDUCATION.EDUCATOR_FK
+                    WHERE T_EDUCATION_USER_REL.USER_FK = '.$user_id;
                       $stmt = oci_parse($conn, $sql);
                       $r    = oci_execute($stmt);
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
@@ -414,7 +416,7 @@
                         echo '<tr>';
                         echo '<td>'.$row['SUBJECT'].'</td>';
                         echo '<td>'.$row['EDCTR_NAME'].'</td>';
-                        echo '<td>Salon A</td>';
+                        echo '<td>'.$row['LOUNGE'].'</td>';
                         echo '<td>'.$started_date.'</td>';
                         echo '<td>'.$complete_date.'</td>';
                         echo '<td>'.$row['CRR_STT'].'</td>';
