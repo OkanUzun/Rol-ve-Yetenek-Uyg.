@@ -45,7 +45,7 @@
       var opts = options || {};
 
       // setup some defaults
-      opts.defaultText = opts.defaultText || 'default text';
+      opts.defaultText = opts.defaultText || 'Toast boş';
       opts.displayTime = opts.displayTime || 3000;
       opts.target = opts.target || 'body';
 
@@ -54,7 +54,7 @@
           $(this).css({
             'opacity': 1
           });
-          var topOffset = 15;
+          var topOffset = 10;
           $('.toast').each(function () {
             var $this = $(this);
             var height = $this.outerHeight();
@@ -66,9 +66,9 @@
           next();
         }).delay(opts.displayTime).queue(function (next) {
           var $this = $(this);
-          var width = $this.outerWidth() + 20;
+          var height = $this.outerHeight() + 20;
           $this.css({
-            'right': '-' + width + 'px',
+            'top': '-' + height + 'px',
             'opacity': 0
           });
           next();

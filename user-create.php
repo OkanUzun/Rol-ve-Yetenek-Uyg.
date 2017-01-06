@@ -43,8 +43,8 @@
     $phone_number  = $_POST["phone_number"];
     $address       = $_POST["address"];
 
-    $salt = "498#2D83B631%3800EBD!801600D*7E3CC13";
-    $user_pw = hash('sha512',$salt.$r_pw);
+    $salt    = "498#2D83B631%3800EBD!801600D*7E3CC13";
+    $user_pw = hash('sha512', $salt.$r_pw);
 
     if (isset($_POST["role_id"])) {
       $role_id = $_POST["role_id"];
@@ -72,7 +72,10 @@
       else {
         //echo 'Message has been sent';
       }
+      echo '<script type="text/javascript">showtoast("Kullanıcı Oluşturuldu");$(".toast").addClass("toast-success");</script>';
     }
+    else
+      echo '<script type="text/javascript">showtoast("Kullanıcı Oluşturulamadı");$(".toast").addClass("toast-error");</script>';
   }
 ?>
 

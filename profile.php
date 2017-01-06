@@ -32,16 +32,16 @@
     oci_bind_by_name($stmt, ':new_pw', $new_pw);
     oci_bind_by_name($stmt, ':is_valid', $message);
 
-    $salt = "498#2D83B631%3800EBD!801600D*7E3CC13";
-    $new_pw = hash('sha512',$salt.$_POST["new_pw"]);
+    $salt   = "498#2D83B631%3800EBD!801600D*7E3CC13";
+    $new_pw = hash('sha512', $salt.$_POST["new_pw"]);
 
     $user_id = $_SESSION["username"];
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Şifre Değiştirildi");</script>';
+      echo '<script type="text/javascript">showtoast("Şifre Değiştirildi");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Şifre Değiştirilemedi");</script>';
+      echo '<script type="text/javascript">showtoast("Şifre Değiştirilemedi");$(".toast").addClass("toast-error");</script>';
   }
 ?>
 

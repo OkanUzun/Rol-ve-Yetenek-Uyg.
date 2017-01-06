@@ -30,6 +30,48 @@
 
   <script src="js/jquery.min.js"></script>
   <script src="js/chart.bundle.min.js"></script>
+  <script type="text/javascript">
+    // Toast Notification
+    function ToastBuilder(options) {
+      // options are optional
+      var opts = options || {};
+
+      // setup some defaults
+      opts.defaultText = opts.defaultText || 'Toast boş';
+      opts.displayTime = opts.displayTime || 3000;
+      opts.target = opts.target || 'body';
+
+      return function (text) {
+        $('<div/>').addClass('toast').prependTo($(opts.target)).text(text || opts.defaultText).queue(function (next) {
+          $(this).css({
+            'opacity': 1
+          });
+          var topOffset = 10;
+          $('.toast').each(function () {
+            var $this = $(this);
+            var height = $this.outerHeight();
+            var offset = 15;
+            $this.css('top', topOffset + 'px');
+
+            topOffset += height + offset;
+          });
+          next();
+        }).delay(opts.displayTime).queue(function (next) {
+          var $this = $(this);
+          var height = $this.outerHeight() + 20;
+          $this.css({
+            'top': '-' + height + 'px',
+            'opacity': 0
+          });
+          next();
+        }).delay(600).queue(function (next) {
+          $(this).remove();
+          next();
+        });
+      };
+    }
+    var showtoast = new ToastBuilder();
+  </script>
   <?php
 
     include "dbsettings.php";
@@ -43,8 +85,8 @@
       oci_bind_by_name($stmt, ':is_valid', $message);
 
       $user_id = $_POST["user_id"];
-      $salt = "498#2D83B631%3800EBD!801600D*7E3CC13";
-      $user_pw = hash('sha512',$salt.$_POST["user_pw"]);
+      $salt    = "498#2D83B631%3800EBD!801600D*7E3CC13";
+      $user_pw = hash('sha512', $salt.$_POST["user_pw"]);
 
       oci_execute($stmt);
 
@@ -64,8 +106,8 @@
         $_SESSION['username'] = $user_id;
         header("Location:dashboard.php");
       }
-      else { // HATALI GİRİŞ
-
+      else {
+        echo '<script type="text/javascript">window.onload = function() {showtoast("Hatalı Giriş");$(".toast").addClass("toast-error");}</script>';
       }
     }
   ?>

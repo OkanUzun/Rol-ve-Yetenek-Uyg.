@@ -63,7 +63,7 @@
 
     a {
       text-decoration: none;
-      color: #fff;
+      color: #fff !important;
     }
 
     a:hover {
@@ -102,7 +102,7 @@
             <td style="color: #9C9B9D; padding: 20px 0;">Talebin üzerine gönderilen şifre sıfırlama linkine tıklayarak yeni şifreni oluşturabilirsin.</td>
             <?php
               if (isset($_POST["create-user"])) {
-                echo '            <td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin. Giriş yaptıktan sonra şifreni değiştirmen tavsiye edilir.</td>';
+                echo '<td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin. Giriş yaptıktan sonra şifreni değiştirmen tavsiye edilir.</td>';
               }
               else if (isset($_POST["insert-education-user"])) {
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Kaydının yapılmış olduğu yeni eğitimin için tebrik ederiz! Aşağıda eğitim bilgilerini bulabilirsin.</td>';
@@ -182,11 +182,6 @@
             ';
           }
         ?>
-
-
-        <!-- ŞİFREMİ UNUTTUM İÇİN BU TABLO -->
-
-
       </td>
     </tr>
     <tr>

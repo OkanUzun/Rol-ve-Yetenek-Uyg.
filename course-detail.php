@@ -17,20 +17,26 @@
     oci_execute($stmt);
 
     echo '
-  <script type="text/javascript">
-    $(document).ready(function() {
-      if (location.hash) {
-        $("a[href=\'" + location.hash + "\']").tab("show");
-      }
-      $(document.body).on("click", "a[data-toggle]", function() {
-        location.hash = this.getAttribute("href");
-      });
-    });
-    $(window).on("popstate", function() {
-      var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
-      $("a[href=\'" + anchor + "\']").tab("show");
-    });
-  </script>';
+      <script type="text/javascript">
+        $(document).ready(function() {
+          if (location.hash) {
+            $("a[href=\'" + location.hash + "\']").tab("show");
+          }
+          $(document.body).on("click", "a[data-toggle]", function() {
+            location.hash = this.getAttribute("href");
+          });
+        });
+        $(window).on("popstate", function() {
+          var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
+          $("a[href=\'" + anchor + "\']").tab("show");
+        });
+      </script>';
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Eğitim Konusu Eklendi");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Eğitim Konusu Eklenemedi");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["delete-education-ability"])) {
 
@@ -47,20 +53,26 @@
     oci_execute($stmt);
 
     echo '
-  <script type="text/javascript">
-    $(document).ready(function() {
-      if (location.hash) {
-        $("a[href=\'" + location.hash + "\']").tab("show");
-      }
-      $(document.body).on("click", "a[data-toggle]", function() {
-        location.hash = this.getAttribute("href");
-      });
-    });
-    $(window).on("popstate", function() {
-      var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
-      $("a[href=\'" + anchor + "\']").tab("show");
-    });
-  </script>';
+      <script type="text/javascript">
+        $(document).ready(function() {
+          if (location.hash) {
+            $("a[href=\'" + location.hash + "\']").tab("show");
+          }
+          $(document.body).on("click", "a[data-toggle]", function() {
+            location.hash = this.getAttribute("href");
+          });
+        });
+        $(window).on("popstate", function() {
+          var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
+          $("a[href=\'" + anchor + "\']").tab("show");
+        });
+      </script>';
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Eğitim Konusu Silindi");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Eğitim Konusu Silinemedi");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["insert-education-user"])) {
 
@@ -76,26 +88,26 @@
 
     oci_execute($stmt);
 
-    $sql       = 'SELECT EMAIL,FIRST_NAME,LAST_NAME FROM T_USER WHERE PK = '.$user_id.'';
+    $sql  = 'SELECT EMAIL,FIRST_NAME,LAST_NAME FROM T_USER WHERE PK = '.$user_id.'';
     $stmt = oci_parse($conn, $sql);
     $r    = oci_execute($stmt);
     $row  = oci_fetch_assoc($stmt);
 
     $f_name = $row["FIRST_NAME"];
     $l_name = $row["LAST_NAME"];
-    $email = $row["EMAIL"];
+    $email  = $row["EMAIL"];
 
-    $sql       = 'SELECT T_EDUCATION.PLANNED_DATE,INITCAP(T_EDUCATION.EDUCATION_SUBJECT) AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME,INITCAP(T_LOUNGE.LOUNGE_NAME) AS LOUNGE FROM T_EDUCATOR,T_EDUCATION,T_LOUNGE WHERE T_EDUCATION.LOUNGE_FK = T_LOUNGE.PK AND T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK AND T_EDUCATION.PK = '.$course_id.'';
+    $sql  = 'SELECT T_EDUCATION.PLANNED_DATE,INITCAP(T_EDUCATION.EDUCATION_SUBJECT) AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME,INITCAP(T_LOUNGE.LOUNGE_NAME) AS LOUNGE FROM T_EDUCATOR,T_EDUCATION,T_LOUNGE WHERE T_EDUCATION.LOUNGE_FK = T_LOUNGE.PK AND T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK AND T_EDUCATION.PK = '.$course_id.'';
     $stmt = oci_parse($conn, $sql);
     $r    = oci_execute($stmt);
     $row  = oci_fetch_assoc($stmt);
 
     $education_subject = $row["SUBJECT"];
-    $educator_name = $row["EDUCATOR_NAME"];
-    $lounge_name = $row["LOUNGE"]; 
+    $educator_name     = $row["EDUCATOR_NAME"];
+    $lounge_name       = $row["LOUNGE"];
 
     $date         = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLANNED_DATE"]);
-    $started_date = $date->format('d/m/Y - H:i');         
+    $started_date = $date->format('d/m/Y - H:i');
 
     if ($message == 1) {
       require 'mail-config.php';
@@ -113,23 +125,26 @@
       else {
         //echo 'Message has been sent';
       }
+      echo '<script type="text/javascript">showtoast("Eğitime Kullanıcı Eklendi");$(".toast").addClass("toast-success");</script>';
     }
+    else
+      echo '<script type="text/javascript">showtoast("Eğitime Kullanıcı Eklenemedi");$(".toast").addClass("toast-error");</script>';
 
     echo '
-  <script type="text/javascript">
-    $(document).ready(function() {
-      if (location.hash) {
-        $("a[href=\'" + location.hash + "\']").tab("show");
-      }
-      $(document.body).on("click", "a[data-toggle]", function() {
-        location.hash = this.getAttribute("href");
-      });
-    });
-    $(window).on("popstate", function() {
-      var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
-      $("a[href=\'" + anchor + "\']").tab("show");
-    });
-  </script>';
+      <script type="text/javascript">
+        $(document).ready(function() {
+          if (location.hash) {
+            $("a[href=\'" + location.hash + "\']").tab("show");
+          }
+          $(document.body).on("click", "a[data-toggle]", function() {
+            location.hash = this.getAttribute("href");
+          });
+        });
+        $(window).on("popstate", function() {
+          var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
+          $("a[href=\'" + anchor + "\']").tab("show");
+        });
+      </script>';
   }
   else if (isset($_POST["delete-education-user"])) {
 
@@ -146,20 +161,26 @@
     oci_execute($stmt);
 
     echo '
-  <script type="text/javascript">
-    $(document).ready(function() {
-      if (location.hash) {
-        $("a[href=\'" + location.hash + "\']").tab("show");
-      }
-      $(document.body).on("click", "a[data-toggle]", function() {
-        location.hash = this.getAttribute("href");
-      });
-    });
-    $(window).on("popstate", function() {
-      var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
-      $("a[href=\'" + anchor + "\']").tab("show");
-    });
-  </script>';
+      <script type="text/javascript">
+        $(document).ready(function() {
+          if (location.hash) {
+            $("a[href=\'" + location.hash + "\']").tab("show");
+          }
+          $(document.body).on("click", "a[data-toggle]", function() {
+            location.hash = this.getAttribute("href");
+          });
+        });
+        $(window).on("popstate", function() {
+          var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
+          $("a[href=\'" + anchor + "\']").tab("show");
+        });
+      </script>';
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Eğitimden Kullanıcı Çıkarıldı");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Eğitimden Kullanıcı Çıkarılamadı");$(".toast").addClass("toast-error");</script>';
   }
 
   else if (isset($_POST["terminate-education"])) {
@@ -172,7 +193,12 @@
     $course_id = $_GET["course_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Eğitim Sonlandırıldı");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Eğitim Sonlandırılamadı");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["cancel-education"])) {
     $sql  = 'BEGIN SP_CANCEL_EDUCATION(:edu_id,:is_valid); END;';
@@ -184,7 +210,12 @@
     $course_id = $_GET["course_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Eğitim İptal Edildi");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Eğitim İptal Edilemedi");$(".toast").addClass("toast-error");</script>';
   }
 
   else if (isset($_POST["start-education"])) {
@@ -198,6 +229,11 @@
 
     oci_execute($stmt);
 
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Eğitim Başlatıldı");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Eğitim Başlatılamadı");$(".toast").addClass("toast-error");</script>';
   }
 
   else if (isset($_POST["reactivite-education"])) {
@@ -210,7 +246,12 @@
     $course_id = $_GET["course_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Eğitim Tekrar Aktif Edildi");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Eğitim Tekrar Aktif Edilemedi");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["update-education"])) {
     $sql  = 'BEGIN SP_UPDATE_EDUCATION(:edu_id,:edu_subject,:edu_content,:edctr_id,:lounge_id,:planned_dte,:complete_dte,:is_valid); END;';
@@ -235,7 +276,12 @@
     $lounge_id     = $_POST["lounge_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Eğitim Güncellendi");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Eğitim Güncellenemedi");$(".toast").addClass("toast-error");</script>';
   }
 
   if (isset($_GET["course_id"])) {
@@ -331,6 +377,9 @@
           <div class="card-block">
             <div class="course-status">Eğitim Durumu:
               <?php echo '<span class="'.$span_class.'">'.$text.'<i class="'.$i_class.'"></i></span>'; ?>
+              <form method="post" class="float-xs-right">
+                <button type="submit" class="btn btn-warning">Kullanıcıları Mail ile Bilgilendir</button>
+              </form>
             </div>
             <ul class="nav nav-tabs">
               <li class="nav-item">
@@ -358,7 +407,7 @@
                     </div>
                     <div class="col-xs-12 col-md-4">
                       <div class="form-group">
-                        <input type="text" class="form-control" value=<?php echo $education_subject ?> name="education_name" placeholder="Eğitim Adı">
+                        <input type="text" class="form-control" value="<?php echo $education_subject ?>" name="education_name" placeholder="Eğitim Adı">
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-4">

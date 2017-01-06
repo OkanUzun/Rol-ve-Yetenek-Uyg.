@@ -234,22 +234,22 @@ $('#validate-userInfo, #validate-userSkill').validate({
 });
 
 /*$('#validate-userSkill').validate({
-  rules: {
-    ability_id: {
-      required: true
-    },
-    level_id: {
-      required: true
-    }
-  },
-  messages: {
-    ability_id: "Yetenek seçiniz",
-    level_id: "Seviye seçiniz"
-  },
-  errorPlacement: function (error, element) {
-    error.appendTo(element.parent());
-  },
-  submitHandler: function (form) {
-    form.submit();
-  }
-});*/
+ rules: {
+ ability_id: {
+ required: true
+ },
+ level_id: {
+ required: true
+ }
+ },
+ messages: {
+ ability_id: "Yetenek seçiniz",
+ level_id: "Seviye seçiniz"
+ },
+ errorPlacement: function (error, element) {
+ error.appendTo(element.parent());
+ },
+ submitHandler: function (form) {
+ form.submit();
+ }
+ });*/

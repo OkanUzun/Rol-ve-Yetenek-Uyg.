@@ -14,9 +14,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Yetenek Oluşturuldu");</script>';
+      echo '<script type="text/javascript">showtoast("Yetenek Oluşturuldu");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Yetenek Oluşturulamadı");</script>';
+      echo '<script type="text/javascript">showtoast("Yetenek Oluşturulamadı");$(".toast").addClass("toast-error");</script>';
   }
 
   else if (isset($_POST["update-ability"])) {
@@ -32,9 +32,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Yetenek Güncellendi");</script>';
+      echo '<script type="text/javascript">showtoast("Yetenek Güncellendi");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Yetenek Güncellenemedi");</script>';
+      echo '<script type="text/javascript">showtoast("Yetenek Güncellenemedi");$(".toast").addClass("toast-error");</script>';
   }
 
   else if (isset($_POST["delete-ability"])) {
@@ -49,9 +49,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Yetenek Silindi");</script>';
+      echo '<script type="text/javascript">showtoast("Yetenek Silindi");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Yetenek Silinemedi");</script>';
+      echo '<script type="text/javascript">showtoast("Yetenek Silinemedi");$(".toast").addClass("toast-error");</script>';
   }
 ?>
 

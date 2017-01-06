@@ -34,8 +34,10 @@
 
     oci_execute($stmt);
     if ($message == 1) {
-
+      echo '<script type="text/javascript">showtoast("Kullanıcı Bilgileri Güncellendi");$(".toast").addClass("toast-success");</script>';
     }
+    else
+      echo '<script type="text/javascript">showtoast("Kullanıcı Bilgileri Güncellenemedi");$(".toast").addClass("toast-error");</script>';
   }
 
   if (isset($_GET["user_id"])) {
@@ -98,6 +100,12 @@
             $("a[href=\'" + anchor + "\']").tab("show");
         });
        </script>';
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Yetenek Eklendi");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Yetenek Eklenemedi");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["update-user-ability"])) {
 

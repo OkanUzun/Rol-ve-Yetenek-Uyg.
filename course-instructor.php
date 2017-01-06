@@ -18,9 +18,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Eğitimci Oluşturuldu");</script>';
+      echo '<script type="text/javascript">showtoast("Eğitimci Oluşturuldu");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Eğitimci Oluşturulamadı");</script>';
+      echo '<script type="text/javascript">showtoast("Eğitimci Oluşturulamadı");$(".toast").addClass("toast-error");</script>';
 
   }
   else if (isset($_POST["update-educator"])) {
@@ -37,9 +37,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Eğitimci Güncellendi");</script>';
+      echo '<script type="text/javascript">showtoast("Eğitimci Güncellendi");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Eğitimci Güncellenemedi");</script>';
+      echo '<script type="text/javascript">showtoast("Eğitimci Güncellenemedi");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["delete-educator"])) {
     $sql  = 'BEGIN SP_REMOVE_EDUCATOR(:edctr_id,:is_valid); END;';
@@ -53,9 +53,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Eğitimci Silindi");</script>';
+      echo '<script type="text/javascript">showtoast("Eğitimci Silindi");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Eğitimci Silinemedi");</script>';
+      echo '<script type="text/javascript">showtoast("Eğitimci Silinemedi");$(".toast").addClass("toast-error");</script>';
   }
 ?>
 

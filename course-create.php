@@ -22,7 +22,10 @@
     $lounge_id     = $_POST["lounge_id"];
 
     oci_execute($stmt);
-    //echo "$message\n";    
+    if ($message == 1)
+      echo '<script type="text/javascript">showtoast("Eğitim Oluşturuldu");$(".toast").addClass("toast-success");</script>';
+    else
+      echo '<script type="text/javascript">showtoast("Eğitim Oluşturulamadı");$(".toast").addClass("toast-error");</script>';
   }
 ?>
 

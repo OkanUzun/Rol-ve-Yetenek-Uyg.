@@ -17,9 +17,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Birim Oluşturuldu");</script>';
+      echo '<script type="text/javascript">showtoast("Birim Oluşturuldu");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Birim Oluşturulamadı");</script>';
+      echo '<script type="text/javascript">showtoast("Birim Oluşturulamadı");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["update-unit"])) {
     $sql  = 'BEGIN SP_UPDATE_UNIT(:unt_id,:unt_name,:dep_id,:mngr_id,:is_valid); END;';
@@ -38,9 +38,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Birim Güncellendi");</script>';
+      echo '<script type="text/javascript">showtoast("Birim Güncellendi");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Birim Güncellenemedi");</script>';
+      echo '<script type="text/javascript">showtoast("Birim Güncellenemedi");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["delete-unit"])) {
     $sql  = 'BEGIN SP_REMOVE_UNIT(:unt_id,:is_valid); END;';
@@ -53,9 +53,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Birim Silindi");</script>';
+      echo '<script type="text/javascript">showtoast("Birim Silindi");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Birim Silinemedi");</script>';
+      echo '<script type="text/javascript">showtoast("Birim Silinemedi");$(".toast").addClass("toast-error");</script>';
   }
 
 ?>
@@ -126,7 +126,7 @@
                     echo '<td>'.$row['X'].'</td>';
                     echo '
                      <td class="text-xs-center">
-                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNT_NAME'].'" data-department="'.$row['DEP_NAME'].'" data-user="'.$row['F_NAME'].' '.$row['L_NAME'].'"><i class="mdi mdi-autorenew"></i></a>
+                      <a href="#updateModal" class="btn btn-table" rel="tooltip" title="Güncelle" data-toggle="modal" data-id="'.$row['PK'].'" data-name="'.$row['UNT_NAME'].'" data-department="'.$row['DEP_NAME'].'" data-unituser="'.($row['F_NAME'] && $row['L_NAME'] != null ? $row['F_NAME'].' '.$row['L_NAME'] : "").'"><i class="mdi mdi-autorenew"></i></a>
                       <a href="#deleteModal" class="btn btn-table" rel="tooltip" title="Sil" data-toggle="modal" data-id="'.$row['PK'].'"><i class="mdi mdi-delete"></i></a>
                       <a href="unit-detail.php?unit_id='.$row['PK'].'" class="btn btn-table" rel="tooltip"><i class="mdi mdi-magnify"></i></a>
                      </td>';
@@ -172,12 +172,12 @@
               ?>
             </div>
             <div class="form-group">
-              <label for="updateUserSelect" class="form-control-label">Birim Yöneticisi:</label>
+              <label for="updateUnitUserSelect" class="form-control-label">Birim Yöneticisi:</label>
               <?php
                 $sql  = 'SELECT * FROM V_USER_F_L_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
-                echo '<select id="updateUserSelect" name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Yöneticisi Seçiniz">';
+                echo '<select id="updateUnitUserSelect" name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Yöneticisi Seçiniz">';
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                   echo '<option value ="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].'</option>';
                 }

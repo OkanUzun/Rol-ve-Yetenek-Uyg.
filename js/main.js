@@ -91,19 +91,29 @@ $('#updateModal').on('show.bs.modal', function (event) {
   var unit = button.data('unit');
   var ability = button.data('ability');
   var id = button.data('id');
-  var user = button.data('user');
+  var unitUser = button.data('unituser');
+  var depUser = button.data('depuser');
   var modal = $(this);
 
 
   modal.find('.modal-body').find("[data-id='updateDepSelect']").attr('title', department).children('.filter-option').text(department);
   modal.find('.modal-body #updateDepSelect option:contains(' + department + ')').attr('selected', 'selected');
-  if (user === "") {
-    modal.find('.modal-body').find("[data-id='updateUserSelect']").attr('title', user).children('.filter-option').text("Birim Yöneticisi Seçiniz");
-    modal.find('.modal-body #updateUserSelect option:contains(' + user + ')').attr('selected', 'selected');
+  if (unitUser === "") {
+    modal.find('.modal-body').find("[data-id='updateUnitUserSelect']").attr('title', unitUser).children('.filter-option').text("Birim Yöneticisi Seçiniz");
+    modal.find('.modal-body #updateUserSelect option:contains(' + unitUser + ')').attr('selected', 'selected');
   }
   else {
-    modal.find('.modal-body').find("[data-id='updateUserSelect']").attr('title', user).children('.filter-option').text(user);
-    modal.find('.modal-body #updateUserSelect option:contains(' + user + ')').attr('selected', 'selected');
+    modal.find('.modal-body').find("[data-id='updateUnitUserSelect']").attr('title', unitUser).children('.filter-option').text(unitUser);
+    modal.find('.modal-body #updateUserSelect option:contains(' + unitUser + ')').attr('selected', 'selected');
+  }
+
+  if (depUser === "") {
+    modal.find('.modal-body').find("[data-id='updateDepUserSelect']").attr('title', depUser).children('.filter-option').text("Departman Müdürü Seçiniz");
+    modal.find('.modal-body #updateUserSelect option:contains(' + depUser + ')').attr('selected', 'selected');
+  }
+  else {
+    modal.find('.modal-body').find("[data-id='updateDepUserSelect']").attr('title', depUser).children('.filter-option').text(depUser);
+    modal.find('.modal-body #updateUserSelect option:contains(' + depUser + ')').attr('selected', 'selected');
   }
 
   modal.find('.modal-body #updateName').val(name);

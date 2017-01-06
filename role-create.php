@@ -14,9 +14,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Rol Oluşturuldu");</script>';
+      echo '<script type="text/javascript">showtoast("Rol Oluşturuldu");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Rol Oluşturulamadı");</script>';
+      echo '<script type="text/javascript">showtoast("Rol Oluşturulamadı");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["update-role"])) {
     $sql  = 'BEGIN SP_UPDATE_ROLE(:rle_id,:rle_name,:is_valid); END;';
@@ -31,9 +31,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Rol Güncellendi");</script>';
+      echo '<script type="text/javascript">showtoast("Rol Güncellendi");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Rol Güncellenemedi");</script>';
+      echo '<script type="text/javascript">showtoast("Rol Güncellenemedi");$(".toast").addClass("toast-error");</script>';
   }
   else if (isset($_POST["delete-role"])) {
     $sql  = 'BEGIN SP_REMOVE_ROLE(:rle_id,:is_valid); END;';
@@ -46,9 +46,9 @@
 
     oci_execute($stmt);
     if ($message == 1)
-      echo '<script type="text/javascript">showtoast("Rol Silindi");</script>';
+      echo '<script type="text/javascript">showtoast("Rol Silindi");$(".toast").addClass("toast-success");</script>';
     else
-      echo '<script type="text/javascript">showtoast("Rol Silinemedi");</script>';
+      echo '<script type="text/javascript">showtoast("Rol Silinemedi");$(".toast").addClass("toast-error");</script>';
   }
 ?>
   <div class="wrapper">
