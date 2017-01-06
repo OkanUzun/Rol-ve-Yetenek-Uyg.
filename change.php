@@ -11,7 +11,7 @@
       exit;
     }
 
-    $sql = "SELECT EMAIL FROM T_USER WHERE EMAIL = '$email'";
+    $sql = "SELECT EMAIL,INITCAP(FIRST_NAME) AS F_NAME FROM T_USER WHERE EMAIL = '$email'";
 
     $stmt = oci_parse($conn, $sql);
     $r    = oci_execute($stmt);
@@ -22,6 +22,8 @@
       $salt     = "498#2D83B631%3800EBD!801600D*7E3CC13";
       $password = hash('sha512', $salt.$row["EMAIL"]);
       $pwrurl   = 'localhost'.dirname($_SERVER['REQUEST_URI']).'/pass-change.php?q='.$password;
+
+      $f_name = $row["F_NAME"];
 
       require 'mail-config.php';
       ob_start();

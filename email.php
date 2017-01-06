@@ -81,8 +81,15 @@
 </head>
 <body width="100%" style="margin: 0; mso-line-height-rule: exactly;">
 <div style="width: 100%;">
-  <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
-    Selam <?php echo $f_name ?>, Roleaby uygulamamızda adına açılmış olan hesap için...
+  <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">    
+    <?php  
+      if (isset($_POST["create-user"]) || isset($_POST["forgot-password"])){
+        echo 'Selam '.$f_name.' , Roleaby uygulamamızda adına açılmış olan hesap için...';
+      }
+      else if(isset($_POST["send-education-mails"])){
+        echo 'Değerli Kullanıcılarımız...';
+      }
+    ?>
   </div>
   <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="background-color: #F3F5F7;" class="email-container">
     <tr>
@@ -96,16 +103,27 @@
       <td bgcolor="#ffffff" style="padding: 40px 40px 20px; font-size: 15px; line-height: 20px; color: #555555;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="left" style="width: 100%;">
           <tr>
-            <td style="font-weight: 700;">Selam <?php echo $f_name ?>,</td>
+          <?php 
+            if (isset($_POST["create-user"]) || isset($_POST["forgot-password"])){
+              echo '<td style="font-weight: 700;">Selam '.$f_name.',</td>';
+            }
+            else if(isset($_POST["send-education-mails"])){
+              echo '<td style="font-weight: 700;">Değerli Kullanıcılarımız...</td>';
+            }
+          ?>
+            
           </tr>
           <tr>
-            <td style="color: #9C9B9D; padding: 20px 0;">Talebin üzerine gönderilen şifre sıfırlama linkine tıklayarak yeni şifreni oluşturabilirsin.</td>
+            
             <?php
               if (isset($_POST["create-user"])) {
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin. Giriş yaptıktan sonra şifreni değiştirmen tavsiye edilir.</td>';
               }
-              else if (isset($_POST["insert-education-user"])) {
-                echo '<td style="color: #9C9B9D; padding: 20px 0;">Kaydının yapılmış olduğu yeni eğitimin için tebrik ederiz! Aşağıda eğitim bilgilerini bulabilirsin.</td>';
+              else if (isset($_POST["send-education-mails"])) {
+                echo '<td style="color: #9C9B9D; padding: 20px 0;">Aşağıda eğitim bilgilerini bulabilirsiniz.</td>';
+              }
+              else if(isset($_POST["forgot-password"])){
+                echo '<td style="color: #9C9B9D; padding: 20px 0;">Talebin üzerine gönderilen şifre sıfırlama linkine tıklayarak yeni şifreni oluşturabilirsin.</td>';
               }
             ?>
           </tr>
@@ -132,7 +150,7 @@
               </tr>
             </table>';
           }
-          else if (isset($_POST["insert-education-user"])) {
+          else if (isset($_POST["send-education-mails"])) {
             echo '
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
               <tr>
