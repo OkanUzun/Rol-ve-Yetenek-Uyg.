@@ -85,7 +85,7 @@
                     $sql  = 'SELECT * FROM V_USERS_WITH_ROLE';
                     $stmt = oci_parse($conn, $sql);
                     $r    = oci_execute($stmt);
-                    echo '<select name="user_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Eğitmen Seçiniz">';
+                    echo '<select name="user_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="200px" title="Eğitmen Seçiniz">';
                     while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                       echo '<option value ="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].' | '.$row["RLE_NAME"].'</option>';
                     }

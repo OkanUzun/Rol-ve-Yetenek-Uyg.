@@ -83,7 +83,7 @@
 
     oci_execute($stmt);
 
-    /*echo '
+    echo '
       <script type="text/javascript">
         $(document).ready(function() {
             if (location.hash) {
@@ -97,7 +97,7 @@
             var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
             $("a[href=\'" + anchor + "\']").tab("show");
         });
-       </script>';*/
+       </script>';
   }
   else if (isset($_POST["update-user-ability"])) {
 
@@ -114,36 +114,8 @@
     $level_id   = $_POST['level_id'];
 
     oci_execute($stmt);
-  }
-  /*echo '
-  /*<script type="text/javascript">
-    $(document).ready(function() {
-        if (location.hash) {
-            $("a[href=\'" + location.hash + "\']").tab("show");
-        }
-        $(document.body).on("click", "a[data-toggle]", function() {
-            location.hash = this.getAttribute("href");
-        });
-    });
-    $(window).on("popstate", function() {
-        var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
-        $("a[href=\'" + anchor + "\']").tab("show");
-    });
-   </script>';*/
-  else if (isset($_POST["delete-user-ability"])) {
-    $sql  = 'BEGIN SP_DELETE_ABILITY_FROM_USER(:usr_id,:ablyt_id,:is_valid); END;';
-    $stmt = oci_parse($conn, $sql);
 
-    oci_bind_by_name($stmt, ':usr_id', $user_id);
-    oci_bind_by_name($stmt, ':ablyt_id', $ability_id);
-    oci_bind_by_name($stmt, ':is_valid', $message);
-
-    $user_id    = $_GET["user_id"];
-    $ability_id = $_POST["ability_id"];
-
-    oci_execute($stmt);
-
-    /*echo '
+    echo '
     <script type="text/javascript">
       $(document).ready(function() {
           if (location.hash) {
@@ -157,7 +129,37 @@
           var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
           $("a[href=\'" + anchor + "\']").tab("show");
       });
-     </script>';*/
+     </script>';
+  }
+
+  else if (isset($_POST["delete-user-ability"])) {
+    $sql  = 'BEGIN SP_DELETE_ABILITY_FROM_USER(:usr_id,:ablyt_id,:is_valid); END;';
+    $stmt = oci_parse($conn, $sql);
+
+    oci_bind_by_name($stmt, ':usr_id', $user_id);
+    oci_bind_by_name($stmt, ':ablyt_id', $ability_id);
+    oci_bind_by_name($stmt, ':is_valid', $message);
+
+    $user_id    = $_GET["user_id"];
+    $ability_id = $_POST["ability_id"];
+
+    oci_execute($stmt);
+
+    echo '
+    <script type="text/javascript">
+      $(document).ready(function() {
+          if (location.hash) {
+              $("a[href=\'" + location.hash + "\']").tab("show");
+          }
+          $(document.body).on("click", "a[data-toggle]", function() {
+              location.hash = this.getAttribute("href");
+          });
+      });
+      $(window).on("popstate", function() {
+          var anchor = location.hash || $("a[data-toggle=\'tab\']").first().attr("href");
+          $("a[href=\'" + anchor + "\']").tab("show");
+      });
+     </script>';
   }
 ?>
   <div class="wrapper">
@@ -309,7 +311,7 @@
                           $stmt1 = oci_parse($conn, $sql1);
                           $r1    = oci_execute($stmt1);
                           while ($row1 = oci_fetch_array($stmt1, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                            echo '<form method="post">';
+                            echo '<form method="post" action="user-detail.php?user_id='.$user_id.'#skill">';
                             echo '<tr>';
                             echo '<td>'.$row1["AN"].'<input type="hidden" name="ability_id" value="'.$row1["AB_PK"].'"/><input type="hidden" name="level_id"/></td>';
                             echo '<td class="select-level">';

@@ -55,7 +55,7 @@
                       $r    = oci_execute($stmt);
                       echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
                       while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-                        echo '<option value ="'.$row["PK"].'">'.$row["EDUCATOR_NAME"].' | '.($row["IS_INHOUSE"] == 1 ? "Şirket İçi" : "Şirket Dışı").' | '.$row["RLE_NAME"].'</option>';
+                        echo '<option value ="'.$row["PK"].'">'.$row["EDUCATOR_NAME"].' | '.($row["IS_INHOUSE"] == 1 ? "Şirket İçi | " : "Şirket Dışı").$row["RLE_NAME"].'</option>';
                       }
                       echo '</select>';
                     ?>
