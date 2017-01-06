@@ -107,9 +107,6 @@
               else if (isset($_POST["insert-education-user"])) {
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Kaydının yapılmış olduğu yeni eğitimin için tebrik ederiz! Aşağıda eğitim bilgilerini bulabilirsin.</td>';
               }
-              else if (isset($_POST["change-password"])) {
-                echo '<td style="color: #9C9B9D; padding: 20px 0;">Şifreniz başarıyla değiştirilmiştir.</td>';
-              }
             ?>
           </tr>
         </table>
@@ -173,20 +170,22 @@
               </tr>
             </table>';
           }
-          else if (isset($_POST["change-password"])) {
-            echo '';
+          else if (isset($_POST["forgot-password"])) {
+            echo '
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+          <tr>
+            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+              <a href="'.$pwrurl.'">Şifrenizi değiştirmek için tıklayınız</a>
+            </td>
+          </tr>
+          </table>
+            ';
           }
         ?>
 
 
         <!-- ŞİFREMİ UNUTTUM İÇİN BU TABLO -->
-        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
-          <tr>
-            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              <a href="#">Şifrenizi değiştirmek için tıklayınız</a>
-            </td>
-          </tr>
-        </table>
+
 
       </td>
     </tr>
