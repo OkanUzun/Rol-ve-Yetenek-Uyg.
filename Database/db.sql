@@ -2176,9 +2176,17 @@ DROP PROCEDURE ROLEABY.SP_REMOVE_EDUCATOR;
 
 CREATE OR REPLACE PROCEDURE ROLEABY."SP_REMOVE_EDUCATOR" (edctr_id IN INTEGER,is_valid OUT CHAR)
 AS
+    in_education INTEGER :=0;
 BEGIN 
-    DELETE FROM T_EDUCATOR WHERE PK = edctr_id;
-    is_valid := '1';
+    --Eğitim aktifse yada başladıysa
+    SELECT COUNT(*) INTO in_education FROM T_EDUCATION WHERE EDUCATOR_FK = edctr_id AND STATE_FK IN(1,2);
+    
+    IF in_education = 0 THEN
+        DELETE FROM T_EDUCATOR WHERE PK = edctr_id;
+        is_valid := '1';
+    ELSE
+        is_valid := '0';
+    END IF;        
 END;
 /
 

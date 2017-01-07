@@ -424,7 +424,7 @@
                     INNER JOIN T_EDUCATION ON T_EDUCATION_USER_REL.EDUCATION_FK = T_EDUCATION.PK 
                     INNER JOIN T_LOUNGE ON T_LOUNGE.PK = T_EDUCATION.LOUNGE_FK
                     INNER JOIN T_STATE ON T_STATE.PK = T_EDUCATION.STATE_FK
-                    INNER JOIN T_EDUCATOR ON T_EDUCATOR.PK = T_EDUCATION.EDUCATOR_FK
+                    LEFT JOIN T_EDUCATOR ON T_EDUCATOR.PK = T_EDUCATION.EDUCATOR_FK
                     WHERE T_EDUCATION_USER_REL.USER_FK = '.$user_id;
                       $stmt = oci_parse($conn, $sql);
                       $r    = oci_execute($stmt);
