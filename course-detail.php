@@ -404,7 +404,7 @@
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="info">
-                <form method="post">
+                <form method="post" id="validate-courseInfo">
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="card-title">Eğitim Bilgileri
@@ -427,7 +427,6 @@
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
                           echo '<select name="educator_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
-                          echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                             echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $educator_id ? 'selected="selected"' : "").'>'.$row["EDUCATOR_NAME"].'</option>';
                           }
@@ -442,7 +441,6 @@
                           $stmt = oci_parse($conn, $sql);
                           $r    = oci_execute($stmt);
                           echo '<select id="userDepartment" name="lounge_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Salon Seçiniz">';
-                          echo '<option value="Seçiniz">Seçiniz</option>';
                           while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                             echo '<option value ="'.$row["PK"].'" '.($row["PK"] == $lounge_id ? 'selected="selected"' : "").'>'.$row["LNG_NAME"].'</option>';
                           }

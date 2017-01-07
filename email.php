@@ -81,12 +81,12 @@
 </head>
 <body width="100%" style="margin: 0; mso-line-height-rule: exactly;">
 <div style="width: 100%;">
-  <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">    
-    <?php  
-      if (isset($_POST["create-user"]) || isset($_POST["forgot-password"])){
+  <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
+    <?php
+      if (isset($_POST["create-user"]) || isset($_POST["forgot-password"])) {
         echo 'Selam '.$f_name.' , Roleaby uygulamamızda adına açılmış olan hesap için...';
       }
-      else if(isset($_POST["send-education-mails"])){
+      else if (isset($_POST["send-education-mails"])) {
         echo 'Değerli Kullanıcılarımız...';
       }
     ?>
@@ -103,18 +103,16 @@
       <td bgcolor="#ffffff" style="padding: 40px 40px 20px; font-size: 15px; line-height: 20px; color: #555555;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="left" style="width: 100%;">
           <tr>
-          <?php 
-            if (isset($_POST["create-user"]) || isset($_POST["forgot-password"])){
-              echo '<td style="font-weight: 700;">Selam '.$f_name.',</td>';
-            }
-            else if(isset($_POST["send-education-mails"])){
-              echo '<td style="font-weight: 700;">Değerli Kullanıcılarımız...</td>';
-            }
-          ?>
-            
+            <?php
+              if (isset($_POST["create-user"]) || isset($_POST["forgot-password"])) {
+                echo '<td style="font-weight: 700;">Selam '.$f_name.',</td>';
+              }
+              else if (isset($_POST["send-education-mails"])) {
+                echo '<td style="font-weight: 700;">Değerli Kullanıcılarımız...</td>';
+              }
+            ?>
           </tr>
           <tr>
-            
             <?php
               if (isset($_POST["create-user"])) {
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin. Giriş yaptıktan sonra şifreni değiştirmen tavsiye edilir.</td>';
@@ -122,7 +120,7 @@
               else if (isset($_POST["send-education-mails"])) {
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Aşağıda eğitim bilgilerini bulabilirsiniz.</td>';
               }
-              else if(isset($_POST["forgot-password"])){
+              else if (isset($_POST["forgot-password"])) {
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Talebin üzerine gönderilen şifre sıfırlama linkine tıklayarak yeni şifreni oluşturabilirsin.</td>';
               }
             ?>
@@ -190,13 +188,13 @@
           }
           else if (isset($_POST["forgot-password"])) {
             echo '
-          <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
-          <tr>
-            <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
-              <a href="'.$pwrurl.'">Şifrenizi değiştirmek için tıklayınız</a>
-            </td>
-          </tr>
-          </table>
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+            <tr>
+              <td style="border-radius: 3px; text-align: center; background-color: #66BB6A; color: #fff; font-weight: 700; font-size: 20px; padding: 10px 40px;">
+                <a href="http://'.$pwrurl.'"><font color="#ffffff">Şifrenizi değiştirmek için tıklayınız</font></a>
+              </td>
+            </tr>
+            </table>
             ';
           }
         ?>

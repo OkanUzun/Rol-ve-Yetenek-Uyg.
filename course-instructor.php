@@ -67,7 +67,7 @@
         <div class="card">
           <div class="card-header">
             <a href="javascript:void(0)" class="btn btn-info instructor"><i class="mdi mdi-account-switch"></i>Eğitmen Oluştur</a>
-            <form id="formValidate" class="form-create form-inline hidden" method="post">
+            <form id="validate-instructor" class="form-create form-inline hidden" method="post">
               <div class="instructor-status">
                 <div class="form-check">
                   <input type="radio" id="companyIn" value="1" name="is_inhouse">
@@ -85,7 +85,7 @@
                     $sql  = 'SELECT * FROM V_USERS_WITH_ROLE';
                     $stmt = oci_parse($conn, $sql);
                     $r    = oci_execute($stmt);
-                    echo '<select name="user_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="200px" title="Eğitmen Seçiniz">';
+                    echo '<select name="user_id" class="form-control selectpicker selectone" data-live-search="true" data-size="5" title="Eğitmen Seçiniz">';
                     while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                       echo '<option value ="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].' | '.$row["RLE_NAME"].'</option>';
                     }
@@ -97,7 +97,7 @@
               </div>
               <div class="company-out hidden">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Eğitmen Adı ve Soyadı" name="educator_name">
+                  <input type="text" class="form-control selectone" placeholder="Eğitmen Adı ve Soyadı" name="educator_name">
                 </div>
                 <button type="submit" class="btn btn-success" name="create-educator">Kaydet</button>
                 <button type="button" class="btn btn-danger">İptal</button>

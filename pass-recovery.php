@@ -27,12 +27,14 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.min.css">
+
+  <script src="js/jquery.min.js"></script>
 </head>
 <body class="login">
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-      <form action="change.php" method="post">
+      <form action="change.php" method="post" id="validate-passRevovery">
         <div class="card card-login">
           <div class="card-header">Şifremi Unuttum</div>
           <div class="card-block">

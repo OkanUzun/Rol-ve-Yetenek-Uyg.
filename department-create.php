@@ -65,7 +65,7 @@
       <div class="card">
         <div class="card-header">
           <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-library"></i>Departman Oluştur</a>
-          <form id="formValidate" class="form-create form-inline hidden" method="post">
+          <form id="validate-departmentCreate" class="form-create form-inline hidden" method="post">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Departman Adı Giriniz" name="dep_name">
             </div>
@@ -75,7 +75,7 @@
                 $sql  = 'SELECT * FROM V_USER_F_L_NAME';
                 $stmt = oci_parse($conn, $sql);
                 $r    = oci_execute($stmt);
-                echo '<select name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Departman Müdürü Seçiniz">';
+                echo '<select name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Departman Müdürü Seçiniz">';
                 while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                   echo '<option value ="'.$row["PK"].'">'.$row["F_NAME"].' '.$row["L_NAME"].'</option>';
                 }
@@ -133,7 +133,7 @@
         </button>
         <h4 class="modal-title" id="updateModalLabel">Departman Güncelle</h4>
       </div>
-      <form method="post">
+      <form method="post" id="validate-departmentModal">
         <div class="modal-body">
           <div class="form-group">
             <input type="hidden" name="dep_id" id="dep_id">

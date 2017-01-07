@@ -27,12 +27,14 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.min.css">
+
+  <script src="js/jquery.min.js"></script>
 </head>
 <body class="login">
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-      <form method="post" action="reset.php">
+      <form method="post" action="reset.php" id="validate-newPassword">
         <div class="card card-login">
           <div class="card-header">Yeni Şifre</div>
           <div class="card-block">
@@ -41,7 +43,7 @@
               <i class="mdi mdi-email"></i>
             </div>
             <div class="form-group">
-              <input type="password" name="new_password" class="form-control" placeholder="Yeni Şifre">
+              <input type="password" name="new_password" id="new_password" class="form-control" placeholder="Yeni Şifre">
               <i class="mdi mdi-key"></i>
             </div>
             <div class="form-group">

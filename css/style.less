@@ -320,11 +320,11 @@ span.error {
 span.error.valid {
   background-color: transparent;
   &:before {
-    content: "\F134";
+    content: "\F12C";
     font-family: "Material Design Icons";
     position: absolute;
-    top: -8px;
-    right: -8px;
+    top: -12px;
+    right: -12px;
     color: @success;
     font-size: 16px;
     pointer-events: none;
@@ -456,6 +456,46 @@ span.error.valid {
         &:hover {
           text-decoration: underline;
         }
+      }
+    }
+  }
+  .card-email {
+    padding: 16px;
+    text-align: center;
+    p.lead {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+    p {
+      font-size: 16px;
+    }
+    i {
+      font-size: 60px;
+    }
+    .loading span {
+      animation-name: blink;
+      animation-duration: 1.4s;
+      animation-iteration-count: infinite;
+      animation-fill-mode: both;
+      font-size: 20px;
+    }
+
+    .loading span:nth-child(2) {
+      animation-delay: .2s;
+    }
+
+    .loading span:nth-child(3) {
+      animation-delay: .4s;
+    }
+    @keyframes blink {
+      0% {
+        opacity: .2;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        opacity: .2;
       }
     }
   }
@@ -1125,6 +1165,9 @@ span.error.valid {
   .form-group {
     .placeholder();
     margin-right: 16px;
+    .form-control {
+      width: 400px;
+    }
   }
   .btn {
     padding: 11.5px 16px !important;
@@ -1161,6 +1204,9 @@ span.error.valid {
         .form-group {
           label {
             margin-bottom: 10px;
+          }
+          span.error {
+            top: 42px;
           }
         }
       }
@@ -1353,6 +1399,13 @@ span.error.valid {
       .value {
         font-size: 38px;
       }
+    }
+  }
+
+  .form-create .form-group {
+    margin-bottom: 10px;
+    .form-control {
+      width: 300px;
     }
   }
 }

@@ -67,7 +67,7 @@
         <div class="card">
           <div class="card-header">
             <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-library-books"></i>Birim Oluştur</a>
-            <form id="formValidate2" class="form-create form-inline hidden" method="post">
+            <form id="validate-unitCreate" class="form-create form-inline hidden" method="post">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Birim Adı Giriniz" name="unit_name">
               </div>
@@ -77,7 +77,7 @@
                   $sql  = 'SELECT * FROM V_DEPARTMENTS';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
-                  echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Bağlı Olduğu Departmanı Seçiniz">';
+                  echo '<select name="dep_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Bağlı Olduğu Departmanı Seçiniz">';
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                     echo '<option value ="'.$row["PK"].'">'.$row["DEP_NAME"].'</option>';
                   }
@@ -91,7 +91,7 @@
                   FROM T_USER USR';
                   $stmt = oci_parse($conn, $sql);
                   $r    = oci_execute($stmt);
-                  echo '<select name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" data-width="auto" title="Birim Müdürü Seçiniz">';
+                  echo '<select name="manager_id" class="form-control selectpicker" data-live-search="true" data-size="5" title="Birim Müdürü Seçiniz">';
                   while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
                     echo '<option value ="'.$row["PK"].'">'.$row["FIRST_NAME"].' '.$row["LAST_NAME"].'</option>';
                   }
@@ -151,7 +151,7 @@
           </button>
           <h4 class="modal-title" id="updateModalLabel">Birim Güncelle</h4>
         </div>
-        <form method="post">
+        <form method="post" id="validate-unitModal">
           <div class="modal-body">
             <div class="form-group">
               <label for="updateName" class="form-control-label">Birim Adı:</label>

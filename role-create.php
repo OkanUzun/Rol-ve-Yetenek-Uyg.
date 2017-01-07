@@ -59,7 +59,7 @@
         <div class="card">
           <div class="card-header">
             <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-account-check"></i>Rol Oluştur</a>
-            <form id="formValidate" class="form-create form-inline hidden" method="post">
+            <form id="validate-roleCreate" class="form-create form-inline hidden" method="post">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Rol Adı Giriniz" name="role_name">
               </div>
@@ -114,7 +114,7 @@
           </button>
           <h4 class="modal-title" id="updateModalLabel">Rol Güncelle</h4>
         </div>
-        <form method="post">
+        <form method="post" id="validate-roleModal">
           <div class="modal-body">
             <div class="form-group">
               <label for="updateName" class="form-control-label">Rol Adı:</label>

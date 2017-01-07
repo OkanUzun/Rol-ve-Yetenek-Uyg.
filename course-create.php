@@ -35,7 +35,7 @@
       <?php include "navbar.php"; ?>
       <div class="container-fluid">
         <div class="card">
-          <form method="post">
+          <form method="post" id="validate-courseCreate">
             <div class="card-header">
               <div class="card-title">Eğitim Tanımlama</div>
               <button type="submit" class="btn btn-success" name="create-course">Kaydet</button>

@@ -63,7 +63,7 @@
         <div class="card">
           <div class="card-header">
             <a href="javascript:void(0);" class="btn btn-info create"><i class="mdi mdi-account-star-variant"></i>Yetenek Oluştur</a>
-            <form id="formValidate" class="form-create form-inline hidden" method="post">
+            <form id="validate-abilityCreate" class="form-create form-inline hidden" method="post">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Yetenek Adı Giriniz" name="ability_name">
               </div>
@@ -115,7 +115,7 @@
           </button>
           <h4 class="modal-title" id="updateModalLabel">Yetenek Güncelle</h4>
         </div>
-        <form method="post">
+        <form method="post" id="validate-abilityModal">
           <div class="modal-body">
             <div class="form-group">
               <label for="updateName" class="form-control-label">Yetenek Adı:</label>

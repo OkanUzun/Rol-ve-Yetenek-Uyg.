@@ -138,6 +138,12 @@
           $("a[href=\'" + anchor + "\']").tab("show");
       });
      </script>';
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Yetenek Güncellendi");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Yetenek Güncellenemedi");$(".toast").addClass("toast-error");</script>';
   }
 
   else if (isset($_POST["delete-user-ability"])) {
@@ -168,6 +174,12 @@
           $("a[href=\'" + anchor + "\']").tab("show");
       });
      </script>';
+
+    if ($message == 1) {
+      echo '<script type="text/javascript">showtoast("Yetenek Silindi");$(".toast").addClass("toast-success");</script>';
+    }
+    else
+      echo '<script type="text/javascript">showtoast("Yetenek Silinemedi");$(".toast").addClass("toast-error");</script>';
   }
 ?>
   <div class="wrapper">
