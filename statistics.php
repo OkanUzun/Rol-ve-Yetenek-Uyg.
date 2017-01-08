@@ -27,7 +27,7 @@
                         Chart.defaults.global.animation.duration = 1000;
                         Chart.defaults.global.responsive = true;
                         Chart.defaults.global.maintainAspectRatio = false;
-                        Chart.defaults.global.defaultFontFamily = "Roboto";
+                        Chart.defaults.global.defaultFontFamily = "Roboto Condensed";
                         Chart.defaults.global.tooltips.cornerRadius = 3;
                         Chart.defaults.global.tooltips.yPadding = 8;
                         Chart.defaults.global.tooltips.backgroundColor = "rgba(0,0,0,0.7)";
@@ -206,7 +206,8 @@
                                 backgroundColor: [
                                   <?php echo implode(",", $array_dyn_color);?>
                                 ]
-                              }]
+                              }
+                            ]
                           }
                         });
                       </script>
@@ -234,31 +235,53 @@
                         array_push($array_dyn_color, "dynamicColors()");
                       }
                     ?>
-                    <div class="chart-block">
-                      <canvas id="role_bar" height="300px"></canvas>
+                    <div class="chart-block chart-scroll">
+                      <div class="chart-wrapper">
+                        <canvas id="role_bar" height="300" width="1650"></canvas>
+                      </div>
+                      <canvas id="role_bar_axis" height="300" width="0"></canvas>
                       <script>
-                        var ctx = document.getElementById("role_bar");
-                        var role_bar = new Chart(ctx, {
-                          type: 'bar',
-                          data: {
-                            labels: [
-                              <?php echo '"'.implode('","', $array_role).'"';?>
-                            ],
-                            datasets: [
-                              {
-                                label: "Rol Dağılımı",
-                                data: [
-                                  <?php echo implode(",", $array_usr_count);?>
-                                ],
-                                backgroundColor: [
-                                  <?php echo implode(",", $array_dyn_color);?>
-                                ]
-                              }]
-                          },
+                        var ctx = document.getElementById("role_bar").getContext("2d");
+
+                        var data = {
+                          labels: [
+                            <?php echo '"'.implode('","', $array_role).'"';?>
+                          ],
+                          datasets: [
+                            {
+                              label: "Rol Dağılımı",
+                              data: [
+                                <?php echo implode(",", $array_usr_count);?>
+                              ],
+                              backgroundColor: [
+                                <?php echo implode(",", $array_dyn_color);?>
+                              ]
+                            }
+                          ]
+                        };
+
+                        Chart.Bar(ctx, {
+                          data: data,
                           options: {
+                            responsive: false,
+                            maintainAspectRatio: true,
                             scales: {
-                              xAxes: [{stacked: true}],
-                              yAxes: [{stacked: true}]
+                              xAxes: [
+                                {
+                                  stacked: true,
+                                  ticks: {
+                                    autoSkip: false
+                                  }
+                                }
+                              ],
+                              yAxes: [
+                                {
+                                  ticks: {
+                                    beginAtZero: true,
+                                    stepSize: 1
+                                  }
+                                }
+                              ]
                             },
                             tooltips: {
                               callbacks: {
@@ -267,6 +290,15 @@
                                 }
                               }
                             }
+                          },
+                          onAnimationComplete: function () {
+                            var sourceCanvas = this.chart.ctx.canvas;
+                            var copyWidth = this.scale.xScalePaddingLeft - 5;
+
+                            var copyHeight = this.scale.endPoint + 5;
+                            var targetCtx = document.getElementById("role_bar_axis").getContext("2d");
+                            targetCtx.canvas.width = copyWidth;
+                            targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth, copyHeight, 0, 0, copyWidth, copyHeight);
                           }
                         });
                       </script>
@@ -292,31 +324,55 @@
                         array_push($array_dyn_color, "dynamicColors()");
                       }
                     ?>
-                    <div class="chart-block">
-                      <canvas id="ability_bar" height="300px"></canvas>
+                    <div class="chart-block chart-scroll">
+                      <div class="chart-wrapper">
+                        <canvas id="ability_bar" height="300" width="1650"></canvas>
+                      </div>
+                      <canvas id="ability_bar_axis" height="0" width="0"></canvas>
                       <script>
-                        var ctx = document.getElementById("ability_bar");
-                        var ability_bar = new Chart(ctx, {
-                          type: 'bar',
-                          data: {
-                            labels: [
-                              <?php echo '"'.implode('","', $array_ably).'"';?>
-                            ],
-                            datasets: [
-                              {
-                                label: "Yetenek Dağılımı",
-                                data: [
-                                  <?php echo implode(",", $array_usr_count);?>
-                                ],
-                                backgroundColor: [
-                                  <?php echo implode(",", $array_dyn_color);?>
-                                ]
-                              }]
-                          },
+                        var ctx = document.getElementById("ability_bar").getContext("2d");
+
+                        var data = {
+                          labels: [
+                            <?php echo '"'.implode('","', $array_ably).'"';?>
+                          ],
+                          datasets: [
+                            {
+                              label: "Yetenek Dağılımı",
+                              data: [
+                                <?php echo implode(",", $array_usr_count);?>
+                              ],
+                              backgroundColor: [
+                                <?php echo implode(",", $array_dyn_color);?>
+                              ]
+                            }
+                          ]
+                        };
+
+                        Chart.Bar(ctx, {
+                          data: data,
                           options: {
+                            responsive: false,
+                            maintainAspectRatio: true,
                             scales: {
-                              xAxes: [{stacked: true}],
-                              yAxes: [{stacked: true}]
+                              xAxes: [
+                                {
+                                  stacked: true,
+                                  barPercentage: 0.1,
+                                  fontSize: 8,
+                                  ticks: {
+                                    autoSkip: false
+                                  }
+                                }
+                              ],
+                              yAxes: [
+                                {
+                                  ticks: {
+                                    beginAtZero: true,
+                                    stepSize: 1
+                                  }
+                                }
+                              ]
                             },
                             tooltips: {
                               callbacks: {
@@ -325,6 +381,15 @@
                                 }
                               }
                             }
+                          },
+                          onAnimationComplete: function () {
+                            var sourceCanvas = this.chart.ctx.canvas;
+                            var copyWidth = this.scale.xScalePaddingLeft - 5;
+
+                            var copyHeight = this.scale.endPoint + 5;
+                            var targetCtx = document.getElementById("ability_bar_axis").getContext("2d");
+                            targetCtx.canvas.width = copyWidth;
+                            targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth, copyHeight, 0, 0, copyWidth, copyHeight);
                           }
                         });
                       </script>

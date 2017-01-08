@@ -118,7 +118,7 @@
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Roleaby uygulamamızda adına açılmış olan hesap için aşağıdaki oluşturulmuş kullanıcı adı ve şifreni giriş yapmak için kullanabilirsin. Giriş yaptıktan sonra şifreni değiştirmen tavsiye edilir.</td>';
               }
               else if (isset($_POST["send-education-mails"])) {
-                echo '<td style="color: #9C9B9D; padding: 20px 0;">Aşağıda eğitim bilgilerini bulabilirsiniz.</td>';
+                echo '<td style="color: #9C9B9D; padding: 20px 0;">Aşağıda eğitim bilgilerinizi bulabilirsiniz.</td>';
               }
               else if (isset($_POST["forgot-password"])) {
                 echo '<td style="color: #9C9B9D; padding: 20px 0;">Talebin üzerine gönderilen şifre sıfırlama linkine tıklayarak yeni şifreni oluşturabilirsin.</td>';

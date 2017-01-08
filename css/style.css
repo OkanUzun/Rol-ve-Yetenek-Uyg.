@@ -229,6 +229,7 @@ textarea {
 }
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
   background-color: #F5F5F5;
 }
 ::-webkit-scrollbar-thumb {
@@ -376,25 +377,20 @@ span.error.valid:before {
 .card-login .card-block .form-group .forgot:hover {
   text-decoration: underline;
 }
-
 .card-login .card-email {
   padding: 16px;
   text-align: center;
 }
-
 .card-login .card-email p.lead {
   margin-bottom: 20px;
   font-size: 20px;
 }
-
 .card-login .card-email p {
   font-size: 16px;
 }
-
 .card-login .card-email i {
   font-size: 60px;
 }
-
 .card-login .card-email .loading span {
   animation-name: blink;
   animation-duration: 1.4s;
@@ -402,15 +398,12 @@ span.error.valid:before {
   animation-fill-mode: both;
   font-size: 20px;
 }
-
 .card-login .card-email .loading span:nth-child(2) {
   animation-delay: .2s;
 }
-
 .card-login .card-email .loading span:nth-child(3) {
   animation-delay: .4s;
 }
-
 @keyframes blink {
   0% {
     opacity: .2;
@@ -918,6 +911,29 @@ span.error.valid:before {
 .wrapper .page-content .card .card-block .nav-tabs .nav-item:first-child {
   margin-left: 0;
 }
+
+.wrapper .page-content .card .card-block .chart-scroll {
+  position: relative;
+}
+
+.wrapper .page-content .card .card-block .chart-scroll canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.wrapper .page-content .card .card-block .chart-scroll .chart-wrapper {
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.wrapper .page-content .card .card-block .chart-scroll .chart-wrapper canvas {
+  position: initial;
+  left: 0;
+  top: 0;
+  pointer-events: initial;
+}
 .wrapper .page-content a.card:hover .card-block .card-body i {
   color: #fff !important;
   background-color: rgba(255, 255, 255, 0.1);
@@ -1023,7 +1039,6 @@ span.error.valid:before {
   font-weight: 400;
   font-size: 14px;
 }
-
 .form-create .form-group .form-control {
   width: 400px;
 }
@@ -1062,12 +1077,12 @@ span.error.valid:before {
 .modal .modal-dialog .modal-content .modal-body .form-group label {
   margin-bottom: 10px;
 }
-
-.modal .modal-dialog .modal-content .modal-body .form-group span.error {
-  top: 42px;
-}
 .modal .modal-dialog .modal-content .modal-footer .btn {
   padding: 8px 16px;
+}
+
+#updateModal .modal-dialog .modal-content .modal-body .form-group span.error {
+  top: 42px;
 }
 .modal-backdrop {
   z-index: 99 !important;
@@ -1223,11 +1238,9 @@ span.error.valid:before {
   .wrapper .page-content a.card .card-block .card-body .content .value {
     font-size: 38px;
   }
-
   .form-create .form-group {
     margin-bottom: 10px;
   }
-
   .form-create .form-group .form-control {
     width: 300px;
   }

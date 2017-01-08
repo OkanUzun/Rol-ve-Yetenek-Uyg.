@@ -7,7 +7,7 @@
       $email = $_POST["email"];
     }
     else {
-      echo "email is not valid";
+      echo '<script type="text/javascript">showtoast("E-mail geçerli değil");$(".toast").addClass("toast-error");</script>';
       exit;
     }
 
@@ -39,11 +39,13 @@
         //echo 'Message could not be sent.';
         //echo 'Mailer Error: '.$mail->ErrorInfo;
         $header_text = "Başarısız!";
+        $icon = "mdi-emoticon-dead";
         $send_text = "gönderilemedi";
         header( "refresh:5;url=index.php" );        
       }
       else {
         $header_text = "Başarılı!";
+        $icon = "mdi-emoticon";
         $send_text = "gönderildi";
         header( "refresh:5;url=index.php" );
       }
@@ -88,7 +90,7 @@
       <div class="card card-login">
         <div class="card-header"><?php echo $header_text ?></div>
         <div class="card-block card-email">
-          <i class="mdi mdi-emoticon"></i>
+          <i class="mdi <?php echo $icon ?>"></i>
           <p class="lead">Şifre sıfırlama bağlantısı <span class="text-success"><?php echo $email ?></span><br>adresine <?php echo $send_text ?></p>
           <p class="loading">Girişe yönlendiriliyorsunuz <span>.</span><span>.</span><span>.</span></p>
         </div>

@@ -282,11 +282,11 @@
     $mail->Body    = ob_get_clean();
 
     if (!$mail->send()) {
-        echo 'Message could not be sent.';
+      echo '<script type="text/javascript">showtoast("Bilgilendirme Maili Gönderilemedi");$(".toast").addClass("toast-error");</script>';
         echo 'Mailer Error: ' . $mail->ErrorInfo;
     }
     else {
-        echo 'Message has been sent';
+      echo '<script type="text/javascript">showtoast("Bilgilendirme Maili Gönderildi");$(".toast").addClass("toast-success");</script>';
     }
   }
 
