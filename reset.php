@@ -23,6 +23,18 @@
         oci_bind_by_name($stmt, ':is_valid', $message);
 
         oci_execute($stmt);
+
+        if ($message == 1){
+        	$header_text = "Başarılı!";
+        	$lead_text = "Şifreniz Başarıyla Değiştirildi.";
+        	header( "refresh:5;url=index.php" );
+
+        }
+        else{
+        	$header_text = "Başarısız!";
+        	$lead_text = "Şifreniz Değiştirilemedi.";
+        	header( "refresh:5;url=index.php" );
+        }
       }
       else {
 
@@ -69,10 +81,10 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-4 offset-xl-4">
       <div class="card card-login">
-        <div class="card-header">Başarılı!</div>
+        <div class="card-header"><?php echo $header_text ?></div>
         <div class="card-block card-email">
           <i class="mdi mdi-key-plus"></i>
-          <p class="lead">Şifreniz başarıyla değiştirildi.</p>
+          <p class="lead"><?php echo $lead_text ?></p>
           <p class="loading">Girişe yönlendiriliyorsunuz <span>.</span><span>.</span><span>.</span></p>
         </div>
       </div>
