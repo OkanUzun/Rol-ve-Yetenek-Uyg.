@@ -487,42 +487,6 @@ span.error.valid:before {
   font-size: 32px;
   color: #D1D1D1;
 }
-.navbar .navbar-right .form-inline {
-  position: relative;
-  padding: 0;
-  margin: 0 32px 0 0;
-}
-.navbar .navbar-right .form-inline .form-group .form-control {
-  border-radius: 25px;
-  padding: 6.4px 32px 6.4px 14px;
-  width: 210px;
-}
-.navbar .navbar-right .form-inline .form-group .form-control:focus {
-  width: 300px;
-}
-.navbar .navbar-right .form-inline .form-group ::-moz-placeholder {
-  color: #b8b8b8;
-  font-weight: 300;
-}
-.navbar .navbar-right .form-inline .form-group :-ms-input-placeholder {
-  color: #b8b8b8;
-  font-weight: 300;
-}
-.navbar .navbar-right .form-inline .form-group ::-webkit-input-placeholder {
-  color: #b8b8b8;
-  font-weight: 300;
-}
-.navbar .navbar-right .form-inline button {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  padding: 0;
-  cursor: pointer;
-}
-.navbar .navbar-right .form-inline button i {
-  font-size: 20px;
-  color: #b8b8b8;
-}
 .side-navigation {
   position: absolute;
   top: auto;
@@ -911,23 +875,19 @@ span.error.valid:before {
 .wrapper .page-content .card .card-block .nav-tabs .nav-item:first-child {
   margin-left: 0;
 }
-
 .wrapper .page-content .card .card-block .chart-scroll {
   position: relative;
 }
-
 .wrapper .page-content .card .card-block .chart-scroll canvas {
   position: absolute;
   left: 0;
   top: 0;
   pointer-events: none;
 }
-
 .wrapper .page-content .card .card-block .chart-scroll .chart-wrapper {
   overflow-x: scroll;
   width: 100%;
 }
-
 .wrapper .page-content .card .card-block .chart-scroll .chart-wrapper canvas {
   position: initial;
   left: 0;
@@ -1080,7 +1040,6 @@ span.error.valid:before {
 .modal .modal-dialog .modal-content .modal-footer .btn {
   padding: 8px 16px;
 }
-
 #updateModal .modal-dialog .modal-content .modal-body .form-group span.error {
   top: 42px;
 }

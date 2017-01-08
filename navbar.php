@@ -14,12 +14,6 @@
         </div>
       </div>
       <div class="navbar-right">
-        <form class="form-inline">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Arama Yapın">
-          </div>
-          <button type="submit"><i class="mdi mdi-magnify"></i></button>
-        </form>
         <a href="exit.php" class="exit" data-toggle="tooltip" data-placement="bottom" title="Çıkış Yap"><i class="mdi mdi-exit-to-app"></i></a>
       </div>
     </div>
