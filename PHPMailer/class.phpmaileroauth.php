@@ -23,8 +23,7 @@
    * @author @sherryl4george
    * @author Marcus Bointon (@Synchro) <phpmailer@synchromedia.co.uk>
    */
-  class PHPMailerOAuth extends PHPMailer
-  {
+  class PHPMailerOAuth extends PHPMailer {
     /**
      * The OAuth user's email address
      * @var string
@@ -65,8 +64,7 @@
      * @return bool
      * @throws phpmailerException
      */
-    public function smtpConnect($options = array())
-    {
+    public function smtpConnect($options = array()) {
       if (is_null($this->smtp)) {
         $this->smtp = $this->getSMTPInstance();
       }
@@ -176,8 +174,7 @@
      * Get a PHPMailerOAuthGoogle instance to use.
      * @return PHPMailerOAuthGoogle
      */
-    public function getOAUTHInstance()
-    {
+    public function getOAUTHInstance() {
       if (!is_object($this->oauth)) {
         $this->oauth = new PHPMailerOAuthGoogle($this->oauthUserEmail, $this->oauthClientSecret, $this->oauthClientId, $this->oauthRefreshToken);
       }

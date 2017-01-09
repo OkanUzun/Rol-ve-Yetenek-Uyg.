@@ -2,8 +2,7 @@
   include 'header.php';
   include "dbsettings.php";
 
-  function count_of_entity($table_name, $conn)
-  {
+  function count_of_entity($table_name, $conn) {
     $sql  = 'SELECT COUNT(*) AS X FROM '.$table_name.'';
     $stmt = oci_parse($conn, $sql);
     $r    = oci_execute($stmt);

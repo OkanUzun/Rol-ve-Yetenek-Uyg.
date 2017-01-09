@@ -32,8 +32,7 @@
   $clientId     = 'RANDOMCHARS-----duv1n2.apps.googleusercontent.com';
   $clientSecret = 'RANDOMCHARS-----lGyjPcRtvP';
 
-  class Google extends AbstractProvider
-  {
+  class Google extends AbstractProvider {
     use BearerAuthorizationTrait;
 
     const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
@@ -56,23 +55,19 @@
      */
     protected $scope;
 
-    public function getBaseAuthorizationUrl()
-    {
+    public function getBaseAuthorizationUrl() {
       return 'https://accounts.google.com/o/oauth2/auth';
     }
 
-    public function getBaseAccessTokenUrl(array $params)
-    {
+    public function getBaseAccessTokenUrl(array $params) {
       return 'https://accounts.google.com/o/oauth2/token';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
-    {
+    public function getResourceOwnerDetailsUrl(AccessToken $token) {
       return ' ';
     }
 
-    protected function getAuthorizationParameters(array $options)
-    {
+    protected function getAuthorizationParameters(array $options) {
       if (is_array($this->scope)) {
         $separator   = $this->getScopeSeparator();
         $this->scope = implode($separator, $this->scope);
@@ -88,13 +83,11 @@
       return $params;
     }
 
-    protected function getScopeSeparator()
-    {
+    protected function getScopeSeparator() {
       return ' ';
     }
 
-    protected function getDefaultScopes()
-    {
+    protected function getDefaultScopes() {
       return [
         'email',
         'openid',
@@ -102,8 +95,7 @@
       ];
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
-    {
+    protected function checkResponse(ResponseInterface $response, $data) {
       if (!empty($data['error'])) {
         $code  = 0;
         $error = $data['error'];
@@ -117,8 +109,7 @@
       }
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
-    {
+    protected function createResourceOwner(array $response, AccessToken $token) {
       return new GoogleUser($response);
     }
   }

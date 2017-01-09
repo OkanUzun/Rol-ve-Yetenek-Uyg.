@@ -39,15 +39,15 @@
         //echo 'Message could not be sent.';
         //echo 'Mailer Error: '.$mail->ErrorInfo;
         $header_text = "Başarısız!";
-        $icon = "mdi-emoticon-dead";
-        $send_text = "gönderilemedi";
-        header( "refresh:5;url=index.php" );        
+        $icon        = "mdi-emoticon-dead";
+        $send_text   = "gönderilemedi";
+        header("refresh:5;url=index.php");
       }
       else {
         $header_text = "Başarılı!";
-        $icon = "mdi-emoticon";
-        $send_text = "gönderildi";
-        header( "refresh:5;url=index.php" );
+        $icon        = "mdi-emoticon";
+        $send_text   = "gönderildi";
+        header("refresh:5;url=index.php");
       }
     }
   }

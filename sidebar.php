@@ -1,6 +1,5 @@
 <?php
-  function contain_page($page_link)
-  {
+  function contain_page($page_link) {
     if ((strpos($_SERVER['REQUEST_URI'], $page_link)) !== false) {
       return "active";
     }
@@ -16,12 +15,6 @@
   </div>
   <div class="sidebar-menu">
     <ul>
-      <li class="search">
-        <form method="post">
-          <input type="text" class="form-control" placeholder="Arama Yapın">
-          <button type="submit"><i class="mdi mdi-magnify"></i></button>
-        </form>
-      </li>
       <li class="<?php print(contain_page('dashboard.php')) ?>">
         <a href="dashboard.php">
           <div class="icon"><i class="mdi mdi-view-dashboard"></i></div>

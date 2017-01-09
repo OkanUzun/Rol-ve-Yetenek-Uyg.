@@ -248,7 +248,7 @@
       echo '<script type="text/javascript">showtoast("Eğitim Güncellenemedi");$(".toast").addClass("toast-error");</script>';
   }
 
-  else if (isset($_POST["send-education-mails"])){
+  else if (isset($_POST["send-education-mails"])) {
     $course_id = $_GET["course_id"];
 
     $sql  = 'SELECT T_EDUCATION.PLANNED_DATE,INITCAP(T_EDUCATION.EDUCATION_SUBJECT) AS SUBJECT,T_EDUCATOR.EDUCATOR_NAME,INITCAP(T_LOUNGE.LOUNGE_NAME) AS LOUNGE FROM T_EDUCATOR,T_EDUCATION,T_LOUNGE WHERE T_EDUCATION.LOUNGE_FK = T_LOUNGE.PK AND T_EDUCATION.EDUCATOR_FK = T_EDUCATOR.PK AND T_EDUCATION.PK = '.$course_id.'';
@@ -261,9 +261,9 @@
     $lounge_name       = $row["LOUNGE"];
 
     $date         = DateTime::createFromFormat("d#M#y H#i#s*A", $row["PLANNED_DATE"]);
-    $started_date = $date->format('d/m/Y - H:i');    
-      
-    $sql       = 'SELECT INITCAP(T_USER.FIRST_NAME) AS F_NAME,UPPER(T_USER.LAST_NAME) AS L_NAME,T_USER.EMAIL FROM T_USER,T_EDUCATION_USER_REL 
+    $started_date = $date->format('d/m/Y - H:i');
+
+    $sql  = 'SELECT INITCAP(T_USER.FIRST_NAME) AS F_NAME,UPPER(T_USER.LAST_NAME) AS L_NAME,T_USER.EMAIL FROM T_USER,T_EDUCATION_USER_REL 
     WHERE T_EDUCATION_USER_REL.EDUCATION_FK = '.$course_id.' AND
     T_EDUCATION_USER_REL.USER_FK = T_USER.PK';
     $stmt = oci_parse($conn, $sql);
@@ -272,9 +272,9 @@
     require 'mail-config.php';
 
     while ($row = oci_fetch_array($stmt, OCI_RETURN_NULLS + OCI_ASSOC)) {
-      $mail->addAddress($row["EMAIL"],$row["F_NAME"].' '.$row["L_NAME"]);
+      $mail->addAddress($row["EMAIL"], $row["F_NAME"].' '.$row["L_NAME"]);
     }
-          
+
     ob_start();
     require_once('email.php');
 
@@ -283,7 +283,7 @@
 
     if (!$mail->send()) {
       echo '<script type="text/javascript">showtoast("Bilgilendirme Maili Gönderilemedi");$(".toast").addClass("toast-error");</script>';
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
+      echo 'Mailer Error: '.$mail->ErrorInfo;
     }
     else {
       echo '<script type="text/javascript">showtoast("Bilgilendirme Maili Gönderildi");$(".toast").addClass("toast-success");</script>';
@@ -384,11 +384,11 @@
             <div class="course-status">Eğitim Durumu:
               <?php echo '<span class="'.$span_class.'">'.$text.'<i class="'.$i_class.'"></i></span>'; ?>
               <form method="post" class="float-xs-right">
-              <?php  
-                if($education_state_id == 1){
-                  echo '<button type="submit" name="send-education-mails" class="btn btn-warning">Kullanıcıları Mail ile Bilgilendir</button>';
-                }
-              ?>           
+                <?php
+                  if ($education_state_id == 1) {
+                    echo '<button type="submit" name="send-education-mails" class="btn btn-warning">Kullanıcıları Mail ile Bilgilendir</button>';
+                  }
+                ?>
               </form>
             </div>
             <ul class="nav nav-tabs">

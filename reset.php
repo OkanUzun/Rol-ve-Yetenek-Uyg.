@@ -24,16 +24,16 @@
 
         oci_execute($stmt);
 
-        if ($message == 1){
-        	$header_text = "Başarılı!";
-        	$lead_text = "Şifreniz Başarıyla Değiştirildi.";
-        	header( "refresh:5;url=index.php" );
+        if ($message == 1) {
+          $header_text = "Başarılı!";
+          $lead_text   = "Şifreniz Başarıyla Değiştirildi.";
+          header("refresh:5;url=index.php");
 
         }
-        else{
-        	$header_text = "Başarısız!";
-        	$lead_text = "Şifreniz Değiştirilemedi.";
-        	header( "refresh:5;url=index.php" );
+        else {
+          $header_text = "Başarısız!";
+          $lead_text   = "Şifreniz Değiştirilemedi.";
+          header("refresh:5;url=index.php");
         }
       }
       else {

@@ -2,8 +2,7 @@
   include "header.php";
   include "dbsettings.php";
 
-  function randomPassword()
-  {
+  function randomPassword() {
     $alphabet    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     $pass        = array();
     $alphaLength = strlen($alphabet) - 1;

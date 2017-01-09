@@ -24,8 +24,7 @@
    * @author Marcus Bointon (@Synchro) <phpmailer@synchromedia.co.uk>
    * @link https://github.com/thephpleague/oauth2-client
    */
-  class PHPMailerOAuthGoogle
-  {
+  class PHPMailerOAuthGoogle {
     private $oauthUserEmail    = '';
     private $oauthRefreshToken = '';
     private $oauthClientId     = '';
@@ -37,37 +36,32 @@
      * @param string $ClientId
      * @param string $RefreshToken
      */
-    public function __construct($UserEmail, $ClientSecret, $ClientId, $RefreshToken)
-    {
+    public function __construct($UserEmail, $ClientSecret, $ClientId, $RefreshToken) {
       $this->oauthClientId     = $ClientId;
       $this->oauthClientSecret = $ClientSecret;
       $this->oauthRefreshToken = $RefreshToken;
       $this->oauthUserEmail    = $UserEmail;
     }
 
-    public function getOauth64()
-    {
+    public function getOauth64() {
       $token = $this->getToken();
       return base64_encode("user=".$this->oauthUserEmail."\001auth=Bearer ".$token."\001\001");
     }
 
-    private function getToken()
-    {
+    private function getToken() {
       $provider = $this->getProvider();
       $grant    = $this->getGrant();
       return $provider->getAccessToken($grant, ['refresh_token' => $this->oauthRefreshToken]);
     }
 
-    private function getProvider()
-    {
+    private function getProvider() {
       return new League\OAuth2\Client\Provider\Google([
         'clientId' => $this->oauthClientId,
         'clientSecret' => $this->oauthClientSecret
       ]);
     }
 
-    private function getGrant()
-    {
+    private function getGrant() {
       return new \League\OAuth2\Client\Grant\RefreshToken();
     }
   }
