@@ -222,7 +222,7 @@
                       FROM T_ROLE
                       LEFT JOIN T_USER ON T_USER.ROLE_FK = T_ROLE.PK
                       GROUP BY T_ROLE.PK,T_ROLE.ROLE_NAME
-                      ORDER BY T_ROLE.ROLE_NAME';
+                      ORDER BY X DESC,RLE_NAME ASC';
 
                       $stmt            = oci_parse($conn, $sql);
                       $r               = oci_execute($stmt);
@@ -311,7 +311,8 @@
                       $sql = '
                       SELECT T_ABILITY.PK,T_ABILITY.ABILITY_NAME AS ABLY_NAME,COUNT(T_USER_ABILITY_REL.USER_FK) AS X FROM T_ABILITY
                       LEFT JOIN T_USER_ABILITY_REL ON T_ABILITY.PK = T_USER_ABILITY_REL.ABILITY_FK
-                      GROUP BY T_ABILITY.PK,T_ABILITY.ABILITY_NAME';
+                      GROUP BY T_ABILITY.PK,T_ABILITY.ABILITY_NAME
+                      ORDER BY X DESC,ABLY_NAME ASC';
 
                       $stmt            = oci_parse($conn, $sql);
                       $r               = oci_execute($stmt);
